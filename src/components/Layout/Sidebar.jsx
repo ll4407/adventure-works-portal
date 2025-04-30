@@ -1,6 +1,6 @@
-import { Hamburger } from "../icons"
+import { Hamburger } from "../../icons"
 import styles from './Layout.module.css'
-import { colors } from "../utilities"
+import { colors } from "../../utilities"
 
 export default function Sidebar(){
     return(

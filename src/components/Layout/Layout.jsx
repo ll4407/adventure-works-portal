@@ -1,4 +1,4 @@
-
+import Sidebar from './Sidebar';
 import styles from './Layout.module.css';
 import TopNav from './TopNav';
 
