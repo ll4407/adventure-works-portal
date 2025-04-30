@@ -22,7 +22,7 @@ export default function MobileMenu(){
                         <Link to={'/sales'}>Sales</Link>
                     </li>
                     <li>
-                        <Link to={'/settings'}>Settings</Link>
+                        <Link to={'/'}>Settings</Link>
                     </li>
                 </ul>
             </nav>
