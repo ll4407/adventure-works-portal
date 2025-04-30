@@ -1,0 +1,13 @@
+export default function Close({size, color}){
+    return(
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            height={size ? `${size}px` :"24px"}
+            width={size ? `${size}px` :"24px"}
+            viewBox="0 -960 960 960" 
+            fill={color ?? "#e3e3e3"}>
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+        </svg>
+
+    )
+    }

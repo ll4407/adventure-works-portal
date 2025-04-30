@@ -1,0 +1,51 @@
+.layoutWrapper {
+  width: 100%;
+  display: flex;
+}
+.sideBar {
+  display: none;
+  background-color: var(--navBar);
+  height: 100vh;
+}
+.mainWrapper {
+  flex-grow: 1;
+}
+.topNav {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+.hamburger {
+  background: none;
+  border: none;
+}
+.logo {
+  height: 50px;
+}
+.avatar {
+  background: none;
+  border: none;
+}
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  background-color: var(--navBar);
+  color: var(--white);
+}
+
+@media screen and (min-width: 60rem) {
+  .sideBar {
+    display: unset;
+  }
+  .topNav {
+    margin: 0;
+    justify-content: end;
+  }
+  .hamburger,
+  .logo,
+  .mobileMenu {
+    display: none;
+  }
+}
