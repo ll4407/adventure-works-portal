@@ -2,6 +2,7 @@ import { useState } from "react"
 import { colors } from "../../utilities"
 import styles from './Layout.module.css'
 import { UserIcon, Hamburger, Close } from "../../icons"
+import MobileMenu from './MobileMenu'
 
 export default function TopNav(){
     const [showMobileMenu, setShowMobileMenu] = useState(false)
