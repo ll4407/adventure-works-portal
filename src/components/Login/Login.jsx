@@ -2,6 +2,7 @@ import React from 'react'
 import{ useRef, useState, useEffect, useContext} from 'react';
 import AuthContext from '../../context/AuthProvider';
 import axios from '../../api/axios';
+import styles from './Login.module.css';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -82,7 +83,8 @@ const Login = () => {
         ) : (
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h1>Let's get started.</h1>
+                <img className={styles.logo} alt='' src='/public/logothickdark.svg'/>
+                <h1 className={styles.title}>Let's get started.</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input 
@@ -103,9 +105,21 @@ const Login = () => {
                         value={pwd}       
                         required
                     />
+                    
+                    <div className={styles.checkboxContainer}>
+                        <input type="checkbox" id="rememberMe"/>
+                        <label htmlFor="rememberMe">Remember Me</label>
+                    </div>
 
-                    <button>Login</button> 
-                    <span className="line"> 
+                    <button
+                    type="submit"
+                    className={email && pwd ? styles.activeBtn : styles.inactiveBtn}
+                    disabled={!(email && pwd)}
+                    >
+                    Login
+                    </button>
+ 
+                    <span className={styles.link}> 
                         <a href="#">Having trouble logging in? </a>  
                     </span> 
                 </form>
