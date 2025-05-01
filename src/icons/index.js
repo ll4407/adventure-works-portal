@@ -6,7 +6,7 @@ import DashboardIcon from "./DashboardIcon";
 import Delete from "./Delete";
 import Dot from "./Dot";
 import Edit from "./Edit";
-import Employees from "./Employees";
+import Employees from "./Employee";
 import Hamburger from "./Hamburger";
 import Minus from "./Minus";
 import Plus from "./Plus";
