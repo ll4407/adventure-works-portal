@@ -1,6 +1,8 @@
 import styles from './SectionHeader.module.css';
 import { useState, useEffect } from 'react';
 import { useCallback } from 'react';
+import {Dot} from '../../icons'
+import {colors} from '../../utilities'
 
 function SectionHeader(props){
     const [searchRequest, setSearchRequest] = useState('');
@@ -17,7 +19,16 @@ function SectionHeader(props){
     }
     
 
-    useEffect(() => {
+    // useEffect(() => {
+    //     if(window.matchMedia('(min-width: 60rem)').matches){
+    //         console.log('dsadasd');
+    //         setBackground(0);
+    //     }else{
+    //         console.log('MRewo');
+    //         setBackground(1);
+    //     }
+	// }, [background]);
+    window.addEventListener('resize',() =>{ 
         if(window.matchMedia('(min-width: 60rem)').matches){
             console.log('dsadasd');
             setBackground(0);
@@ -25,7 +36,7 @@ function SectionHeader(props){
             console.log('MRewo');
             setBackground(1);
         }
-	}, [background]);
+    })
 
     const handleSubmit = useCallback((evt) => {
 		evt.preventDefault();
@@ -35,9 +46,12 @@ function SectionHeader(props){
 
     return (
         <div className={styles.headerInfo}>
-            <h1 style={background == 1 ? inner : trans}>{props.title}</h1>
+            <h1 style={background == 1 ? inner : trans} className={`${styles[props.color]} ${styles.title}`}>{props.title}</h1>
 
-            <button><div className={styles.circle} style={outer}><p style={inner}></p></div>{props.firstButton}</button>
+            <button>
+                <Dot color={colors[props.color.toLowerCase()]} />
+                {props.firstButton}
+            </button>
             <button className={props.buttonDontShow === true ? styles.false : ''}
             disabled={props.buttonShow}>{props.secondButton}</button>
 

@@ -1,5 +1,4 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import { colors } from "../../utilities"
 
 function PurchasingSetup(){
 
@@ -8,7 +7,7 @@ function PurchasingSetup(){
         <div>
             <SectionHeader 
                 title='Purchasing'
-                color={colors.green}
+                color="Green"
                 firstButton='Vendors'
                 secondButton='Orders'
                 buttonDontShow={false}
