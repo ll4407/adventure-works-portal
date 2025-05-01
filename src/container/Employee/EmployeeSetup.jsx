@@ -9,6 +9,7 @@ function EmployeeSetup(){
             <SectionHeader 
                 title='Employees'
                 color={colors.orange}
+                color2={colors.white}
                 firstButton='Overview'
                 secondButton='Blank'
                 buttonDontShow={true}

@@ -6,11 +6,15 @@ function SectionHeader(props){
     const inner = {
         backgroundColor: props.color
     }
+    const transparent = {
+        backgroundColor: props.color2
+    }
     const outer = {
         borderColor: props.color
     }
 
 	const [searchRequest, setSearchRequest] = useState('');
+
 
     const handleSubmit = useCallback((evt) => {
 		evt.preventDefault();
@@ -20,7 +24,7 @@ function SectionHeader(props){
 
     return (
         <div className={styles.headerInfo}>
-            <h1 style={inner}>{props.title}</h1>
+            <h1 style={window.matchMedia('(max-width: 768px)').matches ? inner : transparent}>{props.title}</h1>
 
             <button><div className={styles.circle} style={outer}><p style={inner}></p></div>{props.firstButton}</button>
             <button className={props.buttonDontShow === true ? styles.false : ''}
