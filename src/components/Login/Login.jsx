@@ -49,8 +49,6 @@ const Login = () => {
         const accessToken = response?.data?.accessToken;
         const roles = response?.data?.roles;
         setAuth({ email, pwd, roles, accessToken });
-        setEmail("");
-        setPwd("");
         setSuccess(true);
 
         // Navigate to the dashboard
@@ -95,7 +93,7 @@ const Login = () => {
               type="text"
               id="email"
               ref={emailRef
-                
+
               }
               autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
