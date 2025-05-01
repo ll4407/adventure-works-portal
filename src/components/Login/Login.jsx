@@ -17,8 +17,6 @@ const Login = () => {
   const [pwd, setPwd] = useState("");
   // Corresponds to an error that we might get back when we try to authenticate.
   const [errMsg, setErrMsg] = useState("");
-  // Lets us show a sucess message.  In the future we would replace this with navigate with react-router to a page of our choice.
-  const [success, setSuccess] = useState(false);
 
   // We apply useEffect twice. The first time we set the focus on the input field when the component loads. There is nothing in the dep array so it only runs once.
   useEffect(() => {
