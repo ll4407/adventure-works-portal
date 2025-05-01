@@ -76,6 +76,8 @@ div.open {
   justify-content: space-between;
   width: 100%;
   position: relative;
+  border-bottom: 1px solid var(--black);
+  padding: 1em 0.5em;
 }
 .hamburger {
   background: none;
@@ -105,6 +107,7 @@ div.open {
   .topNav {
     margin: 0;
     justify-content: end;
+    padding: 1em;
   }
   .hamburger,
   .logo,
