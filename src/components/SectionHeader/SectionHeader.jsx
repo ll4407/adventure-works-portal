@@ -1,20 +1,31 @@
 import styles from './SectionHeader.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCallback } from 'react';
 
 function SectionHeader(props){
+    const [searchRequest, setSearchRequest] = useState('');
+	const [background, setBackground] = useState(1);
+
     const inner = {
         backgroundColor: props.color
-    }
-    const transparent = {
-        backgroundColor: props.color2
     }
     const outer = {
         borderColor: props.color
     }
+    const trans = {
+        backgroundColor: props.color2
+    }
+    
 
-	const [searchRequest, setSearchRequest] = useState('');
-
+    useEffect(() => {
+        if(window.matchMedia('(min-width: 60rem)').matches){
+            console.log('dsadasd');
+            setBackground(0);
+        }else{
+            console.log('MRewo');
+            setBackground(1);
+        }
+	}, [background]);
 
     const handleSubmit = useCallback((evt) => {
 		evt.preventDefault();
@@ -24,7 +35,7 @@ function SectionHeader(props){
 
     return (
         <div className={styles.headerInfo}>
-            <h1 style={window.matchMedia('(max-width: 768px)').matches ? inner : transparent}>{props.title}</h1>
+            <h1 style={background == 1 ? inner : trans}>{props.title}</h1>
 
             <button><div className={styles.circle} style={outer}><p style={inner}></p></div>{props.firstButton}</button>
             <button className={props.buttonDontShow === true ? styles.false : ''}
