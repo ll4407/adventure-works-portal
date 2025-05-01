@@ -1,7 +1,8 @@
 
-export default function Hamburger({size, color}){
+export default function Hamburger({size, color, className}){
     return(
-        <svg 
+        <svg
+            className={className ?? className}
             xmlns="http://www.w3.org/2000/svg" 
             height={size ? `${size}px` :"24px"}
             width={size ? `${size}px` :"24px"}
