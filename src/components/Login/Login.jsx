@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
   // So we can set the focus on the input field when the component loads
-  const userRef = useRef();
+  const emailRef
+   = useRef();
   // Sets the focus on the errors when an error occurs.
   const errRef = useRef();
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ const Login = () => {
 
   // We apply useEffect twice. The first time we set the focus on the input field when the component loads. There is nothing in the dep array so it only runs once.
   useEffect(() => {
-    userRef.current.focus();
+    emailRef
+    .current.focus();
   }, []);
 
   // The second time we use useEffect we empty out the error message if the user changes the email or password state.
@@ -92,7 +94,9 @@ const Login = () => {
             <input
               type="text"
               id="email"
-              ref={userRef}
+              ref={emailRef
+                
+              }
               autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
