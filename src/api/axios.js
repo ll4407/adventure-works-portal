@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://api.bootcampcentral.com"
+    baseURL: "https://api.bootcampcentral.com/api"
 });

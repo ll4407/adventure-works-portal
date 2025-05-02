@@ -3,14 +3,26 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
-import { AuthProvider } from './context/AuthProvider.jsx'
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import accountReducer from './store/account';  
+// import { AuthProvider } from './context/AuthProvider.jsx'
+
+const store = configureStore({
+  reducer: {
+    account: accountReducer
+  },
+  devTools: true
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        {/* <AuthProvider> */}
+          <App />
+        {/* </AuthProvider> */}
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 )

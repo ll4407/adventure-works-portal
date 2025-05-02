@@ -1,75 +1,47 @@
-import React from "react";
-import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
-import axios from "../../api/axios";
-import styles from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAsync, clearError } from '../../store/account';
+import { useNavigate } from 'react-router-dom';
+import styles from './Login.module.css';
+
+
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
-  // So we can set the focus on the input field when the component loads
-  const emailRef
-   = useRef();
-  // Sets the focus on the errors when an error occurs.
-  const errRef = useRef();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { account, status, error } = useSelector(state => state.account);
 
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  // Corresponds to an error that we might get back when we try to authenticate.
-  const [errMsg, setErrMsg] = useState("");
+  const emailRef = useRef();
+  const errRef = useRef();
 
-  // We apply useEffect twice. The first time we set the focus on the input field when the component loads. There is nothing in the dep array so it only runs once.
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+
+  // focus the email field on mount
   useEffect(() => {
-    emailRef
-    .current.focus();
+    emailRef.current?.focus();
   }, []);
 
-  // The second time we use useEffect we empty out the error message if the user changes the email or password state.
+  // if we get an error, move focus to the message
   useEffect(() => {
-    setErrMsg("");
-  }, [email, pwd]);
-
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-
-    try {
-      const response = await axios.post(
-        "/api/Login",
-        JSON.stringify({ loginId: email, password: pwd }),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      console.log(JSON.stringify(response?.data)); // Debugging: Log the response data
-
-      // Check if the login was successful
-      if (response?.data?.success) {
-        const accessToken = response?.data?.accessToken;
-        const roles = response?.data?.roles;
-        setAuth({ email, pwd, roles, accessToken });
-        setSuccess(true);
-
-        // Navigate to the dashboard
-        navigate("/dashboard");
-      } else {
-        // Handle unsuccessful login
-        setErrMsg("Login Failed: Invalid credentials");
-        setSuccess(false); // Ensure success is false
-      }
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
+    if (error) {
+      errRef.current?.focus();
     }
+  }, [error]);
+
+  // once we have an account, send them to the dashboard
+  useEffect(() => {
+    if (account) {
+      navigate('/dashboard');
+    }
+  }, [account, navigate]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(loginAsync({ loginId, password }));
   };
+
+  const isLoading = status === 'loading';
 
   return (
     <>
@@ -77,26 +49,29 @@ const Login = () => {
         <div className={styles.topBar}></div>
 
         <section className={styles.content}>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
           <img className={styles.logo} alt="" src="/LogoThickDark.svg" />
           <h1 className={styles.title}>Let's get started.</h1>
+
           <form onSubmit={handleSubmit}>
+            <p
+              ref={errRef}
+              className={error ? styles.errmsg : styles.offscreen}
+              aria-live="assertive"
+            >
+              {error}
+            </p>
+            
             <label htmlFor="email">Email</label>
             <input
               type="text"
               id="email"
-              ref={emailRef
-
-              }
+              ref={emailRef}
               autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => {
+                setLoginId(e.target.value)
+                dispatch(clearError());
+              }}
+              value={loginId}
               required
             />
 
@@ -104,10 +79,14 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
+              onChange={(e) => {
+                setPassword(e.target.value)
+                dispatch(clearError());
+              }}
+              value={password}
               required
             />
+
 
             <div className={styles.checkboxContainer}>
               <input type="checkbox" id="rememberMe" />
@@ -116,8 +95,8 @@ const Login = () => {
 
             <button
               type="submit"
-              className={email && pwd ? styles.activeBtn : styles.inactiveBtn}
-              disabled={!(email && pwd)}
+              className={loginId && password ? styles.activeBtn : styles.inactiveBtn}
+              disabled={!(loginId && password)}
             >
               Login
             </button>
@@ -135,3 +114,4 @@ const Login = () => {
 };
 
 export default Login;
+
