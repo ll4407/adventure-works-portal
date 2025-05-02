@@ -1,0 +1,142 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 6em 1em;
+}
+
+.logo {
+    padding: 2.5em;
+    width: 100%;
+}
+
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 0.8em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    margin-bottom: 1em;
+}
+
+form>input {
+    margin-bottom: 1em;
+    padding: 0.3em 1em;
+}
+
+form>label {
+    margin-bottom: 0.2em;
+}
+
+.checkboxContainer {
+    margin-bottom: 7em;
+}
+
+.checkboxContainer>label {
+    margin-left: 0.5em;
+}
+
+button {
+    color: var(--black);
+    border: 1px solid var(--black);
+    border-radius: 5px;
+    padding: 0.4em 0;
+    margin-bottom: 0.5em;
+    cursor: pointer;
+}
+
+.inactiveBtn {
+    background-color: rgba(253, 231, 76, 0.2);
+}
+
+.activeBtn {
+    background-color: var(--yellow);
+}
+
+.link {
+    text-align: center;
+}
+
+.errmsg {
+    color: #b22222;
+    font-size: 1rem;
+    font-weight: 700;
+    border-left: 4px solid #b22222;
+    padding-left: 0.75rem;
+    margin: 0 0 1rem 0;
+    background-color: rgba(178, 34, 34, 0.1);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.offscreen {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+@media screen and (min-width: 60rem) {
+
+    .topBar,
+    .bottomBar {
+        width: 100vw;
+        height: 6rem;
+        background-color: var(--navBar);
+    }
+
+
+    .logo {
+        padding: 2.5em 0;
+        max-width: 350px;
+    }
+
+    .checkboxContainer {
+        margin-bottom: 4em;
+    }
+
+    form {
+        margin-bottom: 3em;
+    }
+
+    .content {
+        padding-bottom: 1em;
+        ;
+        padding-top: 1em;
+    }
+}

@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import Login from './components/Login/Login';
 
 function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<h1>Login</h1>} />
+      <Route path='/' element={<Login/>} />
       <Route path='/dashboard' element={<Layout><h1>Dashboard</h1></Layout>} />
       <Route path='/employees' element={<Layout><h1>Employees</h1></Layout>} />
       <Route path='/products' element={<Layout><h1>Products</h1></Layout>} />
