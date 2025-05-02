@@ -87,6 +87,54 @@ h6 {
   display: flex;
 }
 
+.Yellow {
+  color: var(--yellow);
+}
+.Orange {
+  color: var(--orange);
+}
+.Blue {
+  color: var(--blue);
+}
+.Green {
+  color: var(--green);
+}
+.Pink {
+  color: var(--pink);
+}
+.Gray {
+  color: var(--gray);
+}
+.Black {
+  color: var(--black);
+}
+.BGYellow {
+  background-color: var(--yellow);
+}
+.BGOrange {
+  background-color: var(--orange);
+}
+.BGBlue {
+  background-color: var(--blue);
+}
+.BGGreen {
+  background-color: var(--green);
+}
+.BGPink {
+  background-color: var(--pink);
+}
+.BGGray {
+  background-color: var(--gray);
+}
+.BGBlack {
+  background-color: var(--black);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 
 body {
   font-family: 'Open Sans', sans-serif;
