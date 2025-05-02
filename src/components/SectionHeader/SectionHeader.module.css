@@ -1,3 +1,19 @@
+/*RESET RULES*/
+.headerSearch > form {
+  display: block;
+  padding: 0;
+  margin-bottom: 0;
+}
+.headerSearch button {
+  color: var(--black);
+  border: none;
+  border-radius: 0;
+  padding:0;
+  margin-bottom: 0em;
+  cursor: pointer;
+}
+
+/**/
 .headerInfo h1 {
   padding: 0.5em 1em;
 }
@@ -6,50 +22,60 @@
   margin-left: 1.5em;
 }
 
+
+
 /*Button Styles*/
 .headerButton {
+  color: var(--black);
   background-color: transparent;
+
   border: 1px solid black;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5em;
+
   padding: 0.5em 1em;
-  font-size: 20px;
   width: 150px;
+
+  font-size: 20px;
   font-weight: 600;
-  color: var(--black);
 }
-.headerInfo button:active {
+.headerButton:active,
+.headerSearch button:active {
   background-color: #c4c4c4;
 }
-.headerInfo > div:nth-child(2) > div:nth-child(1) > div > button.false {
-  display: none;
-}
+
+
 
 /*Form Styles*/
-.headerInfo form input,
-.headerInfo form button {
-  border: none;
-}
-.headerInfo form input {
-  width: 300px;
-}
-.headerInfo form input:focus {
-  outline: none;
-}
-.headerInfo form button {
-  border-left: 1px solid black;
-  background-color: transparent;
-  text-align: center;
-}
-
-.headerInfo form {
+.headerSearch form {
   max-width: 350px;
   border: 1px solid black;
   border-radius: 4px;
 }
+
+.headerSearch > form input,
+.headerSearch > form button{
+  border: none;
+}
+
+.headerSearch > form input {
+  width: 300px;
+}
+
+.headerSearch > form button {
+  border-left: 1px solid black;
+  background-color: transparent;
+  text-align: center;
+}
+.headerSearch > form button {
+  width: 50px;
+}
+.headerSearch > form button svg {
+  width: 50px;
+}
+
+
+
+
 
 /*Colors*/
 .orange {
@@ -65,46 +91,48 @@
   background-color: #ee66a0;
 }
 
+
+
 /*flex*/
-.headerInfo {
+.headerInfo > div:nth-child(2){
   display: flex;
   flex-direction: column;
 }
-.headerInfo > div:nth-child(2) {
-  display: flex;
-  flex-direction: column;
-}
+
 .buttonContainer {
   display: flex;
   flex-direction: row;
   gap: 3em;
 }
-.headerInfo > div:nth-child(2) > div:nth-child(1) > div > button {
+.buttonContainer button {
   display: flex;
 
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 0.5em;
 
-  padding: 0.5em 1em;
+  padding: 0.5em 0em;
 }
+
+.headerSearch > form > div {
+  display: flex;
+}
+
 /*Media Queries*/
 @media screen and (min-width: 60rem) {
   .headerInfo {
     padding-left: 6em;
   }
+
   /*flex*/
-  .headerInfo > div:nth-child(2) {
-    display: flex;
+  .headerInfo > div:nth-child(2){
     flex-direction: row;
     justify-content: space-between;
   }
-  .headerInfo > div:nth-child(2) form {
-    margin-top: 1em;
-  }
 
   /*general*/
-  .headerInfo .searchBar {
-    margin-top: 1em;
+  .headerInfo .headerSearch {
+    margin-top: 2em;
     margin-right: 1em;
   }
 

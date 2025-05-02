@@ -19,7 +19,7 @@ function HeaderButton(props){
     return(
         <div className={styles.buttonContainer}>
             <button className={styles.headerButton} onClick={() => handleButtonChange(1)}>
-                {button1active && <Dot color={colors[props.color.toLowerCase()]} />}
+                {button1active && <Dot size={24} color={colors[props.color.toLowerCase()]} />}
                 <span>{props.firstButton}</span>
             </button>
             {props.secondButton && (

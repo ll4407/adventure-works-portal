@@ -14,14 +14,14 @@ function HeaderSearch(){
 	}, [searchRequest]);
 
     return(
-        <div className={styles.searchBar}>
+        <div className={styles.headerSearch}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor='search'>
                         <input type="text" id='search' value={searchRequest} onChange={evt => setSearchRequest(evt.target.value)} />
                     </label>
                     <button aria-label='search' type='submit'>
-                        <Search size={20} />
+                        <Search size={24} />
                     </button>
                 </div>
             </form>
