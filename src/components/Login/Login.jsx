@@ -22,13 +22,6 @@ const Login = () => {
     emailRef.current?.focus();
   }, []);
 
-  // if we get an error, move focus to the message
-  useEffect(() => {
-    if (error) {
-      errRef.current?.focus();
-    }
-  }, [error]);
-
   // once we have an account, send them to the dashboard
   useEffect(() => {
     if (account) {
@@ -60,7 +53,7 @@ const Login = () => {
             >
               {error}
             </p>
-            
+
             <label htmlFor="email">Email</label>
             <input
               type="text"
