@@ -1,6 +1,6 @@
 import styles from './SectionHeader.module.css';
 
-function headerTitle(props) {    
+function HeaderTitle(props) {    
      return (
             <div>
                 <h1 className={`${styles[props.color]} ${styles.title}`}>{props.title}</h1>
@@ -8,4 +8,4 @@ function headerTitle(props) {
      )
 }
 
-export default headerTitle;
+export default HeaderTitle;

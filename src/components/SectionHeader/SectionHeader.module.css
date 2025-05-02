@@ -1,118 +1,123 @@
-.headerInfo h1{
-    padding-left: 1em;
+.headerInfo h1 {
+  padding: 0.5em 1em;
 }
-.headerInfo > div > :not(h1){
-    margin-top: 1em;
-    margin-left: 1.5em;
+.headerInfo > div > :not(h1) {
+  margin-top: 1em;
+  margin-left: 1.5em;
 }
 
 /*Button Styles*/
-.headerInfo > div > div > div  > button {
-    background-color: transparent;
-
-    border: 1px solid black;
-    border-radius: 4px;
-
-    font-size: 20px;
-
-    width: 150px;
+.headerButton {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 20px;
+  width: 150px;
+  font-weight: 600;
+  color: var(--black);
 }
-.headerInfo button:active{
-    background-color: #c4c4c4;
+.headerInfo button:active {
+  background-color: #c4c4c4;
 }
 .headerInfo > div:nth-child(2) > div:nth-child(1) > div > button.false {
-    display: none;
+  display: none;
 }
-
 
 /*Form Styles*/
-.headerInfo form input, .headerInfo form button {
-    border: none;
+.headerInfo form input,
+.headerInfo form button {
+  border: none;
 }
-.headerInfo form input{
-    width: 300px
-    
+.headerInfo form input {
+  width: 300px;
 }
-.headerInfo form input:focus{
-    outline: none;
+.headerInfo form input:focus {
+  outline: none;
 }
-.headerInfo form button{
-    border-left: 1px solid black;
-    background-color: transparent;
-    text-align: center;
+.headerInfo form button {
+  border-left: 1px solid black;
+  background-color: transparent;
+  text-align: center;
 }
 
 .headerInfo form {
-    max-width: 350px;
-    border: 1px solid black;
-    border-radius: 4px;
+  max-width: 350px;
+  border: 1px solid black;
+  border-radius: 4px;
 }
-
 
 /*Colors*/
 .orange {
-    background-color: #fda14c;
+  background-color: #fda14c;
 }
 .blue {
-    background-color: #5bc0eb;
+  background-color: #5bc0eb;
 }
 .green {
-    background-color: #9bc53d;
+  background-color: #9bc53d;
 }
 .pink {
-    background-color: #ee66a0;
+  background-color: #ee66a0;
 }
 
 /*flex*/
 .headerInfo {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .headerInfo > div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.headerInfo > div:nth-child(2) > div:nth-child(1) > div {
-    display: flex;
-    flex-direction: row;
-    gap: 3em;
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
 }
 .headerInfo > div:nth-child(2) > div:nth-child(1) > div > button {
-    display: flex;
+  display: flex;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 
-    padding: 0.5em 1em;
+  padding: 0.5em 1em;
 }
 /*Media Queries*/
 @media screen and (min-width: 60rem) {
-    /*flex*/
-    .headerInfo > div:nth-child(2) {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    .headerInfo > div:nth-child(2) form {
-        margin-top: 1em;
-    }
+  .headerInfo {
+    padding-left: 6em;
+  }
+  /*flex*/
+  .headerInfo > div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .headerInfo > div:nth-child(2) form {
+    margin-top: 1em;
+  }
 
-    /*general*/
-    .headerInfo .searchBar {
-        margin-top: 1em;
-        margin-right: 1em;
-    }
+  /*general*/
+  .headerInfo .searchBar {
+    margin-top: 1em;
+    margin-right: 1em;
+  }
 
-    .orange {
-        background-color: #fdfdfd;
-    }
-    .blue {
-        background-color: #fdfdfd;
-    }
-    .green {
-        background-color: #fdfdfd;
-    }
-    .pink {
-        background-color: #fdfdfd;
-    }
+  .orange {
+    background-color: transparent;
+  }
+  .blue {
+    background-color: transparent;
+  }
+  .green {
+    background-color: transparent;
+  }
+  .pink {
+    background-color: transparent;
+  }
 }

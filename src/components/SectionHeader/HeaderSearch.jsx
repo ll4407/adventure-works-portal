@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react';
 import styles from './SectionHeader.module.css';
 import 'font-awesome/css/font-awesome.min.css';
+import { Search } from '../../icons';
 
 
-function headerSearch(){
+function HeaderSearch(){
     const [searchRequest, setSearchRequest] = useState('');
     
     const handleSubmit = useCallback((evt) => {
@@ -19,10 +20,12 @@ function headerSearch(){
                     <label htmlFor='search'>
                         <input type="text" id='search' value={searchRequest} onChange={evt => setSearchRequest(evt.target.value)} />
                     </label>
-                    <button type='submit'>send</button>
+                    <button aria-label='search' type='submit'>
+                        <Search size={20} />
+                    </button>
                 </div>
             </form>
         </div>
     )}
 
-export default headerSearch;
+export default HeaderSearch;
