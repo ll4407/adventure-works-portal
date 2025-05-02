@@ -15,13 +15,15 @@ function SaleSetup(){
                 title='Sales'
                 color='pink'
             />
-            <SectionButton
-                color='pink'
-                firstButton='Customers'
-                secondButton='Stores'
-                buttonDontShow={false}
-            />
-            <SectionSearch />
+            <div>
+                <SectionButton
+                    color='pink'
+                    firstButton='Customers'
+                    secondButton='Stores'
+                    buttonDontShow={false}
+                />
+                <SectionSearch />
+            </div>
         </div>
     )
 }

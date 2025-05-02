@@ -7,7 +7,7 @@
 }
 
 /*Button Styles*/
-.headerInfo > div > button {
+.headerInfo > div > div > button {
     background-color: transparent;
 
     border: 1px solid black;
@@ -18,7 +18,7 @@
     width: 150px;
 }
 
-.false {
+.headerInfo > div:nth-child(2) > div:nth-child(1) > button.false {
     display: none;
 }
 
@@ -61,14 +61,43 @@
     background-color: #ee66a0;
 }
 
+/*flex*/
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+}
+.headerInfo > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+}
+.headerInfo > div:nth-child(2) > div:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+    gap: 3em;
+}
+.headerInfo > div:nth-child(2) > div:nth-child(1) > button {
+    display: flex;
 
+    justify-content: center;
+    align-items: center;
 
+    padding: 0.5em 1em;
+}
 /*Media Queries*/
 @media screen and (min-width: 60rem) {
-    .headerInfo .searchBar {
-        float: right;
+    /*flex*/
+    .headerInfo > div:nth-child(2) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .headerInfo > div:nth-child(2) form {
+        margin-top: 1em;
+    }
 
-        margin-top: -4em;
+    /*general*/
+    .headerInfo .searchBar {
+        margin-top: 1em;
         margin-right: 1em;
     }
 

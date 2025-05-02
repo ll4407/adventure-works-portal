@@ -9,11 +9,11 @@ function headerButton(props){
         <div>
             <button>
                 <Dot color={colors[props.color.toLowerCase()]} />
-                {props.firstButton}
+                <span>{props.firstButton}</span>
             </button>
 
             <button className={props.buttonDontShow === true ? styles.false : ''}
-            disabled={props.buttonShow}>{props.secondButton}</button>
+            disabled={props.buttonShow}><span>{props.secondButton}</span></button>
         </div>
     )
 }

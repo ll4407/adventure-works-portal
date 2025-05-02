@@ -11,13 +11,15 @@ function EmployeeSetup(){
                 title='Employees'
                 color='orange'
             />
-            <SectionButton
-                color='orange'
-                firstButton='Overview'
-                secondButton='Blank'
-                buttonDontShow={true}
-            />
-            <SectionSearch />
+            <div>
+                <SectionButton
+                    color='orange'
+                    firstButton='Overview'
+                    secondButton='Blank'
+                    buttonDontShow={true}
+                />
+                <SectionSearch />
+            </div>
         </div>
     )
 }

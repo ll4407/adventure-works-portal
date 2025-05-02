@@ -15,13 +15,15 @@ function PurchasingSetup(){
                 title='Purchasing'
                 color='green'
             />
-            <SectionButton
-                color='green'
-                firstButton='Vendors'
-                secondButton='Orders'
-                buttonDontShow={false}
-            />
-            <SectionSearch />
+            <div>
+                <SectionButton
+                    color='green'
+                    firstButton='Vendors'
+                    secondButton='Orders'
+                    buttonDontShow={false}
+                />
+                <SectionSearch />
+            </div>
         </div>
     )
 }
