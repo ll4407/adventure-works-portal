@@ -1,18 +1,27 @@
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import { colors } from "../../utilities"
+import SectionTitle from "../../components/SectionHeader/HeaderTitle";
+import SectionButton from "../../components/SectionHeader/HeaderButton";
+import SectionSearch from "../../components/SectionHeader/HeaderSearch"; 
+
+import styles from '../../components/SectionHeader/SectionHeader.module.css';
+
+import { colors } from "../../utilities";
 
 function ProductSetup(){
 
 
     return(
-        <div>
-            <SectionHeader 
+        <div className={styles.headerInfo}>
+            <SectionTitle 
                 title='Products'
-                color={colors.blue}
+                color='blue'
+            />
+            <SectionButton
+                color='blue'
                 firstButton='Inventory'
                 secondButton='Catalog'
                 buttonDontShow={false}
             />
+            <SectionSearch />
         </div>
     )
 }

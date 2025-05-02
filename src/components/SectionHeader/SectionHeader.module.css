@@ -1,14 +1,13 @@
 .headerInfo h1{
     padding-left: 1em;
 }
-.headerInfo > :not(h1){
+.headerInfo > div > :not(h1){
     margin-top: 1em;
-    margin-left: 2em;
+    margin-left: 1.5em;
 }
 
 /*Button Styles*/
-.headerInfo > button{
-    padding: 0.6em 0.5em;
+.headerInfo > div > button {
     background-color: transparent;
 
     border: 1px solid black;
@@ -17,32 +16,6 @@
     font-size: 20px;
 
     width: 150px;
-}
-
-.circle{
-    display: inline-block;
-
-    border-radius:50%;
-    width:20px;
-    height:20px;
-
-    border: 1px solid black;
-
-    margin-right: 0.5em;
-    position: relative;
-    vertical-align: middle;
-}
-.circle p{
-    display: inline-block;
-
-    border-radius:50%;
-    width:16px;
-    height:16px;
-
-    right: 7%;
-    top: 5%;
-
-    position: absolute;
 }
 
 .false {
@@ -73,11 +46,42 @@
     border-radius: 4px;
 }
 
+
+/*Colors*/
+.orange {
+    background-color: #fda14c;
+}
+.blue {
+    background-color: #5bc0eb;
+}
+.green {
+    background-color: #9bc53d;
+}
+.pink {
+    background-color: #ee66a0;
+}
+
+
+
+/*Media Queries*/
 @media screen and (min-width: 60rem) {
-    .headerInfo form {
+    .headerInfo .searchBar {
         float: right;
 
-        margin-top: 2em;
+        margin-top: -4em;
         margin-right: 1em;
+    }
+
+    .orange {
+        background-color: #fdfdfd;
+    }
+    .blue {
+        background-color: #fdfdfd;
+    }
+    .green {
+        background-color: #fdfdfd;
+    }
+    .pink {
+        background-color: #fdfdfd;
     }
 }
