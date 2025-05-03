@@ -4,7 +4,7 @@
   max-height: 100vh;
 }
 .main {
-  max-height: calc(100% - 94px);
+  max-height: calc(100% - 140px);
   overflow-y: scroll;
 }
 .sideBar {
@@ -105,7 +105,8 @@ div.open {
 
 @media screen and (min-width: 60rem) {
   .main {
-    padding-left: 15em;
+    padding-left: calc(56px + 2em);
+    max-height: calc(100% - 94px);
   }
   .sideBar {
     position: absolute;

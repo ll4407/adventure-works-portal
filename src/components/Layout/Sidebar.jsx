@@ -2,11 +2,10 @@ import { Close, DashboardIcon, Employees, Hamburger, Products, Purchasing, Sales
 import styles from './Layout.module.css'
 import { colors } from "../../utilities"
 import { NavLink, useLocation } from "react-router"
-import { useState } from "react"
 
-export default function Sidebar(){
+export default function Sidebar(props){
     const location = useLocation()
-    const [open, setOpen] = useState(false)
+    const {open, setOpen} = props
 
     return(
             <div className={styles.sideBar}>
