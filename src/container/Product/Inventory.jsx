@@ -1,16 +1,35 @@
+import { ChevronDown } from '../../icons'
+import styles from './Products.module.css'
+
+// const fakeProduct = {
+//     bin: 1,
+//     locationId: 1,
+//     locationName: "",
+//     productId:1,
+//     productName:'',
+//     productNumber: "",
+//     quantity:1,
+//     reorderPoint: 1,
+//     safetyStockLevel: 1,
+//     shelf: ""
+// }
+
 const Inventory = (props) =>{
 
-    console.log(props)
-    const {products} = props
+    const {products, setActiveProduct} = props
     return(
-        <>
-        Inventory
+        <div className={styles.productList}>
             {products.map(prod => (
-                <div>
-                    <p>{prod.productName}</p>
-                </div>
+                <button className={styles.productCard} onClick={() => setActiveProduct(prod)}>
+                    <div className={styles.column}>
+                        <p className={styles.productName}>{prod.productName}</p>
+                        <p>{prod.locationName}</p>
+                    </div>
+                    <p>QTY {prod.quantity}</p>
+                    <ChevronDown size={30} className={styles.chevron} />
+                </button>
             ))}
-        </>
+        </div>
     )
 }
 

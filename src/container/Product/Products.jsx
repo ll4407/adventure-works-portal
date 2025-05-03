@@ -1,8 +1,9 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Inventory from "./Inventory";
 import Catalog from "./Catalog";
-import PageContext from "../../context/PageContext";
+import ProductModal from "./ProductModal";
 import Loading from "../../components/utils/Loading";
+import PageContext from "../../context/PageContext";
 
 import { useState, useEffect } from "react";
 import axios from '../../api/axios'
@@ -16,6 +17,7 @@ export default function Product(){
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [activeProduct, setActiveProduct] = useState(null)
 
     useEffect(() =>{
         axios.get('/Inventory')
@@ -68,9 +70,13 @@ export default function Product(){
             <div className={styles.contentWrapper}>
                 {loading && <Loading />}
                 {activePage === "Inventory" ?  
-                    <Inventory products={filteredProducts} /> : 
-                    <Catalog products={filteredProducts}/>}
+                    <Inventory products={filteredProducts} setActiveProduct={setActiveProduct} /> : 
+                    <Catalog products={filteredProducts} setActiveProduct={setActiveProduct}/>}
             </div>
+            {activeProduct && 
+                <ProductModal 
+                    product={activeProduct} 
+                    setActiveProduct={setActiveProduct} />}
         </PageContext.Provider>
 
     )
