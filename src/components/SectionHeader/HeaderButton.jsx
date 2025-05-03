@@ -10,8 +10,10 @@ function HeaderButton(props){
     const handleButtonChange = useCallback((button) =>{
         if(button == 1){
             setButton1Active(true);
+            props.onChange?.(0); // Notify parent that the second button (Customers) is active
         }else{
             setButton1Active(false)
+            props.onChange?.(1); // Notify parent that the first button (Stores) is active
         }
     }, []);
 

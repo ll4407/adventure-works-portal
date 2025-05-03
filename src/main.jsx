@@ -6,15 +6,15 @@ import { BrowserRouter } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
-
+import salesReducer from './store/salesSlice';
 
 const store = configureStore({
   reducer: {
-    account: accountReducer
+    account: accountReducer,
+    sales: salesReducer, // Add the sales slice
   },
-  devTools: true
+  devTools: true,
 });
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
