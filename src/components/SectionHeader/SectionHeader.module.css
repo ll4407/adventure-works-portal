@@ -89,6 +89,7 @@
 @media screen and (min-width: 60rem) {
   .title {
     padding-left: 0;
+    padding-right: 0;
     font-size: 2.75rem;
     padding-top: 1.25em;
   }
@@ -97,6 +98,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding-left: 0;
+    padding-right: 0;
   }
   .buttonContainer {
     width: unset;
