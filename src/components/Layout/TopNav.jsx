@@ -17,7 +17,7 @@ export default function TopNav(){
             </button>
             {showMobileMenu && (        
                 <div className={`${styles.mobileMenu}`}>
-                    <Nav />
+                    <Nav setOpen={setShowMobileMenu} />
                 </div>)}
         </div>
     )

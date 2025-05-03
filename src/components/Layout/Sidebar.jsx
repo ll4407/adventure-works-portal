@@ -19,7 +19,7 @@ export default function Sidebar(){
                     </button>
                     {open && <div  className={styles.sideBarImgDiv}><img src="/public/LogoWhite.svg" alt=""/></div>}
                 </div>
-                <Nav open={open} sideNav />
+                <Nav open={open} sideNav setOpen={setOpen} />
             </div>
     )
 }

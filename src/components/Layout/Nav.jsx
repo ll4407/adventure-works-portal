@@ -5,13 +5,14 @@ import {colors} from '../../utilities'
 import {DashboardIcon, Employees, Products, Purchasing, Sales, Settings} from '../../icons'
 import clsx from 'clsx'
 
-const Nav = ({open = true, sideNav}) =>{
+const Nav = ({open = true, sideNav, setOpen}) =>{
     const location = useLocation()
     return(
         <nav className={clsx(styles.nav, sideNav && styles.sideNav)}>
             <ul>
                 <li>
                     <NavLink 
+                        onClick={() => setOpen(false)}
                         className={clsx(
                             styles.navLink, 
                             "Yellow",
@@ -25,6 +26,7 @@ const Nav = ({open = true, sideNav}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        onClick={() => setOpen(false)}
                         className={clsx(
                             styles.navLink,
                             "Orange",
@@ -38,6 +40,7 @@ const Nav = ({open = true, sideNav}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        onClick={() => setOpen(false)}
                         className={clsx(
                             "Blue",
                             styles.navLink,
@@ -51,7 +54,8 @@ const Nav = ({open = true, sideNav}) =>{
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink 
+                    <NavLink
+                        onClick={() => setOpen(false)} 
                         className={clsx(
                             "Green",
                             styles.navLink,
@@ -66,6 +70,7 @@ const Nav = ({open = true, sideNav}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        onClick={() => setOpen(false)}
                         className={clsx(
                             "Pink",
                             styles.navLink,
@@ -80,6 +85,7 @@ const Nav = ({open = true, sideNav}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        onClick={() => setOpen(false)}
                         className={clsx(
                             "Gray",
                             styles.navLink,
