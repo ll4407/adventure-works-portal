@@ -10,7 +10,7 @@ export default function Layout({children}){
             <Sidebar />
             <div className={styles.mainWrapper}>
                 <TopNav />
-                <main>
+                <main className={styles.main}>
                     {children}
                 </main>
             </div>
