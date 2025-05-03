@@ -6,18 +6,23 @@ import PageContext from "../../context/PageContext";
 import { useState, useEffect } from "react";
 import axios from '../../api/axios'
 import { toast } from "react-toastify";
+import Loading from "../../components/utils/Loading";
 
 export default function Product(){
     const [activePage, setActivePage] = useState('Inventory')
     const [filter, setFilter] = useState("")
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() =>{
         axios.get('/Inventory')
             .then(res => setProducts(res.data))
             .catch(err => {
                 toast.error(err.toString())
+            })
+            .finally(() =>{
+                setLoading(false)
             })
     }, [])
 
@@ -59,10 +64,12 @@ export default function Product(){
                 firstButton={'Inventory'}
                 secondButton={'Catalog'}
                 />
+            <div>
+            {loading && <Loading />}
             {activePage === "Inventory" ?  
                 <Inventory products={filteredProducts} /> : 
                 <Catalog products={filteredProducts}/>}
-
+            </div>
         </PageContext.Provider>
 
     )
