@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import styles from './SectionHeader.module.css';
-import 'font-awesome/css/font-awesome.min.css';
 import { Search } from '../../icons';
 
 

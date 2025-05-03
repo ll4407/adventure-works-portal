@@ -8,7 +8,7 @@
   color: var(--black);
   border: none;
   border-radius: 0;
-  padding:0;
+  padding: 0;
   margin-bottom: 0em;
   cursor: pointer;
 }
@@ -21,8 +21,6 @@
   margin-top: 1em;
   margin-left: 1.5em;
 }
-
-
 
 /*Button Styles*/
 .headerButton {
@@ -43,8 +41,6 @@
   background-color: #c4c4c4;
 }
 
-
-
 /*Form Styles*/
 .headerSearch form {
   max-width: 350px;
@@ -53,7 +49,7 @@
 }
 
 .headerSearch > form input,
-.headerSearch > form button{
+.headerSearch > form button {
   border: none;
 }
 
@@ -73,10 +69,6 @@
   width: 50px;
 }
 
-
-
-
-
 /*Colors*/
 .orange {
   background-color: #fda14c;
@@ -91,10 +83,8 @@
   background-color: #ee66a0;
 }
 
-
-
 /*flex*/
-.headerInfo > div:nth-child(2){
+.headerInfo > div:nth-child(2) {
   display: flex;
   flex-direction: column;
 }
@@ -120,13 +110,10 @@
 
 /*Media Queries*/
 @media screen and (min-width: 60rem) {
-  .headerInfo {
-    padding-left: 6em;
-  }
-
   /*flex*/
-  .headerInfo > div:nth-child(2){
+  .headerInfo > div:nth-child(2) {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 

@@ -8,10 +8,10 @@ import styles from './SectionHeader.module.css';
 const SectionHeader =({title, color, firstButton, secondButton}) =>{
     return (
         <div className={styles.headerInfo}>
-                <HeaderTitle 
-                    title={title}
-                    color={color}
-                />
+            <HeaderTitle 
+                title={title}
+                color={color}
+            />
             <div>
                 <HeaderButton
                     color={color}

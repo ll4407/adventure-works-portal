@@ -6,17 +6,17 @@
   display: none;
   background-color: var(--navBar);
   height: 100vh;
+  position: relative;
 }
 .sideNav {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: 10em;
 }
 .sideBarHeader {
   display: flex;
   width: 100%;
-  position: relative;
+  position: absolute;
 }
 .sideBarBtn {
   margin: 0.5em;
@@ -98,10 +98,15 @@ div.open {
 }
 
 @media screen and (min-width: 60rem) {
+  .main {
+    padding-left: 15em;
+  }
   .sideBar {
+    position: absolute;
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
   }
   .topNav {
