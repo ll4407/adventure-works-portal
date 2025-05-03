@@ -2,7 +2,7 @@ import { useState } from "react"
 import { colors } from "../../utilities"
 import styles from './Layout.module.css'
 import { UserIcon, Hamburger, Close } from "../../icons"
-import MobileMenu from './MobileMenu'
+import Nav from "./Nav"
 
 export default function TopNav(){
     const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -15,7 +15,10 @@ export default function TopNav(){
             <button className={styles.avatar}>
                 <UserIcon size={40} color={colors.black}/>
             </button>
-            {showMobileMenu && <MobileMenu />}
+            {showMobileMenu && (        
+                <div className={`${styles.mobileMenu}`}>
+                    <Nav setOpen={setShowMobileMenu} />
+                </div>)}
         </div>
     )
 }
