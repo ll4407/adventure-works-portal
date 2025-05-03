@@ -1,8 +1,9 @@
 import Sidebar from './Sidebar';
 import styles from './Layout.module.css';
 import TopNav from './TopNav';
+import { Outlet } from 'react-router';
 
-export default function Layout({children}){
+export default function Layout(){
 
 
     return(
@@ -11,7 +12,7 @@ export default function Layout({children}){
             <div className={styles.mainWrapper}>
                 <TopNav />
                 <main className={styles.main}>
-                    {children}
+                    <Outlet />
                 </main>
             </div>
         </div>

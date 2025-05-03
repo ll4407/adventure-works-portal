@@ -10,12 +10,14 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Login/>} />
-      <Route path='/dashboard' element={<Layout><h1>Dashboard</h1></Layout>} />
-      <Route path='/employees' element={<Employees />} />
-      <Route path='/products' element={<Products />} />
-      <Route path='/purchasing' element={<Purchasing />} />
-      <Route path='/sales' element={<Sales />} />
-      <Route path='/settings' element={<Layout><h1>Settings</h1></Layout>} />
+      <Route element={<Layout />}>
+        <Route path='/dashboard' element={<h1>Dashboard</h1>} />
+        <Route path='/employees' element={<Employees />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='/purchasing' element={<Purchasing />} />
+        <Route path='/sales' element={<Sales />} />
+        <Route path='/settings' element={<h1>Settings</h1>} />
+      </Route>
     </Routes>
   )
 }
