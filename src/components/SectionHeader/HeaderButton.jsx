@@ -22,8 +22,7 @@ function HeaderButton(props){
                         {activePage === props.secondButton && <Dot color={colors[props.color.toLowerCase()]} />}
                         <span>{props.secondButton}</span>
                 </button>
-            )
-            }
+            )}
         </div>
     )
 }
