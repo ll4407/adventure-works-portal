@@ -1,6 +1,6 @@
 import { ChevronDown } from '../../icons'
 import styles from './Products.module.css'
-
+import { useState } from 'react'
 // const fakeProduct = {
 //     bin: 1,
 //     locationId: 1,
@@ -16,8 +16,12 @@ import styles from './Products.module.css'
 
 const Inventory = (props) =>{
 
-    const {products, setActiveProduct} = props
+        const [activeProduct, setActiveProduct] = useState(null)
+
+    const {products} = props
+
     return(
+        <>
         <div className={styles.productList}>
             {products.map(prod => (
                 <button className={styles.productCard} onClick={() => setActiveProduct(prod)}>
@@ -30,6 +34,11 @@ const Inventory = (props) =>{
                 </button>
             ))}
         </div>
+        {activeProduct && 
+            <ProductModal 
+                product={activeProduct} 
+                setActiveProduct={setActiveProduct} />}
+        </>
     )
 }
 

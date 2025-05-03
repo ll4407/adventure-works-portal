@@ -17,7 +17,6 @@ export default function Product(){
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
-    const [activeProduct, setActiveProduct] = useState(null)
 
     useEffect(() =>{
         axios.get('/Inventory')
@@ -70,13 +69,9 @@ export default function Product(){
             <div className={styles.contentWrapper}>
                 {loading && <Loading />}
                 {activePage === "Inventory" ?  
-                    <Inventory products={filteredProducts} setActiveProduct={setActiveProduct} /> : 
-                    <Catalog products={filteredProducts} setActiveProduct={setActiveProduct}/>}
+                    <Inventory products={filteredProducts}  /> : 
+                    <Catalog products={filteredProducts} />}
             </div>
-            {activeProduct && 
-                <ProductModal 
-                    product={activeProduct} 
-                    setActiveProduct={setActiveProduct} />}
         </PageContext.Provider>
 
     )
