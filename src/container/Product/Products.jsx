@@ -1,15 +1,17 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import { useState, useEffect } from "react";
 import Inventory from "./Inventory";
-import axios from '../../api/axios'
-import { toast } from "react-toastify";
 import Catalog from "./Catalog";
 import PageContext from "../../context/PageContext";
+
+import { useState, useEffect } from "react";
+import axios from '../../api/axios'
+import { toast } from "react-toastify";
 
 export default function Product(){
     const [activePage, setActivePage] = useState('Inventory')
     const [filter, setFilter] = useState("")
     const [products, setProducts] = useState(null)
+    const [filteredProducts, setFilteredProducts] = useState([])
 
     useEffect(() =>{
         axios.get('/Inventory')
@@ -18,6 +20,28 @@ export default function Product(){
                 toast.error(err.toString())
             })
     }, [])
+
+    useEffect(()=>{
+        let timer;
+        if(filter){
+            timer = setTimeout(() =>{
+                const loweredFilter = filter.toLowerCase()
+                const newFilteredProducts = products.filter(prod =>
+                    prod.productName.toLowerCase().includes(loweredFilter) ||
+                    prod.locationName.toLowerCase().includes(loweredFilter) ||
+                    prod.shelf.toLowerCase().includes(loweredFilter)
+                )
+                setFilteredProducts(newFilteredProducts)
+            }, 500)
+        }else{
+            if(products?.length){
+                setFilteredProducts(products)
+            }
+        }
+
+        return () => clearTimeout(timer)
+
+    },[filter, products])
 
     const context = {
         activePage:activePage,
@@ -35,7 +59,9 @@ export default function Product(){
                 firstButton={'Inventory'}
                 secondButton={'Catalog'}
                 />
-            {activePage === "Inventory" ?  <Inventory products={products} /> : <Catalog products={products}/>}
+            {activePage === "Inventory" ?  
+                <Inventory products={filteredProducts} /> : 
+                <Catalog products={filteredProducts}/>}
 
         </PageContext.Provider>
 

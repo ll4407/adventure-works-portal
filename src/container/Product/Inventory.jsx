@@ -1,8 +1,16 @@
-const Inventory = () =>{
+const Inventory = (props) =>{
 
-
+    console.log(props)
+    const {products} = props
     return(
-        <>Inventory</>
+        <>
+        Inventory
+            {products.map(prod => (
+                <div>
+                    <p>{prod.productName}</p>
+                </div>
+            ))}
+        </>
     )
 }
 
