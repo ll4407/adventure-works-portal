@@ -3,6 +3,7 @@ import styles from './Layout.module.css';
 import TopNav from './TopNav';
 import { Outlet } from 'react-router';
 import { useState } from 'react';
+import clsx from 'clsx';
 
 export default function Layout(){
     const [open, setOpen] = useState(false)
@@ -12,7 +13,7 @@ export default function Layout(){
             <Sidebar open={open} setOpen={setOpen} />
             <div className={styles.mainWrapper}>
                 <TopNav />
-                <main className={styles.main}>
+                <main className={clsx(styles.main, open && styles.mainOpen)}>
                     <Outlet />
                 </main>
             </div>
