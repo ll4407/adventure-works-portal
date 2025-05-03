@@ -12,7 +12,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.9.0",
-    "font-awesome": "^4.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.1",
