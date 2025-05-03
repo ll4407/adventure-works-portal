@@ -1,6 +1,11 @@
 .layoutWrapper {
   width: 100%;
   display: flex;
+  max-height: 100vh;
+}
+.main {
+  max-height: calc(100% - 94px);
+  overflow-y: scroll;
 }
 .sideBar {
   display: none;
@@ -69,6 +74,7 @@ div.open {
 }
 .mainWrapper {
   flex-grow: 1;
+  height: 100vh;
 }
 .topNav {
   margin-top: 32px;

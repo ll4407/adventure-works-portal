@@ -2,11 +2,13 @@ import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Inventory from "./Inventory";
 import Catalog from "./Catalog";
 import PageContext from "../../context/PageContext";
+import Loading from "../../components/utils/Loading";
 
 import { useState, useEffect } from "react";
 import axios from '../../api/axios'
 import { toast } from "react-toastify";
-import Loading from "../../components/utils/Loading";
+
+import styles from './Products.module.css'
 
 export default function Product(){
     const [activePage, setActivePage] = useState('Inventory')
@@ -56,7 +58,6 @@ export default function Product(){
     }
 
     return(
-
         <PageContext.Provider value={context}>
             <SectionHeader
                 title={"Products"}
@@ -64,11 +65,11 @@ export default function Product(){
                 firstButton={'Inventory'}
                 secondButton={'Catalog'}
                 />
-            <div>
-            {loading && <Loading />}
-            {activePage === "Inventory" ?  
-                <Inventory products={filteredProducts} /> : 
-                <Catalog products={filteredProducts}/>}
+            <div className={styles.contentWrapper}>
+                {loading && <Loading />}
+                {activePage === "Inventory" ?  
+                    <Inventory products={filteredProducts} /> : 
+                    <Catalog products={filteredProducts}/>}
             </div>
         </PageContext.Provider>
 
