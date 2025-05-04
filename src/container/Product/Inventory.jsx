@@ -1,4 +1,5 @@
 import { ChevronDown } from '../../icons'
+import ProductModal from './ProductModal'
 import styles from './Products.module.css'
 import { useState } from 'react'
 // const fakeProduct = {
@@ -16,7 +17,7 @@ import { useState } from 'react'
 
 const Inventory = (props) =>{
 
-        const [activeProduct, setActiveProduct] = useState(null)
+    const [activeProduct, setActiveProduct] = useState(null)
 
     const {products} = props
 
@@ -37,7 +38,8 @@ const Inventory = (props) =>{
         {activeProduct && 
             <ProductModal 
                 product={activeProduct} 
-                setActiveProduct={setActiveProduct} />}
+                setActiveProduct={setActiveProduct} 
+                />}
         </>
     )
 }

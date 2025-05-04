@@ -1,7 +1,6 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Inventory from "./Inventory";
 import Catalog from "./Catalog";
-import ProductModal from "./ProductModal";
 import Loading from "../../components/utils/Loading";
 import PageContext from "../../context/PageContext";
 
