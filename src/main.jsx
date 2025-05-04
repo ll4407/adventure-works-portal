@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
-import salesReducer from './store/salesSlice';
+import salesReducer from './store/sale.js';
 
 const store = configureStore({
   reducer: {

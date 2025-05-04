@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOrders } from "../../store/salesSlice";
+import { fetchOrders, showCustomers, showStores } from "../../store/sale";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Table from "../../components/Table/Table";
 
 export default function Sales() {
   const dispatch = useDispatch();
 
-  // Local state for activeTab and selectedOrderId
-  const [activeTab, setActiveTab] = useState("customers");
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
-
   // Access orders, status, and error from Redux
-  const { orders, status, error } = useSelector((state) => state.sales);
+  const { activeTab, orders, status, error, selectedOrderId } = useSelector((state) => state.sales);
 
   // Fetch orders when the active tab changes
   useEffect(() => {
@@ -20,16 +16,14 @@ export default function Sales() {
   }, [activeTab, dispatch]);
 
   // Handle tab change
-  const handleTabChange = (idx) => {
-    const newTab = idx === 0 ? "customers" : "stores";
-    setActiveTab(newTab); // Update local state
-    setSelectedOrderId(null); // Clear selection on tab switch
+  const handleTabChange = idx => {
+    if (idx === 0) dispatch(showCustomers());
+    else dispatch(showStores());
   };
 
   // Handle row click
-  const handleRowClick = (row) => {
-    setSelectedOrderId(row.id); // Update local state
-    console.log("Selected order ID:", row.id);
+  const handleRowClick = row => {
+    dispatch(setSelectedOrderId(row.id));
   };
 
   // Define columns based on the active tab
@@ -60,7 +54,7 @@ export default function Sales() {
         color="Pink"
         firstButton="Customers"
         secondButton="Stores"
-        onChange={handleTabChange} // Pass tab change handler
+        onTabChange={handleTabChange} 
         onSearch={(term) => console.log("Search term:", term)} // ToDo: Handle search
       />
 

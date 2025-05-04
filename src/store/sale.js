@@ -7,8 +7,8 @@ export const fetchOrders = createAsyncThunk(
   async (activeTab, { rejectWithValue }) => {
     try {
       const endpoint = activeTab === 'customers' ? '/Order/customer' : '/Order/store';
-      const response = await axios.get(endpoint);
-      return response.data.map(item => {
+      const { data }  = await axios.get(endpoint);
+      return data.map(item => {
         if (activeTab === 'customers') {
           return {
             id: item.id,
@@ -42,11 +42,25 @@ export const fetchOrders = createAsyncThunk(
 const salesSlice = createSlice({
   name: 'sales',
   initialState: {
+    activeTab: 'customers',       
+    selectedOrderId: null,
     orders: [],
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {},
+  reducers: {
+    showCustomers(state) {
+      state.activeTab = 'customers';
+      state.selectedOrderId = null;
+    },
+    showStores(state) {
+      state.activeTab = 'stores';
+      state.selectedOrderId = null;
+    },
+    setSelectedOrderId(state, action) {
+      state.selectedOrderId = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchOrders.pending, state => {
@@ -65,3 +79,8 @@ const salesSlice = createSlice({
 });
 
 export default salesSlice.reducer;
+export const {
+  showCustomers,
+  showStores,
+  setSelectedOrderId,
+} = salesSlice.actions;
