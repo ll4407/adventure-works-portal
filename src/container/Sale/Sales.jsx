@@ -31,7 +31,7 @@ export default function Sales() {
   const customerColumns = [
     { key: "customer", label: "Customer" },
     { key: "orderDate", label: "Order Date" },
-    { key: "orderNumber", label: "Order #" },
+    { key: "orderNumber", label: "Order Number" },
     { key: "orderQty", label: "Order Qty" },
     { key: "shipDate", label: "Ship Date" },
     { key: "unitPrice", label: "Unit Price" },
@@ -41,9 +41,9 @@ export default function Sales() {
   const storeColumns = [
     { key: "store", label: "Store / Business" },
     { key: "orderDate", label: "Order Date" },
-    { key: "contact", label: "Contact" },
-    { key: "orderNumber", label: "Order #" },
-    { key: "product", label: "Product" },
+    { key: "contact", label: "Contact Name" },
+    { key: "orderNumber", label: "Order Number" },
+    { key: "product", label: "Product Name" },
     { key: "unitPrice", label: "Unit Price" },
     { key: "totalDue", label: "Total Due" },
   ];
