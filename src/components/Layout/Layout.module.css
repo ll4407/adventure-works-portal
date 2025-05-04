@@ -6,6 +6,12 @@
 .main {
   max-height: calc(100% - 140px);
   overflow: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+.main::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, Opera */
 }
 .sideBar {
   display: none;
