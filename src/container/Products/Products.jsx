@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 import styles from './Products.module.css'
 
-export default function Product(){
+export default function Products(){
     const [activePage, setActivePage] = useState('Inventory')
     const [filter, setFilter] = useState("")
     const [products, setProducts] = useState(null)
