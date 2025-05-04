@@ -8,9 +8,11 @@
   height: 100vh;
   position: relative;
 }
-.sideNav {
+.nav {
   display: flex;
   flex-direction: column;
+}
+.sideNav {
   padding-top: 10em;
 }
 .sideBarHeader {
@@ -34,14 +36,14 @@
 .sideBarImgDiv img {
   padding: 1em 0;
 }
-.sideNavLink {
+.navLink {
   display: flex;
   text-decoration: none;
   border-bottom: 1px solid;
   align-items: center;
 }
 
-.sideNavLink p {
+.navLink p {
   color: var(--white);
   text-decoration: none;
   white-space: nowrap;
@@ -49,13 +51,13 @@
   font-weight: 700;
   font-size: 1.25rem;
 }
-.sideNav div {
+.navLink div {
   max-width: 0;
   max-height: 0;
   overflow: hidden;
   transition: all 0.3s ease;
 }
-.sideNavLink > *:first-child {
+.navLink > *:first-child {
   margin: 1em;
 }
 div.open {
@@ -93,6 +95,7 @@ div.open {
 .mobileMenu {
   position: absolute;
   top: 100%;
+  left: 0;
   background-color: var(--navBar);
   color: var(--white);
 }
