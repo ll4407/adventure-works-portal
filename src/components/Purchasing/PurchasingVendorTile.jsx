@@ -1,4 +1,4 @@
-
+import { Edit, Delete } from '../../icons';
 
 const PurchasingVendorTile = props => {
     return (
@@ -9,6 +9,7 @@ const PurchasingVendorTile = props => {
             <td>{props.primaryContact}</td>
             <td>{props.email}</td>
             <td>{props.billingAddress}</td>
+            <td><Edit /> <Delete /></td>
         </tr>
     )
 }

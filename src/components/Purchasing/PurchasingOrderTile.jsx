@@ -1,4 +1,4 @@
-
+import { ChevronDown } from '../../icons';
 
 const PurchasingOrderTile = props => {    
     return (
@@ -7,8 +7,9 @@ const PurchasingOrderTile = props => {
             <td>{props.storeName}</td>
             <td>{props.orderDate}</td>
             <td>{props.orderQuantity}</td>
-            <td>{props.lineTotal}</td>
+            <td>${props.totalDue}</td>
             <td>{props.shipDate}</td>
+            <td>&#62;</td>
         </tr>
     )
 }

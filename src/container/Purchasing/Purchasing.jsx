@@ -7,6 +7,8 @@ import { useCallback, useEffect, useState } from "react";
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
+import styles from './Purchasing.module.css';
+
 
 function Purchasing(){
     const dispatch = useDispatch();
@@ -34,11 +36,13 @@ function Purchasing(){
                 <thead>
                     <tr>
                         <th>Vendor Name</th>
-                        <th>contactPhone</th>
-                        <th>businessEntityId</th>
-                        <th>contactName</th>
-                        <th>contactEmail</th>
-                        <th>addressLine1</th>
+                        <th>Phone</th>
+                        <th>Business ID</th>
+                        <th>Primary Contact</th>
+                        <th>Email</th>
+                        <th>Billing Address</th>
+                        <th>Options</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,7 +105,7 @@ function Purchasing(){
                 firstButton={'Vendors'}
                 secondButton={'Orders'}
                 onChange={handleActiveTab} />
-            <section>
+            <section className={styles.purchaseTable}>
                 {selectedLayout}
             </section>
         </>

@@ -1,0 +1,27 @@
+.purchaseTable > table {
+    border-collapse: collapse;
+}
+.purchaseTable th {
+    border-bottom: 3px solid var(--green);
+
+    text-align: start;
+
+    padding-right: 3em;
+}
+
+.purchaseTable td {
+    border-bottom: 1px solid var(--green);
+
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-right: 1em;
+
+    width: 50%;
+}
+.purchaseTable td:last-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-right: 0;
+}
