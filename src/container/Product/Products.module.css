@@ -1,0 +1,33 @@
+.contentWrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0 1.5em;
+}
+.productCard {
+  border: none;
+  background: none;
+  display: block;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  justify-content: start;
+  border-radius: 0;
+  border-bottom: 2px solid var(--blue);
+  letter-spacing: 0.5px;
+}
+.productName {
+  font-size: 1.125rem;
+}
+.column {
+  text-align: start;
+}
+.chevron {
+  transform: rotate(-90deg);
+  justify-self: end;
+  align-self: center;
+}
+@media screen and (min-width: 60rem) {
+  .contentWrapper {
+    padding: 0;
+  }
+}

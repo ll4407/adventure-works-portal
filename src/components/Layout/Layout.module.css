@@ -1,6 +1,11 @@
 .layoutWrapper {
   width: 100%;
   display: flex;
+  max-height: 100vh;
+}
+.main {
+  max-height: calc(100% - 140px);
+  overflow: hidden;
 }
 .sideBar {
   display: none;
@@ -55,7 +60,7 @@
   max-width: 0;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 .navLink > *:first-child {
   margin: 1em;
@@ -71,6 +76,7 @@ div.open {
 }
 .mainWrapper {
   flex-grow: 1;
+  height: 100vh;
 }
 .topNav {
   margin-top: 32px;
@@ -102,7 +108,14 @@ div.open {
 
 @media screen and (min-width: 60rem) {
   .main {
-    padding-left: 15em;
+    padding-left: calc(56px + 4em);
+    padding-right: 4em;
+    max-height: calc(100% - 94px);
+    transition: padding 0.5s ease;
+  }
+  .mainOpen {
+    padding-left: calc(225px + 2em);
+    padding-right: 2em;
   }
   .sideBar {
     position: absolute;

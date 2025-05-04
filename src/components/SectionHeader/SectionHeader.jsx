@@ -7,12 +7,12 @@ import styles from './SectionHeader.module.css';
 
 const SectionHeader =({title, color, firstButton, secondButton, onChange}) =>{
     return (
-        <div className={styles.headerInfo}>
+        <>
             <HeaderTitle 
                 title={title}
                 color={color}
             />
-            <div>
+            <div className={styles.controls}>
                 <HeaderButton
                     color={color}
                     firstButton={firstButton}
@@ -21,7 +21,7 @@ const SectionHeader =({title, color, firstButton, secondButton, onChange}) =>{
                 />
                 <HeaderSearch />
             </div>
-        </div>
+        </>
     )
 }
 

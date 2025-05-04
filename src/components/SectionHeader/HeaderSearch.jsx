@@ -1,29 +1,26 @@
-import { useState, useCallback } from 'react';
+import { useContext } from 'react';
 import styles from './SectionHeader.module.css';
 import { Search } from '../../icons';
+import PageContext from '../../context/PageContext';
 
 
 function HeaderSearch(){
-    const [searchRequest, setSearchRequest] = useState('');
-    
-    const handleSubmit = useCallback((evt) => {
-		evt.preventDefault();
-		alert(`Search = ${searchRequest}`);
 
-	}, [searchRequest]);
+    const {filter, setFilter} = useContext(PageContext)
 
     return(
         <div className={styles.headerSearch}>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='search'>
-                        <input type="text" id='search' value={searchRequest} onChange={evt => setSearchRequest(evt.target.value)} />
-                    </label>
-                    <button aria-label='search' type='submit'>
-                        <Search size={24} />
-                    </button>
-                </div>
-            </form>
+            <label className={styles.searchLabel} htmlFor='search'>
+                <input 
+                    type="text" 
+                    id='search'
+                    className={styles.searchInput}
+                    value={filter} 
+                    onChange={evt => setFilter(evt.target.value)} />
+            </label>
+            <div className={styles.searchBtn}>
+                <Search size={24} />
+            </div>
         </div>
     )}
 
