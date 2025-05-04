@@ -1,5 +1,7 @@
 /*General*/
-
+.purchaseLayout svg {
+    cursor: pointer;
+}
 
 .OrderGridContent svg {
     margin-left: auto;
