@@ -37,34 +37,64 @@ function Purchasing(){
 
 
     //layouts based on buttons
-    const listValuesVendors = vendorsList.map(vendorsList => {
-        return(
-            <PurchasingVendorTile 
-            key={vendorsList.businessEntityId}
-            vendorName={vendorsList.vendorName}
-            phone={vendorsList.contactPhone}
-            businessId={vendorsList.businessEntityId}   
-            primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
-            email={vendorsList.contactEmail}
-            billingAddress={vendorsList.addressLine1}
-        />
-        )
+    const listValuesVendors = 
+    <section>
+            <div className={styles.VendorGridHeader}>
+                <p>Vendor Name</p>
+                <p>Phone</p>
+                <p>Business ID</p>
+                <p>Primary Contact</p>
+                <p>Email</p>
+                <p>Address</p>
+                <p>Options</p>
+            </div>
 
-    });
+            {vendorsList.map(vendorsList => {
+                return(
+                    <PurchasingVendorTile 
+                    key={vendorsList.businessEntityId}
+                    vendorName={vendorsList.vendorName}
+                    phone={vendorsList.contactPhone}
+                    businessId={vendorsList.businessEntityId}   
+                    primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
+                    email={vendorsList.contactEmail}
+                    addressLine={vendorsList.addressLine1}
+                    addressLine2={vendorsList.addressLine2}
+                    city={vendorsList.city}
+                    state={vendorsList.stateProvinceName}
+                    postal={vendorsList.postalCode}
+                />)
+            })
+        }   
+        </section>
+        ;
 
-    const listValuesOrders = ordersList.map(ordersList => {
-        return(
-            <PurchasingOrderTile 
-            key={ordersList.id}
-            productName={ordersList.productName}
-            storeName={ordersList.storeName}
-            orderDate={ordersList.orderDate}
-            orderQuantity={ordersList.orderQty}   
-            totalDue={ordersList.lineTotal}
-            shipDate={ordersList.shipDate}
-        /> 
-        )
-    });
+    const listValuesOrders = 
+        <section>
+            <div className={styles.OrderGridHeader}>
+                <p>Product Name</p>
+                <p>Vendor Name</p>
+                <p>Order Date</p>
+                <p>Order Qty</p>
+                <p>Total Due</p>
+                <p>Ship Date</p>
+            </div>
+            {ordersList.map(ordersList => {
+            return(
+                <PurchasingOrderTile 
+                key={ordersList.id}
+                productId={ordersList.id}
+                productName={ordersList.productName}
+                storeName={ordersList.storeName}
+                orderDate={ordersList.orderDate}
+                orderQuantity={ordersList.orderQty}   
+                totalDue={ordersList.lineTotal}
+                shipDate={ordersList.shipDate}
+            />)
+            })
+        }
+        </section>
+        ;
 
 
     const context = {
@@ -84,7 +114,7 @@ function Purchasing(){
                 firstButton={'Vendors'}
                 secondButton={'Orders'}
                 />
-            <section className={''}>
+            <section className={styles.purchaseLayout}>
                 {activePage === "Vendors" ?  
                     listValuesVendors: listValuesOrders}
             </section>

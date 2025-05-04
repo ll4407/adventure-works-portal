@@ -38,7 +38,6 @@ const purchaseSlice = createSlice({
     initialState: {
         vendorsList: [],
         ordersList: [],
-        selectedTab: ''
     },
     reducers: {
         
