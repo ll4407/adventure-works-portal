@@ -1,18 +1,16 @@
 
 
-const PurchasingDetailsTile = props => {
+const PurchasingVendorTile = props => {
     return (
-        <tbody>
-            <tr>
-                <td>{props.vendorName}</td>
-                <td>{props.phone}</td>
-                <td>{props.businessId}</td>
-                <td>{props.primaryContact}</td>
-                <td>{props.email}</td>
-                <td>{props.billingAddress}</td>
-            </tr>
-        </tbody>
+        <tr>
+            <td>{props.vendorName}</td>
+            <td>{props.phone}</td>
+            <td>{props.businessId}</td>
+            <td>{props.primaryContact}</td>
+            <td>{props.email}</td>
+            <td>{props.billingAddress}</td>
+        </tr>
     )
 }
 
-export default PurchasingDetailsTile;
+export default PurchasingVendorTile;

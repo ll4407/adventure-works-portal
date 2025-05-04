@@ -29,32 +29,37 @@ function Purchasing(){
 
 
     //layouts based on buttons
-    const listValuesVendors = vendorsList.map(vendorsList => {
-        return (
-            <table key={vendorsList.businessEntityId}>
+    const listValuesVendors = (
+            <table>
                 <thead>
                     <tr>
-                        <th>Product Name</th>
                         <th>Vendor Name</th>
-                        <th>Order Date</th>
-                        <th>Order Qty</th>
-                        <th>Total Due</th>
-                        <th>Ship Date</th>
+                        <th>contactPhone</th>
+                        <th>businessEntityId</th>
+                        <th>contactName</th>
+                        <th>contactEmail</th>
+                        <th>addressLine1</th>
                     </tr>
                 </thead>
-                <PurchasingVendorTile 
-                    vendorName={vendorsList.vendorName}
-                    phone={vendorsList.contactPhone}
-                    businessId={vendorsList.businessEntityId}   
-                    primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
-                    email={vendorsList.contactEmail}
-                    billingAddress={vendorsList.addressLine1}/>
+                <tbody>
+                    {vendorsList.map(vendorsList => {
+                        return (
+                            <PurchasingVendorTile 
+                                key={vendorsList.businessEntityId}
+                                vendorName={vendorsList.vendorName}
+                                phone={vendorsList.contactPhone}
+                                businessId={vendorsList.businessEntityId}   
+                                primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
+                                email={vendorsList.contactEmail}
+                                billingAddress={vendorsList.addressLine1}
+                            />
+                        )}
+                    )}
+                </tbody>
         </table>
-        );
-    });
+    );
 
-    const listValuesOrders = ordersList.map(ordersList => {
-        return (
+    const listValuesOrders = (
             <table key={ordersList.id}>
                 <thead>
                     <tr>
@@ -66,17 +71,23 @@ function Purchasing(){
                         <th>Ship Date</th>
                     </tr>
                 </thead>
-                <PurchasingOrderTile 
-                    productName={ordersList.productName}
-                    storeName={ordersList.storeName}
-                    orderDate={ordersList.orderDate}
-                    orderQuantity={ordersList.orderQty}   
-                    totalDue={ordersList.lineTotal}
-                    shipDate={ordersList.shipDate}
-                />
+                <tbody>
+                    {ordersList.map(ordersList => {
+                        return (
+                            <PurchasingOrderTile 
+                                key={ordersList.id}
+                                productName={ordersList.productName}
+                                storeName={ordersList.storeName}
+                                orderDate={ordersList.orderDate}
+                                orderQuantity={ordersList.orderQty}   
+                                totalDue={ordersList.lineTotal}
+                                shipDate={ordersList.shipDate}
+                            />
+                        )
+                    })}
+                </tbody>
             </table>
-        );
-    });
+    );
 
     //Determines selected layout
     const selectedLayout = tabSelected === 0 ? listValuesVendors : listValuesOrders;

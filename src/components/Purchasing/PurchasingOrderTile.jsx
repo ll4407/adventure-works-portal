@@ -1,18 +1,16 @@
 
 
-const PurchasingDetailsTile = props => {
+const PurchasingOrderTile = props => {    
     return (
-        <tbody>
-            <tr>
-                <td>{props.productName}</td>
-                <td>{props.storeName}</td>
-                <td>{props.orderDate}</td>
-                <td>{props.orderQuantity}</td>
-                <td>{props.lineTotal}</td>
-                <td>{props.shipDate}</td>
-            </tr>
-        </tbody>
+        <tr>
+            <td>{props.productName}</td>
+            <td>{props.storeName}</td>
+            <td>{props.orderDate}</td>
+            <td>{props.orderQuantity}</td>
+            <td>{props.lineTotal}</td>
+            <td>{props.shipDate}</td>
+        </tr>
     )
 }
 
-export default PurchasingDetailsTile;
+export default PurchasingOrderTile;
