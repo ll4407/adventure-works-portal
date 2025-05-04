@@ -6,11 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
-<<<<<<< HEAD
 import purchasingReducer from './store/purchasing'
-=======
 import { ToastContainer } from 'react-toastify'
->>>>>>> main
 
 
 const store = configureStore({

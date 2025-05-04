@@ -1,6 +1,7 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PurchasingVendorTile from '../../components/Purchasing/PurchasingVendorTile';
 import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile';
+import PageContext from "../../context/PageContext";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from "react";
@@ -12,6 +13,11 @@ import styles from './Purchasing.module.css';
 
 function Purchasing(){
     const dispatch = useDispatch();
+
+    const [activePage, setActivePage] = useState('Vendors')
+    const [filter, setFilter] = useState("")
+
+
 	const { vendorsList, ordersList } = useSelector(state => state.purchase);
 
     const [tabSelected, setTabSelected] = useState(0);
@@ -60,22 +66,29 @@ function Purchasing(){
         )
     });
 
-    //Determines selected layout
-    const selectedLayout = tabSelected === 0 ? listValuesVendors : listValuesOrders;
+
+    const context = {
+        activePage:activePage,
+        setActivePage: setActivePage,
+        filter: filter,
+        setFilter:setFilter
+    }
+
 
     //Layout
     return(
-        <>
+        <PageContext.Provider value={context}>
             <SectionHeader
                 title={"Purchasing"}
                 color={"green"}
                 firstButton={'Vendors'}
                 secondButton={'Orders'}
-                onChange={handleActiveTab} />
+                />
             <section className={''}>
-                {selectedLayout}
+                {activePage === "Vendors" ?  
+                    listValuesVendors: listValuesOrders}
             </section>
-        </>
+        </PageContext.Provider>
 
     )
 }
