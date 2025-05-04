@@ -5,7 +5,7 @@ import HeaderSearch from "./HeaderSearch";
 import styles from './SectionHeader.module.css';
 
 
-const SectionHeader =({title, color, firstButton, secondButton}) =>{
+const SectionHeader =({title, color, firstButton, secondButton, onChange}) =>{
     return (
         <div className={styles.headerInfo}>
             <HeaderTitle 
@@ -17,6 +17,7 @@ const SectionHeader =({title, color, firstButton, secondButton}) =>{
                     color={color}
                     firstButton={firstButton}
                     secondButton={secondButton}
+                    onChange={onChange}
                 />
                 <HeaderSearch />
             </div>

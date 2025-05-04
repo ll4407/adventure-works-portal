@@ -10,8 +10,10 @@ function HeaderButton(props){
     const handleButtonChange = useCallback((button) =>{
         if(button == 1){
             setButton1Active(true);
+            props.onChange?.(0);
         }else{
-            setButton1Active(false)
+            setButton1Active(false);
+            props.onChange?.(1);
         }
     }, []);
 

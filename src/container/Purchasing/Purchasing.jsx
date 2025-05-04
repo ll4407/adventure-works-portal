@@ -3,29 +3,33 @@ import PurchasingVendorTile from '../../components/Purchasing/PurchasingVendorTi
 import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
 
 function Purchasing(){
-
     const dispatch = useDispatch();
 	const { vendorsList, ordersList } = useSelector(state => state.purchase);
 
-    const [tabSelected, setTabSelected] = useState(1);
+    const [tabSelected, setTabSelected] = useState(0);
 
 
     //Intial Loading of data - doing both so that there is only a one time load when this page is launch
     useEffect(() => {
         dispatch(loadVendorsValuesAsync());
         dispatch(loadOrdersValuesAsync());
-    });
+    }, []);
 
 
-    
+    //Handles button click
+    const handleActiveTab = useCallback((value) => {
+        setTabSelected(value);
+    }); 
 
+
+    //layouts based on buttons
     const listValuesVendors = vendorsList.map(vendorsList => {
         return (<Link to={'/purchasing/' + vendorsList.businessEntityId} key={vendorsList.businessEntityId}>
                 <PurchasingVendorTile 
@@ -55,22 +59,18 @@ function Purchasing(){
         );
     });
 
+    //Determines selected layout
+    const selectedLayout = tabSelected === 0 ? listValuesVendors : listValuesOrders;
 
-
-
-
-
-
-
-    const selectedLayout = tabSelected === 2 ? listValuesVendors : listValuesOrders;
-
+    //Layout
     return(
         <>
             <SectionHeader
                 title={"Purchasing"}
                 color={"green"}
                 firstButton={'Vendors'}
-                secondButton={'Orders'}/>
+                secondButton={'Orders'}
+                onChange={handleActiveTab} />
             <section>
                 {selectedLayout}
             </section>
