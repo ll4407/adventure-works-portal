@@ -1,0 +1,13 @@
+@media screen and (min-width: 60rem) {
+  .modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: grid;
+    place-content: center;
+  }
+}
