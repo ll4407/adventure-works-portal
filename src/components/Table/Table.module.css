@@ -1,6 +1,4 @@
-/* src/components/Table/Table.module.css */
-
-.wrapper {
+  .wrapper {
     overflow-x: auto;
     margin: 1rem 0;
   }
@@ -27,10 +25,9 @@
   
   /* Row hover */
   .table tr:hover {
-    background-color: #fdf0f8; /* light pink highlight */
+    background-color: #fdf0f8; 
   }
   
-  /* Make rows clickable when there's an action */
   .row {
     cursor: pointer;
   }

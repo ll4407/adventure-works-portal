@@ -11,7 +11,7 @@ import salesReducer from './store/salesSlice';
 const store = configureStore({
   reducer: {
     account: accountReducer,
-    sales: salesReducer, // Add the sales slice
+    sales: salesReducer, 
   },
   devTools: true,
 });
