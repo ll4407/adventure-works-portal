@@ -42,21 +42,11 @@ export const fetchOrders = createAsyncThunk(
 const salesSlice = createSlice({
   name: 'sales',
   initialState: {
-    activeTab: 'customers',
     orders: [],
-    selectedOrderId: null,
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {
-    setActiveTab(state, action) {
-      state.activeTab = action.payload;
-      state.selectedOrderId = null; // Clear selection on tab switch
-    },
-    setSelectedOrderId(state, action) {
-      state.selectedOrderId = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchOrders.pending, state => {
@@ -73,7 +63,5 @@ const salesSlice = createSlice({
       });
   },
 });
-
-export const { setActiveTab, setSelectedOrderId } = salesSlice.actions;
 
 export default salesSlice.reducer;

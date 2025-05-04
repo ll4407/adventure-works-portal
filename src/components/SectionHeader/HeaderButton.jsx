@@ -4,20 +4,20 @@ import { useCallback, useState } from 'react';
 import styles from './SectionHeader.module.css'
 
 function HeaderButton(props){
-    //Keeps Track of active button
+
     const [button1active, setButton1Active] = useState(true);
 
     const handleButtonChange = useCallback((button) =>{
         if(button == 1){
             setButton1Active(true);
-            props.onChange?.(0); // Notify parent that the second button (Customers) is active
+            props.onChange?.(0); // Notify parent that the first button  is active
         }else{
             setButton1Active(false)
-            props.onChange?.(1); // Notify parent that the first button (Stores) is active
+            props.onChange?.(1); // Notify parent that the second button is active
         }
     }, []);
 
-    //display content
+
     return(
         <div className={styles.buttonContainer}>
             <button className={styles.headerButton} onClick={() => handleButtonChange(1)}>

@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOrders, setActiveTab, setSelectedOrderId } from "../../store/salesSlice";
+import { fetchOrders } from "../../store/salesSlice";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import Table from "../../components/Table/Table";
 
 export default function Sales() {
   const dispatch = useDispatch();
 
-  // Access state from Redux store
-  const { activeTab, orders, selectedOrderId, status, error } = useSelector((state) => state.sales);
+  // Local state for activeTab and selectedOrderId
+  const [activeTab, setActiveTab] = useState("customers");
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  // Access orders, status, and error from Redux
+  const { orders, status, error } = useSelector((state) => state.sales);
 
   // Fetch orders when the active tab changes
   useEffect(() => {
@@ -18,12 +22,13 @@ export default function Sales() {
   // Handle tab change
   const handleTabChange = (idx) => {
     const newTab = idx === 0 ? "customers" : "stores";
-    dispatch(setActiveTab(newTab)); // Update activeTab in Redux
+    setActiveTab(newTab); // Update local state
+    setSelectedOrderId(null); // Clear selection on tab switch
   };
 
   // Handle row click
   const handleRowClick = (row) => {
-    dispatch(setSelectedOrderId(row.id)); // Update selected order ID in Redux
+    setSelectedOrderId(row.id); // Update local state
     console.log("Selected order ID:", row.id);
   };
 
