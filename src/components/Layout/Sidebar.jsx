@@ -3,9 +3,7 @@ import styles from './Layout.module.css'
 import { colors } from "../../utilities"
 import Nav from "./Nav"
 
-
-export default function Sidebar({props}){
-    const {open, setOpen} = props
+export default function Sidebar({open, setOpen}){
 
     return(
             <div className={styles.sideBar}>
