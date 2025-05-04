@@ -2,12 +2,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../api/axios";
 import { toast } from "react-toastify";
 
-export const loadValuesAsync = createAsyncThunk('purchasing/loadValuesAsync', async (arg, { dispatch, getState }) => {
+//async functions
+export const loadVendorsValuesAsync = createAsyncThunk('purchasing/loadVendorsValuesAsync', async (arg, { dispatch, getState }) => {
     const state = getState();
 
-    if(!state.purchase.listItems.length){
+    if(!state.purchase.vendorsList.length){
         try{
-            const resp = await axios.get('/Vendor');
+            const resp = await axios.get(`/Vendor`);
+            return resp.data;
+        }
+        catch(err){
+            toast.error(err.toString());
+        }
+    }
+});
+export const loadOrdersValuesAsync = createAsyncThunk('purchasing/loadOrdersValuesAsync', async (arg, { dispatch, getState }) => {
+    const state = getState();
+
+    if(!state.purchase.ordersList.length){
+        try{
+            const resp = await axios.get(`/Order/store`);
             return resp.data;
         }
         catch(err){
@@ -17,20 +31,27 @@ export const loadValuesAsync = createAsyncThunk('purchasing/loadValuesAsync', as
 });
 
 
+
+//The slice
 const purchaseSlice = createSlice({
     name: 'purchase',
     initialState: {
-        listItems: [],
+        vendorsList: [],
+        ordersList: [],
+        selectedTab: ''
     },
     reducers: {
-        storeElement: (state, action) => {
-            state.listItems = action.payload;
-        }
+        
     },
     extraReducers: builder => {
-        builder.addCase(loadValuesAsync.fulfilled, (state, action) => {
+        builder.addCase(loadVendorsValuesAsync.fulfilled, (state, action) => {
             if(action.payload){
-                state.listItems = action.payload;
+                state.vendorsList = action.payload;
+            }
+        })
+        .addCase(loadOrdersValuesAsync.fulfilled, (state, action) => {
+            if(action.payload){
+                state.ordersList = action.payload;
             }
         });
     }
@@ -38,4 +59,4 @@ const purchaseSlice = createSlice({
 
 
 export default purchaseSlice.reducer;
-export const { storeElement } = purchaseSlice.actions;
+export const { } = purchaseSlice.actions;

@@ -1,50 +1,57 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import PurchasingDetailsTile from '../../components/Purchasing/PurchasingDetailsTile';
+import PurchasingVendorTile from '../../components/Purchasing/PurchasingVendorTile';
+import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-import { loadValuesAsync } from '../../store/purchasing';
+import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
 
 function Purchasing(){
 
     const dispatch = useDispatch();
-	const { listItems } = useSelector(state => state.purchase);
+	const { vendorsList, ordersList } = useSelector(state => state.purchase);
 
     const [tabSelected, setTabSelected] = useState(1);
 
 
+    //Intial Loading of data - doing both so that there is only a one time load when this page is launch
     useEffect(() => {
-        dispatch(loadValuesAsync());
+        dispatch(loadVendorsValuesAsync());
+        dispatch(loadOrdersValuesAsync());
     });
 
 
-    const listValuesVendors = listItems.map(listItems => {
-        return (<Link to={'/purchasing/' + listItems.businessEntityId} key={listItems.businessEntityId}>
-                <PurchasingDetailsTile 
-                    vendorName={listItems.vendorName}
-                    phone={listItems.contactPhone}
-                    businessId={listItems.businessEntityId}   
-                    primaryContact={listItems.contactFirstName + ' ' + listItems.contactLastName}
-                    email={listItems.contactEmail}
-                    billingAddress={listItems.addressLine1}
+    
+
+    const listValuesVendors = vendorsList.map(vendorsList => {
+        return (<Link to={'/purchasing/' + vendorsList.businessEntityId} key={vendorsList.businessEntityId}>
+                <PurchasingVendorTile 
+                    vendorName={vendorsList.vendorName}
+                    phone={vendorsList.contactPhone}
+                    businessId={vendorsList.businessEntityId}   
+                    primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
+                    email={vendorsList.contactEmail}
+                    billingAddress={vendorsList.addressLine1}
                 />
             </Link>
         );
     });
 
-    const listValuesOrders = listItems.map(listItems => {
+    const listValuesOrders = ordersList.map(ordersList => {
         return (
-            <PurchasingDetailsTile 
-                productName={''}
-                vendorName={''}
-                orderDate={''}
-                orderQuantity={''}   
-                totalDue={''}
-                shipDate={''}
-            />
+            <Link to={'/purchasing/' + ordersList.id} key={ordersList.id}>
+                <PurchasingOrderTile 
+                    productName={ordersList.productName}
+                    storeName={ordersList.storeName}
+                    orderDate={ordersList.orderDate}
+                    orderQuantity={ordersList.orderQty}   
+                    totalDue={ordersList.lineTotal}
+                    shipDate={ordersList.shipDate}
+                />
+            </Link>
         );
     });
 
@@ -55,7 +62,7 @@ function Purchasing(){
 
 
 
-    const selectedLayout = tabSelected === 1 ? listValuesVendors : listValuesOrders;
+    const selectedLayout = tabSelected === 2 ? listValuesVendors : listValuesOrders;
 
     return(
         <>
