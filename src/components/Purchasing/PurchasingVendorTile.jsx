@@ -2,15 +2,16 @@
 
 const PurchasingDetailsTile = props => {
     return (
-        <article>
-            <p>{props.vendorName}</p>
-            <p>{props.phone}</p>
-            <p>{props.businessId}</p>
-            <p>{props.primaryContact}</p>
-            <p>{props.email}</p>
-            <p>{props.billingAddress}</p>
-            <p>---------------------------</p>
-        </article>
+        <tbody>
+            <tr>
+                <td>{props.vendorName}</td>
+                <td>{props.phone}</td>
+                <td>{props.businessId}</td>
+                <td>{props.primaryContact}</td>
+                <td>{props.email}</td>
+                <td>{props.billingAddress}</td>
+            </tr>
+        </tbody>
     )
 }
 

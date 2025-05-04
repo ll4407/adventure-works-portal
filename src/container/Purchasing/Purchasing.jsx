@@ -4,7 +4,6 @@ import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
@@ -31,22 +30,42 @@ function Purchasing(){
 
     //layouts based on buttons
     const listValuesVendors = vendorsList.map(vendorsList => {
-        return (<Link to={'/purchasing/' + vendorsList.businessEntityId} key={vendorsList.businessEntityId}>
+        return (
+            <table key={vendorsList.businessEntityId}>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Vendor Name</th>
+                        <th>Order Date</th>
+                        <th>Order Qty</th>
+                        <th>Total Due</th>
+                        <th>Ship Date</th>
+                    </tr>
+                </thead>
                 <PurchasingVendorTile 
                     vendorName={vendorsList.vendorName}
                     phone={vendorsList.contactPhone}
                     businessId={vendorsList.businessEntityId}   
                     primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
                     email={vendorsList.contactEmail}
-                    billingAddress={vendorsList.addressLine1}
-                />
-            </Link>
+                    billingAddress={vendorsList.addressLine1}/>
+        </table>
         );
     });
 
     const listValuesOrders = ordersList.map(ordersList => {
         return (
-            <Link to={'/purchasing/' + ordersList.id} key={ordersList.id}>
+            <table key={ordersList.id}>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Vendor Name</th>
+                        <th>Order Date</th>
+                        <th>Order Qty</th>
+                        <th>Total Due</th>
+                        <th>Ship Date</th>
+                    </tr>
+                </thead>
                 <PurchasingOrderTile 
                     productName={ordersList.productName}
                     storeName={ordersList.storeName}
@@ -55,7 +74,7 @@ function Purchasing(){
                     totalDue={ordersList.lineTotal}
                     shipDate={ordersList.shipDate}
                 />
-            </Link>
+            </table>
         );
     });
 
