@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders, showCustomers, showStores } from "../../store/sale";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
@@ -15,11 +15,6 @@ export default function Sales() {
     dispatch(fetchOrders(activeTab)); // Fetch data based on the active tab
   }, [activeTab, dispatch]);
 
-  // Handle tab change
-  const handleTabChange = idx => {
-    if (idx === 0) dispatch(showCustomers());
-    else dispatch(showStores());
-  };
 
   // Handle row click
   const handleRowClick = row => {
@@ -54,7 +49,8 @@ export default function Sales() {
         color="Pink"
         firstButton="Customers"
         secondButton="Stores"
-        onTabChange={handleTabChange} 
+        onTabChange={(idx) => idx === 0? 
+            dispatch(showCustomers()) : dispatch(showStores())} 
         onSearch={(term) => console.log("Search term:", term)} // ToDo: Handle search
       />
 
