@@ -31,67 +31,34 @@ function Purchasing(){
 
 
     //layouts based on buttons
-    const listValuesVendors = (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Vendor Name</th>
-                        <th>Phone</th>
-                        <th>Business ID</th>
-                        <th>Primary Contact</th>
-                        <th>Email</th>
-                        <th>Billing Address</th>
-                        <th>Options</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {vendorsList.map(vendorsList => {
-                        return (
-                            <PurchasingVendorTile 
-                                key={vendorsList.businessEntityId}
-                                vendorName={vendorsList.vendorName}
-                                phone={vendorsList.contactPhone}
-                                businessId={vendorsList.businessEntityId}   
-                                primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
-                                email={vendorsList.contactEmail}
-                                billingAddress={vendorsList.addressLine1}
-                            />
-                        )}
-                    )}
-                </tbody>
-        </table>
-    );
+    const listValuesVendors = vendorsList.map(vendorsList => {
+        return(
+            <PurchasingVendorTile 
+            key={vendorsList.businessEntityId}
+            vendorName={vendorsList.vendorName}
+            phone={vendorsList.contactPhone}
+            businessId={vendorsList.businessEntityId}   
+            primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
+            email={vendorsList.contactEmail}
+            billingAddress={vendorsList.addressLine1}
+        />
+        )
 
-    const listValuesOrders = (
-            <table key={ordersList.id}>
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Vendor Name</th>
-                        <th>Order Date</th>
-                        <th>Order Qty</th>
-                        <th>Total Due</th>
-                        <th>Ship Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ordersList.map(ordersList => {
-                        return (
-                            <PurchasingOrderTile 
-                                key={ordersList.id}
-                                productName={ordersList.productName}
-                                storeName={ordersList.storeName}
-                                orderDate={ordersList.orderDate}
-                                orderQuantity={ordersList.orderQty}   
-                                totalDue={ordersList.lineTotal}
-                                shipDate={ordersList.shipDate}
-                            />
-                        )
-                    })}
-                </tbody>
-            </table>
-    );
+    });
+
+    const listValuesOrders = ordersList.map(ordersList => {
+        return(
+            <PurchasingOrderTile 
+            key={ordersList.id}
+            productName={ordersList.productName}
+            storeName={ordersList.storeName}
+            orderDate={ordersList.orderDate}
+            orderQuantity={ordersList.orderQty}   
+            totalDue={ordersList.lineTotal}
+            shipDate={ordersList.shipDate}
+        /> 
+        )
+    });
 
     //Determines selected layout
     const selectedLayout = tabSelected === 0 ? listValuesVendors : listValuesOrders;
@@ -105,7 +72,7 @@ function Purchasing(){
                 firstButton={'Vendors'}
                 secondButton={'Orders'}
                 onChange={handleActiveTab} />
-            <section className={styles.purchaseTable}>
+            <section className={''}>
                 {selectedLayout}
             </section>
         </>

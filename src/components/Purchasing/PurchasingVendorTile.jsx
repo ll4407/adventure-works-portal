@@ -2,15 +2,15 @@ import { Edit, Delete } from '../../icons';
 
 const PurchasingVendorTile = props => {
     return (
-        <tr>
-            <td>{props.vendorName}</td>
-            <td>{props.phone}</td>
-            <td>{props.businessId}</td>
-            <td>{props.primaryContact}</td>
-            <td>{props.email}</td>
-            <td>{props.billingAddress}</td>
-            <td><Edit /> <Delete /></td>
-        </tr>
+        <section>
+            <p>{props.vendorName}</p>
+            <p>{props.phone}</p>
+            <p>{props.businessId}</p>
+            <p>{props.primaryContact}</p>
+            <p>{props.email}</p>
+            <p>{props.billingAddress}</p>
+            <p><Edit /> <Delete /></p>
+        </section>
     )
 }
 

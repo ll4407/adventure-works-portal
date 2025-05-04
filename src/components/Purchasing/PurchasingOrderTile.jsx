@@ -2,15 +2,15 @@ import { ChevronDown } from '../../icons';
 
 const PurchasingOrderTile = props => {    
     return (
-        <tr>
-            <td>{props.productName}</td>
-            <td>{props.storeName}</td>
-            <td>{props.orderDate}</td>
-            <td>{props.orderQuantity}</td>
-            <td>${props.totalDue}</td>
-            <td>{props.shipDate}</td>
-            <td>&#62;</td>
-        </tr>
+        <section>
+            <p>{props.productName}</p>
+            <p>{props.storeName}</p>
+            <p>{props.orderDate}</p>
+            <p>{props.orderQuantity}</p>
+            <p>${props.totalDue}</p>
+            <p>{props.shipDate}</p>
+            <p>&#62;</p>
+        </section>
     )
 }
 
