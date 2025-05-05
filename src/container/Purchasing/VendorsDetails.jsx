@@ -34,7 +34,7 @@ function VendorDetails() {
             });
     }, [id]);
 
-    const detailContent = (
+    const detailContent = contacts === null ? <p>Loading</p> : (
         <article>
             <section>
                 <h1>{vendorName} <span><Edit /></span></h1>
@@ -88,7 +88,6 @@ function VendorDetails() {
         filter: filter,
         setFilter:setFilter
     }
-
 
     return (
         <PageContext.Provider value={context}>

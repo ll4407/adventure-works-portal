@@ -100,13 +100,13 @@ function Purchasing(){
             {ordersDisplayed.map(ordersList => {
             return(
                 <PurchasingOrderTile 
-                key={ordersList.id}
-                productId={ordersList.id}
+                key={ordersList.purchaseOrderDetailId}
+                productId={ordersList.purchaseOrderDetailId}
                 productName={ordersList.productName}
-                storeName={ordersList.storeName}
+                storeName={ordersList.vendorName}
                 orderDate={ordersList.orderDate}
-                orderQuantity={ordersList.orderQty}   
-                totalDue={ordersList.lineTotal}
+                orderQuantity={ordersList.quantity}   
+                totalDue={ordersList.totalDue}
                 shipDate={ordersList.shipDate}
             />)
             })
