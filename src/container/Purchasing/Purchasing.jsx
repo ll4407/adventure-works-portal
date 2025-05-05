@@ -14,27 +14,45 @@ import styles from './Purchasing.module.css';
 function Purchasing(){
     const dispatch = useDispatch();
 
-    const [activePage, setActivePage] = useState('Vendors')
-    const [filter, setFilter] = useState("")
+    const [activePage, setActivePage] = useState('Vendors');
+    const [filter, setFilter] = useState("");
+    const [vendorsDisplayed, setVendorsDisplayed] = useState([]);
+    const [ordersDisplayed, setOrdersDisplayed] = useState([]);
 
 
 	const { vendorsList, ordersList } = useSelector(state => state.purchase);
-
-    const [tabSelected, setTabSelected] = useState(0);
-
 
     //Intial Loading of data - doing both so that there is only a one time load when this page is launch
     useEffect(() => {
         dispatch(loadVendorsValuesAsync());
         dispatch(loadOrdersValuesAsync());
-    }, []);
+    }, [dispatch]);
 
+    //sets intial version of list
+    useEffect(() => {
+        setVendorsDisplayed(vendorsList);       
+        setOrdersDisplayed(ordersList);       
+        
+    }, [vendorsList, ordersList]);
 
-    //Handles button click
-    const handleActiveTab = useCallback((value) => {
-        setTabSelected(value);
-    }); 
-
+    //filters the list on change
+    useEffect(() =>{
+        if(activePage === 'Vendors'){
+            setVendorsDisplayed(vendorsList.filter(elt => filter === "" || 
+                elt.vendorName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.contactFirstName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.contactLastName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.businessEntityId.toString().includes(filter.toLowerCase()))
+            );
+        }
+        else{
+            setOrdersDisplayed(ordersList.filter(elt => filter === "" || 
+                elt.productName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.storeName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.businessEntityId.toString().includes(filter.toLowerCase()))
+            );
+        }
+    }, [vendorsList, ordersList, filter])
 
     //layouts based on buttons
     const listValuesVendors = 
@@ -49,7 +67,7 @@ function Purchasing(){
                 <p>Options</p>
             </div>
 
-            {vendorsList.map(vendorsList => {
+            {vendorsDisplayed.map(vendorsList => {
                 return(
                     <PurchasingVendorTile 
                     key={vendorsList.businessEntityId}
@@ -79,7 +97,7 @@ function Purchasing(){
                 <p>Total Due</p>
                 <p>Ship Date</p>
             </div>
-            {ordersList.map(ordersList => {
+            {ordersDisplayed.map(ordersList => {
             return(
                 <PurchasingOrderTile 
                 key={ordersList.id}
