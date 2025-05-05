@@ -48,7 +48,7 @@ function Purchasing(){
         else{
             setOrdersDisplayed(ordersList.filter(elt => filter === "" || 
                 elt.productName.toLowerCase().includes(filter.toLowerCase()) ||
-                elt.storeName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.vendorName.toLowerCase().includes(filter.toLowerCase()) ||
                 elt.businessEntityId.toString().includes(filter.toLowerCase()))
             );
         }
