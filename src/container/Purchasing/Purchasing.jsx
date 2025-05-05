@@ -4,7 +4,7 @@ import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile
 import PageContext from "../../context/PageContext";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
