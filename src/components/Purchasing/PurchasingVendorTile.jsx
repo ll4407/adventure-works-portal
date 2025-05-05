@@ -17,10 +17,10 @@ const PurchasingVendorTile = props => {
                     <p>{props.city}, {props.state}</p>
                     <p>{props.postal}</p>
                 </div>
-                <p><Link aria-label='Edit Button' to={'/purchasing/vendor/' + props.businessId}><Edit /></Link> <Delete /></p>
+                <p><Link aria-label='Edit Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><Edit /></Link> <Delete /></p>
             </div>
 
-            <div><Link aria-label='View More Button' to={'/purchasing/vendor/' + props.businessId}><ChevronDown size={36} /></Link></div>
+            <div><Link aria-label='View More Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><ChevronDown size={36} /></Link></div>
         </section>
     )
 }

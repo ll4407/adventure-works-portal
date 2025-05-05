@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
+import styles from './VendorDetails.module.css';
 
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
@@ -12,14 +13,13 @@ import { Edit, ChevronDown } from '../../icons';
 function VendorDetails() {
 	const [vendorName, setVendorName] = useState(null);
 	const [businessEntityId, setBudinessId] = useState(null);
-
 	const [contacts, setContacts] = useState([]);
 	const [addressesFound, setAddresses] = useState([]);
 
     const [activePage, setActivePage] = useState('Vendors');
     const [filter, setFilter] = useState("");
 
-	const { id } = useParams();
+	const { id, phone } = useParams();
 
     useEffect(() => {
         axios.get(`Vendor/${id}`)
@@ -35,50 +35,67 @@ function VendorDetails() {
     }, [id]);
 
     const detailContent = contacts === null ? <p>Loading</p> : (
-        <article>
-            <section>
-                <h1>{vendorName} <span><Edit /></span></h1>
-                <p>{businessEntityId}</p>
+        <div>
+            <section className={styles.vendorContainer}>
+                <div>
+                    <h1>{vendorName}</h1>
+                    <p><Edit /></p>
+                </div>
 
-                <section>
-                    <h2>Contacts <span><Edit /></span></h2>
-                    {contacts.map((items, index) => {
-                        return (
-                            <div key={items.personId}>
-                                <p>{index + 1}. {items.personalTitle} {items.firstName} {items.middleName} {items.lastName} {items.suffix}</p>
+                <p>Phone: {phone}</p>
+                <p>Business ID: {businessEntityId}</p>
 
-                                {items.phoneNumbers.map(numbers => {
-                                    return(
-                                        <p key={numbers.businessEntityId}>{numbers.phoneNumberTypeName}: {numbers.phoneNumber}</p>
-                                    )
-                                })}
+                <div>
+                    <section className={`${styles.vendorContacts} ${styles.vendorFlex50}`}>
+                        <div>
+                            <h2>Contacts</h2>
+                            <p><Edit /></p>
+                        </div>
+                        {contacts.map((items, index) => {
+                            return (
+                                <div key={items.personId}>
+                                    <p>{index + 1}.</p>
+                                    <p> {items.personalTitle} {items.firstName} {items.middleName} {items.lastName} {items.suffix}</p>
+                                    <p>({items.contactTypeName})</p>
 
-                                {items.emailAddresses.map(emails => {
-                                    return(
-                                        <p key={emails.emailAddressId}>Email: {emails.emailAddress}</p>
-                                    )
-                                })}
-                            </div>
-                        )
-                    })}
-                </section>
+                                    {items.phoneNumbers.map(numbers => {
+                                        return(
+                                            <p key={numbers.businessEntityId}>{numbers.phoneNumberTypeName}: {numbers.phoneNumber}</p>
+                                        )
+                                    })}
 
-                <section>
-                    <h2>Addresses <span><Edit /></span></h2>
-                    {addressesFound.map((address, index) => {
-                        return (
-                            <div key={address.addressId}>
-                                <p>{index + 1}. {address.addressLine1}</p>
-                                <p>{address.addressLine2}</p>
-                                <p>{address.city}, {address.countryRegionCode}</p>
-                                <p>{address.postalCode}</p>
-                                <p>{address.countryRegionName}</p>
-                            </div>
-                        )
-                    })}
-                </section>
+                                    {items.emailAddresses.map(emails => {
+                                        return(
+                                            <p key={emails.emailAddressId}>Email: {emails.emailAddress}</p>
+                                        )
+                                    })}
+                                </div>
+                            )
+                        })}
+                    </section>
+
+                    <section className={`${styles.vendorAddresses} ${styles.vendorFlex50}`}>
+                        <div>
+                            <h2>Addresses</h2>
+                            <p><Edit /></p>
+                        </div>
+                        {addressesFound.map((address, index) => {
+                            return (
+                                <div key={address.addressId}>
+                                    <p>{index + 1}.</p>
+                                    <p>{address.addressTypeName}</p>
+                                    <p>{address.addressLine1}</p>
+                                    <p>{address.addressLine2}</p>
+                                    <p>{address.city}, {address.countryRegionCode}</p>
+                                    <p>{address.postalCode}</p>
+                                    <p>{address.countryRegionName}</p>
+                                </div>
+                            )
+                        })}
+                    </section>
+                </div>
             </section>
-        </article>
+        </div>
     );
 
 
@@ -101,8 +118,8 @@ function VendorDetails() {
 
             </section>
 
-            <article>
-                <Link to="/purchasing"><ChevronDown />Back</Link>
+            <article className={styles.mainVendorArticle}>
+                <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
                 {detailContent}
             </article>
         </PageContext.Provider>
