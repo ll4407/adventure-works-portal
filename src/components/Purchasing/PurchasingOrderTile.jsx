@@ -10,7 +10,7 @@ const PurchasingOrderTile = props => {
                 <p>{props.storeName}</p>
                 <p>{props.orderDate}</p>
                 <p>{props.orderQuantity}</p>
-                <p>${props.totalDue}</p>
+                <p>${props.totalDue.toFixed(2)}</p>
                 <p>{props.shipDate}</p>
                 <p><Link to={'/purchasing/order/' + props.productId}><ChevronDown size={36} /></Link></p>
             </div>

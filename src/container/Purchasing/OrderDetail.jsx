@@ -39,7 +39,7 @@ function OrderDetails() {
 
                 <div>
                     <p>Unit Price</p>
-                    <p>${ordersInfo.unitPrice}</p>
+                    <p>${ordersInfo.unitPrice.toFixed(2)}</p>
                 </div>
                 <div>
                     <p>Quantity</p>
@@ -47,19 +47,19 @@ function OrderDetails() {
                 </div>
                 <div>
                     <p>Subtotal</p>
-                    <p>${ordersInfo.lineTotal}</p>
+                    <p>${ordersInfo.lineTotal.toFixed(2)}</p>
                 </div>
                 <div>
                     <p>Shipping Cost</p>
-                    <p>$50</p>
+                    <p>$50.00</p>
                 </div>
                 <div>
                     <p>Tax Amount</p>
-                    <p>${ordersInfo.taxAmt}</p>
+                    <p>${ordersInfo.taxAmt.toFixed(2)}</p>
                 </div>
                 <div>
                     <p>Total Due</p>
-                    <p>${ordersInfo.lineTotal + ordersInfo.taxAmt + 50}</p>
+                    <p>${(ordersInfo.lineTotal + ordersInfo.taxAmt + 50).toFixed(2)}</p>
                 </div>
             </section>
 
@@ -88,7 +88,7 @@ function OrderDetails() {
                 </div>
                 <div>
                     <p>Line Total</p>
-                    <p>{ordersInfo.lineTotal}</p>
+                    <p>{ordersInfo.lineTotal.toFixed(2)}</p>
                 </div>
                 <div>
                     <p>Qty Recieved</p>
@@ -121,7 +121,7 @@ function OrderDetails() {
                 </div>
                 <div>
                     <p>Line Total</p>
-                    <p>{ordersInfo.lineTotal}</p>
+                    <p>{ordersInfo.lineTotal.toFixed(2)}</p>
                 </div>   
                 <div>
                     <p>Qty Recieved</p>
