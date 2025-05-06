@@ -45,7 +45,7 @@ function OrderDetails() {
                 <p>{ordersInfo.vendorName}</p>
                 <p>{ordersInfo.orderDate}</p>
 
-                <div className={styles.OrderParentPricingOrder}>
+                <div className={styles.OrderSectionParent}>
                     <section className={styles.OrderPricing}>
                         <h2>Pricing Details</h2>
 
@@ -115,9 +115,7 @@ function OrderDetails() {
                             <p>{ordersInfo.stockedQty}</p>
                         </div>           
                     </section>
-                </div>
-
-                <div className={styles.OrderParentShippingVendor}>
+                
                     <section className={styles.OrderShipping}>
                         <h2>Shipping Details</h2>
 
