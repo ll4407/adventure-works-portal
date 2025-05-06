@@ -11,6 +11,10 @@
     color: var(--gray);
 }
 
+.mainOrderArticle .OrderContainer a {
+    display: none;
+}
+
 .OrderContainer {
     margin-top: 1em;
 }
@@ -76,9 +80,19 @@
         padding-right: 0; 
     }
 
+    .mainOrderArticle > a {
+        display: none;
+    }
+
+    .mainOrderArticle .OrderContainer a {
+        display: block;
+
+        flex: 0 0 6%;
+        justify-items: flex-end;
+    }
+
     .OrderContainer > div:first-child{
         justify-content: flex-start;
-
     }
 
     .OrderContainer > div:first-child > h1 {

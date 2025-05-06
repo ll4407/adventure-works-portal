@@ -24,6 +24,9 @@
     transform: rotate(0deg);
 }
 
+.mainVendorArticle .vendorContainer a {
+    display: none;
+}
 
 .vendorContacts h2,
 .vendorAddresses h2 {
@@ -98,6 +101,18 @@
         padding-left: 0;
         padding-right: 0;
     }
+    .mainVendorArticle > a {
+        display: none;
+    }
+
+    
+    .vendorContainer > div:first-child > a{
+        display: block;
+
+        flex: 0 0 70%;
+        justify-items: flex-end;
+    }
+
 
     .vendorContainer > div:first-child,
     .vendorContacts > div:first-child,
@@ -106,7 +121,7 @@
         justify-content:flex-start;
     }
 
-    .vendorContainer > div:first-child > :last-child,
+    .vendorContainer > div:first-child > p,
     .vendorContacts > div:first-child > :last-child,
     .vendorAddresses > div:first-child > :last-child
     {

@@ -8,7 +8,7 @@ import styles from './VendorDetails.module.css';
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
 
-import { Edit, ChevronDown } from '../../icons';
+import { Edit, ChevronDown, Close } from '../../icons';
 
 function VendorDetails() {
 	const [vendorName, setVendorName] = useState(null);
@@ -40,6 +40,8 @@ function VendorDetails() {
                 <div>
                     <h1>{vendorName}</h1>
                     <p><Edit /></p>
+
+                    <Link to="/purchasing"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>

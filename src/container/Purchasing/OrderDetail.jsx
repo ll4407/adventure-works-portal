@@ -7,7 +7,7 @@ import PageContext from "../../context/PageContext";
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
 
-import { ChevronDown } from '../../icons';
+import { ChevronDown, Close } from '../../icons';
 
 import styles from './OrderDetail.module.css'   
 
@@ -40,7 +40,11 @@ function OrderDetails() {
                 <div>
                     <h1>{ordersInfo.productName}</h1>
                     <h1>{ordersInfo.quantity}</h1>
+
+                    <Link to="/purchasing"><Close /></Link>
                 </div>
+
+                
 
                 <p>{ordersInfo.vendorName}</p>
                 <p>{ordersInfo.orderDate}</p>
