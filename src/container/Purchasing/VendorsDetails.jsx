@@ -36,7 +36,7 @@ function VendorDetails() {
 
     const detailContent = contacts === null ? <p>Loading</p> : (
         <div>
-            <section className={styles.vendorContainer}>
+            <div className={styles.vendorContainer}>
                 <div>
                     <h1>{vendorName}</h1>
                     <p><Edit /></p>
@@ -94,7 +94,7 @@ function VendorDetails() {
                         })}
                     </section>
                 </div>
-            </section>
+            </div>
         </div>
     );
 

@@ -8,6 +8,9 @@
     transform: rotate(90deg);
     cursor: pointer;
 }
+.mainVendorArticle a:active {
+    color: var(--gray);
+}
 
 .vendorContacts > div{
     margin-top: 1em;
@@ -22,12 +25,17 @@
 }
 
 
+.vendorContacts h2,
+.vendorAddresses h2 {
+    font-size: 1rem;
+}
+
+
 /*Display*/
 .mainVendorArticle a {
     display: flex;
     text-decoration: none;
 }
-
 
 .vendorContainer{
     display: flex;
@@ -86,6 +94,11 @@
 }
 
 @media screen and (min-width: 60rem) {
+    .mainVendorArticle {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     .vendorContainer > div:first-child,
     .vendorContacts > div:first-child,
     .vendorAddresses > div:first-child

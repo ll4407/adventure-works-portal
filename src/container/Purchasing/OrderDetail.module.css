@@ -1,0 +1,77 @@
+/*General*/
+.mainOrderArticle {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    
+}
+.mainOrderArticle svg {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+.mainOrderArticle a:active {
+    color: var(--gray);
+}
+
+.OrderContainer {
+    margin-top: 1em;
+}
+
+.OrderContainer > p,
+.OrderPricing > div,
+.OrderOrderProps > div,
+.OrderShipping > div,
+.OrderVendors > div {
+    margin-left: 1em;
+}
+
+.OrderPricing > h2,
+.OrderOrderProps > h2,
+.OrderShipping > h2,
+.OrderVendors > h2 {
+    margin-top: 2em;
+    margin-bottom: 1em;
+
+    font-size: 1rem;
+}
+
+.OrderPricing > div:not(:last-child),
+.OrderOrderProps > div:not(:last-child),
+.OrderShipping > div:not(:last-child),
+.OrderVendors > div:not(:last-child) {
+    padding-bottom: 1em;
+}
+
+.OrderPricing > div:last-child {
+    padding-top: 1em;
+    border-top: 1px solid black;
+}
+
+
+
+
+/*Display*/
+.mainOrderArticle a {
+    display: flex;
+    text-decoration: none;
+}
+
+
+.OrderContainer > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.OrderPricing > div,
+.OrderOrderProps > div,
+.OrderShipping > div,
+.OrderVendors > div
+ {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 60rem) {
+
+
+}
