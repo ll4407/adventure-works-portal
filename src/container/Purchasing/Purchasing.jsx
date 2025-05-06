@@ -63,7 +63,7 @@ function Purchasing(){
                 <p>Business ID</p>
                 <p>Primary Contact</p>
                 <p>Email</p>
-                <p>Address</p>
+                <p>Billing Address</p>
                 <p>Options</p>
             </div>
 
