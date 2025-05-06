@@ -2,23 +2,22 @@ import clsx from 'clsx'
 import { ChevronDown, Delete, Edit } from '../../icons'
 import ProductModal from './ProductModal'
 import styles from './Products.module.css'
-import { useState } from 'react'
-// const fakeProduct = {
-//     bin: 1,
-//     locationId: 1,
-//     locationName: "",
-//     productId:1,
-//     productName:'',
-//     productNumber: "",
-//     quantity:1,
-//     reorderPoint: 1,
-//     safetyStockLevel: 1,
-//     shelf: ""
-// }
+import { useContext, useEffect, useState } from 'react'
+import PageContext from '../../context/PageContext'
 
 const Inventory = (props) =>{
 
+
+    const {setShowSearch} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
+
+    useEffect(() => {
+        if(activeProduct){
+            setShowSearch(false)
+        }else{
+            setShowSearch(true)
+        }
+    }, [activeProduct])
 
     const {products} = props
 
