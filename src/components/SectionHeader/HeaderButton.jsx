@@ -5,11 +5,12 @@ import styles from './SectionHeader.module.css'
 import PageContext from '../../context/PageContext';
 
 function HeaderButton(props){
-    const {activePage, setActivePage} = useContext(PageContext)
+    const {activePage, setActivePage, setShowSearch} = useContext(PageContext)
 
     const handlePageChange = useCallback((page) =>{
         setActivePage(page)
-    }, [setActivePage]);
+        setShowSearch(true)
+    }, [setActivePage, setShowSearch]);
 
     return(
         <div className={styles.buttonContainer}>
