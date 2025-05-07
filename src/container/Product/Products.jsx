@@ -9,13 +9,15 @@ import axios from '../../api/axios'
 import { toast } from "react-toastify";
 
 import styles from './Products.module.css'
+import usePageContext from "../../hooks/usePageContext";
 
-export default function Product(){
-    const [activePage, setActivePage] = useState('Inventory')
-    const [filter, setFilter] = useState("")
+export default function Products(){
+    const pageContext = usePageContext("Inventory")
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
+
+    const {filter, activePage} = pageContext
 
     useEffect(() =>{
         axios.get('/Inventory')
@@ -50,15 +52,8 @@ export default function Product(){
 
     },[filter, products])
 
-    const context = {
-        activePage:activePage,
-        setActivePage: setActivePage,
-        filter: filter,
-        setFilter:setFilter
-    }
-
     return(
-        <PageContext.Provider value={context}>
+        <PageContext.Provider value={pageContext}>
             <SectionHeader
                 title={"Products"}
                 color={"blue"}
