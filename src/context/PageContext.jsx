@@ -5,6 +5,12 @@ const PageContext = createContext({
         setActivePage: () => null,
         filter:"",
         setFilter: () => null,
+        showSearch: true,
+        setShowSearch: () => null,
     })
 
-    export default PageContext
+
+
+
+
+export default PageContext
