@@ -7,6 +7,58 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
+.modal {
+  background: var(--white);
+  width: 100%;
+  padding: 1em;
+}
+.modalHeader {
+  display: grid;
+  grid-template-areas:
+    "header quantity"
+    "location quantity";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+.h1 {
+  grid-area: header;
+}
+.locationContainer {
+  grid-area: location;
+}
+.quantityContainer {
+  grid-area: quantity;
+  justify-self: end;
+  row-span: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.backBtn {
+  background: none;
+  display: flex;
+  align-items: center;
+  border: none;
+  font-size: 1.25rem;
+}
+.backBtnChevron {
+  transform: rotate(90deg);
+}
+.quantityControls {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.quantityControls button {
+  background: none;
+  border: none;
+}
+.detailsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.5em;
+}
 
 @media screen and (min-width: 60rem) {
   .modalContainer {
