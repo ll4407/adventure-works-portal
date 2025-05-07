@@ -21,7 +21,7 @@ export const loadOrdersValuesAsync = createAsyncThunk('purchasing/loadOrdersValu
 
     if(!state.purchase.ordersList.length){
         try{
-            const resp = await axios.get(`/Order/store`);
+            const resp = await axios.get(`/Purchase`);
             return resp.data;
         }
         catch(err){

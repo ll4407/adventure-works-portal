@@ -4,7 +4,7 @@ import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile
 import PageContext from "../../context/PageContext";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
@@ -48,7 +48,7 @@ function Purchasing(){
         else{
             setOrdersDisplayed(ordersList.filter(elt => filter === "" || 
                 elt.productName.toLowerCase().includes(filter.toLowerCase()) ||
-                elt.storeName.toLowerCase().includes(filter.toLowerCase()) ||
+                elt.vendorName.toLowerCase().includes(filter.toLowerCase()) ||
                 elt.businessEntityId.toString().includes(filter.toLowerCase()))
             );
         }
@@ -100,13 +100,13 @@ function Purchasing(){
             {ordersDisplayed.map(ordersList => {
             return(
                 <PurchasingOrderTile 
-                key={ordersList.id}
-                productId={ordersList.id}
+                key={ordersList.purchaseOrderDetailId}
+                productId={ordersList.purchaseOrderDetailId}
                 productName={ordersList.productName}
-                storeName={ordersList.storeName}
+                storeName={ordersList.vendorName}
                 orderDate={ordersList.orderDate}
-                orderQuantity={ordersList.orderQty}   
-                totalDue={ordersList.lineTotal}
+                orderQuantity={ordersList.quantity}   
+                totalDue={ordersList.totalDue}
                 shipDate={ordersList.shipDate}
             />)
             })

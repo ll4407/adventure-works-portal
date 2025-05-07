@@ -1,0 +1,129 @@
+/*General*/
+.mainOrderArticle {
+    padding-left: 1.5em;
+    padding-right: 1.5em; 
+}
+.mainOrderArticle svg {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+.mainOrderArticle a:active {
+    color: var(--gray);
+}
+
+.mainOrderArticle .OrderContainer a {
+    display: none;
+}
+
+.OrderContainer {
+    margin-top: 1em;
+}
+
+.OrderContainer > p,
+.OrderPricing > div,
+.OrderOrderProps > div,
+.OrderShipping > div,
+.OrderVendors > div {
+    margin-left: 1em;
+}
+
+.OrderPricing > h2,
+.OrderOrderProps > h2,
+.OrderShipping > h2,
+.OrderVendors > h2 {
+    margin-top: 2em;
+    margin-bottom: 1em;
+
+    font-size: 1rem;
+}
+
+.OrderPricing > div:not(:last-child),
+.OrderOrderProps > div:not(:last-child),
+.OrderShipping > div:not(:last-child),
+.OrderVendors > div:not(:last-child) {
+    padding-bottom: 1em;
+}
+
+.OrderPricing > div:last-child {
+    padding-top: 1em;
+    border-top: 1px solid black;
+}
+
+
+
+
+/*Display*/
+.mainOrderArticle a {
+    display: flex;
+    text-decoration: none;
+}
+
+
+.OrderContainer > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.OrderPricing > div,
+.OrderOrderProps > div,
+.OrderShipping > div,
+.OrderVendors > div
+ {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 60rem) {
+    .mainOrderArticle {
+        padding-left: 0;
+        padding-right: 0; 
+    }
+
+    .mainOrderArticle > a {
+        display: none;
+    }
+
+    .mainOrderArticle .OrderContainer a {
+        display: block;
+
+        flex: 0 0 6%;
+        justify-items: flex-end;
+    }
+
+    .OrderContainer > div:first-child{
+        justify-content: flex-start;
+    }
+
+    .OrderContainer > div:first-child > h1 {
+        flex: 0 0 47%;
+    }
+    
+
+    .OrderSectionParent {
+        display: grid;
+
+        grid-template-columns: 50% 40%;
+        grid-template-rows: auto;
+
+        grid-column-gap: 10%;
+
+        grid-template-areas: 
+                'order pricing'
+                'shipping vendor';
+    }
+
+    .OrderOrderProps {
+        grid-area: order;
+    }
+    .OrderPricing {
+        grid-area: pricing;
+    }
+    .OrderShipping {
+        grid-area: shipping;
+    }
+    .OrderVendors {
+        grid-area: vendor;
+    }
+
+}

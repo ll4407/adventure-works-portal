@@ -1,0 +1,137 @@
+/*General*/
+.mainVendorArticle {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    
+}
+.mainVendorArticle svg {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+.mainVendorArticle a:active {
+    color: var(--gray);
+}
+
+.vendorContacts > div{
+    margin-top: 1em;
+}
+
+.vendorAddresses > div{
+    margin-top: 1em;
+}
+
+.vendorContainer > div svg {
+    transform: rotate(0deg);
+}
+
+.mainVendorArticle .vendorContainer a {
+    display: none;
+}
+
+.vendorContacts h2,
+.vendorAddresses h2 {
+    font-size: 1rem;
+}
+
+
+/*Display*/
+.mainVendorArticle a {
+    display: flex;
+    text-decoration: none;
+}
+
+.vendorContainer{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 1em;
+}
+.vendorContainer > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+.vendorContainer > div:last-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.vendorContacts{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 1em;
+}
+
+.vendorContacts > div:first-child{
+    display: flex;
+    justify-content: space-between;
+}
+.vendorContacts > div:not(:first-child){
+    display: grid;
+    grid-template-columns: 5% 95%;
+    grid-template-rows: auto;
+
+}
+.vendorContacts > div:not(:first-child) > p:first-child{
+    grid-row: span 99;
+}
+
+.vendorAddresses {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 1em;
+}
+.vendorAddresses > div:first-child{
+    display: flex;
+    justify-content: space-between;
+}
+.vendorAddresses > div:not(:first-child){
+    display: grid;
+    grid-template-columns: 5% 95%;
+    grid-template-rows: auto;
+
+}
+.vendorAddresses > div:not(:first-child) > p:first-child{
+    grid-row: span 99;
+}
+
+@media screen and (min-width: 60rem) {
+    .mainVendorArticle {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .mainVendorArticle > a {
+        display: none;
+    }
+
+    .vendorContainer > div:first-child > a{
+        display: block;
+
+        flex: 0 0 70%;
+        justify-items: flex-end;
+    }
+
+
+    .vendorContainer > div:first-child,
+    .vendorContacts > div:first-child,
+    .vendorAddresses > div:first-child
+    {
+        justify-content:flex-start;
+    }
+
+    .vendorContainer > div:first-child > p,
+    .vendorContacts > div:first-child > :last-child,
+    .vendorAddresses > div:first-child > :last-child
+    {
+        margin-left: 1em;
+    }
+
+    .vendorContainer > div:last-child {
+        flex-direction: row;
+    }
+
+    .vendorFlex50 {
+        flex: 0 0 50%;
+    }
+}
