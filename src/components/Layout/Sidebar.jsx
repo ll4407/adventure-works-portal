@@ -1,11 +1,9 @@
 import { Close, Hamburger } from "../../icons"
 import styles from './Layout.module.css'
 import { colors } from "../../utilities"
-import { useState } from "react"
 import Nav from "./Nav"
 
-export default function Sidebar(){
-    const [open, setOpen] = useState(false)
+export default function Sidebar({open, setOpen}){
 
     return(
             <div className={styles.sideBar}>

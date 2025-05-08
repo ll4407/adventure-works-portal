@@ -19,7 +19,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                             location.pathname == '/dashboard' && "BGYellow" )} 
                         to={'/dashboard'}>
                         <DashboardIcon color={location.pathname == '/dashboard' ? colors.black : undefined}/>
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Dashboard</p>
                         </div>
                     </NavLink>
@@ -33,7 +33,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                             location.pathname == '/employees' && "BGOrange" )}
                         to={'/employees'}>
                         <Employees color={location.pathname == '/employees' ? colors.black : undefined} />
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Employees</p>
                         </div>
                     </NavLink>
@@ -48,7 +48,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                             )} 
                         to={'/products'}>
                         <Products color={location.pathname == '/products' ? colors.black : undefined}/>
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Products</p>
                         </div>
                     </NavLink>
@@ -63,7 +63,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                             )} 
                         to={'/purchasing'}>
                         <Purchasing color={location.pathname == '/purchasing' ? colors.black : undefined}/>
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Purchasing</p>
                         </div>
                     </NavLink>
@@ -78,7 +78,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         )} 
                         to={'/sales'}>
                         <Sales color={location.pathname == '/sales' ? colors.black : undefined}/>
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Sales</p>
                         </div>
                     </NavLink>
@@ -93,7 +93,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         )} 
                         to={'/settings'}>
                         <Settings color={location.pathname == '/settings' ? colors.black : undefined}/>
-                        <div className={open && styles.open}>
+                        <div className={open ? styles.open : ""}>
                             <p>Settings</p>
                         </div>
                     </NavLink>

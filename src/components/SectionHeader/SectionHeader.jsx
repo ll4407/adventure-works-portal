@@ -3,25 +3,32 @@ import HeaderButton from "./HeaderButton";
 import HeaderSearch from "./HeaderSearch"; 
 
 import styles from './SectionHeader.module.css';
+import { useContext } from "react";
+import PageContext from "../../context/PageContext";
 
-
+<<<<<<< HEAD
 const SectionHeader =({title, color, firstButton, secondButton, onTabChange}) =>{
+=======
+const SectionHeader =({title, color, firstButton, secondButton}) =>{
+    const {showSearch} = useContext(PageContext)
+>>>>>>> origin/main
     return (
-        <div className={styles.headerInfo}>
+        <>
             <HeaderTitle 
                 title={title}
                 color={color}
             />
-            <div>
+            <div className={styles.controls}>
                 <HeaderButton
                     color={color}
                     firstButton={firstButton}
                     secondButton={secondButton}
                     onTabChange={onTabChange}
                 />
-                <HeaderSearch />
+                {showSearch && <HeaderSearch />}
+
             </div>
-        </div>
+        </>
     )
 }
 

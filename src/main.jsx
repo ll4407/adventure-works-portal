@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
+import { ToastContainer } from 'react-toastify'
 // import salesReducer from './store/sale.js';
 
 const store = configureStore({
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
           <App />
       </BrowserRouter>
+      <ToastContainer />
     </Provider>
   </StrictMode>,
 )
