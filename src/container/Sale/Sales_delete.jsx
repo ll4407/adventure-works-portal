@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders, showCustomers, showStores } from "../../store/sale";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import Table from "../../components/Table/Table";
+import Table from "../../components/Table_delete/Table_delete";
 
 export default function Sales() {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import Layout from './components/Layout/Layout';
 import Employees from './container/Employee/Employees';
 import Products from './container/Product/Products';
 import Purchasing from './container/Purchasing/Purchasing';
-import Sales from './container/Sale/Sales';
+import Sales from './container/Sale/Sales_delete';
 import Login from './components/Login/Login';
 
 function App() {
