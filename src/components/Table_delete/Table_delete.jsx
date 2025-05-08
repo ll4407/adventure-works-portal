@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Table.module.css'
+// import styles from './Table.module.css'
 
 /**
  * A generic, reusable table component.
