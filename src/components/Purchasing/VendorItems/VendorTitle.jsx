@@ -25,7 +25,6 @@ function VendorTitle(props){
             </>;
 
     const formData = 
-            <>  
                 <form>
                     <label>
                         <input type="text" name="vendorName" aria-label="vendorName" placeholder={vendorName} />
@@ -40,8 +39,7 @@ function VendorTitle(props){
                     <button type='Submit'>Save Changes</button>
                     
                     <p onClick={handleEdit}>Back</p>
-                </form>
-            </>;
+                </form>;
 
     const dataDisplay = editActive === false ? currentData : formData;
 

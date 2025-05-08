@@ -23,6 +23,21 @@
 .vendorContainer > div svg {
     transform: rotate(0deg);
 }
+.vendorContainer > form:first-child button {
+    background-color: var(--green);
+}
+.vendorContainer > form:first-child p {
+    text-decoration: underline;
+}
+.vendorContainer > form:first-child p:active {
+    color: var(--gray);
+}
+.vendorContainer > form > label {
+    margin-bottom: 0.5em;
+}
+.vendorContainer > form > label:first-child {
+    margin-top: 1em;
+}
 
 .mainVendorArticle .vendorContainer a {
     display: none;
@@ -31,6 +46,39 @@
 .vendorContacts h2,
 .vendorAddresses h2 {
     font-size: 1rem;
+}
+
+.vendorContacts > form > label {
+    margin-bottom: 0.5em;
+}
+.vendorContacts > form > label:first-child {
+    margin-top: 1em;
+}
+.vendorContacts > form button {
+    background-color: var(--green);
+}
+.vendorContacts > form p {
+    text-decoration: underline;
+}
+.vendorContacts > form p:active {
+    color: var(--gray);
+}
+
+
+.vendorAddresses > form > label {
+    margin-bottom: 0.5em;
+}
+.vendorAddresses > form > label:first-child {
+    margin-top: 1em;
+}
+.vendorAddresses > form button {
+    background-color: var(--green);
+}
+.vendorAddresses > form p {
+    text-decoration: underline;
+}
+.vendorAddresses > form p:active {
+    color: var(--gray);
 }
 
 
@@ -112,6 +160,9 @@
         justify-items: flex-end;
     }
 
+    .vendorContainer > form:first-child {
+        width: 50%;
+    }
 
     .vendorContainer > div:first-child,
     .vendorContacts > div:first-child,
