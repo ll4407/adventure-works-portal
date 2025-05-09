@@ -36,60 +36,114 @@ export default function CustomerModal({ selectedSaleId, onClose }) {
         <button className={styles.modalClose} onClick={onClose}>
           ×
         </button>
-        <h2>Customer Details</h2>
+        <h2>{`${customerDetails?.firstName} ${customerDetails?.lastName}`}</h2>
+        <p>
+          <strong>Order Date:</strong> {new Date(customerDetails?.orderDate).toLocaleDateString()}
+        </p>
+        <p>
+          <strong>Order Number:</strong> {customerDetails?.orderNumber}
+        </p>
 
         {loading && <p>Loading...</p>}
         {error && <p className={styles.error}>{error}</p>}
 
         {customerDetails && (
-          <dl>
-            <dt>Name</dt>
-            <dd>{`${customerDetails.firstName} ${customerDetails.lastName}`}</dd>
-            <dt>Phone</dt>
-            <dd>{`${customerDetails.phoneNumber} (${customerDetails.phoneNumberType})`}</dd>
-            <dt>Email</dt>
-            <dd>{customerDetails.emailAddress}</dd>
-            <dt>Order #</dt>
-            <dd>{customerDetails.orderNumber}</dd>
-            <dt>Order Date</dt>
-            <dd>{new Date(customerDetails.orderDate).toLocaleDateString()}</dd>
-            <dt>Ship Date</dt>
-            <dd>{new Date(customerDetails.shipDate).toLocaleDateString()}</dd>
-            <dt>Ship Method</dt>
-            <dd>{customerDetails.shipMethodName}</dd>
-            <dt>Freight</dt>
-            <dd>
-              {customerDetails.freight?.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </dd>
-            <dt>Tax Amount</dt>
-            <dd>
-              {customerDetails.taxAmt?.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </dd>
-            <dt>Product</dt>
-            <dd>{customerDetails.productName}</dd>
-            <dt>Order Qty</dt>
-            <dd>{customerDetails.orderQty}</dd>
-            <dt>Unit Price</dt>
-            <dd>
-              {customerDetails.unitPrice?.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </dd>
-            <dt>Line Total</dt>
-            <dd>
-              {customerDetails.lineTotal?.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </dd>
-          </dl>
+          <div className={styles.detailsGrid}>
+            {/* Customer Information */}
+            <div>
+              <h3>Customer Information</h3>
+              <p>
+                <strong>Name:</strong> {`${customerDetails.suffix || ""} ${customerDetails.firstName} ${customerDetails.middleName || ""} ${customerDetails.lastName}`}
+              </p>
+              <p>
+                <strong>Title:</strong> {customerDetails.title || "N/A"}
+              </p>
+              <p>
+                <strong>Phone:</strong> {`${customerDetails.phoneNumber} (${customerDetails.phoneNumberType})`}
+              </p>
+              <p>
+                <strong>Email:</strong> {customerDetails.emailAddress}
+              </p>
+            </div>
+
+            {/* Shipping Information */}
+            <div>
+              <h3>Shipping Information</h3>
+              <p>
+                <strong>Ship Date:</strong> {new Date(customerDetails.shipDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Method:</strong> {customerDetails.shipMethodName}
+              </p>
+              <p>
+                <strong>Freight Number:</strong> {customerDetails.freightNumber || "N/A"}
+              </p>
+            </div>
+
+            {/* Sale Details */}
+            <div>
+              <h3>Sale Details</h3>
+              <p>
+                <strong>Order Number:</strong> {customerDetails.orderNumber}
+              </p>
+              <p>
+                <strong>Tracking Number:</strong> {customerDetails.carrierTrackingNumber || "N/A"}
+              </p>
+              <p>
+                <strong>Product Name:</strong> {customerDetails.productName}
+              </p>
+              <p>
+                <strong>Product ID:</strong> {customerDetails.productId}
+              </p>
+            </div>
+
+            {/* Pricing Details */}
+            <div>
+              <h3>Pricing Details</h3>
+              <p>
+                <strong>Unit Price:</strong>{" "}
+                {customerDetails.unitPrice?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
+              <p>
+                <strong>Unit Price Discount:</strong>{" "}
+                {customerDetails.unitPriceDiscount?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
+              <p>
+                <strong>Line Total:</strong>{" "}
+                {customerDetails.lineTotal?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
+              <p>
+                <strong>Order Quantity:</strong> {customerDetails.orderQty}
+              </p>
+              <p>
+                <strong>Tax Amount:</strong>{" "}
+                {customerDetails.taxAmt?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
+              <p>
+                <strong>Total Due:</strong>{" "}
+                {(
+                  customerDetails.lineTotal +
+                  customerDetails.taxAmt +
+                  customerDetails.freight
+                )?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
+            </div>
+          </div>
         )}
       </div>
     </div>
