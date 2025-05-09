@@ -7,12 +7,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
 import { ToastContainer } from 'react-toastify'
-// import salesReducer from './store/sale.js';
 
 const store = configureStore({
   reducer: {
     account: accountReducer,
-    // sales: salesReducer, 
   },
   devTools: true,
 });
