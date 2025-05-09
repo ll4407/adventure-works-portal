@@ -1,15 +1,83 @@
 import { Edit, Close } from '../../../icons';
 import { Link } from 'react-router';
+
 import { useCallback, useState } from 'react';
 
-function VendorTitle(props){
-    const {vendorName, phone, businessEntityId} = props
+import axios from '../../../api/axios';
+import { toast } from 'react-toastify';
 
-    const [editActive, setEditActive] = useState(false)
+const VendorTitle = (props) => {
+    const {vendor, vendorName, phone, accountNum} = props
+
+    const [editActive, setEditActive] = useState(false);
+
+
+    const [newName, setNewName] = useState('');
+    const [newPhone, setNewPhone] = useState('');
+    const [newAccountNum, setNewAccount] = useState('');
+
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
     }, [])
+
+    const handleVendorTitleUpdate = useCallback(async (event) => {
+        event.preventDefault();
+ 
+        let nameUpdate;
+        let phoneUpdate;
+        let accountUpdate;
+        
+        if(newName =='' && newPhone =='' && newAccountNum==''){
+            toast.error("Fill out at least one field");
+        }
+        else{
+        if(newName == ''){
+            nameUpdate = vendorName;
+        }
+        else {
+            nameUpdate = newName;
+        }
+
+        if(newPhone == ''){
+            phoneUpdate = phone;
+        }else {
+            phoneUpdate = newPhone;
+        }
+        if(newAccountNum == ''){
+            accountUpdate = accountNum;
+        }else {
+            accountUpdate = newAccountNum;
+        }
+
+
+
+        const updateVendor = {
+            businessEntityId: vendor.businessEntityId,
+            accountNumber: accountUpdate,
+            vendorName: nameUpdate,
+            creditRating: vendor.creditRating
+        }
+
+        try{
+            await axios.put(`Vendor/${vendor.businessEntityId}`, updateVendor)
+                    .then(resp => {
+                        toast.success("Data Submitted");
+                    })
+                    .catch(err => {
+                        toast.error(err);
+                    });
+
+            await handleEdit();
+
+            await props.updateVendorTitle(updateVendor.vendorName, phoneUpdate, updateVendor.businessEntityId, updateVendor.accountNumber);
+        }
+        catch(err){
+            toast.error(err);
+        }
+    }
+
+    }, [setNewName, setNewPhone, setNewAccount, newName, newPhone, newAccountNum])
 
     const currentData = 
             <>
@@ -21,24 +89,27 @@ function VendorTitle(props){
                 </div>
 
                 <p>Phone: {phone}</p>
-                <p>Business ID: {businessEntityId}</p>
+                <p>Business ID: {accountNum}</p>
             </>;
 
     const formData = 
-                <form>
+                <form onSubmit={handleVendorTitleUpdate}>
                     <label>
-                        <input type="text" name="vendorName" aria-label="vendorName" placeholder={vendorName} />
+                        <input type="text" name="vendorName" aria-label="vendorName" placeholder={vendorName}
+                            value={newName} onChange={evt => setNewName(evt.target.value)} />
                     </label>
                     <label>
-                        <input type="text" name="Phone" aria-label="Phone" placeholder={phone} />
+                        <input type="text" name="Phone" aria-label="Phone" placeholder={phone} 
+                            value={newPhone} onChange={evt => setNewPhone(evt.target.value)}/>
                     </label>
                     <label>
-                        <input type="text" name="BusinessID" aria-label="Business ID" placeholder={businessEntityId} />
+                        <input type="text" name="accountNumber" aria-label="account" placeholder={accountNum} 
+                            value={newAccountNum} onChange={evt => setNewAccount(evt.target.value)}/>
                     </label>
 
-                    <button type='Submit'>Save Changes</button>
+                    <button type='submit'>Save Changes</button>
                     
-                    <p onClick={handleEdit}>Back</p>
+                    <p onClick={handleEdit}>Cancel</p>
                 </form>;
 
     const dataDisplay = editActive === false ? currentData : formData;

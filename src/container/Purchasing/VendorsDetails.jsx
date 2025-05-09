@@ -13,6 +13,7 @@ import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
 
 import { ChevronDown } from '../../icons';
+import { useCallback } from 'react';
 
 function VendorDetails() {
 	const [vendor, setVendor] = useState(null);
@@ -30,13 +31,22 @@ function VendorDetails() {
             .catch(err => {
                 toast.error(err);
             });
-    }, [id]);
+    }, [vendor, id]);
+
+
+    function updateVendorTitle(vendorName, phone, id, account) {
+        vendor.vendorName = vendorName;
+        phone = phone;
+        vendor.businessEntityId = id;
+        vendor.accountNumber = account;
+    }
 
     
     const detailContent = vendor === null ? <p>Loading</p> : (
         <div>
             <div className={styles.vendorContainer}>
-                <VendorTitle vendorName={vendor.vendorName}  phone={phone} businessEntityId={vendor.businessEntityId}/>
+                <VendorTitle vendor={vendor} vendorName={vendor.vendorName}  phone={phone}
+                    accountNum={vendor.accountNumber} updateVendor={updateVendorTitle}/>
 
                 <div>  
                     <VendorContacts contacts={vendor.contacts} />
