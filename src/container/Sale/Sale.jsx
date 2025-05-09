@@ -11,14 +11,13 @@ import usePageContext from "../../hooks/usePageContext";
 
 export default function Sale() {
   const pageContext = usePageContext("Customers");
-  const { activePage, filter } = pageContext; // Access filter from context
+  const { activePage, filter } = pageContext;
   const isCustomer = activePage === "Customers";
 
   const [sales, setSales] = useState([]);
-  const [filteredSales, setFilteredSales] = useState([]); // State for filtered sales
-  const [selectedSale, setSelectedSale] = useState(null);
+  const [filteredSales, setFilteredSales] = useState([]);
+  const [selectedSaleId, setSelectedSaleId] = useState(null);
 
-  // Fetch sales data on tab change
   useEffect(() => {
     const endpoint = isCustomer ? "/Order/customer" : "/Order/store";
     axios
@@ -27,7 +26,6 @@ export default function Sale() {
       .catch((err) => toast.error(err.toString()));
   }, [isCustomer]);
 
-  // Filter sales data based on the filter value
   useEffect(() => {
     let timer;
     if (filter) {
@@ -43,25 +41,22 @@ export default function Sale() {
               sale.contactLastName.toLowerCase().includes(loweredFilter)
         );
         setFilteredSales(newFilteredSales);
-      }, 500); // Debounce for 500ms
+      }, 500);
     } else {
-      setFilteredSales(sales); // Show all sales if no filter is applied
+      setFilteredSales(sales);
     }
 
-    return () => clearTimeout(timer); // Cleanup debounce timer
+    return () => clearTimeout(timer);
   }, [filter, sales, isCustomer]);
 
-  // Open modal with sale details
   const onCardClick = useCallback(
     (id) => {
-      const sale = sales.find((s) => s.id === id);
-      setSelectedSale(sale);
+      setSelectedSaleId(id);
     },
-    [sales]
+    []
   );
 
-  // Close modal
-  const closeModal = useCallback(() => setSelectedSale(null), []);
+  const closeModal = useCallback(() => setSelectedSaleId(null), []);
 
   return (
     <PageContext.Provider value={pageContext}>
@@ -123,21 +118,16 @@ export default function Sale() {
                   })}
               unitPrice={o.unitPrice}
               lineTotal={o.lineTotal}
-              onClick={onCardClick}
+              onClick={() => onCardClick(o.id)}
             />
           ))}
         </div>
 
-        {/* Use CustomerModal or StoreModal based on isCustomer */}
         {isCustomer ? (
-          <CustomerModal
-            isCustomer={isCustomer}
-            selectedSale={selectedSale}
-            onClose={closeModal}
-          />
-        ) : (
-          <StoreModal selectedSale={selectedSale} onClose={closeModal} />
-        )}
+        <CustomerModal selectedSaleId={selectedSaleId} onClose={closeModal} />
+      ) : (
+        <StoreModal selectedSaleId={selectedSaleId} onClose={closeModal} />
+      )}
       </div>
     </PageContext.Provider>
   );
