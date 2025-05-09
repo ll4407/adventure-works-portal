@@ -126,20 +126,27 @@ export default function Sale() {
         {isCustomer ? (
         <CustomerModal selectedSaleId={selectedSaleId} onClose={closeModal} />
       ) : (
-         <StoreModal
+<StoreModal
   selectedSaleId={selectedSaleId}
-   onClose={(updatedContact) => {
-     setSelectedSaleId(null);
-     // Merge the new contact info into the matching sale:
-     setSales((prev) =>
-       prev.map((sale) =>
-        sale.id === selectedSaleId
-           ? { ...sale, contactFirstName: updatedContact.firstName, contactLastName: updatedContact.lastName }
-           : sale
-       )
-     );
-   }}
-   />
+  onClose={(updatedContact) => {
+    setSelectedSaleId(null);
+    // Only update the sales state if updatedContact is provided
+    if (updatedContact) {
+      setSales((prev) =>
+        prev.map((sale) =>
+          sale.id === selectedSaleId
+            ? {
+                ...sale,
+                contactFirstName: updatedContact.firstName,
+                contactLastName: updatedContact.lastName,
+              }
+            : sale
+        )
+      );
+    }
+  }}
+/>
+
       )}
       </div>
     </PageContext.Provider>

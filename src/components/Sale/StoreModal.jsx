@@ -43,36 +43,27 @@ export default function StoreModal({ selectedSaleId, onClose }) {
   // Submit updated contacts
   const onSubmit = async (values) => {
     try {
-      // batch-update each contact
       await Promise.all(
         values.contacts.map((c) =>
-          axios.put(
-            // path: /Contact/{personEntityId}/{storeEntityId}
-            `/Contact/${c.businessEntityId}/${storeDetails.storeEntityId}`,
-            {
-              businessEntityId: c.businessEntityId,  
-              personId: c.personId,                   
-              personalTitle: c.title || "",           
-              firstName:      c.firstName,
-              middleName:     c.middleName,
-              lastName:       c.lastName,
-              suffix:         c.suffix,
-              contactTypeId:  c.contactTypeId       
-            }
-          )
+          axios.put(`/Contact/${c.businessEntityId}/${storeDetails.storeEntityId}`, {
+            businessEntityId: c.businessEntityId,
+            personId: c.personId,
+            personalTitle: c.title || "",
+            firstName: c.firstName,
+            middleName: c.middleName,
+            lastName: c.lastName,
+            suffix: c.suffix,
+            contactTypeId: c.contactTypeId,
+          })
         )
       );
   
       toast.success("Contacts updated successfully");
       setStoreDetails((prev) => ({
         ...prev,
-        contacts: values.contacts
+        contacts: values.contacts,
       }));
-        // at the bottom of your onSubmit success
-  onClose(
-    values.contacts[0] // or whichever contact you edited
-  );
-
+      onClose(values.contacts[0]); // Pass the updated contact
       setIsEditing(false);
     } catch (err) {
       console.error("Contacts update error:", err.response || err);
@@ -87,7 +78,9 @@ export default function StoreModal({ selectedSaleId, onClose }) {
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
       <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-        <button className={styles.modalClose} onClick={onClose}>×</button>
+      <button className={styles.modalClose} onClick={() => onClose()}>
+  ×
+</button>
         <h2>Store Details</h2>
 
         {/* Order & Sale Details */}
