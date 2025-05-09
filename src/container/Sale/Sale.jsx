@@ -1,75 +1,67 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { toast } from "react-toastify";
 import SaleCard from "../../components/Sale/SaleCard";
+import CustomerModal from "../../components/Sale/CustomerModal";
+import StoreModal from "../../components/Sale/StoreModal";
 import styles from "./Sale.module.css";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
 import usePageContext from "../../hooks/usePageContext";
-import SaleHeader from "../../components/Sale/SaleHeader";
 
 export default function Sale() {
-  // Hook into context for tab state and search filter
   const pageContext = usePageContext("Customers");
-  const { activePage, filter } = pageContext;
-
+  const { activePage, filter } = pageContext; // Access filter from context
   const isCustomer = activePage === "Customers";
-  const navigate = useNavigate();
 
-  // Sales data and filtered subset
   const [sales, setSales] = useState([]);
-  const [filteredSales, setFilteredSales] = useState([]);
+  const [filteredSales, setFilteredSales] = useState([]); // State for filtered sales
+  const [selectedSale, setSelectedSale] = useState(null);
 
-  // Fetch on tab change
+  // Fetch sales data on tab change
   useEffect(() => {
-    setSales([]);
-    setFilteredSales([]);
     const endpoint = isCustomer ? "/Order/customer" : "/Order/store";
-
     axios
       .get(endpoint)
-      .then(({ data }) => {
-        setSales(data);
-        setFilteredSales(data);
-      })
+      .then(({ data }) => setSales(data))
       .catch((err) => toast.error(err.toString()));
   }, [isCustomer]);
 
-  // Update filtered list when filter or sales change
+  // Filter sales data based on the filter value
   useEffect(() => {
-    if (!filter) {
-      setFilteredSales(sales);
-      return;
+    let timer;
+    if (filter) {
+      timer = setTimeout(() => {
+        const loweredFilter = filter.toLowerCase();
+        const newFilteredSales = sales.filter((sale) =>
+          isCustomer
+            ? sale.firstName.toLowerCase().includes(loweredFilter) ||
+              sale.lastName.toLowerCase().includes(loweredFilter) ||
+              sale.orderNumber.toString().includes(loweredFilter)
+            : sale.storeName.toLowerCase().includes(loweredFilter) ||
+              sale.contactFirstName.toLowerCase().includes(loweredFilter) ||
+              sale.contactLastName.toLowerCase().includes(loweredFilter)
+        );
+        setFilteredSales(newFilteredSales);
+      }, 500); // Debounce for 500ms
+    } else {
+      setFilteredSales(sales); // Show all sales if no filter is applied
     }
-    const timer = setTimeout(() => {
-      const lower = filter.toLowerCase();
-      const filtered = sales.filter((o) => {
-        if (isCustomer) {
-          // match first or last name or order number
-          return (
-            o.firstName.toLowerCase().includes(lower) ||
-            o.lastName.toLowerCase().includes(lower) ||
-            String(o.orderNumber).includes(lower)
-          );
-        } else {
-          // match store name, contact, or product name
-          const contact =
-            `${o.contactFirstName} ${o.contactLastName}`.toLowerCase();
-          return (
-            o.storeName.toLowerCase().includes(lower) ||
-            contact.includes(lower) ||
-            o.productName.toLowerCase().includes(lower)
-          );
-        }
-      });
-      setFilteredSales(filtered);
-    }, 500);
-    return () => clearTimeout(timer);
+
+    return () => clearTimeout(timer); // Cleanup debounce timer
   }, [filter, sales, isCustomer]);
 
-  // Navigate on card click
-  const onCardClick = useCallback((id) => navigate(`/sales/${id}`), [navigate]);
+  // Open modal with sale details
+  const onCardClick = useCallback(
+    (id) => {
+      const sale = sales.find((s) => s.id === id);
+      setSelectedSale(sale);
+    },
+    [sales]
+  );
+
+  // Close modal
+  const closeModal = useCallback(() => setSelectedSale(null), []);
 
   return (
     <PageContext.Provider value={pageContext}>
@@ -81,40 +73,71 @@ export default function Sale() {
       />
 
       <div className={styles.container}>
-        <SaleHeader isCustomer={isCustomer} />
-
-        <div className={styles.list}>
-          {filteredSales.map((o) =>
-            isCustomer ? (
-              <SaleCard
-                key={o.id}
-                id={o.id}
-                firstName={o.firstName}
-                lastName={o.lastName}
-                orderDate={o.orderDate}
-                orderNumber={o.orderNumber}
-                orderQty={o.orderQty}
-                shipDate={o.shipDate}
-                unitPrice={o.unitPrice}
-                lineTotal={o.lineTotal}
-                onClick={onCardClick}
-              />
-            ) : (
-              <SaleCard
-                key={o.id}
-                id={o.id}
-                businessName={o.storeName}
-                contactName={`${o.contactFirstName} ${o.contactLastName}`}
-                orderDate={o.orderDate}
-                orderNumber={o.orderNumber}
-                productName={o.productName}
-                unitPrice={o.unitPrice}
-                lineTotal={o.lineTotal}
-                onClick={onCardClick}
-              />
-            )
+        <div className={styles.headerRow}>
+          {isCustomer ? (
+            <>
+              <span>Customer</span>
+              <span>Order Date</span>
+              <span>Order #</span>
+              <span>Qty</span>
+              <span>Ship Date</span>
+              <span>Unit Price</span>
+              <span>Total Due</span>
+              <span />
+            </>
+          ) : (
+            <>
+              <span>Store/Business</span>
+              <span>Order Date</span>
+              <span>Contact Name</span>
+              <span>Order Number</span>
+              <span>Product Name</span>
+              <span>Unit Price</span>
+              <span>Total Due</span>
+              <span />
+            </>
           )}
         </div>
+
+        <div className={styles.list}>
+          {filteredSales.map((o) => (
+            <SaleCard
+              key={o.id}
+              {...(isCustomer
+                ? {
+                    id: o.id,
+                    firstName: o.firstName,
+                    lastName: o.lastName,
+                    orderDate: o.orderDate,
+                    orderNumber: o.orderNumber,
+                    orderQty: o.orderQty,
+                    shipDate: o.shipDate,
+                  }
+                : {
+                    id: o.id,
+                    businessName: o.storeName,
+                    contactName: `${o.contactFirstName} ${o.contactLastName}`,
+                    orderDate: o.orderDate,
+                    orderNumber: o.orderNumber,
+                    productName: o.productName,
+                  })}
+              unitPrice={o.unitPrice}
+              lineTotal={o.lineTotal}
+              onClick={onCardClick}
+            />
+          ))}
+        </div>
+
+        {/* Use CustomerModal or StoreModal based on isCustomer */}
+        {isCustomer ? (
+          <CustomerModal
+            isCustomer={isCustomer}
+            selectedSale={selectedSale}
+            onClose={closeModal}
+          />
+        ) : (
+          <StoreModal selectedSale={selectedSale} onClose={closeModal} />
+        )}
       </div>
     </PageContext.Provider>
   );
