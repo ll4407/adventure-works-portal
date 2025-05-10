@@ -48,12 +48,49 @@
     font-size: 1rem;
 }
 
-.vendorContacts > form > label {
-    margin-bottom: 0.5em;
+.formGrid{
+    display: grid;
+    grid-template-columns: 5% 95%;
 }
-.vendorContacts > form > label:first-child {
+.formGrid span {
     margin-top: 1em;
 }
+.SingleContact{
+    display: flex;
+    flex-direction: column;
+}
+.SingleContact > div{
+    display: flex;
+}
+.SingleContact label {
+    margin-bottom: 0.5em;
+}
+.SingleContact > label input {
+    width: 75%;
+}
+.SingleContact > div > label:first-child {
+    flex: 0 0 37%;
+}
+.SingleContact > div > label:last-child {
+    margin-left: auto;
+    flex: 0 0 60%;
+}
+.SingleContact select{
+    padding: 0.25em;
+}
+.SingleContact > label select{
+    width: 75%;
+}
+.SingleContact > div > label:first-child select {
+    width: 100%;
+}
+.SingleContact > div > label:last-child input {
+    width: 58%;
+}
+.SingleContact > label:first-child {
+    margin-top: 1em;
+}
+
 .vendorContacts > form button {
     background-color: var(--green);
 }

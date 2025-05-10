@@ -1,11 +1,24 @@
 import styles from '../../../container/Purchasing/VendorDetails.module.css';
 import { Edit } from '../../../icons';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import axios from '../../../api/axios';
 
 function VendorContacts(props){
     const {contacts} = props
 
     const [editActive, setEditActive] = useState(false)
+
+    const [contactType, setContactType] = useState(null); 
+
+    useEffect(() => {
+        axios.get(`ContactType`)
+                    .then(resp => {
+                        setContactType(resp.data);
+                    })
+                    .catch(err => {
+                        toast.error(err);
+                    });
+    }, [contactType]);
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
@@ -52,18 +65,68 @@ function VendorContacts(props){
 
                         <form>
                             {contacts.map((contact, index) => {
-                                return (  
-                                        <>
-                                            <label key={contact.personId}>
-                                                <input type="text" name="vendorName" aria-label="vendorName" placeholder={contact.personalTitle} />
+                                return (
+                                    <div className={styles.formGrid}>
+                                        <span>{index + 1}.</span>
+                                        <div className={styles.SingleContact} key={contact.personId}>
+                                            <label>
+                                                <select type="text" name="personalTitle" aria-label="Personal Title" value={contact.personalTitle}>
+                                                    <option value={''}>--Select--</option>
+                                                    <option value='Mr.'>Mr.</option>
+                                                    <option value='Ms.'>Ms.</option>
+                                                </select>
                                             </label>
                                             <label>
-                                                <input type="text" name="Phone" aria-label="Phone" placeholder={contact.firstName} />
+                                                <input type="text" name="firstName" aria-label="First Name" placeholder={contact.firstName} />
                                             </label>
                                             <label>
-                                                <input type="text" name="BusinessID" aria-label="Business ID" placeholder={contact.middleName} />
+                                                <input type="text" name="middleName" aria-label="Middle Name" placeholder={contact.middleName} />
                                             </label>
-                                        </>
+                                            <label>
+                                                <input type="text" name="lastName" aria-label="Last Name" placeholder={contact.lastName} />
+                                            </label>
+
+                                            <label>
+                                                {contactType === null ?  <></> : 
+                                                <select type="text" name="contactType" aria-label="Contact Type" value={contact.contactTypeId} >
+                                                    <option>--Select--</option>
+                                                    
+                                                     {contactType.map((types, index) => {
+                                                        return (
+                                                            <option key={index} value={types.contactTypeId}>{types.contactTypeName}</option>
+                                                        )})
+                                                        }
+                                                </select>}
+                                            </label>
+                                                
+
+                                            {contact.phoneNumbers.map((phone, index) => {
+                                                return  (
+                                                    <div key={index}>
+                                                        <label>
+                                                            <select type="text" name="phoneType" aria-label="Phone Type" value={phone.phoneNumberTypeId} >
+                                                                <option value={1}>Cell</option>
+                                                                <option value={2}>Home</option>
+                                                                <option value={3}>Work</option>
+                                                            </select>
+                                                        </label>
+                                                        <label>
+                                                            <input type="text" name="phoneNumber" aria-label="Phone Number" placeholder={phone.phoneNumber} />
+                                                        </label>
+                                                    </div>
+                                                )
+                                            })}
+
+
+                                            {contact.emailAddresses.map((email, index) => {
+                                                return  (
+                                                    <label key={index}>
+                                                        <input type="text" name="emailAddress" aria-label="Email Address" placeholder={email.emailAddress} />
+                                                    </label>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
                                     )
                                 })
                             }
