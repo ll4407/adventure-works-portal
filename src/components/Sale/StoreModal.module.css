@@ -244,6 +244,7 @@
   }
 
   .content {
+    background-color: white;
     display: block;
     padding: 2em;
     border-radius: 3px;
