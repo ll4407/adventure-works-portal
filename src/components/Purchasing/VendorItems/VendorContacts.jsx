@@ -1,7 +1,9 @@
 import styles from '../../../container/Purchasing/VendorDetails.module.css';
 import { Edit } from '../../../icons';
 import { useCallback, useEffect, useState } from 'react';
+
 import axios from '../../../api/axios';
+import { toast } from 'react-toastify';
 
 function VendorContacts(props){
     const {contacts} = props
@@ -9,6 +11,7 @@ function VendorContacts(props){
     const [editActive, setEditActive] = useState(false)
 
     const [contactType, setContactType] = useState(null); 
+    const [phoneType, setPhoneType] = useState(null); 
 
     useEffect(() => {
         axios.get(`ContactType`)
@@ -18,7 +21,15 @@ function VendorContacts(props){
                     .catch(err => {
                         toast.error(err);
                     });
-    }, [contactType]);
+
+        axios.get(`PhoneNumberType`)
+                    .then(resp => {
+                        setPhoneType(resp.data);
+                    })
+                    .catch(err => {
+                        toast.error(err);
+                    });
+    }, [contactType, phoneType]);
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
@@ -99,16 +110,19 @@ function VendorContacts(props){
                                                 </select>}
                                             </label>
                                                 
-
                                             {contact.phoneNumbers.map((phone, index) => {
                                                 return  (
                                                     <div key={index}>
                                                         <label>
-                                                            <select type="text" name="phoneType" aria-label="Phone Type" value={phone.phoneNumberTypeId} >
-                                                                <option value={1}>Cell</option>
-                                                                <option value={2}>Home</option>
-                                                                <option value={3}>Work</option>
-                                                            </select>
+                                                            {phoneType === null ?  <></> : 
+                                                                <select type="text" name="phoneType" aria-label="Phone Type" value={phone.phoneNumberTypeId} >
+                                                                    {phoneType.map((types, index) => {
+                                                                        return (
+                                                                            <option key={index} value={types.phoneNumberTypeId}>{types.phoneNumberTypeName}</option>
+                                                                        )})
+                                                                    }
+                                                                </select>
+                                                            }
                                                         </label>
                                                         <label>
                                                             <input type="text" name="phoneNumber" aria-label="Phone Number" placeholder={phone.phoneNumber} />
@@ -116,7 +130,6 @@ function VendorContacts(props){
                                                     </div>
                                                 )
                                             })}
-
 
                                             {contact.emailAddresses.map((email, index) => {
                                                 return  (
