@@ -5,6 +5,7 @@ import Edit from "../../icons/Edit";
 import styles from "./StoreModal.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
+import Loading from "../utils/Loading"; // Import the Loading spinner
 
 export default function StoreModal({ selectedSaleId, onClose }) {
   const [storeDetails, setStoreDetails] = useState(null);
@@ -75,115 +76,144 @@ export default function StoreModal({ selectedSaleId, onClose }) {
   };
 
   if (!selectedSaleId) return null;
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <button className={styles.modalClose} onClick={onClose}>
-          <Close className={styles.close}/>
+          <Close className={styles.close} />
         </button>
 
-        {/* Store Name and Order Details */}
-        <header className={styles.header}>
-          <h2>{storeDetails.storeName}</h2>
-          <p>{new Date(storeDetails.orderDate).toLocaleDateString()}</p>
-          <p>{storeDetails.orderNumber}</p>
-        </header>
+        {loading && <Loading />}
+        {error && <div className={styles.error}>{error}</div>}
 
-        <div className={styles.detailsGrid}>
-          {/* Sale Details */}
-          <section className={styles.saleDetails}>
-            <h3>Sale Details</h3>
-            <div className={styles.row}>
-              <span className={styles.label}>Order Number</span>
-              <span className={styles.value}>{storeDetails.orderNumber}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Tracking Number</span>
-              <span className={styles.value}>
-                {storeDetails.carrierTrackingNumber || "N/A"}
-              </span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Order Quantity</span>
-              <span className={styles.value}>{storeDetails.orderQty}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Product</span>
-              <span className={styles.value}>{storeDetails.productName}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Product ID</span>
-              <span className={styles.value}>{storeDetails.productId}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Unit Price</span>
-              <span className={styles.value}>
-                {storeDetails.unitPrice?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Unit Price Discount</span>
-              <span className={styles.value}>
-                {storeDetails.unitPriceDiscount?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Line Total</span>
-              <span className={styles.value}>
-                {storeDetails.lineTotal?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </span>
-            </div>
-          </section>
+        {!loading && !error && storeDetails && (
+          <>
+            {/* Store Name and Order Details */}
+            <header className={styles.header}>
+              <h2>{storeDetails.storeName || "N/A"}</h2>
+              <p>
+                {storeDetails.orderDate
+                  ? new Date(storeDetails.orderDate).toLocaleDateString()
+                  : "N/A"}
+              </p>
+              <p>{storeDetails.orderNumber || "N/A"}</p>
+            </header>
 
-          {/* Store Information */}
-          <section className={styles.storeInfo}>
-            <h3>Store Information</h3>
-            <div className={styles.row}>
-              <span className={styles.label}>Annual Sales</span>
-              <span className={styles.value}>
-                {storeDetails.annualSales?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Bank</span>
-              <span className={styles.value}>{storeDetails.bankName}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Square Footage</span>
-              <span className={styles.value}>{storeDetails.squareFeet}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Specialty</span>
-              <span className={styles.value}>{storeDetails.specialty}</span>
-            </div>
-            <div className={styles.row}>
-              <span className={styles.label}>Total Employees</span>
-              <span className={styles.value}>
-                {storeDetails.numberEmployees}
-              </span>
-            </div>
-          </section>
+            <div className={styles.detailsGrid}>
+              {/* Sale Details */}
+              <section className={styles.saleDetails}>
+                <h3>Sale Details</h3>
+                <div className={styles.row}>
+                  <span className={styles.label}>Order Number</span>
+                  <span className={styles.value}>
+                    {storeDetails.orderNumber || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Tracking Number</span>
+                  <span className={styles.value}>
+                    {storeDetails.carrierTrackingNumber || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Order Quantity</span>
+                  <span className={styles.value}>
+                    {storeDetails.orderQty || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Product</span>
+                  <span className={styles.value}>
+                    {storeDetails.productName || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Product ID</span>
+                  <span className={styles.value}>
+                    {storeDetails.productId || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Unit Price</span>
+                  <span className={styles.value}>
+                    {storeDetails.unitPrice
+                      ? storeDetails.unitPrice.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Unit Price Discount</span>
+                  <span className={styles.value}>
+                    {storeDetails.unitPriceDiscount
+                      ? storeDetails.unitPriceDiscount.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Line Total</span>
+                  <span className={styles.value}>
+                    {storeDetails.lineTotal
+                      ? storeDetails.lineTotal.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })
+                      : "N/A"}
+                  </span>
+                </div>
+              </section>
 
-          {/* Contacts Section */}
-          <section className={styles.contacts}>
-            <div className={styles.contactsHeader}>
-              <h3>Contacts</h3>
-              {!isEditing && (
+              {/* Store Information */}
+              <section className={styles.storeInfo}>
+                <h3>Store Information</h3>
+                <div className={styles.row}>
+                  <span className={styles.label}>Annual Sales</span>
+                  <span className={styles.value}>
+                    {storeDetails.annualSales
+                      ? storeDetails.annualSales.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Bank</span>
+                  <span className={styles.value}>
+                    {storeDetails.bankName || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Square Footage</span>
+                  <span className={styles.value}>
+                    {storeDetails.squareFeet || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Specialty</span>
+                  <span className={styles.value}>
+                    {storeDetails.specialty || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.row}>
+                  <span className={styles.label}>Total Employees</span>
+                  <span className={styles.value}>
+                    {storeDetails.numberEmployees || "N/A"}
+                  </span>
+                </div>
+              </section>
+
+                         {/* Contacts Section */}
+           <section className={styles.contacts}>
+             <div className={styles.contactsHeader}>
+               <h3>Contacts</h3>
+               {!isEditing && (
                 <button
                   type="button"
                   className={styles.editButton}
@@ -319,7 +349,9 @@ export default function StoreModal({ selectedSaleId, onClose }) {
             )}
           </section>
         </div>
+        </>
+        )}
       </div>
-    </div>
+      </div>
   );
 }

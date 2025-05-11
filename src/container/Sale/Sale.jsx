@@ -1,10 +1,10 @@
-
 import { useState, useEffect, useCallback } from "react";
 import axios from "../../api/axios";
 import { toast } from "react-toastify";
 import SaleCard from "../../components/Sale/SaleCard";
 import CustomerModal from "../../components/Sale/CustomerModal";
 import StoreModal from "../../components/Sale/StoreModal";
+import Loading from "../../components/utils/Loading"; // Import the spinner
 import styles from "./Sale.module.css";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
@@ -16,29 +16,34 @@ export default function Sale() {
   const { activePage, filter } = pageContext;
   const isCustomer = activePage === "Customers";
 
-  const [sales, setSales] = useState([]);
+  const [sales, setSales] = useState(null); // Initialize as null
   const [filteredSales, setFilteredSales] = useState([]);
   const [selectedSaleId, setSelectedSaleId] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-    // whenever you flip between Customers <> Stores, clear any open detail
-    useEffect(() => {
-      setSelectedSaleId(null);
-    }, [activePage]);
-  
+  // Clear selected sale when switching between Customers and Stores
   useEffect(() => {
+    setSelectedSaleId(null);
+  }, [activePage]);
+
+  // Fetch sales data
+  useEffect(() => {
+    setLoading(true); // Set loading to true before fetching
     const endpoint = isCustomer ? "/Order/customer" : "/Order/store";
     axios
       .get(endpoint)
       .then(({ data }) => setSales(data))
-      .catch((err) => toast.error(err.toString()));
+      .catch((err) => toast.error(err.toString()))
+      .finally(() => setLoading(false)); // Set loading to false after fetching
   }, [isCustomer]);
 
+  // Filter sales based on the filter input
   useEffect(() => {
     let timer;
     if (filter) {
       timer = setTimeout(() => {
         const loweredFilter = filter.toLowerCase();
-        const newFilteredSales = sales.filter((sale) =>
+        const newFilteredSales = sales?.filter((sale) =>
           isCustomer
             ? sale.firstName.toLowerCase().includes(loweredFilter) ||
               sale.lastName.toLowerCase().includes(loweredFilter) ||
@@ -47,10 +52,10 @@ export default function Sale() {
               sale.contactFirstName.toLowerCase().includes(loweredFilter) ||
               sale.contactLastName.toLowerCase().includes(loweredFilter)
         );
-        setFilteredSales(newFilteredSales);
+        setFilteredSales(newFilteredSales || []);
       }, 500);
     } else {
-      setFilteredSales(sales);
+      setFilteredSales(sales || []);
     }
 
     return () => clearTimeout(timer);
@@ -75,15 +80,23 @@ export default function Sale() {
       />
 
       <div className={styles.container}>
-        {selectedSaleId ? (
+        {loading ? ( // Show spinner while loading
+          <Loading />
+        ) : selectedSaleId ? (
           <>
             <button className={styles.backButton} onClick={closeModal}>
-            <ChevronDown className={styles.chevron}/>Back
+              <ChevronDown className={styles.chevron} />Back
             </button>
             {isCustomer ? (
-              <CustomerModal selectedSaleId={selectedSaleId} onClose={closeModal} />
+              <CustomerModal
+                selectedSaleId={selectedSaleId}
+                onClose={closeModal}
+              />
             ) : (
-              <StoreModal selectedSaleId={selectedSaleId} onClose={closeModal} />
+              <StoreModal
+                selectedSaleId={selectedSaleId}
+                onClose={closeModal}
+              />
             )}
           </>
         ) : (
@@ -148,4 +161,3 @@ export default function Sale() {
     </PageContext.Provider>
   );
 }
-
