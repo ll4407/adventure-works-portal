@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import styles from "./Customer.module.css";
+import { toast } from "react-toastify";
 import { Close } from "../../icons";
 
 export default function Customer({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Fetch customer details when the modal is opened
   useEffect(() => {
     if (!selectedSaleId) return;
-
-    setLoading(true);
-    setError(null);
 
     axios
       .get(`/Order/customer/${selectedSaleId}`)
@@ -21,11 +17,8 @@ export default function Customer({ selectedSaleId, onClose }) {
         setCustomerDetails(response.data);
       })
       .catch((err) => {
-        setError("Failed to load customer details.");
         console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
+        toast.error("Failed to load customer details.");
       });
   }, [selectedSaleId]);
 
@@ -38,10 +31,7 @@ export default function Customer({ selectedSaleId, onClose }) {
           <Close className={styles.close} />
         </button>
 
-        {loading && <p>Loading...</p>}
-        {error && <p className={styles.error}>{error}</p>}
-
-        {!loading && !error && customerDetails && (
+        {customerDetails ? (
           <>
             <header className={styles.header}>
               <h2>{`${customerDetails.suffix || ""} ${
@@ -219,6 +209,8 @@ export default function Customer({ selectedSaleId, onClose }) {
               </section>
             </div>
           </>
+        ) : (
+          <p>No customer details available.</p>
         )}
       </div>
     </div>
