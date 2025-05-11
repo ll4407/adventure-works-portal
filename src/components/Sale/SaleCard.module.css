@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-bottom: 2px solid var(--pink);
+  border-bottom: 3px solid var(--pink);
   cursor: pointer;
   padding-top: 1.5em;
   padding-bottom: 1em;
@@ -38,7 +38,7 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr 1fr 1fr 0.3fr;
     align-items: center;
-    border-bottom: 1px solid var(--pink); 
+    border-bottom: 2px solid var(--pink); 
   }
 
   .hidden {

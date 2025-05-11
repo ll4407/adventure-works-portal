@@ -115,16 +115,37 @@
   padding-bottom: 0.5em;
 }
 
-.contactsForm {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
 
 .contactRow {
   display: flex;
-  flex-direction: column; 
-  gap: 10px;
+  align-items: flex-start; 
+  gap: 0.5em; 
+}
+
+.contactNumber {
+  margin-top: 0.5em; 
+}
+
+.contactForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5em;
+}
+
+.gridRow input,
+.gridRow select {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
 
@@ -156,11 +177,6 @@
   padding-left: 1.1em;
 }
 
-.formActions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
 
 .saveButton {
   background-color: var(--pink);
@@ -179,6 +195,8 @@
   flex-direction: column; 
   gap: 0.5em; /* Add spacing between the buttons */
   width: 100%; 
+  padding-left: 1.3em;
+  padding-top: 1em;
 }
 
 
@@ -227,6 +245,8 @@
   text-align: right;
   padding: 5px 0;
 }
+
+
 
 @media screen and (min-width: 60rem) {
   

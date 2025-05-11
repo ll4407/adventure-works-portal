@@ -3,14 +3,17 @@ import axios from "../../api/axios";
 import styles from "./Customer.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
+import Loading from "../../components/utils/Loading";
 
 export default function Customer({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch customer details when the modal is opened
   useEffect(() => {
     if (!selectedSaleId) return;
 
+    setLoading(true);
     axios
       .get(`/Order/customer/${selectedSaleId}`)
       .then((response) => {
@@ -19,10 +22,14 @@ export default function Customer({ selectedSaleId, onClose }) {
       .catch((err) => {
         console.error(err);
         toast.error("Failed to load customer details.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [selectedSaleId]);
 
   if (!selectedSaleId) return null;
+  if (loading) return <Loading />;
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
@@ -188,9 +195,7 @@ export default function Customer({ selectedSaleId, onClose }) {
                   <span className={styles.label}>Ship Date:</span>
                   <span className={styles.value}>
                     {customerDetails.shipDate
-                      ? new Date(
-                          customerDetails.shipDate
-                        ).toLocaleDateString()
+                      ? new Date(customerDetails.shipDate).toLocaleDateString()
                       : "N/A"}
                   </span>
                 </div>
