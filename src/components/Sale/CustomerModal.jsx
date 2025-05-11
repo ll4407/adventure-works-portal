@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import styles from "./CustomerModal.module.css";
+import { Close } from "../../icons";
 
 export default function CustomerModal({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
@@ -32,17 +33,21 @@ export default function CustomerModal({ selectedSaleId, onClose }) {
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <button className={styles.modalClose} onClick={onClose}>
-          ×
+          <Close className={styles.close}/>
         </button>
-        <h2>{`${customerDetails?.firstName} ${customerDetails?.lastName}`}</h2>
-        <p>
-          <strong>Order Date:</strong> {new Date(customerDetails?.orderDate).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Order Number:</strong> {customerDetails?.orderNumber}
-        </p>
+        <header className={styles.header}>
+          <h2>{`${customerDetails?.suffix || ""} ${
+            customerDetails?.firstName
+          } ${customerDetails?.middleName || ""} ${
+            customerDetails?.lastName
+          }`}</h2>
+          <p className={styles.orderDate}>
+            {new Date(customerDetails?.orderDate).toLocaleDateString()}
+          </p>
+          <p className={styles.orderNumber}>{customerDetails?.orderNumber}</p>
+        </header>
 
         {loading && <p>Loading...</p>}
         {error && <p className={styles.error}>{error}</p>}
@@ -50,99 +55,139 @@ export default function CustomerModal({ selectedSaleId, onClose }) {
         {customerDetails && (
           <div className={styles.detailsGrid}>
             {/* Customer Information */}
-            <div>
+            <section className={styles.customerDetails}>
               <h3>Customer Information</h3>
-              <p>
-                <strong>Name:</strong> {`${customerDetails.suffix || ""} ${customerDetails.firstName} ${customerDetails.middleName || ""} ${customerDetails.lastName}`}
-              </p>
-              <p>
-                <strong>Title:</strong> {customerDetails.title || "N/A"}
-              </p>
-              <p>
-                <strong>Phone:</strong> {`${customerDetails.phoneNumber} (${customerDetails.phoneNumberType})`}
-              </p>
-              <p>
-                <strong>Email:</strong> {customerDetails.emailAddress}
-              </p>
-            </div>
-
-            {/* Shipping Information */}
-            <div>
-              <h3>Shipping Information</h3>
-              <p>
-                <strong>Ship Date:</strong> {new Date(customerDetails.shipDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Method:</strong> {customerDetails.shipMethodName}
-              </p>
-              <p>
-                <strong>Freight Number:</strong> {customerDetails.freightNumber || "N/A"}
-              </p>
-            </div>
+              <div className={styles.row}>
+                <p>
+                  {`${customerDetails.suffix || ""} ${
+                    customerDetails.firstName
+                  } ${customerDetails.middleName || ""} ${
+                    customerDetails.lastName
+                  }`}
+                </p>
+              </div>
+              <div className={styles.row}>
+                <p>{customerDetails.title || "N/A"}</p>
+              </div>
+              <div className={styles.row}>
+                <p>
+                  {`${customerDetails.phoneNumberType}: ${customerDetails.phoneNumber}`}
+                </p>
+              </div>
+              <div className={styles.row}>
+                <p>Email: {customerDetails.emailAddress}</p>
+              </div>
+            </section>
 
             {/* Sale Details */}
-            <div>
+            <section className={styles.saleDetails}>
               <h3>Sale Details</h3>
-              <p>
-                <strong>Order Number:</strong> {customerDetails.orderNumber}
-              </p>
-              <p>
-                <strong>Tracking Number:</strong> {customerDetails.carrierTrackingNumber || "N/A"}
-              </p>
-              <p>
-                <strong>Product Name:</strong> {customerDetails.productName}
-              </p>
-              <p>
-                <strong>Product ID:</strong> {customerDetails.productId}
-              </p>
-            </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Order Number:</span>
+                <span className={styles.value}>
+                  {customerDetails.orderNumber}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Tracking Number:</span>
+                <span className={styles.value}>
+                  {customerDetails.carrierTrackingNumber || "N/A"}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Product Name:</span>
+                <span className={styles.value}>
+                  {customerDetails.productName}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Product ID:</span>
+                <span className={styles.value}>
+                  {customerDetails.productId}
+                </span>
+              </div>
+            </section>
 
             {/* Pricing Details */}
-            <div>
+            <section className={styles.pricingDetails}>
               <h3>Pricing Details</h3>
-              <p>
-                <strong>Unit Price:</strong>{" "}
-                {customerDetails.unitPrice?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </p>
-              <p>
-                <strong>Unit Price Discount:</strong>{" "}
-                {customerDetails.unitPriceDiscount?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </p>
-              <p>
-                <strong>Line Total:</strong>{" "}
-                {customerDetails.lineTotal?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </p>
-              <p>
-                <strong>Order Quantity:</strong> {customerDetails.orderQty}
-              </p>
-              <p>
-                <strong>Tax Amount:</strong>{" "}
-                {customerDetails.taxAmt?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </p>
-              <p>
-                <strong>Total Due:</strong>{" "}
-                {(
-                  customerDetails.lineTotal +
-                  customerDetails.taxAmt +
-                  customerDetails.freight
-                )?.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </p>
-            </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Unit Price:</span>
+                <span className={styles.value}>
+                  {customerDetails.unitPrice?.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Unit Price Discount:</span>
+                <span className={styles.value}>
+                  {customerDetails.unitPriceDiscount?.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Line Total:</span>
+                <span className={styles.value}>
+                  {customerDetails.lineTotal?.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Order Quantity:</span>
+                <span className={styles.value}>{customerDetails.orderQty}</span>
+              </div>
+              <div className={`${styles.row} ${styles.taxAmount}`}>
+                <span className={styles.label}>Tax Amount:</span>
+                <span className={styles.value}>
+                  {customerDetails.taxAmt?.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Total Due:</span>
+                <span className={styles.value}>
+                  {(
+                    customerDetails.lineTotal +
+                    customerDetails.taxAmt +
+                    customerDetails.freight
+                  )?.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+            </section>
+
+            {/* Shipping Information */}
+            <section className={styles.shipping}>
+              <h3>Shipping Information</h3>
+              <div className={styles.row}>
+                <span className={styles.label}>Ship Date:</span>
+                <span className={styles.value}>
+                  {new Date(customerDetails.shipDate).toLocaleDateString()}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Method:</span>
+                <span className={styles.value}>
+                  {customerDetails.shipMethodName}
+                </span>
+              </div>
+              <div className={styles.row}>
+                <span className={styles.label}>Freight Number:</span>
+                <span className={styles.value}>
+                  {customerDetails.freightNumber || "N/A"}
+                </span>
+              </div>
+            </section>
           </div>
         )}
       </div>

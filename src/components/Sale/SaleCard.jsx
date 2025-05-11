@@ -1,6 +1,7 @@
 // src/components/Sale/SaleCard.jsx
 import { useCallback } from "react";
 import styles from "./SaleCard.module.css";
+import ChevronDown from "../../icons/ChevronDown";
 
 export default function SaleCard({
   id,
@@ -15,41 +16,41 @@ export default function SaleCard({
   productName,
   unitPrice,
   lineTotal,
-  onClick
+  onClick,
 }) {
   const handleClick = useCallback(() => onClick(id), [onClick, id]);
 
-  const fmtDate = d => d ? new Date(d).toLocaleDateString() : '—';
-  const fmtMoney = x =>
+  const fmtDate = (d) => (d ? new Date(d).toLocaleDateString() : "—");
+  const fmtMoney = (x) =>
     x != null
       ? x.toLocaleString("en-US", { style: "currency", currency: "USD" })
       : "—";
 
-  const isStore = businessName != null;
+  const isCustomer = lastName != null;
 
   return (
     <div className={styles.card} onClick={handleClick}>
-      {isStore ? (
+      {isCustomer ? (
         <>
-          <span>{businessName}</span>
-          <span>{fmtDate(orderDate)}</span>
-          <span>{contactName}</span>
-          <span>{orderNumber}</span>
-          <span>{productName}</span>
-          <span>{fmtMoney(unitPrice)}</span>
-          <span>{fmtMoney(lineTotal)}</span>
-          <span className={styles.arrow}>›</span>
+          <span className={styles.primary}>{`${firstName} ${lastName}`}</span>
+          <span className={styles.secondary}>{fmtDate(orderDate)}</span>
+          <span className={styles.hidden}>{orderNumber}</span>
+          <span className={styles.hidden}>{orderQty}</span>
+          <span className={styles.hidden}>{fmtDate(shipDate)}</span>
+          <span className={styles.hidden}>{fmtMoney(unitPrice)}</span>
+          <span className={styles.hidden}>{fmtMoney(lineTotal)}</span>
+          <ChevronDown className={styles.chevron} />
         </>
       ) : (
         <>
-          <span>{`${firstName} ${lastName}`}</span>
-          <span>{fmtDate(orderDate)}</span>
-          <span>{orderNumber}</span>
-          <span>{orderQty}</span>
-          <span>{fmtDate(shipDate)}</span>
-          <span>{fmtMoney(unitPrice)}</span>
-          <span>{fmtMoney(lineTotal)}</span>
-          <span className={styles.arrow}>›</span>
+          <span className={styles.primary}>{businessName}</span>
+          <span className={styles.secondary}>{fmtDate(orderDate)}</span>
+          <span className={styles.hidden}>{contactName}</span>
+          <span className={styles.hidden}>{orderNumber}</span>
+          <span className={styles.hidden}>{productName}</span>
+          <span className={styles.hidden}>{fmtMoney(unitPrice)}</span>
+          <span className={styles.hidden}>{fmtMoney(lineTotal)}</span>
+          <ChevronDown className={styles.chevron} />
         </>
       )}
     </div>
