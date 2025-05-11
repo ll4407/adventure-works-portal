@@ -102,10 +102,10 @@ export default function Sales() {
   return (
     <PageContext.Provider value={pageContext}>
       <SectionHeader
-        title="Sales"
-        color="Pink"
-        firstButton="Customers"
-        secondButton="Stores"
+        title={"Sales"}
+        color={"pink"}
+        firstButton={'Customers'}
+        secondButton={'Stores'}
         onFirstButtonClick={() => pageContext.setActivePage("Customers")}
         onSecondButtonClick={() => pageContext.setActivePage("Stores")}
       />
