@@ -1,4 +1,4 @@
-/* Default styles for inline view (small screens) */
+
 .header {
   color: var(--black);
 }
@@ -6,7 +6,6 @@
 .content {
   color: var(--black);
   display: block;
-  /* Ensure the content is visible */
   background: none;
   padding: 0;
   border: none;
@@ -15,30 +14,25 @@
   max-width: 100%;
   box-shadow: none;
   position: static;
-  /* Inline positioning */
   overflow-y: auto;
 }
 
 .modalClose {
   display: none;
-  /* Hide the close button for inline view */
 }
 
 .detailsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  /* Single column for mobile view */
   grid-template-areas:
     "customerDetails"
     "saleDetails"
     "pricingDetails"
     "shipping";
-  /* Define the desired order for mobile */
   gap: 10px;
   margin-top: 10px;
 }
 
-/* Assign grid areas to each section */
 .customerDetails {
   grid-area: customerDetails;
 }
@@ -75,21 +69,16 @@
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* Two columns: label and value */
   gap: 10px;
-  /* Add spacing between rows */
   margin-bottom: 5px;
-  /* Add spacing between rows */
 }
 
 .label {
   text-align: left;
-  /* Align labels to the left */
 }
 
 .value {
   text-align: right;
-  /* Align values to the right */
 }
 
 .detailsGrid section:not(.customerDetails) .row {
@@ -99,11 +88,10 @@
 .detailsGrid .row.taxAmount {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   padding-bottom: 0.5em;
-  /* Add spacing above the line */
   margin-bottom: 0.5em;
 }
 
-/* Styles for larger screens (modal view) */
+
 @media screen and (min-width: 60rem) {
   .modalBackdrop {
     position: fixed;
@@ -112,7 +100,6 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    /* Add a semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,7 +108,6 @@
 
   .content {
     display: block;
-    /* Ensure the modal content is visible */
     background: white;
     padding: 2em;
     border-radius: 3px;
@@ -145,17 +131,14 @@
   .detailsGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* Two columns for larger screens */
     grid-template-areas:
       "customerDetails shipping"
       "saleDetails pricingDetails";
-    /* Define the desired layout for larger screens */
     row-gap: 1em;
     column-gap: 5em;
     margin-top: 1em;
   }
 
-  /* Assign grid areas to each section */
   .customerDetails {
     grid-area: customerDetails;
   }

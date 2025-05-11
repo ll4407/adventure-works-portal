@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { useForm, useFieldArray } from "react-hook-form";
 import Edit from "../../icons/Edit";
-import styles from "./StoreModal.module.css";
+import styles from "./Store.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
 import Loading from "../utils/Loading"; // Import the Loading spinner
 
-export default function StoreModal({ selectedSaleId, onClose }) {
+export default function Store({ selectedSaleId, onClose }) {
   const [storeDetails, setStoreDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

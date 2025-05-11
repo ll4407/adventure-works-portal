@@ -1,4 +1,3 @@
-// src/components/Sale/SaleCard.jsx
 import { useCallback } from "react";
 import styles from "./SaleCard.module.css";
 import ChevronDown from "../../icons/ChevronDown";

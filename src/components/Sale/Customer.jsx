@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
-import styles from "./CustomerModal.module.css";
+import styles from "./Customer.module.css";
 import { Close } from "../../icons";
 
-export default function CustomerModal({ selectedSaleId, onClose }) {
+export default function Customer({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -1,0 +1,52 @@
+.container {
+  overflow-x: auto; /* allow horizontal scroll on narrow screens */
+  color: var(--navbar);
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.headerRow {
+  display: none; 
+}
+
+.chevron {
+  transform: rotate(90deg); 
+  display: inline-block;
+  margin-top: 0;
+  position: relative;
+  top: 0.35em;
+}
+
+.backButton {
+  background: none;
+  border: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Styles for larger screens */
+@media screen and (min-width: 60rem) {
+  .headerRow {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr 1fr 1fr 0.3fr;
+    padding-top: 2em;
+    font-weight: 600;
+    border-bottom: 4px solid var(--pink);
+    color: var(--navbar);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    overflow-x: visible; 
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

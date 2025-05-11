@@ -1,23 +1,4 @@
-/* .card {
-    display: grid;
-    grid-template-columns: 2fr 1.3fr 1fr 1fr 1.3fr 1fr 1fr 0.3fr;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--pink);
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .card:hover {
-    background-color: #faf5f7;
-  }
-  
-  .arrow {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-  } */
-  .card {
+ .card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -32,9 +13,8 @@
 }
 
 
-
 .hidden {
-  display: none; /* Hide elements by default */
+  display: none; 
 }
 
 .primary {
@@ -42,34 +22,31 @@
 }
 
 .secondary {
-  color: var(--navbar); /* Style the secondary element (e.g., order date) */
+  color: var(--navbar); 
   font-size: 0.9rem;
 }
 
 .chevron {
-  align-self: flex-end; /* Align the chevron to the right */
+  align-self: flex-end; 
   color: var(--navbar);
   transform: rotate(270deg); 
   margin-top: -2rem; 
 }
 
-/* Styles for larger screens */
 @media screen and (min-width: 60rem) {
   .card {
     display: grid;
-    /* grid-template-columns: 2fr 1.3fr 1fr 1fr 1.3fr 1fr 1fr 0.3fr; */
     grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr 1fr 1fr 0.3fr;
     align-items: center;
-    /* padding: 0.75rem 1rem; */
     border-bottom: 1px solid var(--pink); 
   }
 
   .hidden {
-    display: inline; /* Show hidden elements for larger screens */
+    display: inline; 
   }
 
   .secondary {
-    color: var(--navbar); /* Style the secondary element (e.g., order date) */
+    color: var(--navbar); 
     font-size: 1rem;
   }
 }
