@@ -1,12 +1,52 @@
 import styles from '../../../container/Purchasing/VendorDetails.module.css';
 import { Edit } from '../../../icons';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import axios from '../../../api/axios';
+import { toast } from 'react-toastify';
 
 function vendorAddresses(props){
     const {addresses} = props;
+    const [addressesCopy, setAddressesCopy] = useState(null); 
 
     const [editActive, setEditActive] = useState(false)
+
+    const [countryRegions, setCountryRegions] = useState(null)
+    const [states, setStates] = useState(null)
+
+    const [country, setCountry] = useState(null)
+
+    
+    useEffect(() => {
+        setAddressesCopy(addresses);
+        setCountry(address.countryRegionCode)
+    }, []);
+
+    useEffect(() => {
+        axios.get(`CountryRegion`)
+                            .then(resp => {
+                                setCountryRegions(resp.data);
+                            })
+                            .catch(err => {
+                                toast.error(err);
+                            });
+    }, [countryRegions]);
+
+    useEffect(() => {
+        axios.get(`StateProvince/${country}`)
+                            .then(resp => {
+                                setStates(resp.data);
+                            })
+                            .catch(err => {
+                                toast.error(err);
+                            });
+    }, [country]);
+
+
+    const handleCountryChange = (event, address) => {
+        setCountry(event.target.value);
+        address.countryRegionCode = event.target.value;
+    };
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
@@ -37,14 +77,14 @@ function vendorAddresses(props){
                         </>
 
     //Form Data
-    const formData = 
+    const formData = addressesCopy === null ? <>Loading</> :
                     <> 
                         <div>
                             <h2>Addresses</h2>
                         </div>
                     
                         <form>
-                            {addresses.map((address, index) => {
+                            {addressesCopy.map((address, index) => {
                                 return (  
                                     <>
                                         <label key={address.addressId}>
@@ -56,6 +96,42 @@ function vendorAddresses(props){
                                         <label>
                                             <input type="text" name="BusinessID" aria-label="Business ID" placeholder={address.addressLine2} />
                                         </label>
+
+                                        <div>
+                                            <label>
+                                                <input type="text" name="BusinessID" aria-label="Business ID" placeholder={address.city} />
+                                            </label>
+                                            <label>
+                                                {countryRegions === null ?  <></> : 
+                                                    <select type="text" name="BusinessID" aria-label="Business ID" placeholder={address.countryRegionCode}>
+                                                        <option>--Select--</option>
+                                                        {states.map((types, index) => {
+                                                            return (
+                                                                <option key={index} value={types.stateProvinceCode}>{types.stateProvinceCode}</option>
+                                                            )})
+                                                        }
+                                                    </select>
+                                                }
+                                            </label>
+                                        </div>
+
+                                        <label>
+                                            <input type="text" name="BusinessID" aria-label="Business ID" placeholder={address.postalCode} />
+                                        </label>
+                                        <label>
+                                            {countryRegions === null ?  <></> : 
+                                                <select type="text" name="countryRegionName" aria-label="Business ID" value={address.countryRegionCode}
+                                                onChange={(event) => handleCountryChange(event, address)}>
+                                                    <option>--Select--</option>
+                                                    {countryRegions.map((types, index) => {
+                                                        return (
+                                                            <option key={index} value={types.countryRegionCode}>{types.countryRegionCode}</option>
+                                                        )})
+                                                    }
+                                                </select>
+                                            }
+                                        </label>
+
 
                                         <button type='Submit'>Save Changes</button>
                                         
