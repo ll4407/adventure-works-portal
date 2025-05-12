@@ -1,7 +1,7 @@
 // import { useEffect } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import styles from './ProductModal.module.css'
-import { ChevronDown, Minus, Plus } from '../../icons'
+import { ChevronDown, Close, Minus, Plus } from '../../icons'
 
 const ProductModal = (props) => {
     const {product, setActiveProduct} = props
@@ -26,9 +26,10 @@ const ProductModal = (props) => {
     return (
         <div className={styles.modalContainer} onClick={removeActiveProduct}>
             <div className={styles.modal} onClick={(evt) => evt.stopPropagation()}>
-                <button className={styles.backBtn} onClick={removeActiveProduct}>
+                <button aria-label='Close Modal. Go back to list' className={styles.backBtn} onClick={removeActiveProduct}>
+                    <Close className={styles.backBtnX} />
                     <ChevronDown className={styles.backBtnChevron} />
-                    Back
+                    <span>Back</span>
                 </button>
                 <div className={styles.modalHeader}>
                     <h1 className={styles.h1}>{product.productName}</h1>
@@ -50,7 +51,7 @@ const ProductModal = (props) => {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className={styles.detailsParent}>
                     <div className={styles.detailsSection}>
                         <h2>Product Details</h2>
                         <div className={styles.detailsRow}>

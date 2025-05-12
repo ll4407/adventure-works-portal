@@ -8,9 +8,13 @@
   z-index: 10;
 }
 .modal {
-  background: var(--white);
+  background: white;
   width: 100%;
   padding: 1em;
+  position: relative;
+}
+.backBtnX {
+  display: none;
 }
 .modalHeader {
   display: grid;
@@ -81,5 +85,33 @@
     height: 100vh;
     display: grid;
     place-content: center;
+  }
+  .backBtn {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
+  .backBtn span,
+  .backBtnChevron {
+    display: none;
+  }
+  .backBtnX {
+    display: unset;
+  }
+  .modal {
+    width: 70vw;
+    max-width: 1000px;
+    padding: 2em;
+  }
+  .modalHeader {
+    width: max-content;
+  }
+  .detailsParent {
+    display: flex;
+    width: 100%;
+    gap: 4em;
+  }
+  .detailsSection {
+    width: 50%;
   }
 }
