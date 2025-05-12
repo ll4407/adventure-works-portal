@@ -22,9 +22,14 @@
 }
 .h1 {
   grid-area: header;
+  font-size: 1.5rem;
 }
 .locationContainer {
   grid-area: location;
+  padding: 1em 0 1em 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 .quantityContainer {
   grid-area: quantity;
@@ -52,6 +57,15 @@
 .quantityControls button {
   background: none;
   border: none;
+}
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em 0;
+}
+.detailsSection h2 {
+  font-size: 1.25rem;
 }
 .detailsRow {
   display: flex;

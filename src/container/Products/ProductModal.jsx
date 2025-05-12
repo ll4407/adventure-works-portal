@@ -51,7 +51,7 @@ const ProductModal = (props) => {
                     </div>
                 </div>
                 <div>
-                    <div>
+                    <div className={styles.detailsSection}>
                         <h2>Product Details</h2>
                         <div className={styles.detailsRow}>
                             <p>Product Name</p>
@@ -74,7 +74,7 @@ const ProductModal = (props) => {
                             <p>{product.reorderPoint}</p>
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.detailsSection}>
                         <h2>Location Details</h2>
                         <div className={styles.detailsRow}>
                             <p>Location</p>
