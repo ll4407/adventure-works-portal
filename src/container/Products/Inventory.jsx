@@ -4,12 +4,48 @@ import ProductModal from './ProductModal'
 import styles from './Products.module.css'
 import { useContext, useEffect, useState } from 'react'
 import PageContext from '../../context/PageContext'
+import axios from '../../api/axios'
+import { toast } from 'react-toastify'
 
-const Inventory = (props) =>{
+const Inventory = () =>{
 
 
-    const {setShowSearch} = useContext(PageContext)
+    const {setShowSearch, filter} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
+    const [products, setProducts] = useState(null)
+    const [filteredProducts, setFilteredProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() =>{
+        axios.get('/Inventory')
+            .then(res => setProducts(res.data))
+            .catch(err => {
+                toast.error(err.toString())
+            })
+            .finally(setLoading(false))
+    }, [])
+
+    useEffect(()=>{
+        let timer;
+        if(filter){
+            timer = setTimeout(() =>{
+                const loweredFilter = filter.toLowerCase()
+                const newFilteredProducts = products.filter(prod =>
+                    prod.productName.toLowerCase().includes(loweredFilter) ||
+                    prod.locationName.toLowerCase().includes(loweredFilter) ||
+                    prod.shelf.toLowerCase().includes(loweredFilter)
+                )
+                setFilteredProducts(newFilteredProducts)
+            }, 500)
+        }else{
+            if(products?.length){
+                setFilteredProducts(products)
+            }
+        }
+
+        return () => clearTimeout(timer)
+
+    },[filter, products])
 
     useEffect(() => {
         if(activeProduct){
@@ -17,9 +53,11 @@ const Inventory = (props) =>{
         }else{
             setShowSearch(true)
         }
-    }, [activeProduct])
+    }, [activeProduct, setShowSearch])
 
-    const {products} = props
+    if(loading || !filteredProducts.length){
+        return <></>
+    }
 
     return(
         <>
@@ -47,7 +85,7 @@ const Inventory = (props) =>{
                     Options
                 </p>
             </div>
-            {products.map(prod => (
+            {filteredProducts.map(prod => (
                 <button key={prod.productId + prod.productName + prod.locationId + prod.locationName} className={styles.productCard} onClick={() => setActiveProduct(prod)}>
                     <div className={clsx(styles.column, styles.col1)}>
                         <p className={styles.productName}>{prod.productName}</p>

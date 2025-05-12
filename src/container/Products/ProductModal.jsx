@@ -2,6 +2,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import styles from './ProductModal.module.css'
 import { ChevronDown, Close, Minus, Plus } from '../../icons'
+import axios from '../../api/axios'
+import { toast } from 'react-toastify'
+import DetailsRow from './DetailsRow'
+
 
 const ProductModal = (props) => {
     const {product, setActiveProduct} = props
@@ -14,14 +18,26 @@ const ProductModal = (props) => {
     useEffect(() => {
 
         const timer = setTimeout(() => {
-            console.log('this is where you fire the update')
+            // this check stops this from running on the first render 
+            if(quantity != product.quantity){
+                axios.put(`/Inventory/${product.productId}/${product.locationId}`, {
+                    productId: product.productId,
+                    locationId: product.locationId,
+                    quantity: quantity
+                }).then(res => {
+                    if(200 >= res.status < 300){
+                        toast.success(`${product.productName} quantity updated`)
+                    }
+                }).catch(err => toast.error(err.message))
+            }
+
         }, 1000)
 
         return () => {
             clearTimeout(timer)
         }
 
-    }, [quantity])
+    }, [quantity, product])
 
     return (
         <div className={styles.modalContainer} onClick={removeActiveProduct}>
@@ -54,45 +70,18 @@ const ProductModal = (props) => {
                 <div className={styles.detailsParent}>
                     <div className={styles.detailsSection}>
                         <h2>Product Details</h2>
-                        <div className={styles.detailsRow}>
-                            <p>Product Name</p>
-                            <p>{product.productName}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Product ID</p>
-                            <p>{product.productId}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Product Number</p>
-                            <p>{product.productNumber}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Safety Stock Level</p>
-                            <p>{product.safetyStockLevel}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Reorder Point</p>
-                            <p>{product.reorderPoint}</p>
-                        </div>
+                        <DetailsRow label='Product Name' value={product.productName} />
+                        <DetailsRow label='Product Id' value={product.productId} />
+                        <DetailsRow label='Product Number' value={product.productNumber} />
+                        <DetailsRow label='Safety Stock Level' value={product.safetyStockLevel} />
+                        <DetailsRow label='Reorder Point' value={product.reorderPoint} />
                     </div>
                     <div className={styles.detailsSection}>
                         <h2>Location Details</h2>
-                        <div className={styles.detailsRow}>
-                            <p>Location</p>
-                            <p>{product.locationName}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Location ID</p>
-                            <p>{product.locationId}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Shelf</p>
-                            <p>{product.shelf}</p>
-                        </div>
-                        <div className={styles.detailsRow}>
-                            <p>Bin</p>
-                            <p>{product.bin}</p>
-                        </div>
+                        <DetailsRow label='Location' value={product.locationName} />
+                        <DetailsRow label='Location ID' value={product.locationId} />
+                        <DetailsRow label='Shelf' value={product.shelf} />
+                        <DetailsRow label='Bin' value={product.bin} />
                     </div>
                 </div>
             </div>
