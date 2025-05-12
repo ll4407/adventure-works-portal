@@ -9,13 +9,13 @@ import { toast } from 'react-toastify'
 
 const Inventory = () =>{
 
-
     const {setShowSearch, filter} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
+    //fetch
     useEffect(() =>{
         axios.get('/Inventory')
             .then(res => setProducts(res.data))
@@ -25,6 +25,7 @@ const Inventory = () =>{
             .finally(setLoading(false))
     }, [])
 
+    //filter
     useEffect(()=>{
         let timer;
         if(filter){
@@ -46,7 +47,8 @@ const Inventory = () =>{
         return () => clearTimeout(timer)
 
     },[filter, products])
-
+    
+    //modal clean up
     useEffect(() => {
         if(activeProduct){
             setShowSearch(false)
