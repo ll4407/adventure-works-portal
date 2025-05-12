@@ -24,7 +24,7 @@
 
 .detailsGrid {
   display: grid;
-  grid-template-columns: 1fr; /* Single column for mobile view */
+  grid-template-columns: 1fr; 
   grid-template-areas:
     "storeDetails"
     "saleDetails"
@@ -337,7 +337,7 @@
 
   .contactsList {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns for contacts */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
   }
 

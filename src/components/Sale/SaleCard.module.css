@@ -4,7 +4,6 @@
   grid-template-rows: auto auto; 
   align-items: center; 
   border-bottom: 3px solid var(--pink);
-  /* cursor: pointer; */
   padding-top: 1.5em;
   padding-bottom: 1.5em;
 }
