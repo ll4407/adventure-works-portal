@@ -41,7 +41,6 @@ function VendorDetails() {
         vendor.accountNumber = account;
     }
 
-    
     const detailContent = vendor === null ? <p>Loading</p> : (
         <div>
             <div className={styles.vendorContainer}>
@@ -49,7 +48,7 @@ function VendorDetails() {
                     accountNum={vendor.accountNumber} updateVendor={updateVendorTitle}/>
 
                 <div>  
-                    <VendorContacts contacts={vendor.contacts} />
+                    <VendorContacts contacts={vendor.contacts} storeId={vendor.businessEntityId}/>
 
                     <VendorAddresses addresses={vendor.addresses} />
                 </div>

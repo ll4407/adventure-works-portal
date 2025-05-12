@@ -6,7 +6,7 @@ import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
 function VendorContacts(props){
-    const {contacts} = props
+    const {contacts, storeId } = props
 
     const [editActive, setEditActive] = useState(false)
 
@@ -21,7 +21,9 @@ function VendorContacts(props){
                     .catch(err => {
                         toast.error(err);
                     });
+    }, [contactType]);
 
+    useEffect(() => {
         axios.get(`PhoneNumberType`)
                     .then(resp => {
                         setPhoneType(resp.data);
@@ -29,11 +31,122 @@ function VendorContacts(props){
                     .catch(err => {
                         toast.error(err);
                     });
-    }, [contactType, phoneType]);
+    }, [phoneType]);
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
-    }, [])
+    }, []);
+
+
+
+
+    //Updated API 
+    const updateContact = useCallback((event) => {
+            event.preventDefault();
+            let newPersonArray = [];
+            let newPhoneArray = [];
+            let newEmailArray = [];
+
+            const formElements = event.target.elements;
+
+           //creates the person contact to update
+            contacts.map((contact, index) => {     
+                let newContact = {
+                    businessEntityId: contact.businessEntityId,
+                    personId: contact.personId,
+                    personalTitle: formElements.personalTitle[index].value === '' ? contact.personalTitle : formElements.personalTitle[index].value,
+                    firstName: formElements.firstName[index].value === '' ? contact.firstName : formElements.suffix[index].value,
+                    middleName: formElements.middleName[index].value === '' ? contact.middleName : formElements.middleName[index].value,
+                    lastName: formElements.lastName[index].value === '' ? contact.lastName : formElements.lastName[index].value,
+                    suffix: formElements.suffix[index].value === '' ? contact.suffix : formElements.suffix[index].value,
+                    contactTypeId: formElements.contactType[index].value === null ? contact.contactTypeId : formElements.contactType[index].value
+                }
+
+                //Creates the new phone information
+                contact.phoneNumbers.map((phone) => {
+                    let newPhone = {
+                        businessEntityId: contact.businessEntityId,
+
+                        newPhoneNumber: formElements.phoneNumber[index].value === '' ? phone.phoneNumber : formElements.phoneNumber[index].value,
+                        originalPhoneNumber: phone.phoneNumber,
+
+                        newPhoneNumberTypeId: Number(formElements.phoneType[index].value),
+                        originalPhoneNumberTypeId: phone.phoneNumberTypeId
+                    }
+
+                    newPhoneArray.push(newPhone);
+                });
+
+                //Creates the new phone information
+                contact.emailAddresses.map((email) => {
+                    let newEmail = {
+                        businessEntityId: contact.businessEntityId,
+                        emailAddressId: email.emailAddressId,
+                        emailAddress: formElements.emailAddress[index].value === '' ? email.emailAddress : formElements.emailAddress[index].value
+                    }
+
+                    newEmailArray.push(newEmail);
+                });
+
+                newPersonArray.push(newContact);
+           });
+
+           //Put requests for all areas
+           //Contact
+           newPersonArray.map((newContact) => {
+                try{
+                    axios.put(`Contact/${newContact.personId}/${storeId}`, newContact)
+                            .then(resp => {
+                                toast.success("Contact Data Submitted");
+                            })
+                            .catch(err => {
+                                toast.error(err);
+                        });
+                }
+                catch(err){
+                    toast.error('Contact: ' + err);
+                }
+           }); 
+
+
+           //Phone
+           newPhoneArray.map((newPhone) => {
+                try{
+                    axios.put(`Phone/${newPhone.businessEntityId}`, newPhone)
+                            .then(resp => {
+                                toast.success("Phone Data Submitted");
+                            })
+                            .catch(err => {
+                                toast.error(err);
+                        });
+                }
+                catch(err){
+                    toast.error('Phone: ' + err);
+                }
+           }); 
+
+
+           //Email
+           newEmailArray.map((newEmail) => {
+                try{
+                    axios.put(`Email/${newEmail.emailAddressId}/${newEmail.businessEntityId}`, newEmail)
+                            .then(resp => {
+                                toast.success("Email Data Submitted");
+                            })
+                            .catch(err => {
+                                toast.error(err);
+                        });
+                }
+                catch(err){
+                    toast.error('Email: ' + err);
+                }
+           }); 
+
+           handleEdit();
+    });
+
+
+
 
     //Current Data
     const currentData = 
@@ -74,12 +187,12 @@ function VendorContacts(props){
                             <h2>Contacts</h2>
                         </div>
 
-                        <form>
+                        <form onSubmit={updateContact}>
                             {contacts.map((contact, index) => {
                                 return (
-                                    <div className={styles.formGrid}>
+                                    <div className={`${styles.formGrid} ${index}`}>
                                         <span>{index + 1}.</span>
-                                        <div className={styles.SingleContact} key={contact.personId}>
+                                        <div className={`${styles.SingleContact} ${index}`}  key={contact.index}>
                                             <label>
                                                 <select type="text" name="personalTitle" aria-label="Personal Title" value={contact.personalTitle}>
                                                     <option value={''}>--Select--</option>
@@ -95,6 +208,9 @@ function VendorContacts(props){
                                             </label>
                                             <label>
                                                 <input type="text" name="lastName" aria-label="Last Name" placeholder={contact.lastName} />
+                                            </label>
+                                            <label>
+                                                <input type="text" name="suffix" aria-label="suffix" placeholder={contact.suffix} />
                                             </label>
 
                                             <label>
