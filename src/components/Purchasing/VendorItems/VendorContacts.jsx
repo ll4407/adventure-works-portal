@@ -7,11 +7,16 @@ import { toast } from 'react-toastify';
 
 function VendorContacts(props){
     const {contacts, storeId } = props
+    const [contactCopy, setContactCopy] = useState(null); 
 
     const [editActive, setEditActive] = useState(false)
 
     const [contactType, setContactType] = useState(null); 
     const [phoneType, setPhoneType] = useState(null); 
+
+    useEffect(() => {
+        setContactCopy(contacts);
+    }, []);
 
     useEffect(() => {
         axios.get(`ContactType`)
@@ -38,7 +43,15 @@ function VendorContacts(props){
     }, []);
 
 
-
+    const handleTitleChange = (event, contact) => {
+        contact.personalTitle = event.target.value;
+    };
+    const handleContactChange = (event, contact) => {
+        contact.contactTypeId = event.target.value;
+    };
+    const handlePhoneChange = (event, phone) => {
+        phone.phoneNumberTypeId = event.target.value;
+    };
 
     //Updated API 
     const updateContact = useCallback((event) => {
@@ -93,54 +106,60 @@ function VendorContacts(props){
 
            //Put requests for all areas
            //Contact
-           newPersonArray.map((newContact) => {
                 try{
-                    axios.put(`Contact/${newContact.personId}/${storeId}`, newContact)
-                            .then(resp => {
-                                toast.success("Contact Data Submitted");
-                            })
-                            .catch(err => {
-                                toast.error(err);
-                        });
+                    newPersonArray.map((newContact) => {
+                        axios.put(`Contact/${newContact.personId}/${storeId}`, newContact)
+                                .then(resp => {
+                                })
+                                .catch(err => {
+                                    toast.error(err);
+                            });
+                    });
+
+                    toast.success("Contact Data Submitted");
                 }
                 catch(err){
                     toast.error('Contact: ' + err);
                 }
-           }); 
+            
 
 
            //Phone
-           newPhoneArray.map((newPhone) => {
                 try{
-                    axios.put(`Phone/${newPhone.businessEntityId}`, newPhone)
-                            .then(resp => {
-                                toast.success("Phone Data Submitted");
-                            })
-                            .catch(err => {
-                                toast.error(err);
+                    newPhoneArray.map((newPhone) => {
+                        axios.put(`Phone/${newPhone.businessEntityId}`, newPhone)
+                                .then(resp => {
+                                })
+                                .catch(err => {
+                                    toast.error(err);
+                            });
                         });
+
+                        toast.success("Phone Data Submitted");
                 }
                 catch(err){
                     toast.error('Phone: ' + err);
                 }
-           }); 
+            
 
 
            //Email
-           newEmailArray.map((newEmail) => {
                 try{
-                    axios.put(`Email/${newEmail.emailAddressId}/${newEmail.businessEntityId}`, newEmail)
-                            .then(resp => {
-                                toast.success("Email Data Submitted");
-                            })
-                            .catch(err => {
-                                toast.error(err);
-                        });
+                    newEmailArray.map((newEmail) => {
+                        axios.put(`Email/${newEmail.emailAddressId}/${newEmail.businessEntityId}`, newEmail)
+                                .then(resp => {
+                                })
+                                .catch(err => {
+                                    toast.error(err);
+                            });
+                        }); 
+
+                        toast.success("Email Data Submitted");
                 }
                 catch(err){
                     toast.error('Email: ' + err);
                 }
-           }); 
+           
 
            handleEdit();
     });
@@ -181,20 +200,21 @@ function VendorContacts(props){
                 </>;
 
     //EDIT DATA
-    const formData = 
+    const formData = contactCopy === null ? <>Loading</> :
                     <> 
                         <div>
                             <h2>Contacts</h2>
                         </div>
 
                         <form onSubmit={updateContact}>
-                            {contacts.map((contact, index) => {
+                            {contactCopy.map((contact, index) => {
                                 return (
                                     <div className={`${styles.formGrid} ${index}`}>
                                         <span>{index + 1}.</span>
                                         <div className={`${styles.SingleContact} ${index}`}  key={contact.index}>
                                             <label>
-                                                <select type="text" name="personalTitle" aria-label="Personal Title" value={contact.personalTitle}>
+                                                <select type="text" name="personalTitle" aria-label="Personal Title" value={contact.personalTitle}
+                                                onChange={(event) => handleTitleChange(event, contact) }>
                                                     <option value={''}>--Select--</option>
                                                     <option value='Mr.'>Mr.</option>
                                                     <option value='Ms.'>Ms.</option>
@@ -215,7 +235,8 @@ function VendorContacts(props){
 
                                             <label>
                                                 {contactType === null ?  <></> : 
-                                                <select type="text" name="contactType" aria-label="Contact Type" value={contact.contactTypeId} >
+                                                <select type="text" name="contactType" aria-label="Contact Type" value={contact.contactTypeId} 
+                                                onChange={(event) => handleContactChange(event, contact)}>
                                                     <option>--Select--</option>
                                                     
                                                      {contactType.map((types, index) => {
@@ -231,7 +252,8 @@ function VendorContacts(props){
                                                     <div key={index}>
                                                         <label>
                                                             {phoneType === null ?  <></> : 
-                                                                <select type="text" name="phoneType" aria-label="Phone Type" value={phone.phoneNumberTypeId} >
+                                                                <select type="text" name="phoneType" aria-label="Phone Type" value={phone.phoneNumberTypeId} 
+                                                                onChange={(event) => handlePhoneChange(event, phone)}>
                                                                     {phoneType.map((types, index) => {
                                                                         return (
                                                                             <option key={index} value={types.phoneNumberTypeId}>{types.phoneNumberTypeName}</option>
