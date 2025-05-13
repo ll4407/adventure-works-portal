@@ -7,7 +7,7 @@ import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
 const VendorTitle = (props) => {
-    const {vendor, vendorName, phone, accountNum} = props
+    const {vendor, vendorName, phone, accountNum, clicked} = props
 
     const [editActive, setEditActive] = useState(false);
 
@@ -85,7 +85,7 @@ const VendorTitle = (props) => {
                     <h1>{vendorName}</h1>
                     <p onClick={handleEdit}><Edit /></p>
 
-                    <Link to="/purchasing"><Close /></Link>
+                    <Link onClick={clicked} to="/purchasing"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>

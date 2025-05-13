@@ -1,11 +1,10 @@
 import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
 
 import { Link, useParams } from 'react-router';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { ChevronDown, Close } from '../../icons';
@@ -15,7 +14,6 @@ import modal from './PurchaseModal.module.css';
 
 function OrderDetails() {
     const { clicked } = useOutletContext();
-
 
     const [ordersInfo, setOrder] = useState(null);
     

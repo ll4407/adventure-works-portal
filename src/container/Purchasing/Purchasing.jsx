@@ -59,6 +59,7 @@ function Purchasing(){
 
 
     const handleMemberSelected = useCallback(() => {
+        console.log('I am clicked')
 		setIsActive(x => !x)
 	}, []);
 
