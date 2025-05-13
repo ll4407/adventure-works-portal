@@ -99,10 +99,6 @@ const VendorTitle = (props) => {
                             value={newName} onChange={evt => setNewName(evt.target.value)} />
                     </label>
                     <label>
-                        <input type="text" name="Phone" aria-label="Phone" placeholder={phone} 
-                            value={newPhone} onChange={evt => setNewPhone(evt.target.value)}/>
-                    </label>
-                    <label>
                         <input type="text" name="accountNumber" aria-label="account" placeholder={accountNum} 
                             value={newAccountNum} onChange={evt => setNewAccount(evt.target.value)}/>
                     </label>
