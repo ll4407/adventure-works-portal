@@ -1,7 +1,8 @@
+import PageContext from '../../context/PageContext'
 import { ChevronDown } from '../../icons'
 import ProductModal from './ProductModal'
 import styles from './Products.module.css'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 // const fakeProduct = {
 //     bin: 1,
 //     locationId: 1,
@@ -17,7 +18,17 @@ import { useState } from 'react'
 
 const Inventory = (props) =>{
 
+    const {setShowSearch} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
+
+    useEffect(() => {
+        if(activeProduct){
+            setShowSearch(false)
+        }else{
+            setShowSearch(true)
+        }
+    }, [activeProduct])
+
 
     const {products} = props
 
