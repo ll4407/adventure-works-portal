@@ -49,7 +49,7 @@
 }
 
 
-
+/*Contact Items*/
 .formGrid{
     display: grid;
     grid-template-columns: 5% 95%;
@@ -104,7 +104,7 @@
 }
 
 
-
+/*Address Items*/
 .formGridAddress{
     display: grid;
     grid-template-columns: 5% 95%;
