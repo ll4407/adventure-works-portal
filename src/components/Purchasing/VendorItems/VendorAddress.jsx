@@ -240,76 +240,81 @@ function vendorAddresses(props){
                             {addressesCopy.map((address, index) => {
                                 return (  
                                     <>
-                                        <label key={address.addressId}>
-                                            {addressTypes === null ?  <></> : 
-                                                <select type="text" name="addressType" aria-label="address Type" value={address.addressTypeId}
-                                                onChange={(event) => handleAddressChange(event, address)}>
-                                                    <option value='none'>--Select--</option>
-                                                        {addressTypes.map((types, addressIndex) => {
-                                                            return (
-                                                                <option key={addressIndex} value={types.addressTypeId}>{types.addressTypeName}</option>
-                                                            )})
-                                                        }
-                                                </select>
-                                            }
-                                        </label>
-                                        <label>
-                                            <input type="text" name="addressLine1" aria-label="address Line 1" placeholder={address.addressLine1} />
-                                        </label>
-                                        <label>
-                                            <input type="text" name="addressLine2" aria-label="address Line 2" placeholder={address.addressLine2} />
-                                        </label>
+                                    <div className={`${styles.formGridAddress}`}>
+                                        <span>{index + 1}.</span>
 
-                                        <div>
+                                        <div className={`${styles.singleAddress}`}>
+                                            <label key={address.addressId}>
+                                                {addressTypes === null ?  <></> : 
+                                                    <select type="text" name="addressType" aria-label="address Type" value={address.addressTypeId}
+                                                    onChange={(event) => handleAddressChange(event, address)}>
+                                                        <option value='none'>--Select--</option>
+                                                            {addressTypes.map((types, addressIndex) => {
+                                                                return (
+                                                                    <option key={addressIndex} value={types.addressTypeId}>{types.addressTypeName}</option>
+                                                                )})
+                                                            }
+                                                    </select>
+                                                }
+                                            </label>
                                             <label>
-                                                <input type="text" name="city" aria-label="city" placeholder={address.city} />
+                                                <input type="text" name="addressLine1" aria-label="address Line 1" placeholder={address.addressLine1} />
+                                            </label>
+                                            <label>
+                                                <input type="text" name="addressLine2" aria-label="address Line 2" placeholder={address.addressLine2} />
+                                            </label>
+
+                                            <div>
+                                                <label>
+                                                    <input type="text" name="city" aria-label="city" placeholder={address.city} />
+                                                </label>
+                                                <label>
+                                                    {countryRegions === null ?  <></> : 
+                                                        <>
+                                                            {statesArray[index] === null ?  <></> : 
+                                                                <>
+                                                                    <select type="text" name="stateCode" aria-label="state Code" value={address.stateProvinceCode}
+                                                                    onChange={(event) => handleStateChange(event, address)}>
+                                                                        <option value='none'>--Select--</option>
+                                                                        {statesArray[index] && statesArray[index].map((types, stateIndex) => {
+                                                                            return ( 
+                                                                                <option key={stateIndex} value={types.stateProvinceCode}>{types.stateProvinceCode}</option>
+                                                                            )})
+                                                                        }
+                                                                    </select>
+                                                                </>
+                                                            }
+                                                        </>
+                                                    }
+                                                </label>
+                                            </div>
+
+                                            <label>
+                                                <input type="text" name="postalCode" aria-label="postal Code" placeholder={address.postalCode} />
                                             </label>
                                             <label>
                                                 {countryRegions === null ?  <></> : 
-                                                    <>
-                                                        {statesArray[index] === null ?  <></> : 
-                                                            <>
-                                                                <select type="text" name="stateCode" aria-label="state Code" value={address.stateProvinceCode}
-                                                                onChange={(event) => handleStateChange(event, address)}>
-                                                                    <option value='none'>--Select--</option>
-                                                                    {statesArray[index] && statesArray[index].map((types, stateIndex) => {
-                                                                        return ( 
-                                                                            <option key={stateIndex} value={types.stateProvinceCode}>{types.stateProvinceCode}</option>
-                                                                        )})
-                                                                    }
-                                                                </select>
-                                                            </>
+                                                    <select type="text" name="countryCode" aria-label="country Code" value={address.countryRegionCode}
+                                                    onChange={(event) => handleCountryChange(event, address, index)}>
+                                                        <option value='none'>--Select--</option>
+                                                        {countryRegions.map((types, countryIndex) => {
+                                                            return (
+                                                                <option key={countryIndex} value={types.countryRegionCode}>{types.countryRegionCode}</option>
+                                                            )})
                                                         }
-                                                    </>
+                                                    </select>
                                                 }
                                             </label>
                                         </div>
-
-                                        <label>
-                                            <input type="text" name="postalCode" aria-label="postal Code" placeholder={address.postalCode} />
-                                        </label>
-                                        <label>
-                                            {countryRegions === null ?  <></> : 
-                                                <select type="text" name="countryCode" aria-label="country Code" value={address.countryRegionCode}
-                                                onChange={(event) => handleCountryChange(event, address, index)}>
-                                                    <option value='none'>--Select--</option>
-                                                    {countryRegions.map((types, countryIndex) => {
-                                                        return (
-                                                            <option key={countryIndex} value={types.countryRegionCode}>{types.countryRegionCode}</option>
-                                                        )})
-                                                    }
-                                                </select>
-                                            }
-                                        </label>
-
-
-                                        <button type='Submit'>Save Changes</button>
-                                        
-                                        <p onClick={handleEdit}>Back</p>
+                                    </div>
                                     </>
                                     )
                                 })
                             }
+
+                            <button type='Submit'>Save Changes</button>
+                                        
+                            <p onClick={handleEdit}>Back</p>
                         </form>
                     </>;
 

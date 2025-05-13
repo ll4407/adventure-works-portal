@@ -48,6 +48,8 @@
     font-size: 1rem;
 }
 
+
+
 .formGrid{
     display: grid;
     grid-template-columns: 5% 95%;
@@ -102,12 +104,52 @@
 }
 
 
-.vendorAddresses > form > label {
-    margin-bottom: 0.5em;
+
+.formGridAddress{
+    display: grid;
+    grid-template-columns: 5% 95%;
 }
-.vendorAddresses > form > label:first-child {
+.formGridAddress span {
     margin-top: 1em;
 }
+.singleAddress{
+    display: flex;
+    flex-direction: column;
+}
+.singleAddress > div{
+    display: flex;
+}
+.singleAddress label {
+    margin-bottom: 0.5em;
+}
+.singleAddress > label input {
+    width: 75%;
+}
+.singleAddress > div > label:first-child {
+    flex: 0 0 37%;
+}
+.singleAddress > div > label:last-child {
+    margin-left: auto;
+    flex: 0 0 60%;
+}
+.singleAddress select{
+    padding: 0.25em;
+}
+.singleAddress > label select{
+    width: 75%;
+}
+.singleAddress > div > label:first-child input {
+    width: 100%;
+}
+.singleAddress > div > label:last-child select {
+    width: 58%;
+}
+.singleAddress > label:first-child {
+    margin-top: 1em;
+}
+
+
+
 .vendorAddresses > form button {
     background-color: var(--green);
 }
