@@ -12,12 +12,7 @@ import styles from './Products.module.css'
 import usePageContext from "../../hooks/usePageContext";
 
 export default function Products(){
-<<<<<<< HEAD:src/container/Products/Products.jsx
-    const [activePage, setActivePage] = useState('Inventory')
-    const [filter, setFilter] = useState("")
-=======
     const pageContext = usePageContext("Inventory")
->>>>>>> main:src/container/Product/Products.jsx
     const [products, setProducts] = useState(null)
     const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)

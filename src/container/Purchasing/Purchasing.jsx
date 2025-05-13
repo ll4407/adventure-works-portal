@@ -8,17 +8,19 @@ import { useEffect, useState, useCallback } from "react";
 import { Outlet } from 'react-router-dom';
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
+import usePageContext from "../../hooks/usePageContext";
+
 
 import styles from './Purchasing.module.css';
 
 function Purchasing(){
     const dispatch = useDispatch();
 
-    const [activePage, setActivePage] = useState('Vendors');
+    const pageContext = usePageContext("Vendors")
+    const {filter, activePage} = pageContext
 
     const [isActive, setIsActive] = useState(false);
 
-    const [filter, setFilter] = useState("");
     const [vendorsDisplayed, setVendorsDisplayed] = useState([]);
     const [ordersDisplayed, setOrdersDisplayed] = useState([]);
 
@@ -59,7 +61,6 @@ function Purchasing(){
 
 
     const handleMemberSelected = useCallback(() => {
-        console.log('I am clicked')
 		setIsActive(x => !x)
 	}, []);
 
@@ -126,17 +127,11 @@ function Purchasing(){
         ;
 
 
-    const context = {
-        activePage:activePage,
-        setActivePage: setActivePage,
-        filter: filter,
-        setFilter:setFilter
-    }
 
 
     //Layout
     return(
-        <PageContext.Provider value={context}>
+        <PageContext.Provider value={pageContext}>
             <SectionHeader
                 title={"Purchasing"}
                 color={"green"}

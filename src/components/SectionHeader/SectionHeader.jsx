@@ -6,12 +6,8 @@ import styles from './SectionHeader.module.css';
 import { useContext } from "react";
 import PageContext from "../../context/PageContext";
 
-<<<<<<< HEAD
-const SectionHeader =({title, color, firstButton, secondButton, onChange}) =>{
-=======
 const SectionHeader =({title, color, firstButton, secondButton}) =>{
     const {showSearch} = useContext(PageContext)
->>>>>>> main
     return (
         <>
             <HeaderTitle 
@@ -23,7 +19,6 @@ const SectionHeader =({title, color, firstButton, secondButton}) =>{
                     color={color}
                     firstButton={firstButton}
                     secondButton={secondButton}
-                    onChange={onChange}
                 />
                 {showSearch && <HeaderSearch />}
 
