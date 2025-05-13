@@ -36,9 +36,8 @@ function VendorDetails() {
     }, [vendor, id]);
 
 
-    function updateVendorTitle(vendorName, phone, id, account) {
+    function updateVendorTitle(vendorName, id, account) {
         vendor.vendorName = vendorName;
-        phone = phone;
         vendor.businessEntityId = id;
         vendor.accountNumber = account;
     }

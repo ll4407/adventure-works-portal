@@ -13,7 +13,6 @@ const VendorTitle = (props) => {
 
 
     const [newName, setNewName] = useState('');
-    const [newPhone, setNewPhone] = useState('');
     const [newAccountNum, setNewAccount] = useState('');
 
 
@@ -25,10 +24,9 @@ const VendorTitle = (props) => {
         event.preventDefault();
  
         let nameUpdate;
-        let phoneUpdate;
         let accountUpdate;
         
-        if(newName =='' && newPhone =='' && newAccountNum==''){
+        if(newName =='' && newAccountNum==''){
             toast.error("Fill out at least one field");
         }
         else{
@@ -37,12 +35,6 @@ const VendorTitle = (props) => {
         }
         else {
             nameUpdate = newName;
-        }
-
-        if(newPhone == ''){
-            phoneUpdate = phone;
-        }else {
-            phoneUpdate = newPhone;
         }
         if(newAccountNum == ''){
             accountUpdate = accountNum;
@@ -70,14 +62,14 @@ const VendorTitle = (props) => {
 
             await handleEdit();
 
-            await props.updateVendorTitle(updateVendor.vendorName, phoneUpdate, updateVendor.businessEntityId, updateVendor.accountNumber);
+            await props.updateVendorTitle(updateVendor.vendorName, updateVendor.businessEntityId, updateVendor.accountNumber);
         }
         catch(err){
             toast.error(err);
         }
     }
 
-    }, [setNewName, setNewPhone, setNewAccount, newName, newPhone, newAccountNum])
+    }, [setNewName, setNewAccount, newName, newAccountNum])
 
     const currentData = 
             <>
