@@ -23,6 +23,21 @@
 .vendorContainer > div svg {
     transform: rotate(0deg);
 }
+.vendorContainer > form:first-child button {
+    background-color: var(--green);
+}
+.vendorContainer > form:first-child p {
+    text-decoration: underline;
+}
+.vendorContainer > form:first-child p:active {
+    color: var(--gray);
+}
+.vendorContainer > form > label {
+    margin-bottom: 0.5em;
+}
+.vendorContainer > form > label:first-child {
+    margin-top: 1em;
+}
 
 .mainVendorArticle .vendorContainer a {
     display: none;
@@ -31,6 +46,118 @@
 .vendorContacts h2,
 .vendorAddresses h2 {
     font-size: 1rem;
+}
+
+
+/*Contact Items*/
+.formGrid{
+    display: grid;
+    grid-template-columns: 5% 95%;
+}
+.formGrid span {
+    margin-top: 1em;
+}
+.SingleContact{
+    display: flex;
+    flex-direction: column;
+}
+.SingleContact > div{
+    display: flex;
+}
+.SingleContact label {
+    margin-bottom: 0.5em;
+}
+.SingleContact > label input {
+    width: 75%;
+}
+.SingleContact > div > label:first-child {
+    flex: 0 0 37%;
+}
+.SingleContact > div > label:last-child {
+    margin-left: auto;
+    flex: 0 0 60%;
+}
+.SingleContact select{
+    padding: 0.25em;
+}
+.SingleContact > label select{
+    width: 75%;
+}
+.SingleContact > div > label:first-child select {
+    width: 100%;
+}
+.SingleContact > div > label:last-child input {
+    width: 58%;
+}
+.SingleContact > label:first-child {
+    margin-top: 1em;
+}
+
+.vendorContacts > form button {
+    background-color: var(--green);
+}
+.vendorContacts > form p {
+    text-decoration: underline;
+}
+.vendorContacts > form p:active {
+    color: var(--gray);
+}
+
+
+/*Address Items*/
+.formGridAddress{
+    display: grid;
+    grid-template-columns: 5% 95%;
+}
+.formGridAddress span {
+    margin-top: 1em;
+}
+.singleAddress{
+    display: flex;
+    flex-direction: column;
+}
+.singleAddress > div{
+    display: flex;
+}
+.singleAddress label {
+    margin-bottom: 0.5em;
+}
+.singleAddress > label input {
+    width: 75%;
+}
+.singleAddress > div > label:first-child {
+    flex: 0 0 37%;
+}
+.singleAddress > div > label:last-child {
+    margin-left: auto;
+    flex: 0 0 60%;
+}
+.singleAddress select{
+    padding: 0.25em;
+}
+.singleAddress > label select{
+    width: 75%;
+}
+.singleAddress > div > label:first-child input {
+    width: 100%;
+}
+.singleAddress > div > label:last-child select {
+    width: 58%;
+}
+.singleAddress > label:first-child {
+    margin-top: 1em;
+}
+
+
+
+.vendorAddresses > form button {
+    background-color: var(--green);
+}
+.vendorAddresses > form p {
+    text-decoration: underline;
+}
+.vendorAddresses > form p:active {
+    color: var(--gray);
 }
 
 
@@ -97,10 +224,6 @@
 }
 
 @media screen and (min-width: 60rem) {
-    .mainVendorArticle {
-        padding-left: 0;
-        padding-right: 0;
-    }
     .mainVendorArticle > a {
         display: none;
     }
@@ -112,6 +235,9 @@
         justify-items: flex-end;
     }
 
+    .vendorContainer > form:first-child {
+        width: 50%;
+    }
 
     .vendorContainer > div:first-child,
     .vendorContacts > div:first-child,

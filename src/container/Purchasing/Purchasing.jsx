@@ -11,7 +11,6 @@ import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purch
 
 import styles from './Purchasing.module.css';
 
-
 function Purchasing(){
     const dispatch = useDispatch();
 

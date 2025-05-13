@@ -3,7 +3,9 @@ import { toast } from 'react-toastify';
 
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
+
 import styles from './VendorDetails.module.css';
+import modal from './PurchaseModal.module.css';
 
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
@@ -110,10 +112,12 @@ function VendorDetails() {
 
     return (
         <PageContext.Provider value={context}>
-            <article className={styles.mainVendorArticle}>
-                <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
-                {detailContent}
-            </article>
+            <div className={`${modal.modalOverlay}`}>
+                <article className={`${styles.mainVendorArticle} ${modal.modalContent}`}>
+                    <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
+                    {detailContent}
+                </article>
+            </div>
         </PageContext.Provider>
     );
 }

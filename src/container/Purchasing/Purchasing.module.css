@@ -5,7 +5,9 @@
 .purchaseLayout svg {
     cursor: pointer;
 }
-
+.hidden {
+    display: none;
+}
 
 .OrderGridHeader, .VendorGridHeader{
     padding-top: 2em;
@@ -64,6 +66,9 @@
 
 @media screen and (min-width: 60rem) {
     /*Hidden Displays*/
+    .hidden {
+        display: block;
+    }
     .OrderGridContent, .VendorGridContent {
         display: block;
     }

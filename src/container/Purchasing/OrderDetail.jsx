@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Close } from '../../icons';
 
 import styles from './OrderDetail.module.css'   
-
+import modal from './PurchaseModal.module.css';
 
 function OrderDetails() {
     const [ordersInfo, setOrder] = useState(null);
@@ -183,10 +183,12 @@ function OrderDetails() {
 
     return(
         <PageContext.Provider value={context}>
-            <article className={styles.mainOrderArticle}>
-                <Link to="/purchasing"><ChevronDown />Back</Link>
-                {detailContent}
-            </article>
+            <div className={`${modal.modalOverlay}`}>
+                <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
+                    <Link to="/purchasing"><ChevronDown />Back</Link>
+                    {detailContent}
+                </article>
+            </div>
         </PageContext.Provider>
     );
 }
