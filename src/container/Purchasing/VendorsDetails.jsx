@@ -3,6 +3,12 @@ import { toast } from 'react-toastify';
 
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
+<<<<<<< HEAD
+=======
+import VendorTitle from '../../components/Purchasing/VendorItems/VendorTitle';
+import VendorContacts from '../../components/Purchasing/VendorItems/VendorContacts';
+import VendorAddresses from '../../components/Purchasing/VendorItems/VendorAddress';
+>>>>>>> PurchaseVendorEdit
 
 import styles from './VendorDetails.module.css';
 import modal from './PurchaseModal.module.css';
@@ -11,15 +17,20 @@ import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { Edit, ChevronDown, Close } from '../../icons';
+import { ChevronDown } from '../../icons';
+import { useCallback } from 'react';
 
 function VendorDetails() {
+<<<<<<< HEAD
     const { clicked } = useOutletContext();
 
 	const [vendorName, setVendorName] = useState(null);
 	const [businessEntityId, setBudinessId] = useState(null);
 	const [contacts, setContacts] = useState([]);
 	const [addressesFound, setAddresses] = useState([]);
+=======
+	const [vendor, setVendor] = useState(null);
+>>>>>>> PurchaseVendorEdit
 
     const [activePage, setActivePage] = useState('Vendors');
     const [filter, setFilter] = useState("");
@@ -29,77 +40,36 @@ function VendorDetails() {
     useEffect(() => {
         axios.get(`Vendor/${id}`)
             .then(resp => {
-                setVendorName(resp.data.vendorName);
-                setBudinessId(resp.data.businessEntityId);
-                setContacts(resp.data.contacts);
-                setAddresses(resp.data.addresses);
+                setVendor(resp.data);
             })
             .catch(err => {
                 toast.error(err);
             });
-    }, [id]);
+    }, [vendor, id]);
 
-    const detailContent = contacts === null ? <p>Loading</p> : (
+
+    function updateVendorTitle(vendorName, phone, id, account) {
+        vendor.vendorName = vendorName;
+        phone = phone;
+        vendor.businessEntityId = id;
+        vendor.accountNumber = account;
+    }
+
+    const detailContent = vendor === null ? <p>Loading</p> : (
         <div>
             <div className={styles.vendorContainer}>
-                <div>
-                    <h1>{vendorName}</h1>
-                    <p><Edit /></p>
+                <VendorTitle vendor={vendor} vendorName={vendor.vendorName}  phone={phone}
+                    accountNum={vendor.accountNumber} updateVendor={updateVendorTitle}/>
 
+<<<<<<< HEAD
                     <Link onClick={clicked} to="/purchasing"><Close /></Link>
                 </div>
+=======
+                <div>  
+                    <VendorContacts contacts={vendor.contacts} storeId={vendor.businessEntityId}/>
+>>>>>>> PurchaseVendorEdit
 
-                <p>Phone: {phone}</p>
-                <p>Business ID: {businessEntityId}</p>
-
-                <div>
-                    <section className={`${styles.vendorContacts} ${styles.vendorFlex50}`}>
-                        <div>
-                            <h2>Contacts</h2>
-                            <p><Edit /></p>
-                        </div>
-                        {contacts.map((items, index) => {
-                            return (
-                                <div key={items.personId}>
-                                    <p>{index + 1}.</p>
-                                    <p> {items.personalTitle} {items.firstName} {items.middleName} {items.lastName} {items.suffix}</p>
-                                    <p>({items.contactTypeName})</p>
-
-                                    {items.phoneNumbers.map(numbers => {
-                                        return(
-                                            <p key={numbers.businessEntityId}>{numbers.phoneNumberTypeName}: {numbers.phoneNumber}</p>
-                                        )
-                                    })}
-
-                                    {items.emailAddresses.map(emails => {
-                                        return(
-                                            <p key={emails.emailAddressId}>Email: {emails.emailAddress}</p>
-                                        )
-                                    })}
-                                </div>
-                            )
-                        })}
-                    </section>
-
-                    <section className={`${styles.vendorAddresses} ${styles.vendorFlex50}`}>
-                        <div>
-                            <h2>Addresses</h2>
-                            <p><Edit /></p>
-                        </div>
-                        {addressesFound.map((address, index) => {
-                            return (
-                                <div key={address.addressId}>
-                                    <p>{index + 1}.</p>
-                                    <p>{address.addressTypeName}</p>
-                                    <p>{address.addressLine1}</p>
-                                    <p>{address.addressLine2}</p>
-                                    <p>{address.city}, {address.countryRegionCode}</p>
-                                    <p>{address.postalCode}</p>
-                                    <p>{address.countryRegionName}</p>
-                                </div>
-                            )
-                        })}
-                    </section>
+                    <VendorAddresses addresses={vendor.addresses} />
                 </div>
             </div>
         </div>
@@ -115,12 +85,29 @@ function VendorDetails() {
 
     return (
         <PageContext.Provider value={context}>
+<<<<<<< HEAD
             <div className={`${modal.modalOverlay}`}>
                 <article className={`${styles.mainVendorArticle} ${modal.modalContent}`}>
                     <Link onClick={clicked} to="/purchasing"><ChevronDown /><p>Back</p></Link>
                     {detailContent}
                 </article>
             </div>
+=======
+            <SectionHeader
+                title={"Purchasing"}
+                color={"green"}
+                firstButton={'Vendors'}
+                secondButton={'Orders'}
+                />
+            <section className=''>
+
+            </section>
+
+            <article className={styles.mainVendorArticle}>
+            <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
+                {detailContent}
+            </article>
+>>>>>>> PurchaseVendorEdit
         </PageContext.Provider>
     );
 }
