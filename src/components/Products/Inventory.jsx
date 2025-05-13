@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { ChevronDown, Delete, Edit } from '../../icons'
 import styles from '../../container/Products/Products.module.css'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
@@ -12,8 +12,18 @@ const Inventory = () =>{
     const {setShowSearch, filter} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
-    const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const filteredProducts = useMemo(() =>{
+        if(!products) return []
+        if(!filter) return products
+
+        const lowered = filter.toLowerCase()
+        return products.filter(p =>
+            p.productName.toLowerCase().includes(lowered) ||
+            p.locationName.toLowerCase().includes(lowered) ||
+            p.shelf.toLowerCase().includes(lowered)
+        )
+    }, [filter, products])
 
     //fetch
     useEffect(() =>{
@@ -22,44 +32,20 @@ const Inventory = () =>{
             .catch(err => {
                 toast.error(err.toString())
             })
-            .finally(setLoading(false))
+            .finally(() => setLoading(false))
     }, [])
-
-    //filter
-    useEffect(()=>{
-        let timer;
-        if(filter){
-            timer = setTimeout(() =>{
-                const loweredFilter = filter.toLowerCase()
-                const newFilteredProducts = products.filter(prod =>
-                    prod.productName.toLowerCase().includes(loweredFilter) ||
-                    prod.locationName.toLowerCase().includes(loweredFilter) ||
-                    prod.shelf.toLowerCase().includes(loweredFilter)
-                )
-                setFilteredProducts(newFilteredProducts)
-            }, 500)
-        }else{
-            if(products?.length){
-                setFilteredProducts(products)
-            }
-        }
-
-        return () => clearTimeout(timer)
-
-    },[filter, products])
     
     //modal clean up
     useEffect(() => {
-        if(activeProduct){
-            setShowSearch(false)
-        }else{
-            setShowSearch(true)
+        if (!loading) {
+            setShowSearch(prev => {
+                const desired = !activeProduct;
+                return prev === desired ? prev : desired;
+            });
         }
-    }, [activeProduct, setShowSearch])
+    }, [activeProduct, setShowSearch, loading])
 
-    if(loading || !filteredProducts.length){
-        return <></>
-    }
+    if(loading) return null
 
     return(
         <>

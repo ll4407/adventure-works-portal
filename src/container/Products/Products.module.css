@@ -14,7 +14,6 @@
   display: block;
   width: 100%;
   display: grid;
-
   justify-content: start;
   align-items: center;
   border-radius: 0;
@@ -23,10 +22,10 @@
   height: 5rem;
   margin: 0;
 }
-.productCard{
+.productCard {
   grid-template-columns: 3fr 1fr 1fr;
 }
-.catalogProductCard{
+.catalogProductCard {
   grid-template-columns: 4fr 1fr;
 }
 .catalogCol2,
@@ -53,7 +52,7 @@
 .col7 {
   display: none;
 }
-.catalogCol2{
+.catalogCol2 {
   display: flex;
   flex-direction: column;
 }
@@ -97,7 +96,7 @@
   .extraLocation {
     display: none;
   }
-  .productImage{
+  .productImage {
     border: 1px solid black;
   }
   .catalogCol1,
