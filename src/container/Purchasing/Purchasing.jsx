@@ -4,7 +4,8 @@ import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile
 import PageContext from "../../context/PageContext";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { Outlet } from 'react-router-dom';
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 
@@ -53,6 +54,11 @@ function Purchasing(){
             );
         }
     }, [vendorsList, ordersList, filter])
+
+
+    const handleMemberSelected = useCallback((id) => {
+		
+	}, []);
 
     //layouts based on buttons
     const listValuesVendors = 
@@ -136,6 +142,9 @@ function Purchasing(){
                 {activePage === "Vendors" ?  
                     listValuesVendors: listValuesOrders}
             </section>
+            <section>
+				<Outlet />
+			</section>
         </PageContext.Provider>
 
     )

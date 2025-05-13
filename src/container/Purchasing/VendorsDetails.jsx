@@ -110,16 +110,6 @@ function VendorDetails() {
 
     return (
         <PageContext.Provider value={context}>
-            <SectionHeader
-                title={"Purchasing"}
-                color={"green"}
-                firstButton={'Vendors'}
-                secondButton={'Orders'}
-                />
-            <section className=''>
-
-            </section>
-
             <article className={styles.mainVendorArticle}>
                 <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
                 {detailContent}

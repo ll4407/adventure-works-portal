@@ -183,16 +183,6 @@ function OrderDetails() {
 
     return(
         <PageContext.Provider value={context}>
-            <SectionHeader
-                title={"Purchasing"}
-                color={"green"}
-                firstButton={'Vendors'}
-                secondButton={'Orders'}
-                />
-            <section className=''>
-
-            </section>
-
             <article className={styles.mainOrderArticle}>
                 <Link to="/purchasing"><ChevronDown />Back</Link>
                 {detailContent}
