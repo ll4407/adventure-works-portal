@@ -15,6 +15,9 @@ function Purchasing(){
     const dispatch = useDispatch();
 
     const [activePage, setActivePage] = useState('Vendors');
+
+    const [isActive, setIsActive] = useState(false);
+
     const [filter, setFilter] = useState("");
     const [vendorsDisplayed, setVendorsDisplayed] = useState([]);
     const [ordersDisplayed, setOrdersDisplayed] = useState([]);
@@ -55,8 +58,8 @@ function Purchasing(){
     }, [vendorsList, ordersList, filter])
 
 
-    const handleMemberSelected = useCallback((id) => {
-		
+    const handleMemberSelected = useCallback(() => {
+		setIsActive(x => !x)
 	}, []);
 
     //layouts based on buttons
@@ -86,6 +89,7 @@ function Purchasing(){
                     city={vendorsList.city}
                     state={vendorsList.stateProvinceName}
                     postal={vendorsList.postalCode}
+                    clicked={handleMemberSelected}
                 />)
             })
         }   
@@ -113,6 +117,7 @@ function Purchasing(){
                 orderQuantity={ordersList.quantity}   
                 totalDue={ordersList.totalDue}
                 shipDate={ordersList.shipDate}
+                clicked={handleMemberSelected}
             />)
             })
         }
@@ -137,12 +142,12 @@ function Purchasing(){
                 firstButton={'Vendors'}
                 secondButton={'Orders'}
                 />
-            <section className={styles.purchaseLayout}>
+            <section className={`${styles.purchaseLayout} ${isActive ? styles.hidden : ''}`}>
                 {activePage === "Vendors" ?  
                     listValuesVendors: listValuesOrders}
             </section>
             <section>
-				<Outlet />
+				<Outlet context={{clicked: handleMemberSelected}}/>
 			</section>
         </PageContext.Provider>
 

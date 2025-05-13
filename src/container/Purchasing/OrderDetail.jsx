@@ -6,6 +6,7 @@ import PageContext from "../../context/PageContext";
 
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router';
 
 import { ChevronDown, Close } from '../../icons';
 
@@ -13,6 +14,9 @@ import styles from './OrderDetail.module.css'
 import modal from './PurchaseModal.module.css';
 
 function OrderDetails() {
+    const { clicked } = useOutletContext();
+
+
     const [ordersInfo, setOrder] = useState(null);
     
     const [activePage, setActivePage] = useState('Orders');
@@ -41,7 +45,7 @@ function OrderDetails() {
                     <h1>{ordersInfo.productName}</h1>
                     <h1>{ordersInfo.quantity}</h1>
 
-                    <Link to="/purchasing"><Close /></Link>
+                    <Link onClick={clicked} to="/purchasing"><Close /></Link>
                 </div>
 
                 
@@ -185,7 +189,7 @@ function OrderDetails() {
         <PageContext.Provider value={context}>
             <div className={`${modal.modalOverlay}`}>
                 <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
-                    <Link to="/purchasing"><ChevronDown />Back</Link>
+                    <Link onClick={clicked} to="/purchasing"><ChevronDown />Back</Link>
                     {detailContent}
                 </article>
             </div>

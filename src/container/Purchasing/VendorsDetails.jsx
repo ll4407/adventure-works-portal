@@ -9,10 +9,13 @@ import modal from './PurchaseModal.module.css';
 
 import { Link, useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router';
 
 import { Edit, ChevronDown, Close } from '../../icons';
 
 function VendorDetails() {
+    const { clicked } = useOutletContext();
+
 	const [vendorName, setVendorName] = useState(null);
 	const [businessEntityId, setBudinessId] = useState(null);
 	const [contacts, setContacts] = useState([]);
@@ -43,7 +46,7 @@ function VendorDetails() {
                     <h1>{vendorName}</h1>
                     <p><Edit /></p>
 
-                    <Link to="/purchasing"><Close /></Link>
+                    <Link onClick={clicked} to="/purchasing"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>
@@ -114,7 +117,7 @@ function VendorDetails() {
         <PageContext.Provider value={context}>
             <div className={`${modal.modalOverlay}`}>
                 <article className={`${styles.mainVendorArticle} ${modal.modalContent}`}>
-                    <Link to="/purchasing"><ChevronDown /><p>Back</p></Link>
+                    <Link onClick={clicked} to="/purchasing"><ChevronDown /><p>Back</p></Link>
                     {detailContent}
                 </article>
             </div>
