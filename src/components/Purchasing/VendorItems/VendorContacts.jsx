@@ -63,47 +63,98 @@ function VendorContacts(props){
             const formElements = event.target.elements;
 
            //creates the person contact to update
-            contacts.map((contact, index) => {     
-                let newContact = {
-                    businessEntityId: contact.businessEntityId,
-                    personId: contact.personId,
-                    personalTitle: formElements.personalTitle[index].value === '' ? contact.personalTitle : formElements.personalTitle[index].value,
-                    firstName: formElements.firstName[index].value === '' ? contact.firstName : formElements.suffix[index].value,
-                    middleName: formElements.middleName[index].value === '' ? contact.middleName : formElements.middleName[index].value,
-                    lastName: formElements.lastName[index].value === '' ? contact.lastName : formElements.lastName[index].value,
-                    suffix: formElements.suffix[index].value === '' ? contact.suffix : formElements.suffix[index].value,
-                    contactTypeId: formElements.contactType[index].value === null ? contact.contactTypeId : formElements.contactType[index].value
-                }
-
-                //Creates the new phone information
-                contact.phoneNumbers.map((phone) => {
-                    let newPhone = {
+           if(contacts.length > 1){
+            //Multiple Contacts
+                contacts.map((contact, index) => {     
+                    let newContact = {
                         businessEntityId: contact.businessEntityId,
-
-                        newPhoneNumber: formElements.phoneNumber[index].value === '' ? phone.phoneNumber : formElements.phoneNumber[index].value,
-                        originalPhoneNumber: phone.phoneNumber,
-
-                        newPhoneNumberTypeId: Number(formElements.phoneType[index].value),
-                        originalPhoneNumberTypeId: phone.phoneNumberTypeId
+                        personId: contact.personId,
+                        personalTitle: formElements.personalTitle[index].value === '' ? contact.personalTitle : formElements.personalTitle[index].value,
+                        firstName: formElements.firstName[index].value === '' ? contact.firstName : formElements.firstName[index].value,
+                        middleName: formElements.middleName[index].value === '' ? contact.middleName : formElements.middleName[index].value,
+                        lastName: formElements.lastName[index].value === '' ? contact.lastName : formElements.lastName[index].value,
+                        suffix: formElements.suffix[index].value === '' ? contact.suffix : formElements.suffix[index].value,
+                        contactTypeId: formElements.contactType[index].value === null ? contact.contactTypeId : formElements.contactType[index].value
                     }
 
-                    newPhoneArray.push(newPhone);
-                });
+                    //Creates the new phone information
+                    contact.phoneNumbers.map((phone) => {
+                        let newPhone = {
+                            businessEntityId: contact.businessEntityId,
 
-                //Creates the new phone information
-                contact.emailAddresses.map((email) => {
-                    let newEmail = {
+                            newPhoneNumber: formElements.phoneNumber[index].value === '' ? phone.phoneNumber : formElements.phoneNumber[index].value,
+                            originalPhoneNumber: phone.phoneNumber,
+
+                            newPhoneNumberTypeId: Number(formElements.phoneType[index].value),
+                            originalPhoneNumberTypeId: phone.phoneNumberTypeId
+                        }
+
+                        newPhoneArray.push(newPhone);
+                    });
+
+                    //Creates the new phone information
+                    contact.emailAddresses.map((email) => {
+                        let newEmail = {
+                            businessEntityId: contact.businessEntityId,
+                            emailAddressId: email.emailAddressId,
+                            emailAddress: formElements.emailAddress[index].value === '' ? email.emailAddress : formElements.emailAddress[index].value
+                        }
+
+                        newEmailArray.push(newEmail);
+                    });
+
+                    newPersonArray.push(newContact);
+                });
+            }
+            else {
+                //Single Contact
+                contacts.map((contact) => {     
+                    let newContact = {
                         businessEntityId: contact.businessEntityId,
-                        emailAddressId: email.emailAddressId,
-                        emailAddress: formElements.emailAddress[index].value === '' ? email.emailAddress : formElements.emailAddress[index].value
+                        personId: contact.personId,
+                        personalTitle: formElements.personalTitle.value === '' ? contact.personalTitle : formElements.personalTitle.value,
+                        firstName: formElements.firstName.value === '' ? contact.firstName : formElements.firstName.value,
+                        middleName: formElements.middleName.value === '' ? contact.middleName : formElements.middleName.value,
+                        lastName: formElements.lastName.value === '' ? contact.lastName : formElements.lastName.value,
+                        suffix: formElements.suffix.value === '' ? contact.suffix : formElements.suffix.value,
+                        contactTypeId: formElements.contactType.value === null ? contact.contactTypeId : formElements.contactType.value
                     }
 
-                    newEmailArray.push(newEmail);
+                    //Creates the new phone information
+                    contact.phoneNumbers.map((phone) => {
+                        let newPhone = {
+                            businessEntityId: contact.businessEntityId,
+
+                            newPhoneNumber: formElements.phoneNumber.value === '' ? phone.phoneNumber : formElements.phoneNumber.value,
+                            originalPhoneNumber: phone.phoneNumber,
+
+                            newPhoneNumberTypeId: Number(formElements.phoneType.value),
+                            originalPhoneNumberTypeId: phone.phoneNumberTypeId
+                        }
+
+                        newPhoneArray.push(newPhone);
+                    });
+
+                    //Creates the new phone information
+                    contact.emailAddresses.map((email) => {
+                        let newEmail = {
+                            businessEntityId: contact.businessEntityId,
+                            emailAddressId: email.emailAddressId,
+                            emailAddress: formElements.emailAddress.value === '' ? email.emailAddress : formElements.emailAddress.value
+                        }
+
+                        newEmailArray.push(newEmail);
+                    });
+
+                    newPersonArray.push(newContact);
                 });
 
-                newPersonArray.push(newContact);
-           });
+            }
 
+
+
+
+            
            //Put requests for all areas
            //Contact
                 try{
