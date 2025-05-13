@@ -1,11 +1,11 @@
 import clsx from 'clsx'
 import { ChevronDown, Delete, Edit } from '../../icons'
-import ProductModal from './ProductModal'
-import styles from './Products.module.css'
+import styles from '../../container/Products/Products.module.css'
 import { useContext, useEffect, useState } from 'react'
 import PageContext from '../../context/PageContext'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+import InventoryModal from './InventoryModal'
 
 const Inventory = () =>{
 
@@ -107,7 +107,7 @@ const Inventory = () =>{
             ))}
         </div>
         {activeProduct && 
-            <ProductModal 
+            <InventoryModal 
                 product={activeProduct} 
                 setActiveProduct={setActiveProduct} 
                 />}

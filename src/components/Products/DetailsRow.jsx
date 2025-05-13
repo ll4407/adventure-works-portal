@@ -1,5 +1,4 @@
-import styles from './ProductModal.module.css'
-
+import styles from '../../container/Products/Products.module.css'
 const DetailsRow = ({label, value}) =>{
     return (
         <div className={styles.detailsRow}>

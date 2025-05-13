@@ -7,13 +7,14 @@
 .productList {
   padding-top: 2em;
 }
+.catalogProductCard,
 .productCard {
   border: none;
   background: none;
   display: block;
   width: 100%;
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+
   justify-content: start;
   align-items: center;
   border-radius: 0;
@@ -22,6 +23,13 @@
   height: 5rem;
   margin: 0;
 }
+.productCard{
+  grid-template-columns: 3fr 1fr 1fr;
+}
+.catalogProductCard{
+  grid-template-columns: 4fr 1fr;
+}
+.catalogCol2,
 .productName {
   font-size: 1.125rem;
 }
@@ -33,6 +41,11 @@
   justify-self: end;
   align-self: center;
 }
+.catalogCol1,
+.catalogCol3,
+.catalogCol4,
+.catalogCol5,
+.catalogCol6,
 .col3,
 .col4,
 .col5,
@@ -40,6 +53,14 @@
 .col7 {
   display: none;
 }
+.catalogCol2{
+  display: flex;
+  flex-direction: column;
+}
+.catalogCol2 span {
+  font-size: 1rem;
+}
+.catalogTableHeader,
 .tableHeader {
   border-bottom: 4px solid var(--blue);
   display: none;
@@ -51,6 +72,7 @@
 }
 
 @media screen and (min-width: 40rem) {
+  .catalogTableHeader,
   .tableHeader {
     display: grid;
     height: unset;
@@ -63,16 +85,26 @@
   .productCard {
     grid-template-columns: 4fr 2fr 2fr 1fr;
   }
+  .catalogProductCard {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  .catalogCol2 p,
   .productName {
     font-size: 1rem;
   }
+  .catalogCol2 span,
   .quantitySpan,
   .extraLocation {
     display: none;
   }
+  .productImage{
+    border: 1px solid black;
+  }
+  .catalogCol1,
   .col1 {
     padding-left: 0.5em;
   }
+  .catalogCol1,
   .col4 {
     display: unset;
   }
@@ -81,6 +113,10 @@
   .productCard {
     grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
   }
+  .catalogProductCard {
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+  }
+  .catalogCol3,
   .col5 {
     display: unset;
   }
@@ -90,6 +126,10 @@
   .productCard {
     grid-template-columns: 3fr 2fr 2fr 2fr 2fr 1fr;
   }
+  .catalogProductCard {
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  }
+  .catalogCol4,
   .col6 {
     display: unset;
   }

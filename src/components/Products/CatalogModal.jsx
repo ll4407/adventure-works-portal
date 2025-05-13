@@ -1,4 +1,3 @@
-// import { useEffect } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import styles from './ProductModal.module.css'
 import { ChevronDown, Close, Minus, Plus } from '../../icons'
@@ -7,7 +6,7 @@ import { toast } from 'react-toastify'
 import DetailsRow from './DetailsRow'
 
 
-const ProductModal = (props) => {
+const CategoryModal = (props) => {
     const {product, setActiveProduct} = props
     const [quantity, setQuantity] = useState(product.quantity)
     const removeActiveProduct = useCallback(() => {
@@ -89,4 +88,4 @@ const ProductModal = (props) => {
     )
 }
 
-export default ProductModal
+export default CategoryModal

@@ -1,6 +1,5 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import Inventory from "./Inventory";
-import Catalog from "./Catalog";
+import { Inventory, Catalog } from "../../components/Products";
 import PageContext from "../../context/PageContext";
 
 import styles from './Products.module.css'
