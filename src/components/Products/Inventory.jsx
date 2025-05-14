@@ -1,19 +1,25 @@
-import clsx from 'clsx'
-import { ChevronDown, Delete, Edit } from '../../icons'
 import styles from '../../container/Products/Products.module.css'
 import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
-import { Link, Outlet } from 'react-router'
+import { Outlet, useNavigate, useParams } from 'react-router'
+import InventoryHeader from './Inventory/InventoryHeader'
+import InventoryRow from './Inventory/InventoryRow'
 
 const Inventory = () =>{
-
-    const {setShowSearch, filter} = useContext(PageContext)
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [refresh, setRefresh] = useState(true)
+
+    const navigate = useNavigate()
+    const {activePage} = useParams()
+    const {setShowSearch, filter} = useContext(PageContext)
+
+    if(activePage && activePage.toLowerCase() === "catalog"){
+        navigate('/products/Inventory')
+    }
 
     const filteredProducts = useMemo(() =>{
         if(!products) return []
@@ -51,59 +57,23 @@ const Inventory = () =>{
     return(
         <>
         <div className={styles.productList}>
-            <div className={clsx(styles.productCard, styles.tableHeader)}>
-                <p className={clsx(styles.column, styles.bold, styles.col1)}>
-                    Product Name
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col2)}>
-                    Qty
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col3)}>
-                    Product ID
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col4)}>
-                    Location
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col5)}>
-                    Shelf
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col6)}>
-                    Bin
-                </p>
-                <p className={clsx(styles.column, styles.bold, styles.col7)}>
-                    Options
-                </p>
-            </div>
+            <InventoryHeader />
             {filteredProducts.map(prod => (
-                <Link 
-                    key={prod.productId + prod.productName + prod.locationId + prod.locationName} 
-                    className={styles.productCard} 
-                    to={`/products/inventory/${prod.productId}/${prod.locationId}`}
-                    onClick={() => setActiveProduct(prod)}>
-                    <div className={clsx(styles.column, styles.col1)}>
-                        <p className={styles.productName}>{prod.productName}</p>
-                        <p className={styles.extraLocation}>{prod.locationName}</p>
-                    </div>
-                    <p className={clsx(styles.column, styles.col2)}><span className={styles.quantitySpan}>QTY </span>{prod.quantity}</p>
-                    <p className={clsx(styles.column, styles.col3)}>{prod.productId}</p>
-                    <p className={clsx(styles.column, styles.col4)}>{prod.locationName}</p>
-                    <p className={clsx(styles.column, styles.col5)}>{prod.shelf}</p>
-                    <p className={clsx(styles.column, styles.col6)}>{prod.bin}</p>
-                    <div className={clsx(styles.col7)}>
-                        <Edit/>
-                        <Delete />
-                    </div>
-                    <ChevronDown size={30} className={styles.chevron} />
-                </Link>
+                <InventoryRow 
+                    prod={prod} 
+                    onClick={() => {
+                        setActiveProduct(prod)
+                        navigate(`/products/inventory/${prod.productId}/${prod.locationId}`)
+                        }} />
             ))}
         </div>
         <Outlet 
             context={{
-                        product: activeProduct, 
-                        setActiveProduct:setActiveProduct,
-                        allProducts: products,
-                        setRefresh: setRefresh,
-                        }} />
+                product: activeProduct, 
+                setActiveProduct:setActiveProduct,
+                allProducts: products,
+                setRefresh: setRefresh,
+                }} />
         </>
     )
 }

@@ -41,17 +41,17 @@ import { useNavigate, useParams } from 'react-router'
 
 
 const CatalogModal = () => {
-    const {productId} = useParams()
+    const {id} = useParams()
     const navigate = useNavigate()
     const [productDetails, setProductDetails] = useState(null)
     const [editing, setEditing] = useState(false)
 
     const removeActiveProduct = useCallback(() => {
-        navigate('')
+        navigate('/products/Catalog')
     }, [navigate])
 
     useEffect(() =>{
-        axios.get(`/Product/${productId}`)
+        axios.get(`/Product/${id}`)
             .then(res => setProductDetails(res.data))
             .catch(err => toast.error(err.toString()))
 

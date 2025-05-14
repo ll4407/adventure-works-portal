@@ -4,7 +4,7 @@ import Employees from './container/Employee/Employees';
 import Products from './container/Products/Products';
 import Purchasing from './container/Purchasing/Purchasing';
 import Sales from './container/Sale/Sales';import Login from './components/Login/Login';
-import InventoryModal from './components/Products/InventoryModal';
+import InventoryModal from './components/Products/Inventory/InventoryModal';
 import CatalogModal from './components/Products/Catalog/CatalogModal';
 
 function App() {
@@ -16,8 +16,8 @@ function App() {
         <Route path='/dashboard' element={<h1>Dashboard</h1>} />
         <Route path='/employees' element={<Employees />} />
         <Route path='/products/:activePage?' element={<Products />}>
-          <Route path='/products/inventory/:productId/:locationId' element={<InventoryModal />} />
-          <Route path='/products/catalog/:id' element={<CatalogModal />} />
+          <Route path='/products/:activePage/:productId/:locationId' element={<InventoryModal />} />
+          <Route path='/products/:activePage/:id' element={<CatalogModal />} />
         </Route>
         <Route path='/purchasing' element={<Purchasing />} />
         <Route path='/sales' element={<Sales />} />

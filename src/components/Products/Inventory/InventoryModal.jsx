@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import styles from './ProductModal.module.css'
-import { ChevronDown, Close, Minus, Plus } from '../../icons'
-import axios from '../../api/axios'
+import styles from '../ProductModal.module.css'
+import { ChevronDown, Close, Minus, Plus } from '../../../icons'
+import axios from '../../../api/axios'
 import { toast } from 'react-toastify'
-import DetailsRow from './DetailsRow'
+import DetailsRow from '../DetailsRow'
 import { useNavigate, useOutletContext, useParams } from 'react-router'
 
 const InventoryModal = () => {
@@ -47,7 +47,7 @@ const InventoryModal = () => {
                         quantity: quantity
                     }).then(res => {
                         if(200 >= res.status < 300){
-                            toast.success(`${product.productName} quantity updated`)
+                            toast.success(`${productToDisplay.productName} quantity updated`)
                             //refresh products page data
                             setRefresh(x => !x)
                         }

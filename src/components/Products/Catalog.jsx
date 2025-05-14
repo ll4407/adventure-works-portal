@@ -6,11 +6,11 @@ import PageContext from '../../context/PageContext'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 import CatalogHeader from './Catalog/CatalogHeader'
+import { Outlet } from 'react-router'
 
 const Catalog = () =>{
 
-    const {setShowSearch, filter} = useContext(PageContext)
-    const [activeProduct, setActiveProduct] = useState(null)
+    const {filter} = useContext(PageContext)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
     const filteredProducts = useMemo(() =>{
@@ -33,16 +33,6 @@ const Catalog = () =>{
             })
             .finally(() => setLoading(false))
     }, [])
-    
-    //modal clean up
-    useEffect(() => {
-        if (!loading) {
-            setShowSearch(prev => {
-                const desired = !activeProduct;
-                return prev === desired ? prev : desired;
-            });
-        }
-    }, [activeProduct, setShowSearch, loading]);
 
     if(loading) return null
 
@@ -51,14 +41,9 @@ const Catalog = () =>{
             <div className={styles.productList}>
                 <CatalogHeader />
                 {filteredProducts.map(prod => (
-                    <CatalogRow key={prod.productId} prod={prod} onClick={setActiveProduct} />
+                    <CatalogRow key={prod.productId} prod={prod} />
                 ))}
             </div>
-            {activeProduct && 
-                <CatalogModal 
-                    productId={activeProduct.productId} 
-                    setActiveProduct={setActiveProduct} 
-                    />}
             <Outlet />
         </>
     )

@@ -4,10 +4,11 @@ import PageContext from "../../context/PageContext";
 
 import styles from './Products.module.css'
 import usePageContext from "../../hooks/usePageContext";
+import { useParams } from "react-router";
 
 export default function Products(){
-
-    const pageContext = usePageContext("Inventory")
+    const {activePage} = useParams()
+    const pageContext = usePageContext(activePage ?? "Inventory")
 
     return(
         <PageContext.Provider value={pageContext}>
@@ -25,4 +26,5 @@ export default function Products(){
         </PageContext.Provider>
 
     )
+
 }
