@@ -29,7 +29,7 @@ function vendorAddresses(props){
                             .catch(err => {
                                 toast.error(err);
                             });
-    }, [addressTypes]);
+    }, []);
 
     useEffect(() => {
         axios.get(`AddressType`)
@@ -39,7 +39,7 @@ function vendorAddresses(props){
                             .catch(err => {
                                 toast.error(err);
                             });
-    }, [countryRegions]);
+    }, []);
 
     useEffect(() => {
         axios.get(`StateProvince`)
@@ -49,7 +49,7 @@ function vendorAddresses(props){
                             .catch(err => {
                                 toast.error(err);
                             });
-    }, [stateProv]);
+    }, []);
     
 
     useEffect(() => {     

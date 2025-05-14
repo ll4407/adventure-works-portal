@@ -33,7 +33,7 @@ function VendorDetails() {
             .catch(err => {
                 toast.error(err);
             });
-    }, [vendor, id]);
+    }, [id]);
 
 
     function updateVendorTitle(vendorName, id, account) {

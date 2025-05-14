@@ -26,7 +26,7 @@ function VendorContacts(props){
                     .catch(err => {
                         toast.error(err);
                     });
-    }, [contactType]);
+    }, []);
 
     useEffect(() => {
         axios.get(`PhoneNumberType`)
@@ -36,7 +36,7 @@ function VendorContacts(props){
                     .catch(err => {
                         toast.error(err);
                     });
-    }, [phoneType]);
+    }, []);
 
     const handleEdit = useCallback(() => {
         setEditActive(editActive => !editActive)
