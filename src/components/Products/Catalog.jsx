@@ -48,17 +48,18 @@ const Catalog = () =>{
 
     return(
         <>
-        <div className={styles.productList}>
-            <CatalogHeader />
-            {filteredProducts.map(prod => (
-                <CatalogRow key={prod.productId} prod={prod} onClick={setActiveProduct} />
-            ))}
-        </div>
-        {activeProduct && 
-            <CatalogModal 
-                productId={activeProduct.productId} 
-                setActiveProduct={setActiveProduct} 
-                />}
+            <div className={styles.productList}>
+                <CatalogHeader />
+                {filteredProducts.map(prod => (
+                    <CatalogRow key={prod.productId} prod={prod} onClick={setActiveProduct} />
+                ))}
+            </div>
+            {activeProduct && 
+                <CatalogModal 
+                    productId={activeProduct.productId} 
+                    setActiveProduct={setActiveProduct} 
+                    />}
+            <Outlet />
         </>
     )
 }

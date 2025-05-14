@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import DetailsRow from '../DetailsRow'
 import CatalogModalForm from './CatalogModalForm'
 import DetailsColumn from '../DetailsColumn'
+import { useNavigate, useParams } from 'react-router'
 
     // const exampleProductDetails ={
     //   productId: 0,
@@ -39,14 +40,15 @@ import DetailsColumn from '../DetailsColumn'
     // }
 
 
-const CategoryModal = (props) => {
-    const {productId, setActiveProduct} = props
+const CatalogModal = () => {
+    const {productId} = useParams()
+    const navigate = useNavigate()
     const [productDetails, setProductDetails] = useState(null)
     const [editing, setEditing] = useState(false)
 
     const removeActiveProduct = useCallback(() => {
-        setActiveProduct(null)
-    }, [setActiveProduct])
+        navigate('')
+    }, [navigate])
 
     useEffect(() =>{
         axios.get(`/Product/${productId}`)
@@ -168,4 +170,4 @@ const CategoryModal = (props) => {
     )
 }
 
-export default CategoryModal
+export default CatalogModal

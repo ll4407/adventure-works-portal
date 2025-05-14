@@ -5,7 +5,7 @@ import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
-import InventoryModal from './InventoryModal'
+import { Link, Outlet } from 'react-router'
 
 const Inventory = () =>{
 
@@ -13,6 +13,8 @@ const Inventory = () =>{
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [refresh, setRefresh] = useState(true)
+
     const filteredProducts = useMemo(() =>{
         if(!products) return []
         if(!filter) return products
@@ -25,7 +27,6 @@ const Inventory = () =>{
         )
     }, [filter, products])
 
-    //fetch
     useEffect(() =>{
         axios.get('/Inventory')
             .then(res => setProducts(res.data))
@@ -33,7 +34,7 @@ const Inventory = () =>{
                 toast.error(err.toString())
             })
             .finally(() => setLoading(false))
-    }, [])
+    }, [refresh])
     
     //modal clean up
     useEffect(() => {
@@ -45,7 +46,7 @@ const Inventory = () =>{
         }
     }, [activeProduct, setShowSearch, loading])
 
-    if(loading) return null
+    if(loading || !products) return null
 
     return(
         <>
@@ -74,7 +75,11 @@ const Inventory = () =>{
                 </p>
             </div>
             {filteredProducts.map(prod => (
-                <button key={prod.productId + prod.productName + prod.locationId + prod.locationName} className={styles.productCard} onClick={() => setActiveProduct(prod)}>
+                <Link 
+                    key={prod.productId + prod.productName + prod.locationId + prod.locationName} 
+                    className={styles.productCard} 
+                    to={`/products/inventory/${prod.productId}/${prod.locationId}`}
+                    onClick={() => setActiveProduct(prod)}>
                     <div className={clsx(styles.column, styles.col1)}>
                         <p className={styles.productName}>{prod.productName}</p>
                         <p className={styles.extraLocation}>{prod.locationName}</p>
@@ -89,14 +94,16 @@ const Inventory = () =>{
                         <Delete />
                     </div>
                     <ChevronDown size={30} className={styles.chevron} />
-                </button>
+                </Link>
             ))}
         </div>
-        {activeProduct && 
-            <InventoryModal 
-                product={activeProduct} 
-                setActiveProduct={setActiveProduct} 
-                />}
+        <Outlet 
+            context={{
+                        product: activeProduct, 
+                        setActiveProduct:setActiveProduct,
+                        allProducts: products,
+                        setRefresh: setRefresh,
+                        }} />
         </>
     )
 }

@@ -4,38 +4,65 @@ import { ChevronDown, Close, Minus, Plus } from '../../icons'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 import DetailsRow from './DetailsRow'
+import { useNavigate, useOutletContext, useParams } from 'react-router'
 
+const InventoryModal = () => {
+    const [productToDisplay, setProductToDisplay] = useState(null)
+    const [quantity, setQuantity] = useState(null)
 
-const InventoryModal = (props) => {
-    const {product, setActiveProduct} = props
-    const [quantity, setQuantity] = useState(product.quantity)
+    const {product, setActiveProduct, allProducts, setRefresh} = useOutletContext()
+    const {productId, locationId} = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() =>{
+        if(!productToDisplay){
+            if(product){
+                setQuantity(product.quantity)
+                setProductToDisplay(product)
+            }else{
+                const selectedProduct = 
+                    allProducts.find(prod => 
+                        prod.productId == productId && 
+                        prod.locationId == locationId)
+                setQuantity(selectedProduct.quantity)
+                setProductToDisplay(selectedProduct)
+            }
+        }
+        
+    }, [allProducts, productToDisplay])
+
     const removeActiveProduct = useCallback(() => {
         setActiveProduct(null)
-    }, [setActiveProduct])
+        navigate('/products')
+    }, [setActiveProduct, navigate])
 
     useEffect(() => {
-
-        const timer = setTimeout(() => {
+        let timer 
             // this check stops this from running on the first render 
-            if(quantity != product.quantity){
-                axios.put(`/Inventory/${product.productId}/${product.locationId}`, {
-                    productId: product.productId,
-                    locationId: product.locationId,
-                    quantity: quantity
-                }).then(res => {
-                    if(200 >= res.status < 300){
-                        toast.success(`${product.productName} quantity updated`)
-                    }
-                }).catch(err => toast.error(err.message))
+            if(productToDisplay && quantity != productToDisplay.quantity){
+                timer = setTimeout(() => {
+                    axios.put(`/Inventory/${productId}/${locationId}`, {
+                        productId: productId,
+                        locationId: locationId,
+                        quantity: quantity
+                    }).then(res => {
+                        if(200 >= res.status < 300){
+                            toast.success(`${product.productName} quantity updated`)
+                            //refresh products page data
+                            setRefresh(x => !x)
+                        }
+                    }).catch(err => toast.error(err.message))
+                }, 1000)
             }
 
-        }, 1000)
 
         return () => {
             clearTimeout(timer)
         }
 
-    }, [quantity, product])
+    }, [quantity, productToDisplay])
+
+    if(!productToDisplay) return null
 
     return (
         <div className={styles.modalContainer} onClick={removeActiveProduct}>
@@ -46,11 +73,11 @@ const InventoryModal = (props) => {
                     <span>Back</span>
                 </button>
                 <div className={styles.modalHeader}>
-                    <h1 className={styles.h1}>{product.productName}</h1>
+                    <h1 className={styles.h1}>{productToDisplay.productName}</h1>
                     <div className={styles.locationContainer}>
                         <p>Location</p>
-                        <p>Shelf {product.shelf}</p>
-                        <p>Bin {product.bin}</p>
+                        <p>Shelf {productToDisplay.shelf}</p>
+                        <p>Bin {productToDisplay.bin}</p>
                     </div>
                     <div className={styles.quantityContainer}>
                         <p>Quantity</p>
@@ -68,18 +95,18 @@ const InventoryModal = (props) => {
                 <div className={styles.detailsParent}>
                     <div className={styles.detailsSection}>
                         <h2>Product Details</h2>
-                        <DetailsRow label='Product Name' value={product.productName} />
-                        <DetailsRow label='Product Id' value={product.productId} />
-                        <DetailsRow label='Product Number' value={product.productNumber} />
-                        <DetailsRow label='Safety Stock Level' value={product.safetyStockLevel} />
-                        <DetailsRow label='Reorder Point' value={product.reorderPoint} />
+                        <DetailsRow label='Product Name' value={productToDisplay.productName} />
+                        <DetailsRow label='Product Id' value={productToDisplay.productId} />
+                        <DetailsRow label='Product Number' value={productToDisplay.productNumber} />
+                        <DetailsRow label='Safety Stock Level' value={productToDisplay.safetyStockLevel} />
+                        <DetailsRow label='Reorder Point' value={productToDisplay.reorderPoint} />
                     </div>
                     <div className={styles.detailsSection}>
                         <h2>Location Details</h2>
-                        <DetailsRow label='Location' value={product.locationName} />
-                        <DetailsRow label='Location ID' value={product.locationId} />
-                        <DetailsRow label='Shelf' value={product.shelf} />
-                        <DetailsRow label='Bin' value={product.bin} />
+                        <DetailsRow label='Location' value={productToDisplay.locationName} />
+                        <DetailsRow label='Location ID' value={productToDisplay.locationId} />
+                        <DetailsRow label='Shelf' value={productToDisplay.shelf} />
+                        <DetailsRow label='Bin' value={productToDisplay.bin} />
                     </div>
                 </div>
             </div>
