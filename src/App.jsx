@@ -3,28 +3,38 @@ import Layout from './components/Layout/Layout';
 import Employees from './container/Employee/Employees';
 import Products from './container/Products/Products';
 import Purchasing from './container/Purchasing/Purchasing';
-import Sales from './container/Sale/Sales';import Login from './components/Login/Login';
+import Sales from './container/Sale/Sales';
+import Login from './components/Login/Login';
 import InventoryModal from './components/Products/Inventory/InventoryModal';
 import CatalogModal from './components/Products/Catalog/CatalogModal';
+import ProtectedRoute from './components/Login/ProtectedRoute';
 
 function App() {
-
   return (
     <Routes>
-      <Route path='/' element={<Login/>} />
-      <Route element={<Layout />}>
-        <Route path='/dashboard' element={<h1>Dashboard</h1>} />
-        <Route path='/employees' element={<Employees />} />
-        <Route path='/products/:activePage?' element={<Products />}>
+      {/* Public Route */}
+      <Route path="/" element={<Login />} />
+
+      {/* Protected Routes */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/products/:activePage?" element={<Products />}>
           <Route path='/products/:activePage/:productId/:locationId' element={<InventoryModal />} />
           <Route path='/products/:activePage/:id' element={<CatalogModal />} />
         </Route>
-        <Route path='/purchasing' element={<Purchasing />} />
-        <Route path='/sales' element={<Sales />} />
-        <Route path='/settings' element={<h1>Settings</h1>} />
+        <Route path="/purchasing" element={<Purchasing />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/settings" element={<h1>Settings</h1>} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
