@@ -13,7 +13,6 @@ const InventoryModal = (props) => {
         setActiveProduct(null)
     }, [setActiveProduct])
 
-    console.log(styles)
     useEffect(() => {
 
         const timer = setTimeout(() => {

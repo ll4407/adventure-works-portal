@@ -1,11 +1,12 @@
 import styles from './ProductModal.module.css'
-const DetailsRow = ({label, value}) =>{
+
+const DetailsColumn = ({label, value}) =>{
     return (
-        <div className={styles.detailsRow}>
+        <div className={styles.detailsColumn}>
             <p>{label}</p>
             <p>{value ?? "--"}</p>
         </div>
 
     )
 }
-export default DetailsRow
+export default DetailsColumn
