@@ -1,14 +1,22 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import { Inventory, Catalog } from "../../components/Products";
 import PageContext from "../../context/PageContext";
-
 import styles from './Products.module.css'
 import usePageContext from "../../hooks/usePageContext";
-import { useParams } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import { useEffect } from "react";
 
 export default function Products(){
-    const {activePage} = useParams()
-    const pageContext = usePageContext(activePage ?? "Inventory")
+    const pageContext = usePageContext({firstBtnUrl: '/products/inventory', secondBtnUrl: '/products/catalog'})
+    const {pathname} = useLocation()
+    const navigate = useNavigate()
+
+    useEffect(() =>{
+
+        if(pathname === '/products'){
+            navigate('/products/inventory')
+        }
+
+    }, [])
 
     return(
         <PageContext.Provider value={pageContext}>
@@ -19,9 +27,7 @@ export default function Products(){
                 secondButton={'Catalog'}
                 />
             <div className={styles.contentWrapper}>
-                {pageContext.activePage === "Inventory" ?  
-                    <Inventory  /> : 
-                    <Catalog />}
+                <Outlet />
             </div>
         </PageContext.Provider>
 
