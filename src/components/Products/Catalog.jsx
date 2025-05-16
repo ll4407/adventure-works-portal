@@ -13,14 +13,16 @@ const Catalog = () =>{
     const {filter} = useContext(PageContext)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [refresh, setRefresh] = useState(false)
     const filteredProducts = useMemo(() =>{
         if(!products) return []
         if(!filter) return products
 
         const lowered = filter.toLowerCase()
         return products.filter(p =>
-            p.name.toLowerCase().includes(lowered) ||
-            p.color.toLowerCase().includes(lowered)
+            p.name?.toLowerCase().includes(lowered) ||
+            p.color?.toLowerCase().includes(lowered) ||
+            p.productNumber?.toLowerCase().includes(lowered)
         )
     }, [filter, products])
 
@@ -32,7 +34,7 @@ const Catalog = () =>{
                 toast.error(err.toString())
             })
             .finally(() => setLoading(false))
-    }, [])
+    }, [refresh])
 
     if(loading) return null
 
@@ -44,7 +46,7 @@ const Catalog = () =>{
                     <CatalogRow key={prod.productId} prod={prod} />
                 ))}
             </div>
-            <Outlet />
+            <Outlet context={{refresh:refresh, setRefresh:setRefresh}} />
         </>
     )
 }

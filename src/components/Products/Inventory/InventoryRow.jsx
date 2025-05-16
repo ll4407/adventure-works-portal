@@ -5,7 +5,6 @@ import { Edit, Delete, ChevronDown } from '../../../icons'
 function InventoryRow({prod, onClick}) {
   return (
         <button 
-            key={prod.productId + prod.productName + prod.locationId + prod.locationName} 
             className={styles.productCard} 
             onClick={onClick}>
             <div className={clsx(styles.column, styles.col1)}>

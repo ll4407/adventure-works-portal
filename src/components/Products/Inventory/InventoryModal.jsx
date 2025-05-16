@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import styles from '../ProductModal.module.css'
+import styles from '../Modal/ProductModal.module.css'
 import { ChevronDown, Close, Minus, Plus } from '../../../icons'
 import axios from '../../../api/axios'
 import { toast } from 'react-toastify'
-import DetailsRow from '../DetailsRow'
+import DetailsRow from '../Modal/DetailsRow'
 import { useNavigate, useOutletContext, useParams } from 'react-router'
+import DetailsSection from '../Modal/DetailsSection'
 
 const InventoryModal = () => {
     const [productToDisplay, setProductToDisplay] = useState(null)
@@ -29,7 +30,7 @@ const InventoryModal = () => {
             }
         }
         
-    }, [allProducts, productToDisplay])
+    }, [allProducts, productToDisplay, product, productId, locationId])
 
     const removeActiveProduct = useCallback(() => {
         setActiveProduct(null)
@@ -60,9 +61,52 @@ const InventoryModal = () => {
             clearTimeout(timer)
         }
 
-    }, [quantity, productToDisplay])
+    }, [quantity, productToDisplay, setRefresh, productId, locationId])
 
     if(!productToDisplay) return null
+
+    const details = {
+        productDetailsContent: [
+            {
+                label: 'Product Name',
+                value: productToDisplay.productName,
+            },
+            {
+                label: 'Product Id',
+                value: productToDisplay.productId
+            },
+            {
+                label: 'Product Number',
+                value: productToDisplay.productNumber
+            },
+            {
+                label: 'Safety Stock Level',
+                value: productToDisplay.safetyStockLevel
+            },
+            {
+                label: 'Reorder Point',
+                value: productToDisplay.reorderPoint
+            }
+        ],
+        productDescriptionsContent: [
+            {
+                label: 'Location',
+                value: productToDisplay.locationName,
+            },
+            {
+                label: 'Location ID',
+                value: productToDisplay.locationId
+            },
+            {
+                label: 'Shelf',
+                value: productToDisplay.shelf
+            },
+            {
+                label: 'Bin',
+                value: productToDisplay.bin
+            }
+        ]
+    }
 
     return (
         <div className={styles.modalContainer} onClick={removeActiveProduct}>
@@ -93,21 +137,12 @@ const InventoryModal = () => {
                     </div>
                 </div>
                 <div className={styles.detailsParent}>
-                    <div className={styles.detailsSection}>
-                        <h2>Product Details</h2>
-                        <DetailsRow label='Product Name' value={productToDisplay.productName} />
-                        <DetailsRow label='Product Id' value={productToDisplay.productId} />
-                        <DetailsRow label='Product Number' value={productToDisplay.productNumber} />
-                        <DetailsRow label='Safety Stock Level' value={productToDisplay.safetyStockLevel} />
-                        <DetailsRow label='Reorder Point' value={productToDisplay.reorderPoint} />
-                    </div>
-                    <div className={styles.detailsSection}>
-                        <h2>Location Details</h2>
-                        <DetailsRow label='Location' value={productToDisplay.locationName} />
-                        <DetailsRow label='Location ID' value={productToDisplay.locationId} />
-                        <DetailsRow label='Shelf' value={productToDisplay.shelf} />
-                        <DetailsRow label='Bin' value={productToDisplay.bin} />
-                    </div>
+                    <DetailsSection
+                        content={details.productDetailsContent}
+                        title='Product Details' />
+                    <DetailsSection
+                        content={details.productDescriptionsContent}
+                        title='Product Descriptions'/>
                 </div>
             </div>
         </div>

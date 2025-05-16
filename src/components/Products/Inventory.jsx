@@ -58,8 +58,10 @@ const Inventory = () =>{
         <>
         <div className={styles.productList}>
             <InventoryHeader />
-            {filteredProducts.map(prod => (
+            {filteredProducts.map((prod, idx) => (
                 <InventoryRow 
+                    // there are duplicate keys unless I do this idx*100.
+                    key={prod.productId + prod.locationId + idx*100}
                     prod={prod} 
                     onClick={() => {
                         setActiveProduct(prod)

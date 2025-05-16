@@ -97,6 +97,8 @@
     display: none;
   }
   .productImage {
+    width: 110px;
+    height: 70px;
     border: 1px solid black;
   }
   .catalogCol1,
@@ -140,6 +142,12 @@
   .productCard {
     grid-template-columns: 3fr 2fr 2fr 2fr 2fr 2fr 1fr;
   }
+  .catalogProductCard {
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  }
+  .catalogCol5 {
+    display: unset;
+  }
   .col3 {
     display: unset;
   }
@@ -148,6 +156,7 @@
   .productCard {
     grid-template-columns: 3fr 2fr 2fr 2fr 2fr 2fr 2fr;
   }
+  .catalogCol6,
   .col7 {
     display: flex;
     gap: 2em;
