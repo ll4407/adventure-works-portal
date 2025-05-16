@@ -7,7 +7,7 @@ import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
 const VendorTitle = (props) => {
-    const {vendor, vendorName, phone, accountNum, clicked} = props
+    const {vendor, vendorName, phone, accountNum, clicked, updateVendorInfo} = props
 
     const [editActive, setEditActive] = useState(false);
 
@@ -62,7 +62,7 @@ const VendorTitle = (props) => {
 
             await handleEdit();
 
-            await props.updateVendorTitle(updateVendor.vendorName, updateVendor.businessEntityId, updateVendor.accountNumber);
+            updateVendorInfo()
         }
         catch(err){
             toast.error(err);

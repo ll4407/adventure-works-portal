@@ -6,7 +6,7 @@ import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
 function VendorContacts(props){
-    const {contacts, storeId } = props
+    const {vendor, contacts, storeId, updateVendorInfo} = props
     const [contactCopy, setContactCopy] = useState(null); 
 
     const [editActive, setEditActive] = useState(false)
@@ -16,7 +16,7 @@ function VendorContacts(props){
 
     useEffect(() => {
         setContactCopy(contacts);
-    }, []);
+    }, [contacts]);
 
     useEffect(() => {
         axios.get(`ContactType`)
@@ -210,23 +210,24 @@ function VendorContacts(props){
                 catch(err){
                     toast.error('Email: ' + err);
                 }
-           
+            
+            updateVendorInfo();
 
-           handleEdit();
-    });
+            handleEdit();
+    }, [contacts]);
 
 
 
 
     //Current Data
-    const currentData = 
+    const currentData = contactCopy === null ? <>Loading</> :
                 <>
                     <div>
                         <h2>Contacts</h2>
                         <p onClick={handleEdit}><Edit /></p>
                     </div>
 
-                    {contacts.map((contact, index) => {
+                    {contactCopy.map((contact, index) => {
                         return (
                                 <div key={contact.personId}>
                                     <p>{index + 1}.</p>

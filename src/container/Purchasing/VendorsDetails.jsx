@@ -10,15 +10,18 @@ import styles from './VendorDetails.module.css';
 import modal from './PurchaseModal.module.css';
 
 import { Link, useParams } from 'react-router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { ChevronDown, Close } from '../../icons';
+import { useContext } from 'react';
 
 function VendorDetails() {
     const { clicked } = useOutletContext();
     
 	const [vendor, setVendor] = useState(null);
+
+	const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
 
     const [activePage, setActivePage] = useState('Vendors');
     const [filter, setFilter] = useState("");
@@ -26,32 +29,33 @@ function VendorDetails() {
 	const { id, phone } = useParams();
 
     useEffect(() => {
-        axios.get(`Vendor/${id}`)
+        async function FetchTheData() {
+            await axios.get(`Vendor/${id}`)
             .then(resp => {
                 setVendor(resp.data);
             })
             .catch(err => {
                 toast.error(err);
             });
-    }, [id]);
+        }
+        
+        FetchTheData();
+    }, [vendorUpdateInfo, id]);
 
-
-    function updateVendorTitle(vendorName, id, account) {
-        vendor.vendorName = vendorName;
-        vendor.businessEntityId = id;
-        vendor.accountNumber = account;
+    function UpdateTheVendor() {
+        setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
 
     const detailContent = vendor === null ? <p>Loading</p> : (
         <div>
             <div className={styles.vendorContainer}>
                 <VendorTitle vendor={vendor} vendorName={vendor.vendorName}  phone={phone}
-                    accountNum={vendor.accountNumber} updateVendor={updateVendorTitle} clicked={clicked}/>
+                    accountNum={vendor.accountNumber} updateVendorInfo={UpdateTheVendor} clicked={clicked}/>
 
                 <div>  
-                    <VendorContacts contacts={vendor.contacts} storeId={vendor.businessEntityId}/>
+                    <VendorContacts vendor={vendor} contacts={vendor.contacts} storeId={vendor.businessEntityId} updateVendorInfo={UpdateTheVendor} />
 
-                    <VendorAddresses addresses={vendor.addresses} />
+                    <VendorAddresses addresses={vendor.addresses} updateVendorInfo={UpdateTheVendor} />
                 </div>
             </div>
         </div>

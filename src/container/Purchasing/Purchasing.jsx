@@ -23,7 +23,7 @@ function Purchasing(){
 
     const [vendorsDisplayed, setVendorsDisplayed] = useState([]);
     const [ordersDisplayed, setOrdersDisplayed] = useState([]);
-
+	const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
 
 	const { vendorsList, ordersList } = useSelector(state => state.purchase);
 
@@ -59,7 +59,10 @@ function Purchasing(){
         }
     }, [vendorsList, ordersList, filter])
 
-
+    function UpdateEveryVendor() {
+        console.log('Activate')
+        setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
+    }
     const handleMemberSelected = useCallback(() => {
 		setIsActive(x => !x)
 	}, []);
@@ -92,6 +95,7 @@ function Purchasing(){
                     state={vendorsList.stateProvinceName}
                     postal={vendorsList.postalCode}
                     clicked={handleMemberSelected}
+                    vendorListUpdate={UpdateEveryVendor}
                 />)
             })
         }   
