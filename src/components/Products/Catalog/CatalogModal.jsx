@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
-import styles from '../Modal/ProductModal.module.css'
-import { ChevronDown, Close } from '../../../icons'
+import { useEffect, useState } from 'react'
+import { useNavigate, useOutletContext, useParams } from 'react-router'
+
 import axios from '../../../api/axios'
 import { toast } from 'react-toastify'
-import DetailsRow from '../Modal/DetailsRow'
+
+import { ChevronDown, Close } from '../../../icons'
 import CatalogModalForm from './CatalogModalForm'
-import DetailsColumn from '../Modal/DetailsColumn'
-import { useNavigate, useOutletContext, useParams } from 'react-router'
 import DetailsSection from '../Modal/DetailsSection'
+
+import styles from '../Modal/ProductModal.module.css'
 
 
 const CatalogModal = () => {
@@ -15,23 +16,23 @@ const CatalogModal = () => {
     const navigate = useNavigate()
     const [productDetails, setProductDetails] = useState(null)
     const {refresh, setRefresh} = useOutletContext()
-
-    const removeActiveProduct = useCallback(() => {
-        navigate('/products/Catalog')
-    }, [navigate])
-
+    
     useEffect(() =>{
-        console.log('refresh ran')
         axios.get(`/Product/${id}`)
-            .then(res => setProductDetails(res.data))
-            .catch(err => toast.error(err.toString()))
-
+        .then(res => setProductDetails(res.data))
+        .catch(err => toast.error(err.toString()))
+        
     }, [refresh, id])
+    
+    const exitModal = () => {
+        navigate('/products/Catalog')
+    }
 
 
     if(!productDetails) return null
 
-    const details={
+    //I could do this here, or in the render, but I think this is cleaner
+    const details = {
         productDetailsContent:[{
             label:'Summary',
             value:productDetails.summary,   
@@ -112,23 +113,28 @@ const CatalogModal = () => {
     }
 
     return (
-        <div className={styles.modalContainer} onClick={removeActiveProduct}>
-            <div className={styles.modal} onClick={(evt) => evt.stopPropagation()}>
+        <div className={styles.modalContainer} onClick={exitModal}>
+            <div 
+                className={styles.modal} 
+                onClick={(evt) => evt.stopPropagation()}>
                 <button 
                     aria-label='Close Modal. Go back to list' 
                     className={styles.backBtn} 
-                    onClick={removeActiveProduct}>
+                    onClick={exitModal}>
                     <Close className={styles.backBtnX} />
                     <ChevronDown className={styles.backBtnChevron} />
                     <span>Back</span>
                 </button>
                 <div className={styles.centeredDiv}>
                     <img 
-                    src={productDetails.thumbnailPhoto} 
-                    alt={productDetails.productName} 
-                    className={styles.productImage} />
+                        src={productDetails.thumbnailPhoto} 
+                        alt={productDetails.productName} 
+                        className={styles.productImage} />
                 </div>
-                <CatalogModalForm product={productDetails} refresh={refresh} setRefresh={setRefresh} />
+                <CatalogModalForm 
+                    product={productDetails} 
+                    refresh={refresh} 
+                    setRefresh={setRefresh} />
                 <div className={styles.catalogDetailsParent}>
                     <DetailsSection
                         content={details.productDetailsContent}
@@ -137,7 +143,6 @@ const CatalogModal = () => {
                         content={details.productDescriptionsContent}
                         title='Product Descriptions'
                         containerClassName={styles.catalogTopRow} />
-                    
                     <DetailsSection
                         content={details.productWarrantyContent}
                         title='Warranty & Maintenance'/>

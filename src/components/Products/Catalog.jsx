@@ -1,19 +1,23 @@
-import CatalogModal from './Catalog/CatalogModal'
-import CatalogRow from './Catalog/CatalogRow'
-import styles from '../../container/Products/Products.module.css'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import PageContext from '../../context/PageContext'
+import { Outlet } from 'react-router'
+
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+
 import CatalogHeader from './Catalog/CatalogHeader'
-import { Outlet } from 'react-router'
+import CatalogRow from './Catalog/CatalogRow'
+
+import styles from '../../container/Products/Products.module.css'
 
 const Catalog = () =>{
 
     const {filter} = useContext(PageContext)
+
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [refresh, setRefresh] = useState(false)
+
     const filteredProducts = useMemo(() =>{
         if(!products) return []
         if(!filter) return products
@@ -26,7 +30,6 @@ const Catalog = () =>{
         )
     }, [filter, products])
 
-    //fetch
     useEffect(() =>{
         axios.get('/Product')
             .then(res => setProducts(res.data))

@@ -1,14 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
+
 import Layout from './components/Layout/Layout';
+
 import Employees from './container/Employee/Employees';
+import Login from './components/Login/Login';
 import Products from './container/Products/Products';
+import ProtectedRoute from './components/Login/ProtectedRoute';
 import Purchasing from './container/Purchasing/Purchasing';
 import Sales from './container/Sale/Sales';
-import Login from './components/Login/Login';
-import InventoryModal from './components/Products/Inventory/InventoryModal';
-import CatalogModal from './components/Products/Catalog/CatalogModal';
-import ProtectedRoute from './components/Login/ProtectedRoute';
-import { Catalog, Inventory } from './components/Products';
+
+import { Catalog, CatalogModal, Inventory, InventoryModal } from './components/Products';
 
 function App() {
   return (

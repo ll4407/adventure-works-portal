@@ -1,8 +1,11 @@
 import {useCallback, useState} from 'react'
-import styles from '../Modal/ProductModal.module.css'
-import { Edit } from '../../../icons'
+
 import axios from '../../../api/axios'
 import { toast } from 'react-toastify'
+
+import { Edit } from '../../../icons'
+
+import styles from '../Modal/ProductModal.module.css'
 
 function CatalogModalForm({product, setRefresh}) {
     const [editing, setEditing] = useState(false)
@@ -25,7 +28,9 @@ function CatalogModalForm({product, setRefresh}) {
                 setEditing(false)
                 setRefresh(x => !x)
             }
-        })
+        }).catch(err => 
+            toast.error(err.message))
+
     }, [ product, 
         updatableName, 
         updatableNumber, 
@@ -35,8 +40,8 @@ function CatalogModalForm({product, setRefresh}) {
 
   return (
     <div className={styles.catalogModalForm}>
-        {editing ? 
-      
+        {editing
+            ? 
             <form onSubmit={handleSubmit}>
                 <input 
                     className={styles.boldInput}
@@ -55,7 +60,10 @@ function CatalogModalForm({product, setRefresh}) {
                     value={updatableListPrice} 
                     onChange={(evt)=> setUpdatableListPrice(evt.target.value)} />
                 <button className={styles.submitBtn} type='submit'>Save Changes</button>
-                <button className={styles.cancelBtn} onClick={() => setEditing(false)}>Cancel</button>
+                <button 
+                    aria-label='Close form without saving' 
+                    className={styles.cancelBtn} 
+                    onClick={() => setEditing(false)}>Cancel</button>
             </form>
             :
             <div className={styles.catalogHeader}>

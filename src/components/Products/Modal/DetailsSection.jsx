@@ -1,5 +1,6 @@
 import DetailsColumn from "./DetailsColumn"
 import DetailsRow from "./DetailsRow"
+
 import styles from './ProductModal.module.css'
 
 function DetailsSection({content, title, containerClassName}) {

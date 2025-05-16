@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import styles from '../Modal/ProductModal.module.css'
-import { ChevronDown, Close, Minus, Plus } from '../../../icons'
+import { useNavigate, useOutletContext, useParams } from 'react-router'
+
 import axios from '../../../api/axios'
 import { toast } from 'react-toastify'
-import DetailsRow from '../Modal/DetailsRow'
-import { useNavigate, useOutletContext, useParams } from 'react-router'
+
 import DetailsSection from '../Modal/DetailsSection'
+import { ChevronDown, Close, Minus, Plus } from '../../../icons'
+
+import styles from '../Modal/ProductModal.module.css'
 
 const InventoryModal = () => {
     const [productToDisplay, setProductToDisplay] = useState(null)
@@ -30,9 +32,14 @@ const InventoryModal = () => {
             }
         }
         
-    }, [allProducts, productToDisplay, product, productId, locationId])
+    }, [
+        allProducts, 
+        productToDisplay, 
+        product, 
+        productId, 
+        locationId])
 
-    const removeActiveProduct = useCallback(() => {
+    const exitModal = useCallback(() => {
         setActiveProduct(null)
         navigate('/products')
     }, [setActiveProduct, navigate])
@@ -109,9 +116,12 @@ const InventoryModal = () => {
     }
 
     return (
-        <div className={styles.modalContainer} onClick={removeActiveProduct}>
+        <div className={styles.modalContainer} onClick={exitModal}>
             <div className={styles.modal} onClick={(evt) => evt.stopPropagation()}>
-                <button aria-label='Close Modal. Go back to list' className={styles.backBtn} onClick={removeActiveProduct}>
+                <button 
+                    aria-label='Close Modal. Go back to list' 
+                    className={styles.backBtn} 
+                    onClick={exitModal}>
                     <Close className={styles.backBtnX} />
                     <ChevronDown className={styles.backBtnChevron} />
                     <span>Back</span>
@@ -126,11 +136,15 @@ const InventoryModal = () => {
                     <div className={styles.quantityContainer}>
                         <p>Quantity</p>
                         <div className={styles.quantityControls}>
-                            <button onClick={() => setQuantity(q => q-1)}>
+                            <button 
+                                aria-label='Decrease item quantity by one' 
+                                onClick={() => setQuantity(q => q-1)}>
                                 <Minus />
                             </button>
                             <p>{quantity}</p>
-                            <button onClick={() => setQuantity(q => q+1)}>
+                            <button
+                                aria-label='Increase item quantity by one' 
+                                onClick={() => setQuantity(q => q+1)}>
                                 <Plus />
                             </button>
                         </div>

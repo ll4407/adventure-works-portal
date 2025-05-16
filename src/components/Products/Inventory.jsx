@@ -1,13 +1,16 @@
-import styles from '../../container/Products/Products.module.css'
 import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
+import { Outlet, useNavigate, useParams } from 'react-router'
+
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
-import { Outlet, useNavigate, useParams } from 'react-router'
+
 import InventoryHeader from './Inventory/InventoryHeader'
 import InventoryRow from './Inventory/InventoryRow'
 
-const Inventory = () =>{
+import styles from '../../container/Products/Products.module.css'
+
+const Inventory = () => {
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -63,10 +66,7 @@ const Inventory = () =>{
                     // there are duplicate keys unless I do this idx*100.
                     key={prod.productId + prod.locationId + idx*100}
                     prod={prod} 
-                    onClick={() => {
-                        setActiveProduct(prod)
-                        navigate(`/products/inventory/${prod.productId}/${prod.locationId}`)
-                        }} />
+                    setActiveProduct={setActiveProduct}/>
             ))}
         </div>
         <Outlet 

@@ -1,12 +1,18 @@
+import { Link } from 'react-router'
 import clsx from 'clsx'
-import styles from '../../../container/Products/Products.module.css'
+
 import { Edit, Delete, ChevronDown } from '../../../icons'
 
-function InventoryRow({prod, onClick}) {
+import styles from '../../../container/Products/Products.module.css'
+
+
+function InventoryRow({prod, setActiveProduct}) {
   return (
-        <button 
+        <Link
+            to={`/products/inventory/${prod.productId}`}
+            aria-label={`View ${prod.productName} details`} 
             className={styles.productCard} 
-            onClick={onClick}>
+            onClick={() => setActiveProduct(prod)}>
             <div className={clsx(styles.column, styles.col1)}>
                 <p className={styles.productName}>{prod.productName}</p>
                 <p className={styles.extraLocation}>{prod.locationName}</p>
@@ -21,7 +27,7 @@ function InventoryRow({prod, onClick}) {
                 <Delete />
             </div>
             <ChevronDown size={30} className={styles.chevron} />
-        </button>
+        </Link>
   )
 }
 

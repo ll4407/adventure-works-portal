@@ -1,4 +1,5 @@
 import styles from './ProductModal.module.css'
+
 const DetailsRow = ({label, value}) =>{
     return (
         <div className={styles.detailsRow}>

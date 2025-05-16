@@ -22,6 +22,10 @@
   height: 5rem;
   margin: 0;
 }
+.productCard,
+.catalogProductCard {
+  text-decoration: none;
+}
 .productCard {
   grid-template-columns: 3fr 1fr 1fr;
 }

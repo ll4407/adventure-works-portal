@@ -1,21 +1,24 @@
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import PageContext from "../../context/PageContext";
-import styles from './Products.module.css'
-import usePageContext from "../../hooks/usePageContext";
-import { Outlet, useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import PageContext from "../../context/PageContext";
+import usePageContext from "../../hooks/usePageContext";
+
+import SectionHeader from "../../components/SectionHeader/SectionHeader";
+
+import styles from './Products.module.css'
 
 export default function Products(){
-    const pageContext = usePageContext({firstBtnUrl: '/products/inventory', secondBtnUrl: '/products/catalog'})
+    const pageContext = usePageContext({
+        firstBtnUrl: '/products/inventory', 
+        secondBtnUrl: '/products/catalog'
+    })
     const {pathname} = useLocation()
     const navigate = useNavigate()
 
     useEffect(() =>{
-
         if(pathname === '/products'){
             navigate('/products/inventory')
         }
-
     }, [])
 
     return(

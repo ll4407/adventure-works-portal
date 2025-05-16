@@ -1,18 +1,15 @@
-    import React from "react"
-    import clsx from "clsx"
-    import styles from '../../../container/Products/Products.module.css'
-    import { Edit, Delete, ChevronDown } from "../../../icons"
-import { useNavigate } from "react-router"
+import { Link } from "react-router"
+import clsx from "clsx"
+import styles from '../../../container/Products/Products.module.css'
+import { Edit, Delete, ChevronDown } from "../../../icons"
 
     
-    const CatalogRow = React.memo(({prod}) => {
-        const navigate = useNavigate()
-        
-        return (
-        
-        <button key={prod.productId} onClick={() => {
-                navigate(`/products/catalog/${prod.productId}`)
-                }} className={styles.catalogProductCard}>
+const CatalogRow = ({prod}) => {
+    return (
+        <Link 
+            aria-label={`View ${prod.productName} details`}
+            to={`/products/catalog/${prod.productId}`}
+            className={styles.catalogProductCard}>
             <div className={clsx(styles.column, styles.catalogCol1)}>
                 <img src={prod.thumbnailPhoto} alt={prod.productName} className={styles.productImage} />
             </div>
@@ -28,7 +25,7 @@ import { useNavigate } from "react-router"
                 <Delete />
             </div>
             <ChevronDown size={30} className={styles.chevron} />
-        </button>
-    )})
+        </Link>
+)}
 
-    export default CatalogRow
+export default CatalogRow
