@@ -9,6 +9,7 @@ export default function ContactsForm({
   reset,
   setIsEditing,
   storeDetails,
+  phoneNumberTypes
 }) {
   return (
     <section className={styles.contacts}>
@@ -55,11 +56,21 @@ export default function ContactsForm({
                     {...register(`contacts.${index}.phoneNumberType`)}
                     defaultValue={field.phoneNumberType || ""}
                   >
-                    <option value="">Phone Type</option>
+                    {phoneNumberTypes.map((type) => (
+                      <option
+                        key={type.phoneNumberTypeId}
+                        value={type.phoneNumberTypeName}
+                      >
+                        {type.phoneNumberTypeName}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* <option value="">Phone Type</option>
                     <option value="Mobile">Mobile</option>
                     <option value="Work">Work</option>
                     <option value="Home">Home</option>
-                  </select>
+                  </select> */}
                   <input
                     {...register(`contacts.${index}.phoneNumber`)}
                     placeholder="Phone Number"
