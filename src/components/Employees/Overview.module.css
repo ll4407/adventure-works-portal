@@ -1,8 +1,7 @@
-.productList {
+.employeeList {
   padding-top: 2em;
 }
-.catalogProductCard,
-.productCard {
+.employeeCard {
   border: none;
   background: none;
   display: block;
@@ -11,38 +10,26 @@
   justify-content: start;
   align-items: center;
   border-radius: 0;
-  border-bottom: 2px solid var(--blue);
+  border-bottom: 2px solid var(--orange);
   letter-spacing: 0.5px;
   height: 5rem;
   margin: 0;
-}
-.productCard,
-.catalogProductCard {
   text-decoration: none;
-}
-.productCard {
-  grid-template-columns: 3fr 1fr 1fr;
-}
-.catalogProductCard {
   grid-template-columns: 4fr 1fr;
 }
-.catalogCol2,
-.productName {
+.employeeName {
   font-size: 1.125rem;
 }
 .column {
   text-align: start;
+  padding: 0.5em;
 }
 .chevron {
   transform: rotate(-90deg);
   justify-self: end;
   align-self: center;
 }
-.catalogCol1,
-.catalogCol3,
-.catalogCol4,
-.catalogCol5,
-.catalogCol6,
+.col2,
 .col3,
 .col4,
 .col5,
@@ -50,16 +37,8 @@
 .col7 {
   display: none;
 }
-.catalogCol2 {
-  display: flex;
-  flex-direction: column;
-}
-.catalogCol2 span {
-  font-size: 1rem;
-}
-.catalogTableHeader,
 .tableHeader {
-  border-bottom: 4px solid var(--blue);
+  border-bottom: 4px solid var(--orange);
   display: none;
 }
 .bold {
@@ -69,7 +48,6 @@
 }
 
 @media screen and (min-width: 40rem) {
-  .catalogTableHeader,
   .tableHeader {
     display: grid;
     height: unset;
@@ -78,80 +56,53 @@
     padding-top: 2em;
     z-index: 2;
     background: white;
+    grid-gap: 0.5em;
   }
-  .productCard {
-    grid-template-columns: 4fr 2fr 2fr 1fr;
+  .employeeCard {
+    grid-template-columns: 2fr 2fr 1fr;
   }
-  .catalogProductCard {
-    grid-template-columns: 1fr 2fr 1fr;
-  }
-  .catalogCol2 p,
-  .productName {
+  .employeeName {
     font-size: 1rem;
   }
-  .catalogCol2 span,
-  .quantitySpan,
-  .extraLocation {
+  .extraTitle {
     display: none;
-  }
-  .productImage {
-    width: 110px;
-    height: 70px;
-    border: 1px solid black;
-  }
-  .catalogCol1,
-  .col1 {
-    padding-left: 0.5em;
-  }
-  .catalogCol1,
-  .col4 {
-    display: unset;
-  }
-}
-@media screen and (min-width: 50rem) {
-  .productCard {
-    grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
-  }
-  .catalogProductCard {
-    grid-template-columns: 1fr 2fr 1fr 1fr;
-  }
-  .catalogCol3,
-  .col5 {
-    display: unset;
-  }
-}
-
-@media screen and (min-width: 60rem) {
-  .productCard {
-    grid-template-columns: 3fr 2fr 2fr 2fr 2fr 1fr;
-  }
-  .catalogProductCard {
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-  }
-  .catalogCol4,
-  .col6 {
-    display: unset;
-  }
-}
-@media screen and (min-width: 70rem) {
-  .productCard {
-    grid-template-columns: 3fr 2fr 2fr 2fr 2fr 2fr 1fr;
-  }
-  .catalogProductCard {
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
-  }
-  .catalogCol5 {
-    display: unset;
   }
   .col3 {
     display: unset;
   }
 }
-@media screen and (min-width: 80rem) {
-  .productCard {
-    grid-template-columns: 3fr 2fr 2fr 2fr 2fr 2fr 2fr;
+@media screen and (min-width: 50rem) {
+  .employeeCard {
+    grid-template-columns: 2fr 2.5fr 2fr 1fr;
   }
-  .catalogCol6,
+  .col4 {
+    display: unset;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .employeeCard {
+    grid-template-columns: 2fr 1.5fr 2.5fr 2fr 1fr;
+  }
+  .col2 {
+    display: unset;
+  }
+}
+@media screen and (min-width: 70rem) {
+  .employeeCard {
+    grid-template-columns: 2fr 1.5fr 2.5fr 2fr 2fr 1fr;
+  }
+  .col6 {
+    display: unset;
+  }
+}
+@media screen and (min-width: 80rem) {
+  .employeeCard {
+    grid-template-columns: 2fr 1fr 2.5fr 2fr 2fr 2fr 1.5fr;
+  }
+  .col5 {
+    display: unset;
+  }
   .col7 {
     display: flex;
     gap: 2em;

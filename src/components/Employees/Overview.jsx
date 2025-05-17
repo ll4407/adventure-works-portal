@@ -5,6 +5,9 @@ import { Outlet } from 'react-router'
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 
+import EmployeeHeader from './EmployeeHeader'
+import EmployeeRow from './EmployeeRow'
+
 import styles from './Overview.module.css'
 
 const Overview = () => {
@@ -53,10 +56,10 @@ const Overview = () => {
 
     return(
         <>
-        <div className={styles.productList}>
-            {/* <InventoryHeader /> */}
+        <div className={styles.employeeList}>
+            <EmployeeHeader />
             {filteredEmployees.map((employee) => (
-               <div key={employee.employeeId}>{employee.firstName} {employee.lastName}</div>
+               <EmployeeRow employee={employee} key={employee.employeeId} setActiveEmployee={setActiveEmployee} />
             ))}
         </div>
         <Outlet 
