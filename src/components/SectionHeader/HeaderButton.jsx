@@ -11,9 +11,12 @@ function HeaderButton({firstButton, secondButton, color}){
     const navigate = useNavigate()
 
     const firstBtnActive = useMemo(() => {
+        console.log('pathname', pathname)
+        console.log('secondBtnUrl', secondBtnUrl)
         if (!secondButton) return true;
-        if (pathname === secondBtnUrl) return false;
+        if (pathname.toLowerCase().includes(secondBtnUrl?.toLowerCase()) ) return false;
         return true;
+
     }, [pathname, secondButton, secondBtnUrl])
 
     return(

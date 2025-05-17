@@ -41,7 +41,7 @@ const InventoryModal = () => {
 
     const exitModal = useCallback(() => {
         setActiveProduct(null)
-        navigate('/products')
+        navigate('/products/inventory')
     }, [setActiveProduct, navigate])
 
     useEffect(() => {
