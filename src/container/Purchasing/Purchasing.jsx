@@ -1,6 +1,6 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import PurchasingVendorTile from '../../components/Purchasing/PurchasingVendorTile';
-import PurchasingOrderTile from '../../components/Purchasing/PurchasingOrderTile';
+import VendorParent from "../../components/Purchasing/VendorParent";
+import OrderParent from "../../components/Purchasing/OrderParent";
 import PageContext from "../../context/PageContext";
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +9,6 @@ import { Outlet } from 'react-router-dom';
 
 import { loadVendorsValuesAsync, loadOrdersValuesAsync } from '../../store/purchasing';
 import usePageContext from "../../hooks/usePageContext";
-
 
 import styles from './Purchasing.module.css';
 
@@ -60,7 +59,6 @@ function Purchasing(){
     }, [vendorsList, ordersList, filter])
 
     function UpdateEveryVendor() {
-        console.log('Activate')
         setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
     const handleMemberSelected = useCallback(() => {
@@ -68,68 +66,16 @@ function Purchasing(){
 	}, []);
 
     //layouts based on buttons
-    const listValuesVendors = 
-    <section>
-            <div className={styles.VendorGridHeader}>
-                <p>Vendor Name</p>
-                <p>Phone</p>
-                <p>Business ID</p>
-                <p>Primary Contact</p>
-                <p>Email</p>
-                <p>Billing Address</p>
-                <p>Options</p>
-            </div>
+    const listValuesVendors = <VendorParent 
+                                vendorsDisplayed={vendorsDisplayed} 
+                                clicked={handleMemberSelected}
+                                vendorListUpdate={UpdateEveryVendor}
+                              />;
 
-            {vendorsDisplayed.map(vendorsList => {
-                return(
-                    <PurchasingVendorTile 
-                    key={vendorsList.businessEntityId}
-                    vendorName={vendorsList.vendorName}
-                    phone={vendorsList.contactPhone}
-                    businessId={vendorsList.businessEntityId}   
-                    primaryContact={vendorsList.contactFirstName + ' ' + vendorsList.contactLastName}
-                    email={vendorsList.contactEmail}
-                    addressLine={vendorsList.addressLine1}
-                    addressLine2={vendorsList.addressLine2}
-                    city={vendorsList.city}
-                    state={vendorsList.stateProvinceName}
-                    postal={vendorsList.postalCode}
-                    clicked={handleMemberSelected}
-                    vendorListUpdate={UpdateEveryVendor}
-                />)
-            })
-        }   
-        </section>
-        ;
-
-    const listValuesOrders = 
-        <section>
-            <div className={styles.OrderGridHeader}>
-                <p>Product Name</p>
-                <p>Vendor Name</p>
-                <p>Order Date</p>
-                <p>Order Qty</p>
-                <p>Total Due</p>
-                <p>Ship Date</p>
-            </div>
-            {ordersDisplayed.map(ordersList => {
-            return(
-                <PurchasingOrderTile 
-                key={ordersList.purchaseOrderDetailId}
-                productId={ordersList.purchaseOrderDetailId}
-                productName={ordersList.productName}
-                storeName={ordersList.vendorName}
-                orderDate={ordersList.orderDate}
-                orderQuantity={ordersList.quantity}   
-                totalDue={ordersList.totalDue}
-                shipDate={ordersList.shipDate}
-                clicked={handleMemberSelected}
-            />)
-            })
-        }
-        </section>
-        ;
-
+    const listValuesOrders = <OrderParent 
+                                ordersDisplayed={ordersDisplayed} 
+                                clicked={handleMemberSelected}
+                              />;
 
     //Layout
     return(
