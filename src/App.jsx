@@ -5,22 +5,31 @@ import Products from './container/Product/Products';
 import Purchasing from './container/Purchasing/Purchasing';
 import Sales from './container/Sale/Sales';
 import Login from './components/Login/Login';
+import ProtectedRoute from './components/Login/ProtectedRoute';
 
 function App() {
-
   return (
     <Routes>
-      <Route path='/' element={<Login/>} />
-      <Route element={<Layout />}>
-        <Route path='/dashboard' element={<h1>Dashboard</h1>} />
-        <Route path='/employees' element={<Employees />} />
-        <Route path='/products' element={<Products />} />
-        <Route path='/purchasing' element={<Purchasing />} />
-        <Route path='/sales' element={<Sales />} />
-        <Route path='/settings' element={<h1>Settings</h1>} />
+      {/* Public Route */}
+      <Route path="/" element={<Login />} />
+
+      {/* Protected Routes */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/purchasing" element={<Purchasing />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/settings" element={<h1>Settings</h1>} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
