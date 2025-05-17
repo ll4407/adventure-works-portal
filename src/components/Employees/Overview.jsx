@@ -64,9 +64,8 @@ const Overview = () => {
         </div>
         <Outlet 
             context={{
-                employee: activeEmployee, 
                 setActiveEmployee:setActiveEmployee,
-                allEmployees: employees,
+                refresh: refresh,
                 setRefresh: setRefresh,
                 }} />
         </>
