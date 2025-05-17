@@ -1,0 +1,83 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr auto; 
+  grid-template-rows: auto auto; 
+  align-items: center; 
+  border-bottom: 3px solid var(--pink);
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.first {
+  font-size: 1rem;
+  grid-column: 1; 
+  grid-row: 1;
+}
+
+.seconnd {
+  font-size: 0.9rem;
+  grid-column: 1; 
+  grid-row: 2
+}
+
+.chevron {
+  font-size: 1.5rem; 
+  color: var(--navbar);
+  transform: rotate(270deg); 
+  justify-self: end; 
+  grid-column: 2; 
+  grid-row: 1 / span 2; 
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (min-width: 60rem) {
+
+  .card {
+    grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr 1fr 1fr 0.3fr; 
+    align-items: center; 
+    border-bottom: 2px solid var(--pink);
+    padding-bottom: 1em;
+  }
+
+  .first {
+    grid-column: 1; 
+  }
+
+  .second {
+    font-size: 1rem;
+    grid-column: 2; 
+  }
+
+  .third {
+    grid-column: 3;
+  }
+
+  .fourth{
+    grid-column: 4;
+  }
+  
+  .fifth{
+    grid-column: 5;
+  }
+
+  .sixth{
+    grid-column: 6;
+  }
+
+  .seventh{
+    grid-column: 7;
+  }
+
+  .hidden {
+    display: inline; 
+  }
+
+  .chevron {
+    grid-column: 8; 
+  }
+
+}

@@ -8,14 +8,12 @@ import { Provider } from 'react-redux';
 import accountReducer from './store/account';  
 import { ToastContainer } from 'react-toastify'
 
-
 const store = configureStore({
   reducer: {
-    account: accountReducer
+    account: accountReducer,
   },
-  devTools: true
+  devTools: true,
 });
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
