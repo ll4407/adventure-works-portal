@@ -121,7 +121,7 @@ div.open {
   left: 0;
   background-color: var(--navBar);
   color: var(--white);
-  z-index: 20;
+  z-index: 51;
 }
 
 @media screen and (min-width: 60rem) {
