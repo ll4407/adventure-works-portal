@@ -22,7 +22,6 @@ function Purchasing(){
 	}, []);
     
     function UpdateEveryVendor() {
-        console.log("Rawr")
         setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
 
