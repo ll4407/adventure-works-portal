@@ -53,7 +53,7 @@ function VendorDetails() {
                     accountNum={vendor.accountNumber} updateVendorInfo={UpdateTheVendor} clicked={clicked}/>
 
                 <div>  
-                    <VendorContacts vendor={vendor} contacts={vendor.contacts} storeId={vendor.businessEntityId} updateVendorInfo={UpdateTheVendor} />
+                    <VendorContacts contacts={vendor.contacts} storeId={vendor.businessEntityId} updateVendorInfo={UpdateTheVendor} />
 
                     <VendorAddresses addresses={vendor.addresses} updateVendorInfo={UpdateTheVendor} />
                 </div>

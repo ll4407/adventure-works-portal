@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
-function vendorAddresses(props){
+function VendorAddresses(props){
     const {addresses, updateVendorInfo} = props;
     const [addressesCopy, setAddressesCopy] = useState(null); 
 
@@ -21,7 +21,7 @@ function vendorAddresses(props){
     //Makes copy of Address so we dont mutate orginal property 
     useEffect(() => {
         setAddressesCopy(addresses);
-    }, [addresses]);
+    }, []);
 
 
     //Gather the additonal information related to addresses from database
@@ -94,7 +94,7 @@ function vendorAddresses(props){
         event.preventDefault();
         let newAddressArray = [];
 
-        addressesCopy.map((currAddress, index) => {
+        addressesCopy.map((currAddress) => {
             const {changed, ...addressDetails} = currAddress;
 
             if(changed === true){
@@ -104,7 +104,6 @@ function vendorAddresses(props){
   
         //Update Database
         newAddressArray.map((newAddress) => {
-            console.log(newAddress)
             axios.put(`Address/${newAddress.addressId}`, newAddress)
                     .then(resp => {
                         toast.success("Contact Data Submitted");
@@ -314,4 +313,4 @@ function vendorAddresses(props){
     )
 }
 
-export default vendorAddresses;
+export default VendorAddresses;
