@@ -1,0 +1,126 @@
+/* ... existing styles ... */
+
+.salesSummaryCard {
+  background-color: #fff;
+  padding: 15px; /* Adjusted padding */
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #E2E8F0; /* Light border like screenshot */
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px; /* Adjusted margin */
+}
+
+.summaryHeader h3 {
+  margin: 0;
+  font-size: 1rem; /* Adjusted font size */
+  font-weight: 600; /* Semibold */
+  color: #2D3748; /* Darker gray */
+}
+
+.viewReportLink {
+  font-size: 0.75rem; /* Smaller font size */
+  color: #718096; /* Medium gray */
+  text-decoration: none;
+}
+
+.summaryMetrics {
+  margin-bottom: 15px; /* Adjusted margin */
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.totalSalesValue {
+  font-size: 1.75rem; /* Larger font size */
+  font-weight: 700; /* Bold */
+  color: #2D3748;
+}
+
+.percentageChange {
+  font-size: 0.8rem; /* Adjusted font size */
+  font-weight: 500;
+}
+
+.positive {
+  color: #38A169; /* Green */
+}
+
+.negative {
+  color: #E53E3E; /* Red */
+}
+
+.vsLastWeek {
+  font-size: 0.75rem;
+  color: #A0AEC0; /* Lighter gray */
+}
+
+.noData {
+  padding: 20px;
+  text-align: center;
+  color: #718096;
+  min-height: 200px; /* Ensure card has some height */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the Total Profit section if kept within SalesSummary or as a separate card */
+.totalProfitCard {
+  margin-top: 20px; /* If it's a distinct visual block */
+  padding-top: 15px;
+  /* border-top: 1px solid #E2E8F0; */ /* Optional separator */
+  /* Or style as a completely separate card if it's a different grid item */
+}
+
+.totalProfitCard h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2D3748;
+}
+
+.profitValueMain {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2D3748;
+  margin: 0 0 4px 0;
+}
+
+.profitTrend {
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+.profitTrend .positive,
+.profitTrend .negative {
+  font-weight: 500;
+}
+
+/* Ensure grid items in Dashboard.jsx have consistent styling */
+.salesSummary, /* This is the grid item class in Dashboard.jsx */
+.totalProfit,
+.productPerformance,
+.lowStock,
+.shifts {
+  border: 1px solid #E2E8F0; /* Consistent border */
+  padding: 0; /* Remove padding if card itself has padding */
+  border-radius: 8px;
+  background-color: #fff; /* Ensure background for cards */
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.1); */ /* Already on salesSummaryCard */
+}
+
+/* If .salesSummary is the grid item, and SalesSummaryCard is inside it,
+   you might not need border/padding on .salesSummary itself. */
+.salesSummary { /* Grid item in Dashboard.jsx */
+   /* No padding or border if the SalesSummaryCard component handles it */
+   padding: 0;
+   border: none;
+   background-color: transparent; /* Or match page background */
+   box-shadow: none;
+}
