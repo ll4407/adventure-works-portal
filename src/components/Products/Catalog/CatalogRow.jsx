@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import clsx from "clsx"
-import styles from '../../../container/Products/Products.module.css'
+import styles from '../ProductSubpage.module.css'
 import { Edit, Delete, ChevronDown } from "../../../icons"
 
     

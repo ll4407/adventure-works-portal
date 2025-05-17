@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import InventoryHeader from './Inventory/InventoryHeader'
 import InventoryRow from './Inventory/InventoryRow'
 
-import styles from '../../container/Products/Products.module.css'
+import styles from './ProductSubpage.module.css'
 
 const Inventory = () => {
     const [activeProduct, setActiveProduct] = useState(null)
@@ -54,6 +54,10 @@ const Inventory = () => {
             });
         }
     }, [activeProduct, setShowSearch, loading])
+
+    console.log('products', products)
+    console.log('filteredProducts', filteredProducts)
+    console.log(loading)
 
     if(loading || !products) return null
 

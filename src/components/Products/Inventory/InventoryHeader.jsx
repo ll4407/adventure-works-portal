@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import styles from '../../../container/Products/Products.module.css'
+import styles from '../ProductSubpage.module.css'
 
 function InventoryHeader() {
   return (

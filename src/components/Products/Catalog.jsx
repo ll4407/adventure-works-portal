@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import CatalogHeader from './Catalog/CatalogHeader'
 import CatalogRow from './Catalog/CatalogRow'
 
-import styles from '../../container/Products/Products.module.css'
+import styles from './ProductSubpage.module.css'
 
 const Catalog = () =>{
 

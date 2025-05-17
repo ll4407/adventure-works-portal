@@ -3,13 +3,13 @@ import clsx from 'clsx'
 
 import { Edit, Delete, ChevronDown } from '../../../icons'
 
-import styles from '../../../container/Products/Products.module.css'
+import styles from '../ProductSubpage.module.css'
 
 
 function InventoryRow({prod, setActiveProduct}) {
   return (
         <Link
-            to={`/products/inventory/${prod.productId}`}
+            to={`/products/inventory/${prod.productId}/${prod.locationId}`}
             aria-label={`View ${prod.productName} details`} 
             className={styles.productCard} 
             onClick={() => setActiveProduct(prod)}>
