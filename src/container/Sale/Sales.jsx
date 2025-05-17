@@ -78,15 +78,18 @@ export default function Sales() {
   }, [filter, sales, isCustomer]);
 
   // Handle clicking a card
-  const onCardClick = useCallback((id) => {
-    if (isCustomer) {
-      setSelectedCustomerId(id);
-      setSelectedStoreId(null);
-    } else {
-      setSelectedStoreId(id);
-      setSelectedCustomerId(null);
-    }
-  }, [isCustomer]);
+  const onCardClick = useCallback(
+    (id) => {
+      if (isCustomer) {
+        setSelectedCustomerId(id);
+        setSelectedStoreId(null);
+      } else {
+        setSelectedStoreId(id);
+        setSelectedCustomerId(null);
+      }
+    },
+    [isCustomer]
+  );
 
   // Close detail & re-fetch list
   const closeDetail = useCallback(() => {
@@ -103,16 +106,33 @@ export default function Sales() {
       <SectionHeader
         title={"Sales"}
         color={"pink"}
-        firstButton={'Customers'}
-        secondButton={'Stores'}
+        firstButton={"Customers"}
+        secondButton={"Stores"}
         onFirstButtonClick={() => pageContext.setActivePage("Customers")}
         onSecondButtonClick={() => pageContext.setActivePage("Stores")}
       />
 
       <div className={styles.container}>
-        {/* {loading && !selectedCustomerId && !selectedStoreId ? (
-          <Loading />
-        ) :  */}
+        {/* Always render the list in desktop view - hide in mobile view*/}
+        <div className={styles.hiddenMobileWhenModal}>
+          <HeaderRow isCustomer={isCustomer} />
+          <div className={styles.list}>
+            {filteredSales.map((sale) => (
+              <SaleCard
+                key={sale.id}
+                type={isCustomer ? "customer" : "store"}
+                data={{
+                  ...sale,
+                  contactName: `${sale.contactFirstName || ""} ${
+                    sale.contactLastName || ""
+                  }`.trim(),
+                }}
+                onClick={() => onCardClick(sale.id)}
+              />
+            ))}
+          </div>
+        </div>
+        {/* Conditionally render the modal */}
         {selectedCustomerId || selectedStoreId ? (
           <>
             <button className={styles.backButton} onClick={closeDetail}>
@@ -134,7 +154,7 @@ export default function Sales() {
           </>
         ) : (
           <>
-            <HeaderRow isCustomer={isCustomer} />
+            {/* <HeaderRow isCustomer={isCustomer} /> */}
             <div className={styles.list}>
               {filteredSales.map((sale) => (
                 <SaleCard

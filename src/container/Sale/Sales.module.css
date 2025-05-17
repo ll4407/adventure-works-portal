@@ -27,6 +27,10 @@
   flex-direction: column;
 }
 
+.hiddenMobileWhenModal {
+  display: none;
+}
+
 
 @media screen and (min-width: 60rem) {
   .headerRow {
@@ -47,5 +51,9 @@
     overflow-x: visible; 
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .hiddenMobileWhenModal {
+    display: block;
   }
 }
