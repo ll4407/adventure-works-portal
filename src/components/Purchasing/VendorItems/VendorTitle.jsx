@@ -50,23 +50,18 @@ const VendorTitle = (props) => {
             vendorName: nameUpdate,
             creditRating: vendor.creditRating
         }
+        
+        await axios.put(`Vendor/${vendor.businessEntityId}`, updateVendor)
+            .then(resp => {
+                toast.success("Data Submitted");
+            })
+            .catch(err => {
+                toast.error(err);
+            });
 
-        try{
-            await axios.put(`Vendor/${vendor.businessEntityId}`, updateVendor)
-                    .then(resp => {
-                        toast.success("Data Submitted");
-                    })
-                    .catch(err => {
-                        toast.error(err);
-                    });
+        handleEdit();
 
-            await handleEdit();
-
-            updateVendorInfo()
-        }
-        catch(err){
-            toast.error(err);
-        }
+        updateVendorInfo()
     }
 
     }, [setNewName, setNewAccount, newName, newAccountNum])

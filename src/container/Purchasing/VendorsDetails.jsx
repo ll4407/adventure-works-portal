@@ -13,8 +13,7 @@ import { Link, useParams } from 'react-router';
 import { useState, useEffect, useCallback } from 'react';
 import { useOutletContext } from 'react-router';
 
-import { ChevronDown, Close } from '../../icons';
-import { useContext } from 'react';
+import { ChevronDown } from '../../icons';
 
 function VendorDetails() {
     const { clicked } = useOutletContext();

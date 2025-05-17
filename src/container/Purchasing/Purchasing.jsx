@@ -38,7 +38,7 @@ function Purchasing(){
         setVendorsDisplayed(vendorsList);       
         setOrdersDisplayed(ordersList);       
         
-    }, [vendorsList, ordersList]);
+    }, []);
 
     //filters the list on change
     useEffect(() =>{
@@ -129,8 +129,6 @@ function Purchasing(){
         }
         </section>
         ;
-
-
 
 
     //Layout
