@@ -10,7 +10,6 @@ import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import PageContext from "../../context/PageContext";
 import usePageContext from "../../hooks/usePageContext";
 import ChevronDown from "../../icons/ChevronDown";
-import Loading from "../../components/utils/Loading";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter, isCustomer) => {
@@ -111,9 +110,10 @@ export default function Sales() {
       />
 
       <div className={styles.container}>
-        {loading && !selectedCustomerId && !selectedStoreId ? (
+        {/* {loading && !selectedCustomerId && !selectedStoreId ? (
           <Loading />
-        ) : selectedCustomerId || selectedStoreId ? (
+        ) :  */}
+        {selectedCustomerId || selectedStoreId ? (
           <>
             <button className={styles.backButton} onClick={closeDetail}>
               <ChevronDown className={styles.chevron} /> Back

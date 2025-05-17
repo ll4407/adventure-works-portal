@@ -5,7 +5,6 @@ import Edit from "../../icons/Edit";
 import styles from "./Store.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
-import Loading from "../../components/utils/Loading";
 
 export default function Store({ selectedSaleId, onClose, onUpdate }) {
   const [storeDetails, setStoreDetails] = useState(null);
@@ -24,7 +23,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   useEffect(() => {
     if (!selectedSaleId) return;
 
-    setLoading(true);
+    // setLoading(true);
 
     axios
       .get(`/order/store/${selectedSaleId}`)
@@ -86,7 +85,6 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   };
 
   if (!selectedSaleId) return null;
-  if (loading) return <Loading />;
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>

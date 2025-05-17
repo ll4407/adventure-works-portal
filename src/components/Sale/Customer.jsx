@@ -3,7 +3,6 @@ import axios from "../../api/axios";
 import styles from "./Customer.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
-import Loading from "../../components/utils/Loading";
 
 export default function Customer({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
@@ -29,7 +28,6 @@ export default function Customer({ selectedSaleId, onClose }) {
   }, [selectedSaleId]);
 
   if (!selectedSaleId) return null;
-  if (loading) return <Loading />;
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
