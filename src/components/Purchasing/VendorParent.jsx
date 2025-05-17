@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 
 function VendorParent(props) {
-    const { clicked, vendorListUpdate } = props;
+    const { clicked, vendorUpdateInfo } = props;
 
     const [vendorsDisplayed, setVendorsDisplayed] = useState(null);
 
@@ -24,7 +24,9 @@ function VendorParent(props) {
             .catch(err => {
                 toast.error(err); 
         });
-    }, []);
+    }, [vendorUpdateInfo]);
+
+
 
     const filteredVendors = useMemo(() =>{
         if(!vendorsDisplayed) return []
@@ -67,7 +69,6 @@ function VendorParent(props) {
                     state={vendorsList.stateProvinceName}
                     postal={vendorsList.postalCode}
                     clicked={clicked}
-                    vendorListUpdate={vendorListUpdate}
                 />)
             })
         }   

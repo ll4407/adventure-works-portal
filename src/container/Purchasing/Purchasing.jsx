@@ -3,7 +3,7 @@ import VendorParent from "../../components/Purchasing/VendorParent";
 import OrderParent from "../../components/Purchasing/OrderParent";
 import PageContext from "../../context/PageContext";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Outlet } from 'react-router-dom';
 
 import usePageContext from "../../hooks/usePageContext";
@@ -12,22 +12,23 @@ import styles from './Purchasing.module.css';
 
 function Purchasing(){
     const pageContext = usePageContext("Vendors")
-    const {filter, activePage} = pageContext
+    const {activePage} = pageContext
  
     const [isActive, setIsActive] = useState(false);
 	const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
 
-    function UpdateEveryVendor() {
-        setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
-    }
     const handleMemberSelected = useCallback(() => {
 		setIsActive(x => !x)
 	}, []);
+    
+    function UpdateEveryVendor() {
+        console.log("Rawr")
+        setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
+    }
 
     //layouts based on buttons
-    const listValuesVendors = <VendorParent 
+    const listValuesVendors = <VendorParent vendorUpdateInfo={vendorUpdateInfo}
                                 clicked={handleMemberSelected}
-                                vendorListUpdate={UpdateEveryVendor}
                               />;
 
     const listValuesOrders = <OrderParent 
@@ -48,7 +49,7 @@ function Purchasing(){
                     listValuesVendors: listValuesOrders}
             </section>
             <section>
-				<Outlet context={{clicked: handleMemberSelected}}/>
+				<Outlet context={{clicked: handleMemberSelected, vendorUpdateMethod: UpdateEveryVendor }}/>
 			</section>
         </PageContext.Provider>
 

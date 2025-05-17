@@ -16,7 +16,7 @@ import { useOutletContext } from 'react-router';
 import { ChevronDown } from '../../icons';
 
 function VendorDetails() {
-    const { clicked } = useOutletContext();
+    const { clicked, vendorUpdateMethod } = useOutletContext();
     
 	const [vendor, setVendor] = useState(null);
 
@@ -49,7 +49,7 @@ function VendorDetails() {
         <div>
             <div className={styles.vendorContainer}>
                 <VendorTitle vendor={vendor} vendorName={vendor.vendorName}  phone={phone}
-                    accountNum={vendor.accountNumber} updateVendorInfo={UpdateTheVendor} clicked={clicked}/>
+                    accountNum={vendor.accountNumber} updateVendorInfo={UpdateTheVendor} clicked={clicked} vendorUpdateMethod={vendorUpdateMethod} />
 
                 <div>  
                     <VendorContacts contacts={vendor.contacts} storeId={vendor.businessEntityId} updateVendorInfo={UpdateTheVendor} />

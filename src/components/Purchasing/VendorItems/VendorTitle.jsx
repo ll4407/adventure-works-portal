@@ -7,7 +7,7 @@ import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
 
 const VendorTitle = (props) => {
-    const {vendor, vendorName, phone, accountNum, clicked, updateVendorInfo} = props
+    const {vendor, vendorName, phone, accountNum, clicked, updateVendorInfo, vendorUpdateMethod} = props
 
     const [editActive, setEditActive] = useState(false);
 
@@ -61,7 +61,8 @@ const VendorTitle = (props) => {
 
         handleEdit();
 
-        updateVendorInfo()
+        updateVendorInfo();
+        vendorUpdateMethod();
     }
 
     }, [setNewName, setNewAccount, newName, newAccountNum])
