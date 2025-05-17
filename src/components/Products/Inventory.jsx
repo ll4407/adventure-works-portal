@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
-import { Outlet, useNavigate, useParams } from 'react-router'
+import { Outlet } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
@@ -16,13 +16,8 @@ const Inventory = () => {
     const [loading, setLoading] = useState(true)
     const [refresh, setRefresh] = useState(true)
 
-    const navigate = useNavigate()
-    const {activePage} = useParams()
-    const {setShowSearch, filter} = useContext(PageContext)
+    const { setShowSearch, filter } = useContext(PageContext)
 
-    if(activePage && activePage.toLowerCase() === "catalog"){
-        navigate('/products/Inventory')
-    }
 
     const filteredProducts = useMemo(() =>{
         if(!products) return []
@@ -54,10 +49,6 @@ const Inventory = () => {
             });
         }
     }, [activeProduct, setShowSearch, loading])
-
-    console.log('products', products)
-    console.log('filteredProducts', filteredProducts)
-    console.log(loading)
 
     if(loading || !products) return null
 
