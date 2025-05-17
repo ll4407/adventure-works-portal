@@ -1,0 +1,217 @@
+
+.header {
+  color: var(--black);
+}
+
+.content {
+  color: var(--black);
+  display: block;
+  background: none;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: none;
+  position: static;
+  overflow-y: auto;
+}
+
+.modalClose {
+  display: none;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "customerDetails"
+    "saleDetails"
+    "pricingDetails"
+    "shipping";
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.customerDetails {
+  grid-area: customerDetails;
+}
+
+.saleDetails {
+  grid-area: saleDetails;
+}
+
+.pricingDetails {
+  grid-area: pricingDetails;
+}
+
+.shipping {
+  grid-area: shipping;
+}
+
+.header p {
+  padding-left: 1em;
+}
+
+.detailsGrid section {
+  padding-top: 1em;
+}
+
+.detailsGrid section>.row {
+  padding-left: 1em;
+}
+
+.close {
+  margin-right: 0.5em;
+}
+
+/* Row layout for label-value pairs */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.label {
+  text-align: left;
+}
+
+.value {
+  text-align: right;
+}
+
+.detailsGrid section:not(.customerDetails) .row {
+  padding-top: 0.7em;
+}
+
+.detailsGrid .row.taxAmount {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+
+@media screen and (min-width: 60rem) {
+  .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .content {
+    display: block;
+    background: white;
+    padding: 2em;
+    border-radius: 3px;
+    max-width: 70vw;
+    box-shadow: 4px 8px 16px 0px #00000040;
+    position: relative;
+  }
+
+  .modalClose {
+    display: block;
+    /* Show the close button for modal view */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .detailsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "customerDetails shipping"
+      "saleDetails pricingDetails";
+    row-gap: 1em;
+    column-gap: 5em;
+    margin-top: 1em;
+  }
+
+  .customerDetails {
+    grid-area: customerDetails;
+  }
+
+  .shipping {
+    grid-area: shipping;
+  }
+
+  .saleDetails {
+    grid-area: saleDetails;
+  }
+
+  .pricingDetails {
+    grid-area: pricingDetails;
+  }
+
+
+
+  .header p {
+    padding-left: 0;
+  }
+
+
+  .customerDetails .row {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+
+  section:not(.customerDetails) .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+    white-space: nowrap;
+  }
+
+  .label {
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  .value {
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .header h2 {
+    margin-bottom: 0.5em;
+  }
+
+  .customerDetails h3 {
+    margin-bottom: 0.4em;
+  }
+}
+
+
+@media screen and (min-width: 70rem) {
+  .content {
+    max-width: 60vw;
+  }
+}
+
+@media screen and (min-width: 80rem) {
+  .content {
+    max-width: 55vw;
+  }
+}
+
+@media screen and (min-width: 100rem) {
+  .content {
+    max-width: 45vw;
+  }
+}
