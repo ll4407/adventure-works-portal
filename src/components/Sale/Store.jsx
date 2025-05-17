@@ -23,7 +23,6 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   useEffect(() => {
     if (!selectedSaleId) return;
 
-    // setLoading(true);
 
     axios
       .get(`/order/store/${selectedSaleId}`)
@@ -32,7 +31,6 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
         reset({ contacts: data.contacts || [] });
       })
       .catch((err) => {
-        console.error(err);
         toast.error("Failed to load store details.");
       })
       .finally(() => {
