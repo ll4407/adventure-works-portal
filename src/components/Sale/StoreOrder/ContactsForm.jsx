@@ -9,7 +9,8 @@ export default function ContactsForm({
   reset,
   setIsEditing,
   storeDetails,
-  phoneNumberTypes
+  phoneNumberTypes,
+  contactTypes,
 }) {
   return (
     <section className={styles.contacts}>
@@ -24,10 +25,12 @@ export default function ContactsForm({
                   defaultValue={field.suffix || ""}
                 >
                   <option value="">Suffix</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Mrs.">Mrs.</option>
-                  <option value="Ms.">Ms.</option>
-                  <option value="Dr.">Dr.</option>
+                  <option value="Jr.">Jr.</option>
+                  <option value="Sr.">Sr.</option>
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
                 </select>
                 <input
                   {...register(`contacts.${index}.firstName`)}
@@ -46,12 +49,33 @@ export default function ContactsForm({
                 />
               </div>
               <div className={styles.gridRow}>
-                <input
-                  {...register(`contacts.${index}.contactType`)}
-                  placeholder="Contact Type"
-                  defaultValue={field.contactType}
-                />
-                <div className={styles.phoneGroup}>
+                <div className={styles.group}>
+                  <select
+                    {...register(`contacts.${index}.contactType`)}
+                    defaultValue={field.contactType || ""}
+                  >
+                    <option value="">Contact Type</option>
+                    {contactTypes.map((type) => (
+                      <option
+                        key={type.contactTypeId}
+                        value={type.contactTypeName}
+                      >
+                        {type.contactTypeName}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    {...register(`contacts.${index}.title`)}
+                    defaultValue={field.title || ""}
+                  >
+                    <option value="">Contact Title</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Dr.">Dr.</option>
+                  </select>
+                </div>
+                <div className={styles.group}>
                   <select
                     {...register(`contacts.${index}.phoneNumberType`)}
                     defaultValue={field.phoneNumberType || ""}
@@ -66,11 +90,6 @@ export default function ContactsForm({
                     ))}
                   </select>
 
-                  {/* <option value="">Phone Type</option>
-                    <option value="Mobile">Mobile</option>
-                    <option value="Work">Work</option>
-                    <option value="Home">Home</option>
-                  </select> */}
                   <input
                     {...register(`contacts.${index}.phoneNumber`)}
                     placeholder="Phone Number"

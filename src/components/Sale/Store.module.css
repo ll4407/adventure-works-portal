@@ -149,14 +149,14 @@
 }
 
 
-.phoneGroup {
+.group {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5em;                     
 }
 
-.phoneGroup select,
-.phoneGroup input {
+.group select,
+.group input {
   width: 100%;            
   box-sizing: border-box; 
 }

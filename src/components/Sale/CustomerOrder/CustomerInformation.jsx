@@ -10,9 +10,9 @@ export default function CustomerInformation({ details }) {
           {`${details.suffix || ""} ${details.firstName || "N/A"} ${details.middleName || ""} ${details.lastName || "N/A"}`}
         </p>
       </div>
-      <div className={styles.row}>
+      {/* <div className={styles.row}>
         <p>{details.title || "N/A"}</p>
-      </div>
+      </div> */}
       <div className={styles.row}>
         <p>
           {details.phoneNumberType

@@ -16,6 +16,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [phoneNumberTypes, setPhoneNumberTypes] = useState([]);
+  const [contactTypes, setContactTypes] = useState([]);
 
   const { control, register, handleSubmit, reset } = useForm({
     defaultValues: { contacts: [] },
@@ -50,6 +51,14 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
       .then((resp) => setPhoneNumberTypes(resp.data))
       .catch(() => setPhoneNumberTypes([]));
   }, []);
+
+  // Fetch contact types
+  useEffect(() => {
+  axios
+    .get("/ContactType")
+    .then((resp) => setContactTypes(resp.data))
+    .catch(() => setContactTypes([]));
+}, []);
 
   // Enter edit mode
   const handleEditClick = () => setIsEditing(true);
@@ -120,6 +129,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
                   setIsEditing={setIsEditing}
                   storeDetails={storeDetails}
                   phoneNumberTypes={phoneNumberTypes} 
+                  contactTypes={contactTypes}
                 />
               ) : (
                 <Contacts

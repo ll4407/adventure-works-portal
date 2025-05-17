@@ -154,7 +154,6 @@ export default function Sales() {
           </>
         ) : (
           <>
-            {/* <HeaderRow isCustomer={isCustomer} /> */}
             <div className={styles.list}>
               {filteredSales.map((sale) => (
                 <SaleCard

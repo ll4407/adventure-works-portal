@@ -24,7 +24,7 @@ export default function Contacts({ contacts, isEditing, onEdit }) {
               <p>
                 {i + 1}. {c.suffix} {c.firstName} {c.middleName} {c.lastName}
               </p>
-              <p>Contact Type: {c.contactType}</p>
+              <p>{c.contactType} ({c.title})</p>
               <p>
                 Phone: {c.phoneNumber} ({c.phoneNumberType})
               </p>
