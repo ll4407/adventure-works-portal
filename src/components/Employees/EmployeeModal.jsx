@@ -7,6 +7,9 @@ import { toast } from 'react-toastify'
 import { ChevronDown, Close } from '../../icons'
 
 import styles from './EmployeeModal.module.css'
+import ModalTop from './ModalTop'
+import ModalPersonalInfo from './ModalPersonalInfo'
+import ModalEmploymentInfo from './ModalEmploymentInfo'
 
 const EmployeeModal = () => {
     const [employeeToDisplay, setEmployeeToDisplay] = useState(null)
@@ -29,6 +32,8 @@ const EmployeeModal = () => {
         setActiveEmployee(null)
         navigate('/employees')
     }, [ navigate ])
+
+    console.log(employeeToDisplay)
 
     // useEffect(() => {
     //     let timer 
@@ -69,22 +74,9 @@ const EmployeeModal = () => {
                     <ChevronDown className={styles.backBtnChevron} />
                     <span>Back</span>
                 </button>
-                <div className={styles.modalHeader}>
-                    <h1 className={styles.h1}>{employeeToDisplay.firstName} {employeeToDisplay.lastName}</h1>
-                    <div className={styles.locationContainer}>
-                        <p>Location</p>
-                        <p>{employeeToDisplay.jobTitle}</p>
-                        <p>{employeeToDisplay.employeeId}</p>
-                    </div>
-                </div>
-                <div className={styles.detailsParent}>
-                    {/* <DetailsSection
-                        content={details.productDetailsContent}
-                        title='Product Details' />
-                    <DetailsSection
-                        content={details.productDescriptionsContent}
-                        title='Product Descriptions'/> */}
-                </div>
+                <ModalTop employee={employeeToDisplay} setRefresh={setRefresh} />
+                <ModalPersonalInfo employee={employeeToDisplay} setRefresh={setRefresh} />
+                <ModalEmploymentInfo employee={employeeToDisplay} setRefresh={setRefresh} />
             </div>
         </div>
     )

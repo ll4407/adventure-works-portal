@@ -59,7 +59,10 @@ const Overview = () => {
         <div className={styles.employeeList}>
             <EmployeeHeader />
             {filteredEmployees.map((employee) => (
-               <EmployeeRow employee={employee} key={employee.employeeId} setActiveEmployee={setActiveEmployee} />
+               <EmployeeRow 
+                key={employee.employeeId} 
+                employee={employee} 
+                setActiveEmployee={setActiveEmployee} />
             ))}
         </div>
         <Outlet 

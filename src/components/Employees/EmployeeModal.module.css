@@ -146,7 +146,7 @@
   letter-spacing: 0.5px;
 }
 .submitBtn {
-  background-color: var(--blue);
+  background-color: var(--orange);
 }
 .cancelBtn {
   padding: 0;
