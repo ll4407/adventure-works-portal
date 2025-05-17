@@ -1,11 +1,46 @@
 import PurchasingVendorTile from './PurchasingVendorTile';
+import PageContext from '../../context/PageContext';
 import styles from '../../container/Purchasing/Purchasing.module.css';
 
-function VendorParent(props) {
-    const { vendorsDisplayed, clicked, vendorListUpdate } = props;
+import axios from '../../api/axios';
 
-    return (
-        <section>
+import { useEffect, useState, useContext, useMemo } from "react";
+import { toast } from 'react-toastify';
+
+
+function VendorParent(props) {
+    const { clicked, vendorListUpdate } = props;
+
+    const [vendorsDisplayed, setVendorsDisplayed] = useState(null);
+
+    const { filter } = useContext(PageContext)
+
+
+    useEffect(() => {
+        axios.get(`Vendor`)
+            .then(resp => {
+                setVendorsDisplayed(resp.data)
+            })
+            .catch(err => {
+                toast.error(err); 
+        });
+    }, []);
+
+    const filteredVendors = useMemo(() =>{
+        if(!vendorsDisplayed) return []
+        if(!filter) return vendorsDisplayed
+
+        const lowered = filter.toLowerCase()
+        return vendorsDisplayed.filter(v =>
+            v.vendorName?.toLowerCase().includes(lowered) ||
+            v.contactFirstName?.toLowerCase().includes(lowered) ||
+            v.contactLastName?.toLowerCase().includes(lowered)
+        )
+    }, [filter, vendorsDisplayed])
+
+
+    const currentData = vendorsDisplayed === null ? <>Loading</> :
+            <section>
             <div className={styles.VendorGridHeader}>
                 <p>Vendor Name</p>
                 <p>Phone</p>
@@ -16,8 +51,8 @@ function VendorParent(props) {
                 <p>Options</p>
             </div>
 
-
-            {vendorsDisplayed.map(vendorsList => {
+ 
+            {filteredVendors.map(vendorsList => {
                 return(
                     <PurchasingVendorTile 
                     key={vendorsList.businessEntityId}
@@ -37,6 +72,11 @@ function VendorParent(props) {
             })
         }   
         </section>
+
+    return (
+        <>
+            {currentData}
+        </>
     )
 
 }

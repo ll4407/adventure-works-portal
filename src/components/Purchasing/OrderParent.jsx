@@ -1,10 +1,44 @@
 import PurchasingOrderTile from './PurchasingOrderTile';
 import styles from '../../container/Purchasing/Purchasing.module.css';
+import PageContext from '../../context/PageContext';
+
+import axios from '../../api/axios';
+
+import { useEffect, useState, useContext, useMemo } from "react";
+import { toast } from 'react-toastify';
 
 function OrderParent(props) {
-    const { ordersDisplayed, clicked } = props;
+    const { clicked } = props;
 
-    return (
+    const [ordersDisplayed, setOrdersDisplayed] = useState(null);
+
+    const { filter } = useContext(PageContext)
+
+    useEffect(() => {
+        axios.get(`Purchase`)
+            .then(resp => {
+                setOrdersDisplayed(resp.data)
+            })
+            .catch(err => {
+                toast.error(err);
+        });
+    }, []);
+
+
+    const filteredOrders = useMemo(() =>{
+        if(!ordersDisplayed) return []
+        if(!filter) return ordersDisplayed
+
+        const lowered = filter.toLowerCase()
+        return ordersDisplayed.filter(o =>
+            o.vendorName?.toLowerCase().includes(lowered) ||
+            o.productName?.toLowerCase().includes(lowered) ||
+            o.totalDue?.toString().toLowerCase().includes(lowered)
+        )
+    }, [filter, ordersDisplayed])
+
+
+    const currentData = ordersDisplayed === null ? <>Loading</> :
         <section>
             <div className={styles.OrderGridHeader}>
                 <p>Product Name</p>
@@ -16,7 +50,7 @@ function OrderParent(props) {
             </div>
 
             
-            {ordersDisplayed.map(ordersList => {
+            {filteredOrders.map(ordersList => {
             return(
                 <PurchasingOrderTile 
                 key={ordersList.purchaseOrderDetailId}
@@ -28,10 +62,14 @@ function OrderParent(props) {
                 totalDue={ordersList.totalDue}
                 shipDate={ordersList.shipDate}
                 clicked={clicked}
-            />)
-            })
-        }
-        </section>
+                />)
+            })}
+        </section>;
+
+    return (
+        <>
+            {currentData}
+        </>
     )
 
 }
