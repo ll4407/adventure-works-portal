@@ -1,0 +1,104 @@
+.salesSummaryCard {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.summaryHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2D3748;
+}
+
+.viewReportLink {
+  font-size: 0.75rem;
+  color: #718096;
+  text-decoration: none;
+}
+
+.viewReportLink:hover {
+  text-decoration: underline;
+}
+
+.summaryMetrics {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.totalSalesValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2D3748;
+}
+
+.percentageChange {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.positive {
+  color: #38A169;
+}
+
+.negative {
+  color: #E53E3E;
+}
+
+.vsLastWeek {
+  font-size: 0.75rem;
+  color: #A0AEC0;
+}
+
+.noData {
+  padding: 20px;
+  text-align: center;
+  color: #718096;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.totalProfitSection {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.totalProfitSection h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2D3748;
+}
+
+.profitValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2D3748;
+  margin: 0 0 4px 0;
+}
+
+.profitTrend {
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+.profitTrend .positive,
+.profitTrend .negative {
+  font-weight: 500;
+}

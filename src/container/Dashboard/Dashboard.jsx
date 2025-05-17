@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import styles from "./Dashboard.module.css";
+import SalesSummary from "../../components/Dashboard/SalesSummary";
 import { toast } from "react-toastify";
+import { Sales } from "../../icons";
 
 
 export default function Dashboard() {
@@ -49,7 +51,7 @@ export default function Dashboard() {
 
       <div className={styles.grid}>
         <div className={styles.salesSummary}>
-            Sales Summary
+            <SalesSummary data={weeklySales} />
         </div>
         <div className={styles.totalProfit}>
         </div>
