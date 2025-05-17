@@ -2,7 +2,7 @@ import styles from './Loading.module.css'
 
 const Loading = () => {
     return(
-        <span class={styles.loader}></span>
+        <span className={styles.loader}></span>
     )
 }
 
