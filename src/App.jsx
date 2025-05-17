@@ -1,15 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Layout from './components/Layout/Layout';
-
-import Employees from './container/Employee/Employees';
-import Login from './components/Login/Login';
-import Products from './container/Products/Products';
-import ProtectedRoute from './components/Login/ProtectedRoute';
-import Purchasing from './container/Purchasing/Purchasing';
-import Sales from './container/Sale/Sales';
-
-import { Catalog, CatalogModal, Inventory, InventoryModal } from './components/Products';
+import { Employees, Products, Purchasing, Sales } from './container';
+import { Layout, Login, ProtectedRoute, Inventory, InventoryModal, Catalog, CatalogModal } from './components';
 
 function App() {
   return (
@@ -26,7 +18,9 @@ function App() {
         }
       >
         <Route path="/dashboard" element={<h1>Dashboard</h1>} />
-        <Route path="/employees" element={<Employees />} />
+        <Route path="/employees" element={<Employees />}>
+          <Route path="/employees/:id" element={<>Employee Modal</>} />
+        </Route>
         <Route path="/products" element={<Products />}>
           <Route path="/products/inventory/" element={<Inventory/>}>
             <Route path='/products/inventory/:productId/:locationId' element={<InventoryModal />} />
