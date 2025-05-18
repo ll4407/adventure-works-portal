@@ -24,16 +24,7 @@
 .backBtnX {
   display: none;
 }
-.modalHeader {
-  display: grid;
-  grid-template-areas:
-    "header quantity"
-    "location quantity";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-}
 .h1 {
-  grid-area: header;
   font-size: 1.5rem;
   letter-spacing: 0.4px;
   color: var(--black);
@@ -45,14 +36,6 @@
   flex-direction: column;
   gap: 1em;
 }
-.quantityContainer {
-  grid-area: quantity;
-  justify-self: end;
-  row-span: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .backBtn {
   background: none;
   display: flex;
@@ -63,24 +46,14 @@
 .backBtnChevron {
   transform: rotate(90deg);
 }
-.quantityControls {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-.quantityControls button {
-  background: none;
-  border: none;
-}
-.catalogTopRow,
 .detailsSection {
   display: flex;
   flex-direction: column;
   gap: 1em;
   padding: 1em 0;
+  max-width: 400px;
 }
-.catalogTopRow h2,
-.detailsSection h2 {
+.h2 {
   font-size: 1.25rem;
   color: var(--black);
   letter-spacing: 0.4px;
@@ -89,54 +62,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.5em;
 }
-.detailsColumn {
-  padding: 0 0.5em;
-}
-.detailsColumn > p:first-child {
-  text-decoration: underline;
-}
-
-/* ------------------ catalog modal specific ------------------------- */
-.catalogModalForm {
+.topForm {
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
-}
-.centeredDiv {
-  display: flex;
-  justify-content: center;
-}
-.centeredDiv img {
-  width: 150px;
-  height: 100px;
-  border: 1px solid black;
-  background: grey;
-}
-.catalogHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-.catalogHeader > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.catalogHeader > p {
-  padding: 0 0.5em;
-}
-.catalogProductName {
-  font-size: 1.5rem;
-  color: var(--black);
 }
 .editBtn {
   background: none;
   border: none;
 }
-.indentedInputs {
-  margin-left: 0.5em;
+.input {
   width: 70%;
   letter-spacing: 0.5px;
 }
@@ -185,44 +120,13 @@
     overflow-y: scroll;
     -ms-overflow-style: none; /* For IE and Edge */
     scrollbar-width: none; /* For Firefox */
+    align-items:start;
   }
   .modal::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, Opera */
   }
   .modalHeader {
     width: max-content;
-  }
-  .catalogDetailsParent {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    gap: 4em;
-    flex-wrap: wrap;
-  }
-  .catalogDetailsParent .detailsSection:not(:nth-child(2)) {
-    min-width: 300px;
-    width: calc(33% - 4em);
-    order: 2;
-  }
-  .catalogTopRow {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1em 4em;
-    order: 1;
-    flex-wrap: wrap;
-  }
-  .catalogTopRow h2 {
-    width: 100%;
-  }
-  .catalogTopRow div {
-    min-width: 200px;
-    width: calc(25% - 4em);
-  }
-  .detailsParent {
-    display: flex;
-    width: 100%;
-    gap: 4em;
   }
   .detailsSection {
     width: 50%;

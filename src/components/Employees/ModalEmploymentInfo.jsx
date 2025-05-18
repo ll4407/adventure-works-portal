@@ -95,27 +95,29 @@ function ModalEmploymentInfo({employee, setRefresh}) {
                 onClick={() => setEditing(false)}>Cancel</button>
         </form>
         :
-        <div>
-            <h2>Employment Information</h2>
-            <button 
-                aria-label='Edit Employee Personal Information' 
-                className={styles.editBtn} 
-                onClick={() => setEditing(true)}>
-                <Edit className={styles.editIcon} />
-            </button>
-            <div>
+        <div className={styles.detailsSection}>
+            <div className={styles.detailsRow}>
+                <h2 className={styles.h2}>Employment Information</h2>
+                <button 
+                    aria-label='Edit Employee Personal Information' 
+                    className={styles.editBtn} 
+                    onClick={() => setEditing(true)}>
+                    <Edit className={styles.editIcon} />
+                </button>
+            </div>
+            <div className={styles.detailsRow}>
                 <p>Job Title</p>
                 <p>{employee.jobTitle}</p>
             </div>
-            <div>
+            <div className={styles.detailsRow}>
                 <p>Employee ID</p>
                 <p>{employee.employeeId}</p>
             </div>
-            <div>
+            <div className={styles.detailsRow}>
                 <p>Department</p>
                 <p>{employee.shiftHistory.department}</p>
             </div>
-            <div>
+            <div className={styles.detailsRow}>
                 <p>Suffix</p>
                 <p>{employee.suffix}</p>
             </div>

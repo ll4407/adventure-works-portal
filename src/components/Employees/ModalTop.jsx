@@ -57,29 +57,39 @@ function ModalTop({employee, setRefresh}) {
     <>
         {editing 
         ? 
-        <form>
+        <form className={styles.topForm}>
             <input
                 aria-label='First Name'
+                className={styles.input}
                 type="text"
                 value={employeeData.firstName}
+                placeholder='First Name'
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, firstName: e.target.value}))} />
             <input
                 aria-label='Last Name'
+                className={styles.input}
                 type="text"
                 value={employeeData.lastName}
+                placeholder='Last Name'
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, lastName: e.target.value}))} />
             <input
                 aria-label='Job Title'
+                className={styles.input}
                 type="text"
                 value={employeeData.jobTitle}
+                placeholder='Job Title'
+                disabled
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, jobTitle: e.target.value}))} />
             <input
                 aria-label='Employee ID'
+                className={styles.input}
                 type="text"
                 value={employeeData.employeeId}
+                placeholder='Employee ID'
+                disabled
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, employeeId: e.target.value}))} />
             <button 
@@ -92,18 +102,18 @@ function ModalTop({employee, setRefresh}) {
                 onClick={() => setEditing(false)}>Cancel</button>
         </form>
         :
-        <div className={styles.modalHeader}>
-            <h1 className={styles.h1}>{employee.firstName} {employee.lastName}</h1>
-            <button 
-                aria-label='Edit Employee' 
-                className={styles.editBtn} 
-                onClick={() => setEditing(true)}>
-                <Edit className={styles.editIcon} />
-            </button>
-            <div>
-                <p>{employee.jobTitle}</p>
-                <p>{employee.employeeId}</p>
+        <div className={styles.detailsSection}>
+            <div className={styles.detailsRow}>
+                <h1 className={styles.h1}>{employee.firstName} {employee.lastName}</h1>
+                <button 
+                    aria-label='Edit Employee' 
+                    className={styles.editBtn} 
+                    onClick={() => setEditing(true)}>
+                    <Edit className={styles.editIcon} />
+                </button>
             </div>
+            <p className={styles.modalText}>{employee.jobTitle}</p>
+            <p className={styles.modalText}>{employee.employeeId}</p>
         </div>
         }
     </>
