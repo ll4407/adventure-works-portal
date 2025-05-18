@@ -1,0 +1,137 @@
+/*General*/
+.purchaseLayout {
+    padding: 0 1.5em;
+}
+.purchaseLayout svg {
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+
+.OrderGridHeader, .VendorGridHeader{
+    padding-top: 2em;
+    font-weight: bold;
+}
+
+.VendorGridContent > :last-child {
+    transform: rotate(270deg);
+}
+
+
+.OrderGridContent > div svg {
+    transform: rotate(270deg);
+}
+.OrderGridContent > div:last-child svg {
+    margin-right: 1.5em;
+}
+.OrderGridContent > div:first-child svg {
+    margin-left: auto;
+    margin-right: 1.5em;
+}
+
+/*Display*/
+.OrderGridHeader, .VendorGridHeader{
+    display: none;
+}
+.OrderGridContent, .VendorGridContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-bottom: 3px solid var(--green);
+    padding: 1em 0em;
+}
+
+.OrderGridContent > div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+}
+.OrderGridContent > div > :nth-child(n) {
+    flex-basis: 50%;
+    margin-left: 2em;
+}
+
+.VendorGridContent > div > :nth-child(n+3) {
+    display: none;
+}
+
+.OrderGridContent > div > :nth-child(n + 1):not(:nth-child(1), :nth-child(3), :nth-child(4)) {
+    display: none;
+}
+
+
+@media screen and (min-width: 60rem) {
+    /*Hidden Displays*/
+    .hidden {
+        display: block;
+    }
+    .OrderGridContent, .VendorGridContent {
+        display: block;
+    }
+    .VendorGridContent > :last-child {
+        display: none;
+    }
+    .VendorGridContent > div > :nth-child(n+3):not(:last-child) {
+        display: block;
+    }
+    .VendorGridContent > div > :last-child{
+        display: flex;
+        gap: 3em;
+    }
+
+    .OrderGridContent > div:last-child {
+        display: none;
+    }
+    .OrderGridContent > div > :nth-child(n + 1):not(:nth-child(1), :nth-child(3), :nth-child(4)) {
+        display: block;
+    }
+    .OrderGridContent > div > :nth-child(n) {
+        flex-basis: 0;
+        margin-left: 0;
+    }
+
+    /*Grids*/
+    .OrderGridHeader, .VendorGridHeader{
+        display: grid;
+
+        grid-template-columns: repeat(7, 14.2857142857%);
+        grid-template-rows: 100%;
+
+        border-bottom: 4px solid var(--green);
+    }
+
+    .OrderGridContent, .VendorGridContent {
+        border-bottom: 2px solid var(--green);
+    }
+
+    .VendorGridContent > div {
+        display: grid;
+
+        grid-template-columns: repeat(7, 14.2857142857%);
+        grid-template-rows: auto;
+
+        justify-content: center;
+        align-items: center;
+    }
+    .VendorGridContent > div > :not(:last-child) {
+        padding-right: 1em;;
+    }
+
+
+    .OrderGridContent > div {
+        display: grid;
+
+        grid-template-columns: repeat(7, 14.2857142857%);
+        grid-template-rows: auto;
+
+        justify-content: center;
+        align-items: center;
+    }
+    .OrderGridContent > div > :not(:last-child) {
+        padding-right: 1em;;
+    }
+}
