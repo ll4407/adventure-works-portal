@@ -1,8 +1,11 @@
 import { Edit, Delete, ChevronDown } from '../../icons';
 import styles from '../../container/Purchasing/Purchasing.module.css';
 import { Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 
 const PurchasingVendorTile = props => {
+    const { clicked } = useOutletContext();
+
     return (
         <section className={styles.VendorGridContent}>
             <div>
@@ -17,22 +20,20 @@ const PurchasingVendorTile = props => {
                     <p>{props.city}, {props.state}</p>
                     <p>{props.postal}</p>
                 </div>
-                {/* @Jacob this really should be a div not a p tag. 
-                p tags should only contain text.
-                I removed them other places, but this effected the styling */}
-                <p>
+               
+                <div>
                     <Link 
-                        onClick={props.clicked} 
+                        onClick={clicked} 
                         aria-label='Edit Button' 
                         to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
                             <Edit />
                     </Link> 
                     <Delete />
-                </p>
+                </div>
             </div>
             <div>
                 <Link 
-                    onClick={props.clicked}  
+                    onClick={clicked}  
                     aria-label='View More Button' 
                     to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
                     <ChevronDown size={36} />
