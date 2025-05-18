@@ -23,7 +23,7 @@ const PurchasingVendorTile = props => {
                 {/* @Jacob this really should be a div not a p tag. 
                 p tags should only contain text.
                 I removed them other places, but this effected the styling */}
-                <p>
+                <div>
                     <Link 
                         onClick={clicked} 
                         aria-label='Edit Button' 
@@ -31,7 +31,7 @@ const PurchasingVendorTile = props => {
                             <Edit />
                     </Link> 
                     <Delete />
-                </p>
+                </div>
             </div>
             <div>
                 <Link 
