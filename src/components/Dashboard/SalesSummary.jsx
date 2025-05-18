@@ -1,92 +1,206 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import styles from './SalesSummary.module.css'; // Assuming you created this CSS module
+import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import styles from "./SalesSummary.module.css";
+import ChevronDown from "../../icons/ChevronDown"; 
 
 const SalesSummary = ({ data }) => {
-  if (!data || data.length === 0) {
-    // Ensure styles.salesSummaryCard and styles.noData are defined in SalesSummary.module.css
-    return <div className={`${styles.salesSummaryCard} ${styles.noData}`}>No sales data available.</div>;
+  if (!data || data.length < 14) {
+    // Expecting 14 days of data for a full comparison
+    return (
+      <div className={`${styles.salesSummaryCard} ${styles.noData}`}>
+        Not enough sales data for a full summary. (Requires 14 days)
+      </div>
+    );
   }
 
-  // Sort data by date to ensure correct chart rendering and calculations
-  const sortedData = [...data].sort((a, b) => new Date(a.salesDate) - new Date(b.salesDate));
+  // Sort data by date to ensure correct chronological order
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.salesDate) - new Date(b.salesDate)
+  );
 
-  // Prepare data for the chart
-  const chartData = sortedData.map(item => ({
-    date: new Date(item.salesDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }), // Formatted date
-    totalSales: item.totalSales,
-    // Add other series if available, e.g., lastWeekSales
-  }));
+  // Last 7 days for "This Week", previous 7 days for "Last Week"
+  const thisWeekDataPoints = sortedData.slice(-7);
+  const lastWeekDataPoints = sortedData.slice(-14, -7);
 
-  // Calculate total sales and profit for the current period (e.g., last 7 days from data)
-  const currentPeriodSales = sortedData.reduce((acc, curr) => acc + curr.totalSales, 0);
-  const currentPeriodProfit = sortedData.reduce((acc, curr) => acc + curr.totalProfit, 0);
+  if (thisWeekDataPoints.length < 7 || lastWeekDataPoints.length < 7) {
+    return (
+      <div className={`${styles.salesSummaryCard} ${styles.noData}`}>
+        Data mismatch for week comparison.
+      </div>
+    );
+  }
 
-  // --- Placeholder for "vs Last Week" ---
-  // This logic is complex and depends on how you define "last week"
-  // and if your API provides that data directly or if you need to fetch it.
-  // For now, let's use a placeholder.
-  const salesValueForDisplay = (currentPeriodSales / 1000).toLocaleString('en-US', {
-    minimumFractionDigits: (currentPeriodSales % 1000 === 0 && currentPeriodSales !== 0) ? 0 : 1,
-    maximumFractionDigits: 1,
-  }) + 'K';
-  const percentageChangeDisplay = { value: 2.1, positive: false }; // Placeholder: e.g. 2.1% down
-  // --- End Placeholder ---
+  // Prepare chart data
+  // X-axis will show generic day numbers (01-07)
+  const chartData = thisWeekDataPoints.map((thisWeekItem, index) => {
+    const dayLabel = (index + 1).toString().padStart(2, "0"); // "01", "02", ..., "07"
+    return {
+      day: dayLabel,
+      thisWeekSales: thisWeekItem.totalSales,
+      lastWeekSales: lastWeekDataPoints[index]
+        ? lastWeekDataPoints[index].totalSales
+        : 0, // Fallback if somehow lengths mismatch
+    };
+  });
+
+  // Calculate total sales for "This Week" and "Last Week"
+  const thisWeekSalesTotal = thisWeekDataPoints.reduce(
+    (acc, curr) => acc + curr.totalSales,
+    0
+  );
+  const lastWeekSalesTotal = lastWeekDataPoints.reduce(
+    (acc, curr) => acc + curr.totalSales,
+    0
+  );
+
+  const salesValueForDisplay =
+    (thisWeekSalesTotal / 1000).toLocaleString("en-US", {
+      minimumFractionDigits:
+        thisWeekSalesTotal % 1000 === 0 && thisWeekSalesTotal !== 0 ? 0 : 1,
+      maximumFractionDigits: 1,
+    }) + "K";
+
+  let percentageChangeDisplay = { value: 0, positive: false, available: false };
+  if (lastWeekSalesTotal > 0) {
+    const change =
+      ((thisWeekSalesTotal - lastWeekSalesTotal) / lastWeekSalesTotal) * 100;
+    percentageChangeDisplay = {
+      value: Math.abs(change).toFixed(1),
+      positive: change >= 0,
+      available: true,
+    };
+  } else if (thisWeekSalesTotal > 0) {
+    percentageChangeDisplay = { value: 100, positive: true, available: true };
+  } else {
+    percentageChangeDisplay = { value: 0, positive: false, available: true };
+  }
+
+  // Flatten all sales values
+  const allValues = chartData.flatMap((d) => [
+    d.thisWeekSales,
+    d.lastWeekSales,
+  ]);
+  const maxValue = Math.max(...allValues);
+  const roundedMax = Math.ceil(maxValue / 1000) * 1000;
+
+  // Generate ticks spaced every 1000
+  const ticks = [];
+  for (let i = 0; i <= roundedMax; i += 1000) {
+    ticks.push(i);
+  }
 
   return (
     <div className={styles.salesSummaryCard}>
       <div className={styles.summaryHeader}>
         <h3>Sales Summary</h3>
-        <a href="#view-report" className={styles.viewReportLink}>View Report →</a>
+        <a href="#view-report" className={styles.viewReportLink}>
+          View Report <span><ChevronDown size={20}/></span>
+        </a>
       </div>
 
       <div className={styles.summaryMetrics}>
         <span className={styles.totalSalesValue}>{salesValueForDisplay}</span>
-        <span className={`${styles.percentageChange} ${percentageChangeDisplay.positive ? styles.positive : styles.negative}`}>
-          {percentageChangeDisplay.positive ? '▲' : '▼'} {percentageChangeDisplay.value}%
-        </span>
-        <span className={styles.vsLastWeek}>vs Last Week</span>
+        {percentageChangeDisplay.available && (
+          <>
+            <span
+              className={`${styles.percentageChange} ${
+                percentageChangeDisplay.positive
+                  ? styles.positiveTrend
+                  : styles.negativeTrend
+              }`}
+            >
+              {percentageChangeDisplay.positive ? "🡩" : "🡫"}{" "}
+              {percentageChangeDisplay.value}%
+            </span>
+            <span className={styles.vsLastWeek}>vs Last Week</span>
+          </>
+        )}
       </div>
 
-      <div style={{ width: '100%', height: 250 }}> {/* Adjusted height */}
-        <ResponsiveContainer>
+      <div className={styles.chartContainer}>
+        <ResponsiveContainer width="100%" height={250}>
           <LineChart
             data={chartData}
             margin={{
-              top: 5,
-              right: 20,
-              left: -20, // Adjust if Y-axis labels are cut off, or use 0 and check
-              bottom: 5,
+              top: 30, 
+              right: 0, 
+              left: -10, 
+              bottom: 20
             }}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={{ stroke: "#979797" }}
+              tick={{ fontSize: 11, fill: "#979797" }}
+              padding={{ left: 30, right: 30 }}
+            />
+
             <YAxis
-              tickFormatter={(value) => `${value / 1000}k`}
-              tick={{ fontSize: 10 }}
-              domain={['auto', 'auto']} // Or specify min/max if needed
+              tickFormatter={(value) =>
+                value === 0 ? "0" : `${value / 1000}k`
+              }
+              domain={[0, roundedMax]}
+              ticks={ticks}
+              tickLine={false}
+              axisLine={{ stroke: "#979797" }}
+              tick={{ fontSize: 11, fill: "#979797" }}
             />
             <Tooltip
               formatter={(value, name) => [value.toLocaleString(), name]}
-              labelFormatter={(label) => `Date: ${label}`}
+              labelFormatter={(label) => `Day ${label}`}
             />
-            <Legend wrapperStyle={{ fontSize: "12px" }} />
-            <Line type="monotone" dataKey="totalSales" name="This Week" stroke="#38A169" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-            {/* Placeholder for Last Week's sales line - requires data for 'lastWeekSales' in chartData */}
-            {/* <Line type="monotone" dataKey="lastWeekSales" name="Last Week" stroke="#E53E3E" strokeDasharray="5 5" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} /> */}
+            <Legend 
+              verticalAlign="bottom"
+              align="left"
+              height={10}
+              iconType="circle"
+              iconSize={10}
+              formatter={(value, entry, index) => (
+                <span
+                  style={{
+                    color: "#979797",
+                    marginRight: "2em",
+                    fontSize: "0.8rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {value}
+                </span> 
+              )}
+              wrapperStyle={{ paddingLeft: "4.5em" }}
+            />
+            <Line
+              type="linear"
+              dataKey="thisWeekSales"
+              name="This Week"
+              stroke="#E11818"
+              strokeWidth={2.5}
+              dot={false}
+              activeDot={{ r: 6 }}
+            />
+            <Line
+              type="linear"
+              dataKey="lastWeekSales"
+              name="Last Week"
+              stroke="#6F9320"
+              strokeWidth={2.5}
+              dot={false}
+              activeDot={{ r: 6 }}
+            />
           </LineChart>
         </ResponsiveContainer>
-      </div>
-
-      {/* Total Profit Section - as per your desktop screenshot, it's a separate card.
-          You might move this to its own component later. */}
-      <div className={styles.totalProfitSection}>
-         <h4>Total Profit (Last 7 days)</h4>
-         <p className={styles.profitValue}>{currentPeriodProfit.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
-         {/* Placeholder for trend icon/text */}
-         <span className={styles.profitTrend}>
-           <span className={styles.negative}>▼ 2%</span> vs last 7 days {/* Example trend */}
-         </span>
       </div>
     </div>
   );
