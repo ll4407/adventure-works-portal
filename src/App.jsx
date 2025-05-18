@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-
+import Dashboard from './container/Dashboard/Dashboard';
 import { Employees, Products, Purchasing, Sales } from './container';
 import { Layout, Login, ProtectedRoute, Inventory, InventoryModal, Catalog, CatalogModal } from './components';
 
@@ -17,7 +17,7 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/employees" element={<Employees />}>
           <Route path="/employees/:id" element={<>Employee Modal</>} />
         </Route>
