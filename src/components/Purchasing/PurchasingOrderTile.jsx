@@ -1,8 +1,11 @@
 import { ChevronDown } from '../../icons';
 import styles from '../../container/Purchasing/Purchasing.module.css';
 import { Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 
 const PurchasingOrderTile = props => {    
+    const { clicked } = useOutletContext();
+
     return (
         <section className={styles.OrderGridContent}>
             <div>
@@ -13,7 +16,7 @@ const PurchasingOrderTile = props => {
                 <p>${props.totalDue.toFixed(2)}</p>
                 <p>{props.shipDate}</p>
                 <Link 
-                    onClick={props.clicked} 
+                    onClick={clicked} 
                     to={`/purchasing/orders/${props.productId}`}>
                     <ChevronDown size={36} />
                 </Link>
@@ -21,7 +24,7 @@ const PurchasingOrderTile = props => {
 
             <div>
                 <Link 
-                    onClick={props.clicked} 
+                    onClick={clicked} 
                     to={`/purchasing/orders/${props.productId}`}>
                     <ChevronDown size={36} />
                 </Link>

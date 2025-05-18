@@ -33,15 +33,6 @@ function Purchasing(){
         setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
 
-    //layouts based on buttons
-    // const listValuesVendors = <VendorParent vendorUpdateInfo={vendorUpdateInfo}
-    //                             clicked={handleMemberSelected}
-    //                           />;
-
-    // const listValuesOrders = <OrderParent 
-    //                             clicked={handleMemberSelected}
-    //                           />;
-
     //Layout
     return(
         <PageContext.Provider value={pageContext}>
