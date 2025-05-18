@@ -6,8 +6,9 @@ import axios from '../../api/axios';
 
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
+import { Outlet } from 'react-router';
 
-function OrderParent(props) {
+function Orders(props) {
     const { clicked } = props;
 
     const [ordersDisplayed, setOrdersDisplayed] = useState(null);
@@ -64,6 +65,7 @@ function OrderParent(props) {
                 clicked={clicked}
                 />)
             })}
+            <Outlet context={{clicked: clicked}} />
         </section>;
 
     return (
@@ -75,4 +77,4 @@ function OrderParent(props) {
 }
 
 
-export default OrderParent;
+export default Orders;
