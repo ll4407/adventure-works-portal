@@ -6,6 +6,10 @@ import Vendors from './components/Purchasing/Vendors';
 import VendorDetails from './container/Purchasing/VendorsDetails';
 import Orders from './components/Purchasing/Orders';
 import OrderDetail from './container/Purchasing/OrderDetail';
+import Customers from './container/Sale/Customers';
+import Stores from './container/Sale/Stores';
+import StoreModal from './container/Sale/StoreModal';
+import CustomerModal from './container/Sale/CustomerModal';
 
 
 function App() {
@@ -42,7 +46,14 @@ function App() {
             <Route path="/purchasing/orders/:id" element={<OrderDetail />} />
           </Route>
         </Route>
-        <Route path="/sales" element={<Sales />} />
+        <Route path="/sales" element={<Sales />}>
+          <Route path="/sales/customers" element={<Customers />}>
+            <Route path="/sales/customers/:id" element={<CustomerModal />} />
+          </Route>
+          <Route path="/sales/stores" element={<Stores />}>
+            <Route path="/sales/stores/:id" element={<StoreModal />} />
+          </Route>
+        </Route>
         <Route path="/settings" element={<h1>Settings</h1>} />
       </Route>
     </Routes>
