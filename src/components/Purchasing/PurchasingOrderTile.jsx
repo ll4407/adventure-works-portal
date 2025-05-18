@@ -12,11 +12,19 @@ const PurchasingOrderTile = props => {
                 <p>{props.orderQuantity}</p>
                 <p>${props.totalDue.toFixed(2)}</p>
                 <p>{props.shipDate}</p>
-                <p><Link onClick={props.clicked} to={'/purchasing/order/' + props.productId}><ChevronDown size={36} /></Link></p>
+                <Link 
+                    onClick={props.clicked} 
+                    to={`/purchasing/orders/${props.productId}`}>
+                    <ChevronDown size={36} />
+                </Link>
             </div>
 
             <div>
-                <p><Link onClick={props.clicked} to={'/purchasing/order/' + props.productId}><ChevronDown size={36} /></Link></p>
+                <Link 
+                    onClick={props.clicked} 
+                    to={`/purchasing/orders/${props.productId}`}>
+                    <ChevronDown size={36} />
+                </Link>
             </div>
         </section>
     )

@@ -1,56 +1,25 @@
-import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import Inventory from "./Inventory";
-import Catalog from "./Catalog";
-import Loading from "../../components/utils/Loading";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import PageContext from "../../context/PageContext";
-
-import { useState, useEffect } from "react";
-import axios from '../../api/axios'
-import { toast } from "react-toastify";
-
-import styles from './Products.module.css'
 import usePageContext from "../../hooks/usePageContext";
 
-export default function Products(){
-    const pageContext = usePageContext("Inventory")
-    const [products, setProducts] = useState(null)
-    const [filteredProducts, setFilteredProducts] = useState([])
-    const [loading, setLoading] = useState(true)
+import SectionHeader from "../../components/SectionHeader/SectionHeader";
 
-    const {filter, activePage} = pageContext
+import styles from './Products.module.css'
+
+export default function Products(){
+    const pageContext = usePageContext({
+        firstBtnUrl: '/products/inventory', 
+        secondBtnUrl: '/products/catalog'
+    })
+    const {pathname} = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() =>{
-        axios.get('/Inventory')
-            .then(res => setProducts(res.data))
-            .catch(err => {
-                toast.error(err.toString())
-            })
-            .finally(() =>{
-                setLoading(false)
-            })
-    }, [])
-
-    useEffect(()=>{
-        let timer;
-        if(filter){
-            timer = setTimeout(() =>{
-                const loweredFilter = filter.toLowerCase()
-                const newFilteredProducts = products.filter(prod =>
-                    prod.productName.toLowerCase().includes(loweredFilter) ||
-                    prod.locationName.toLowerCase().includes(loweredFilter) ||
-                    prod.shelf.toLowerCase().includes(loweredFilter)
-                )
-                setFilteredProducts(newFilteredProducts)
-            }, 500)
-        }else{
-            if(products?.length){
-                setFilteredProducts(products)
-            }
+        if(pathname === '/products'){
+            navigate('/products/inventory')
         }
-
-        return () => clearTimeout(timer)
-
-    },[filter, products])
+    }, [])
 
     return(
         <PageContext.Provider value={pageContext}>
@@ -61,12 +30,10 @@ export default function Products(){
                 secondButton={'Catalog'}
                 />
             <div className={styles.contentWrapper}>
-                {loading && <Loading />}
-                {activePage === "Inventory" ?  
-                    <Inventory products={filteredProducts}  /> : 
-                    <Catalog products={filteredProducts} />}
+                <Outlet />
             </div>
         </PageContext.Provider>
 
     )
+
 }

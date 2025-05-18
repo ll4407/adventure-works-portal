@@ -17,10 +17,27 @@ const PurchasingVendorTile = props => {
                     <p>{props.city}, {props.state}</p>
                     <p>{props.postal}</p>
                 </div>
-                <p><Link onClick={props.clicked} aria-label='Edit Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><Edit /></Link> <Delete /></p>
+                {/* @Jacob this really should be a div not a p tag. 
+                p tags should only contain text.
+                I removed them other places, but this effected the styling */}
+                <p>
+                    <Link 
+                        onClick={props.clicked} 
+                        aria-label='Edit Button' 
+                        to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
+                            <Edit />
+                    </Link> 
+                    <Delete />
+                </p>
             </div>
-
-            <div><Link onClick={props.clicked}  aria-label='View More Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><ChevronDown size={36} /></Link></div>
+            <div>
+                <Link 
+                    onClick={props.clicked}  
+                    aria-label='View More Button' 
+                    to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
+                    <ChevronDown size={36} />
+                </Link>
+            </div>
         </section>
     )
 }

@@ -24,20 +24,31 @@
   flex-direction: column;
 }
 .sideNav {
-  padding-top: 10em;
+  padding-top: 8em;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+.sideNav::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, Opera */
 }
 .sideBarHeader {
   display: flex;
   width: 100%;
   position: absolute;
+  z-index: 20;
+  background-color: var(--navBar);
 }
 .sideBarBtn {
-  margin: 0.5em;
   background: none;
   border: none;
   cursor: pointer;
   position: absolute;
-  margin-top: 1.5em;
+  padding: 1.5em 0.8em;
+  z-index: 20;
+  background-color: var(--navBar);
+  border-radius: 0;
+  left: 0;
 }
 .sideBarImgDiv {
   flex-grow: 1;
@@ -110,6 +121,7 @@ div.open {
   left: 0;
   background-color: var(--navBar);
   color: var(--white);
+  z-index: 20;
 }
 
 @media screen and (min-width: 60rem) {

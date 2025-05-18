@@ -1,9 +1,12 @@
-import Sidebar from './Sidebar';
-import styles from './Layout.module.css';
-import TopNav from './TopNav';
-import { Outlet } from 'react-router';
 import { useState } from 'react';
+import { Outlet } from 'react-router';
+
 import clsx from 'clsx';
+
+import Sidebar from './Sidebar';
+import TopNav from './TopNav';
+
+import styles from './Layout.module.css';
 
 export default function Layout(){
     const [open, setOpen] = useState(false)

@@ -16,9 +16,9 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             styles.navLink, 
                             "Yellow",
-                            location.pathname == '/dashboard' && "BGYellow" )} 
+                            location.pathname.toLowerCase().includes('dashboard') && "BGYellow" )} 
                         to={'/dashboard'}>
-                        <DashboardIcon color={location.pathname == '/dashboard' ? colors.black : undefined}/>
+                        <DashboardIcon color={location.pathname.toLowerCase().includes('dashboard') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Dashboard</p>
                         </div>
@@ -30,9 +30,9 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             styles.navLink,
                             "Orange",
-                            location.pathname == '/employees' && "BGOrange" )}
+                            location.pathname.toLowerCase().includes('employees') && "BGOrange" )}
                         to={'/employees'}>
-                        <Employees color={location.pathname == '/employees' ? colors.black : undefined} />
+                        <Employees color={location.pathname.toLowerCase().includes('employees') ? colors.black : undefined} />
                         <div className={open ? styles.open : ""}>
                             <p>Employees</p>
                         </div>
@@ -44,10 +44,10 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Blue",
                             styles.navLink,
-                            location.pathname == "/products" && "BGBlue"
+                            location.pathname.toLowerCase().includes('products') && "BGBlue"
                             )} 
-                        to={'/products'}>
-                        <Products color={location.pathname == '/products' ? colors.black : undefined}/>
+                        to={'/products/inventory'}>
+                        <Products color={location.pathname.toLowerCase().includes('products') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Products</p>
                         </div>
@@ -59,10 +59,10 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Green",
                             styles.navLink,
-                            location.pathname == "/purchasing" && "BGGreen"
+                            location.pathname.toLowerCase().includes('purchasing') && "BGGreen"
                             )} 
                         to={'/purchasing'}>
-                        <Purchasing color={location.pathname == '/purchasing' ? colors.black : undefined}/>
+                        <Purchasing color={location.pathname.toLowerCase().includes('purchasing') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Purchasing</p>
                         </div>
@@ -74,10 +74,10 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Pink",
                             styles.navLink,
-                            location.pathname == "/sales" && "BGPink"
+                            location.pathname.toLowerCase().includes('sales') && "BGPink"
                         )} 
                         to={'/sales'}>
-                        <Sales color={location.pathname == '/sales' ? colors.black : undefined}/>
+                        <Sales color={location.pathname.toLowerCase().includes('sales') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Sales</p>
                         </div>
@@ -89,10 +89,10 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Gray",
                             styles.navLink,
-                            location.pathname == "/settings" && "BGGray"
+                            location.pathname.toLowerCase().includes('settings') && "BGGray"
                         )} 
                         to={'/settings'}>
-                        <Settings color={location.pathname == '/settings' ? colors.black : undefined}/>
+                        <Settings color={location.pathname.toLowerCase().includes('settings') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Settings</p>
                         </div>
