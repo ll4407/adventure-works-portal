@@ -20,9 +20,7 @@ const PurchasingVendorTile = props => {
                     <p>{props.city}, {props.state}</p>
                     <p>{props.postal}</p>
                 </div>
-                {/* @Jacob this really should be a div not a p tag. 
-                p tags should only contain text.
-                I removed them other places, but this effected the styling */}
+               
                 <div>
                     <Link 
                         onClick={clicked} 
