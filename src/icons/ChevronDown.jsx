@@ -1,6 +1,7 @@
-export default function ChevronDown({size, color, className}){
+export default function ChevronDown({size, color, className, ...props}){
     return(
         <svg 
+            {...props}
             className={className ?? className}  
             xmlns="http://www.w3.org/2000/svg" 
             height={size ? `${size}px` :"24px"} 
