@@ -6,6 +6,7 @@ import Purchasing from './container/Purchasing/Purchasing';
 import VendorsDetails from './container/Purchasing/VendorsDetails';
 import OrderDetails from './container/Purchasing/OrderDetail';
 import Sales from './container/Sale/Sales';
+import Dashboard from './container/Dashboard/Dashboard';
 import Login from './components/Login/Login';
 import ProtectedRoute from './components/Login/ProtectedRoute';
 
@@ -23,7 +24,7 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/products" element={<Products />} />
 
