@@ -1,0 +1,99 @@
+.totalProfitCard {
+  background-color: var(--white);
+  padding: 1em 2em;
+  border-radius: 8px;
+  border: 2px solid var(--pink);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 1em;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 0.25em;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #8B909A;
+  font-weight: 700;
+  margin: 0;
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.profitInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.profitValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 0.2em;
+}
+
+.percChangeWrapper {
+  display: flex;
+}
+
+.percentageChange {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.percentageChange.positive {
+  background-color: rgba(155, 197, 61, 0.8);
+  color: var(--black);
+}
+
+.percentageChange.negative {
+  background-color: lightcoral;
+  color: var(--black);
+}
+
+.comparisonText {
+  font-size: 0.8rem;
+  color: #8B909A;
+  padding-top: 0.3em;
+  margin-left: 0.5em;
+  font-weight: 700;
+  ;
+}
+
+.sparkline {
+  width: 69%;
+  height: 200px;
+}
+
+.chartPlaceholder {
+  width: 100%;
+  height: 100%;
+}
+
+.sparklineSvg {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 60rem) {
+  .sparkline {
+    height: 240px;
+    width: 75%;
+  }
+}

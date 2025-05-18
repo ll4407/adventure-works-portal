@@ -73,32 +73,6 @@
   align-items: center;
 }
 
-.totalProfitSection {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #E2E8F0;
-}
+@media screen and (min-width: 60rem) {
 
-.totalProfitSection h4 {
-  margin: 0 0 4px 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--navbar);
-}
-
-.profitValue {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--navbar);
-  margin: 0 0 4px 0;
-}
-
-.profitTrend {
-  font-size: 0.8rem;
-  color: var(--mediumm-gray);
-}
-
-.profitTrend .positive,
-.profitTrend .negative {
-  font-weight: 500;
 }
