@@ -14,7 +14,8 @@ const SparklineChart = ({ data, strokeColor = "#6F9320", strokeWidth = 2.5 }) =>
         >
         <Tooltip 
           formatter={(value, name, props) => [`Profit: $${value.toFixed(2)}`, null]}
-          labelFormatter={(label) => `Day: ${label}`} 
+          // Update the labelFormatter to show Day 1 through Day 7
+          labelFormatter={(label) => `Day: ${parseInt(label, 10) + 1}`}  
         />
         <Line
           type="monotone"

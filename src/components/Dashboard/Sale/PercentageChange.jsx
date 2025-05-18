@@ -1,4 +1,4 @@
-import styles from './Dashboard.module.css'; 
+import styles from './TotalProfit.module.css';
 const PercentageChange = ({ data, isPositiveChange, percentageChange }) => {
   
   if (!data || data.length < 7) {
