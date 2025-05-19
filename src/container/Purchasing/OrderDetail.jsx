@@ -16,9 +16,6 @@ function OrderDetails() {
     const { clicked } = useOutletContext();
 
     const [ordersInfo, setOrder] = useState(null);
-    
-    const [activePage, setActivePage] = useState('Orders');
-    const [filter, setFilter] = useState("");
 
 	const { id } = useParams();
 
@@ -43,7 +40,9 @@ function OrderDetails() {
                     <h1>{ordersInfo.productName}</h1>
                     <h1>{ordersInfo.quantity}</h1>
 
-                    <Link onClick={clicked} to="/purchasing"><Close /></Link>
+                    <Link onClick={clicked} to="/purchasing/orders">
+                        <Close />
+                    </Link>
                 </div>
 
                 
@@ -109,7 +108,7 @@ function OrderDetails() {
                             <p>{ordersInfo.lineTotal.toFixed(2)}</p>
                         </div>
                         <div>
-                            <p>Qty Recieved</p>
+                            <p>Qty Received</p>
                             <p>{ordersInfo.receivedQty}</p>
                         </div>
                         <div>
@@ -134,7 +133,7 @@ function OrderDetails() {
                             <p>{ordersInfo.shipDate}</p>
                         </div>
                         <div>
-                            <p>Frieght</p>
+                            <p>Freight</p>
                             <p>{ordersInfo.freight}</p>
                         </div>
                         <div>
@@ -142,7 +141,7 @@ function OrderDetails() {
                             <p>{ordersInfo.lineTotal.toFixed(2)}</p>
                         </div>   
                         <div>
-                            <p>Qty Recieved</p>
+                            <p>Qty Received</p>
                             <p>{ordersInfo.receivedQty}</p>
                         </div>
                         <div>
@@ -176,22 +175,18 @@ function OrderDetails() {
         </div>;
 
 
-    const context = {
-        activePage:activePage,
-        setActivePage: setActivePage,
-        filter: filter,
-        setFilter:setFilter
-    }
+
 
     return(
-        <PageContext.Provider value={context}>
-            <div className={`${modal.modalOverlay}`}>
-                <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
-                    <Link onClick={clicked} to="/purchasing"><ChevronDown />Back</Link>
-                    {detailContent}
-                </article>
-            </div>
-        </PageContext.Provider>
+        <div className={`${modal.modalOverlay}`}>
+            <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
+                <Link onClick={clicked} to="/purchasing/orders">
+                    <ChevronDown />
+                    Back
+                </Link>
+                {detailContent}
+            </article>
+        </div>
     );
 }
 

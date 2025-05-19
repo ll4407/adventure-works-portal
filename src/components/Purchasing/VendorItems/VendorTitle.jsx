@@ -52,7 +52,7 @@ const VendorTitle = (props) => {
         }
         
         await axios.put(`Vendor/${vendor.businessEntityId}`, updateVendor)
-            .then(resp => {
+            .then(() => {
                 toast.success("Data Submitted");
             })
             .catch(err => {
@@ -73,7 +73,7 @@ const VendorTitle = (props) => {
                     <h1>{vendorName}</h1>
                     <p onClick={handleEdit}><Edit /></p>
 
-                    <Link onClick={clicked} to="/purchasing"><Close /></Link>
+                    <Link onClick={clicked} to="/purchasing/vendors"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>

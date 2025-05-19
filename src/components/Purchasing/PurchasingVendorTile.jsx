@@ -1,8 +1,11 @@
 import { Edit, Delete, ChevronDown } from '../../icons';
 import styles from '../../container/Purchasing/Purchasing.module.css';
 import { Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router';
 
 const PurchasingVendorTile = props => {
+    const { clicked } = useOutletContext();
+
     return (
         <section className={styles.VendorGridContent}>
             <div>
@@ -17,10 +20,25 @@ const PurchasingVendorTile = props => {
                     <p>{props.city}, {props.state}</p>
                     <p>{props.postal}</p>
                 </div>
-                <p><Link onClick={props.clicked} aria-label='Edit Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><Edit /></Link> <Delete /></p>
+               
+                <div>
+                    <Link 
+                        onClick={clicked} 
+                        aria-label='Edit Button' 
+                        to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
+                            <Edit />
+                    </Link> 
+                    <Delete />
+                </div>
             </div>
-
-            <div><Link onClick={props.clicked}  aria-label='View More Button' to={'/purchasing/vendor/' + props.businessId + '/' + props.phone}><ChevronDown size={36} /></Link></div>
+            <div>
+                <Link 
+                    onClick={clicked}  
+                    aria-label='View More Button' 
+                    to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
+                    <ChevronDown size={36} />
+                </Link>
+            </div>
         </section>
     )
 }

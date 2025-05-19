@@ -1,38 +1,57 @@
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
-import VendorParent from "../../components/Purchasing/VendorParent";
-import OrderParent from "../../components/Purchasing/OrderParent";
 import PageContext from "../../context/PageContext";
 
-import { useState, useCallback } from "react";
-import { Outlet } from 'react-router-dom';
+import { useState, useCallback, useEffect, useRef } from "react";
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import usePageContext from "../../hooks/usePageContext";
 
 import styles from './Purchasing.module.css';
 
 function Purchasing(){
-    const pageContext = usePageContext("Vendors")
-    const {activePage} = pageContext
- 
+    const pageContext = usePageContext({
+        firstBtnUrl: "/purchasing/vendors",
+        secondBtnUrl: "/purchasing/orders",
+    });
+
+    const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
     const [isActive, setIsActive] = useState(false);
-	const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
+
+    const location = useLocation();
+    const prevLocationRef = useRef(null);
+
+    const {pathname} = useLocation();
+
+    const navigate = useNavigate();
+
+    useEffect(() =>{
+        if(pathname === '/purchasing'){
+            navigate('/purchasing/vendors')
+        }
+    }, []);
+	
+    //updates displayed based for button clicks
+    useEffect(() =>{
+        if (prevLocationRef.current) {
+            const urlPrevParts = prevLocationRef.current.pathname.split('/');
+            const urlCurrentParts = location.pathname.split('/');
+            
+
+            if(urlPrevParts[2] != urlCurrentParts[2]){
+                setIsActive(false);
+            }
+        }
+
+        prevLocationRef.current = location;
+    }, [location])
 
     const handleMemberSelected = useCallback(() => {
-		setIsActive(x => !x)
+		setIsActive(x => !x);
 	}, []);
     
     function UpdateEveryVendor() {
         setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
-
-    //layouts based on buttons
-    const listValuesVendors = <VendorParent vendorUpdateInfo={vendorUpdateInfo}
-                                clicked={handleMemberSelected}
-                              />;
-
-    const listValuesOrders = <OrderParent 
-                                clicked={handleMemberSelected}
-                              />;
 
     //Layout
     return(
@@ -44,12 +63,9 @@ function Purchasing(){
                 secondButton={'Orders'}
                 />
             <section className={`${styles.purchaseLayout} ${isActive ? styles.hidden : ''}`}>
-                {activePage === "Vendors" ?  
-                    listValuesVendors: listValuesOrders}
+                <Outlet context={{clicked: handleMemberSelected, vendorUpdateMethod: UpdateEveryVendor, vendorUpdateInfo: vendorUpdateInfo }} />
             </section>
-            <section>
-				<Outlet context={{clicked: handleMemberSelected, vendorUpdateMethod: UpdateEveryVendor }}/>
-			</section>
+
         </PageContext.Provider>
 
     )
