@@ -1,0 +1,7 @@
+.productPerformance{
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+
+    max-width: 50%;
+}

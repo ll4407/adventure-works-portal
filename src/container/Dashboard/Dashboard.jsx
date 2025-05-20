@@ -3,6 +3,8 @@ import axios from "../../api/axios";
 import styles from "./Dashboard.module.css";
 import { toast } from "react-toastify";
 
+import WeeklySeller from "../../components/Dashboard/WeeklySellers/WeeklySeller";
+
 
 export default function Dashboard() {
   const [weeklySales, setWeeklySales] = useState([]);
@@ -54,7 +56,21 @@ export default function Dashboard() {
         <div className={styles.totalProfit}>
         </div>
         <div className={styles.productPerformance}>
-          Weekly Bestseller / Lowest Weekly Seller
+          <WeeklySeller 
+            title={"Weekly Bestseller"}
+            productName={bestWorst[0].productName}
+            unitsSold={bestWorst[0].unitsSold}
+            unitsInStock={bestWorst[0].unitsInStock}
+            color={'155, 197, 61'}
+          /> 
+
+          <WeeklySeller 
+            title={"Lowest Weekly Seller"}
+            productName={bestWorst[1].productName}
+            unitsSold={bestWorst[1].unitsSold}
+            unitsInStock={bestWorst[1].unitsInStock}
+            color={ '225, 24, 24' }
+          /> 
         </div>
         <div className={styles.lowStock}>
           Low Stock Products 
