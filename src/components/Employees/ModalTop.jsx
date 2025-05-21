@@ -54,26 +54,28 @@ function ModalTop({employee, setRefresh}) {
     }
     
   return (  
-    <>
+    <div className={styles.modalSection}>
         {editing 
         ? 
         <form className={styles.topForm}>
-            <input
-                aria-label='First Name'
-                className={styles.input}
-                type="text"
-                value={employeeData.firstName}
-                placeholder='First Name'
-                onChange={(e) => 
-                    setEmployeeData(prev => ({...prev, firstName: e.target.value}))} />
-            <input
-                aria-label='Last Name'
-                className={styles.input}
-                type="text"
-                value={employeeData.lastName}
-                placeholder='Last Name'
-                onChange={(e) => 
-                    setEmployeeData(prev => ({...prev, lastName: e.target.value}))} />
+            <div>
+                <input
+                    aria-label='First Name'
+                    className={styles.input}
+                    type="text"
+                    value={employeeData.firstName}
+                    placeholder='First Name'
+                    onChange={(e) => 
+                        setEmployeeData(prev => ({...prev, firstName: e.target.value}))} />
+                <input
+                    aria-label='Last Name'
+                    className={styles.input}
+                    type="text"
+                    value={employeeData.lastName}
+                    placeholder='Last Name'
+                    onChange={(e) => 
+                        setEmployeeData(prev => ({...prev, lastName: e.target.value}))} />
+            </div>
             <input
                 aria-label='Job Title'
                 className={styles.input}
@@ -116,7 +118,7 @@ function ModalTop({employee, setRefresh}) {
             <p className={styles.modalText}>{employee.employeeId}</p>
         </div>
         }
-    </>
+    </div>
   )
 }
 

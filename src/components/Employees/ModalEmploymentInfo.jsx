@@ -26,29 +26,22 @@ function ModalEmploymentInfo({employee, setRefresh}) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(employeeData.firstName !== employee.firstName || 
-            employeeData.lastName !== employee.lastName ||
-            employeeData.middleName !== employee.middleName ||
-            employeeData.suffix !== employee.suffix
-        ){
-            axios.put(`/Employee/employment/${employee.employeeId}`, employeeData)
-                .then(res => {
-                    if(200 >= res.status < 300){
-                        toast.success('Employee updated successfully')
-                        setEditing(false)
-                        setRefresh(x => !x)
-                        }
-                    })
-                .catch(err => toast.error(err.message))
-        }
-     
+        axios.put(`/Employee/employment/${employee.employeeId}`, employeeData)
+            .then(res => {
+                if(200 >= res.status < 300){
+                    toast.success('Employee updated successfully')
+                    setEditing(false)
+                    setRefresh(x => !x)
+                    }
+                })
+            .catch(err => toast.error(err.message))
     }
     
   return (  
-    <>
+    <div className={styles.modalSection}>
         {editing 
         ? 
-        <form>
+        <form className={styles.detailsSection} onSubmit={handleSubmit}>
             <input
                 aria-label='Job Title'
                 type="text"
@@ -75,24 +68,27 @@ function ModalEmploymentInfo({employee, setRefresh}) {
                     setEmployeeData(prev => ({...prev, shift: e.target.value}))} />
             <input
                 aria-label='Start Date'
-                type="date"
+                type="datetime-local"
                 value={employeeData.startDate}
                 onChange={(e) => 
                     setEmployeeData(prev =>({...prev, startDate: e.target.value}))} />
             <input
                 aria-label='End Date'
-                type="date"
-                value={employeeData.endDate}
+                type="datetime-local"
+                value={employeeData.endDate || ''}
                 onChange={(e) => 
                     setEmployeeData(prev =>({...prev, endDate: e.target.value}))} />
             <button 
                 className={styles.submitBtn} 
-                type='submit' 
-                onClick={handleSubmit}>Save Changes</button>
+                type='submit'
+                >Save Changes
+            </button>
             <button 
                 className={styles.cancelBtn} 
                 type='button' 
-                onClick={() => setEditing(false)}>Cancel</button>
+                onClick={() => setEditing(false)}
+                >Cancel
+            </button>
         </form>
         :
         <div className={styles.detailsSection}>
@@ -115,15 +111,23 @@ function ModalEmploymentInfo({employee, setRefresh}) {
             </div>
             <div className={styles.detailsRow}>
                 <p>Department</p>
-                <p>{employee.shiftHistory.department}</p>
+                <p>{currentShift.departmentName}</p>
             </div>
             <div className={styles.detailsRow}>
-                <p>Suffix</p>
-                <p>{employee.suffix}</p>
+                <p>Shift</p>
+                <p>{currentShift.shiftName}</p>
+            </div>
+            <div className={styles.detailsRow}>
+                <p>Start Date</p>
+                <p>{new Date(currentShift.startDate).toLocaleDateString()}</p>
+            </div>
+            <div className={styles.detailsRow}>
+                <p>End Date</p>
+                <p>{currentShift.endDate || '--'}</p>
             </div>
         </div>
         }
-    </>
+    </div>
   )
 }
 

@@ -41,10 +41,10 @@ function ModalPersonalInfo({employee, setRefresh}) {
     }
     
   return (  
-    <>
+    <div className={styles.modalSection}>
         {editing 
         ? 
-        <form>
+        <form className={styles.detailsSection} onSubmit={handleSubmit}>
             <input
                 aria-label='First Name'
                 type="text"
@@ -75,8 +75,7 @@ function ModalPersonalInfo({employee, setRefresh}) {
                     setEmployeeData(prev => ({...prev, suffix: e.target.value}))} />
             <button 
                 className={styles.submitBtn} 
-                type='submit' 
-                onClick={handleSubmit}>Save Changes</button>
+                type='submit'>Save Changes</button>
             <button 
                 className={styles.cancelBtn} 
                 type='button' 
@@ -111,7 +110,7 @@ function ModalPersonalInfo({employee, setRefresh}) {
             </div>
         </div>
         }
-    </>
+    </div>
   )
 }
 

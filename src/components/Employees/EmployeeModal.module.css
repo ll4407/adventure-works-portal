@@ -10,11 +10,21 @@
 .modal {
   background: white;
   width: 100%;
-  padding: 1em;
+  padding: 2em;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 1em;
+}
+.modalContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modalSection {
+  width: 100%;
+  border: 2px solid var(--blue);
 }
 .modalText {
   color: var(--black);
@@ -46,12 +56,17 @@
 .backBtnChevron {
   transform: rotate(90deg);
 }
+form.detailsSection {
+  padding-top: 2em;
+}
 .detailsSection {
   display: flex;
   flex-direction: column;
   gap: 1em;
   padding: 1em 0;
   max-width: 400px;
+  width: 100%;
+  border: 2px solid var(--pink);
 }
 .h2 {
   font-size: 1.25rem;
@@ -62,14 +77,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 .topForm {
   width: 100%;
   max-width: 400px;
+  border: 2px solid var(--orange);
+  padding-top: 2em;
+}
+.topForm > div {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 .editBtn {
   background: none;
   border: none;
+  display: grid;
+  place-items: center;
 }
 .input {
   width: 70%;
@@ -90,6 +117,14 @@
   border: none;
   text-decoration: underline;
   margin-top: 0.5em;
+}
+
+@media screen and (min-width: 60rem) {
+  .modalContent {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+  }
 }
 
 @media screen and (min-width: 60rem) {
@@ -120,15 +155,12 @@
     overflow-y: scroll;
     -ms-overflow-style: none; /* For IE and Edge */
     scrollbar-width: none; /* For Firefox */
-    align-items:start;
+    align-items: start;
   }
   .modal::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, Opera */
   }
   .modalHeader {
     width: max-content;
-  }
-  .detailsSection {
-    width: 50%;
   }
 }

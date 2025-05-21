@@ -48,8 +48,10 @@ const EmployeeModal = () => {
                     <span>Back</span>
                 </button>
                 <ModalTop employee={employeeToDisplay} setRefresh={setRefresh} />
-                <ModalPersonalInfo employee={employeeToDisplay} setRefresh={setRefresh} />
-                <ModalEmploymentInfo employee={employeeToDisplay} setRefresh={setRefresh} />
+                <div className={styles.modalContent}>
+                    <ModalPersonalInfo employee={employeeToDisplay} setRefresh={setRefresh} />
+                    <ModalEmploymentInfo employee={employeeToDisplay} setRefresh={setRefresh} />
+                </div>
             </div>
         </div>
     )
