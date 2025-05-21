@@ -1,6 +1,10 @@
 .employeeList {
   padding-top: 2em;
 }
+.ModalIsOpen {
+  max-height: 70vh;
+  overflow: hidden;
+}
 .employeeCard {
   border: none;
   background: none;
@@ -81,6 +85,9 @@
 }
 
 @media screen and (min-width: 60rem) {
+  .ModalIsOpen {
+    max-height: unset;
+  }
   .employeeCard {
     grid-template-columns: 2fr 1.5fr 2.5fr 2fr 1fr;
   }

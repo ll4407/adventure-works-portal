@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
@@ -7,26 +7,35 @@ import { Edit } from '../../icons'
 
 import styles from './EmployeeModal.module.css'
 
-function ModalEmploymentInfo({employee, setRefresh}) {
+function ModalEmploymentInfo({employee, setRefresh, departments, shifts}) {
     const [editing, setEditing] = useState(false)
 
-    const currentShift = employee.shiftHistory.filter(shift => shift.endDate === null)[0]
+    const currentShift = employee.shiftHistory.find(shift => shift.endDate === null)
     
     const defaultValues = {
-        jobTitle: employee.jobTitle,
-        employeeId: employee.employeeId,
-        department: currentShift.departmentName,
+        title: employee.jobTitle,
+        employeeNumber: employee.employeeNumber,
+        departmentId: currentShift.departmentId,
+        departmentTitle: currentShift.departmentName,
         shift: currentShift.shiftName,
+        shiftId: currentShift.shiftId,
         startDate: currentShift.startDate,
         endDate: currentShift.endDate,
     }
 
     const [employeeData, setEmployeeData] = useState(defaultValues)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault()
-
-        axios.put(`/Employee/employment/${employee.employeeId}`, employeeData)
+        const objectToSend = {
+            title: employeeData.title,
+            employeeNumber: employeeData.employeeNumber,
+            departmentId: employeeData.departmentId,
+            shiftId: employeeData.shiftId,
+            startDate: employeeData.startDate,
+            endDate: employeeData.endDate
+        }
+        axios.put(`/Employee/employment/${employee.employeeId}`, objectToSend)
             .then(res => {
                 if(200 >= res.status < 300){
                     toast.success('Employee updated successfully')
@@ -35,7 +44,7 @@ function ModalEmploymentInfo({employee, setRefresh}) {
                     }
                 })
             .catch(err => toast.error(err.message))
-    }
+    }, [employee, employeeData, setRefresh])
     
   return (  
     <div className={styles.modalSection}>
@@ -43,29 +52,48 @@ function ModalEmploymentInfo({employee, setRefresh}) {
         ? 
         <form className={styles.detailsSection} onSubmit={handleSubmit}>
             <input
-                aria-label='Job Title'
+                aria-label='Title'
                 type="text"
-                value={employeeData.jobTitle}
+                value={employeeData.title}
                 onChange={(e) => 
-                    setEmployeeData(prev => ({...prev, jobTitle: e.target.value}))} />
+                    setEmployeeData(prev => ({...prev, title: e.target.value}))} />
             <input
                 aria-label='Employee ID'
                 type="text"
-                value={employeeData.employeeId}
+                value={employeeData.employeeNumber}
                 onChange={(e) => 
-                    setEmployeeData(prev =>({...prev, employeeId: e.target.value}))} />
-            <input
+                    setEmployeeData(prev =>({...prev, employeeNumber: e.target.value}))} />
+            <select
                 aria-label='Department'
-                type="text"
-                value={employeeData.department}
+                className={styles.formSelect}
+                value={employeeData.departmentId}
                 onChange={(e) => 
-                    setEmployeeData(prev =>({...prev, department: e.target.value}))} />
-            <input
+                    setEmployeeData(prev =>({...prev, 
+                    departmentId: e.target.value, 
+                    departmentTitle: departments.find(d => d.departmentId == e.target.value).name}))} >
+                {departments.map(department => (
+                    <option
+                        key={department.departmentId} 
+                        value={department.departmentId}
+                        >
+                        {department.name}</option>
+                ))}
+            </select>
+            <select
                 aria-label='Shift'
                 type="text"
-                value={employeeData.shift}
+                value={employeeData.shiftId}
+                className={styles.formSelect}
                 onChange={(e) => 
-                    setEmployeeData(prev => ({...prev, shift: e.target.value}))} />
+                    setEmployeeData(prev => ({
+                        ...prev, 
+                        shiftId: e.target.value, 
+                        shift: shifts.find(s => s.shiftId == e.target.value).name}))} >
+                {shifts.map(shift => 
+                    (<option key={shift.shiftId} value={shift.shiftId}>
+                        {shift.name}
+                    </option>))}
+            </select>
             <input
                 aria-label='Start Date'
                 type="datetime-local"
@@ -106,8 +134,8 @@ function ModalEmploymentInfo({employee, setRefresh}) {
                 <p>{employee.jobTitle}</p>
             </div>
             <div className={styles.detailsRow}>
-                <p>Employee ID</p>
-                <p>{employee.employeeId}</p>
+                <p>Employee Number</p>
+                <p>{employee.employeeNumber}</p>
             </div>
             <div className={styles.detailsRow}>
                 <p>Department</p>

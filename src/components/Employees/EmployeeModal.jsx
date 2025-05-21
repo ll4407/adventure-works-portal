@@ -14,6 +14,8 @@ import styles from './EmployeeModal.module.css'
 
 const EmployeeModal = () => {
     const [employeeToDisplay, setEmployeeToDisplay] = useState(null)
+    const [departments, setDepartments] = useState(null)
+    const [shifts, setShifts] = useState(null)
 
     // eslint-disable-next-line no-unused-vars
     const {refresh, setRefresh, setActiveEmployee} = useOutletContext()
@@ -27,6 +29,21 @@ const EmployeeModal = () => {
                     setEmployeeToDisplay(res.data)
                 }
             }).catch(err => toast.error(err.message))
+        
+        axios.get('/Department')
+            .then(res => {
+                if(200 >= res.status < 300){
+                    setDepartments(res.data)
+                }
+            }).catch(err => toast.error(err.message))
+
+        axios.get('/Shift')
+            .then(res => {
+                if(200 >= res.status < 300){
+                    setShifts(res.data)
+                }
+            }).catch(err => toast.error(err.message))
+        
     }, [refresh, employeeId])
 
     const exitModal = useCallback(() => {
@@ -50,7 +67,11 @@ const EmployeeModal = () => {
                 <ModalTop employee={employeeToDisplay} setRefresh={setRefresh} />
                 <div className={styles.modalContent}>
                     <ModalPersonalInfo employee={employeeToDisplay} setRefresh={setRefresh} />
-                    <ModalEmploymentInfo employee={employeeToDisplay} setRefresh={setRefresh} />
+                    <ModalEmploymentInfo 
+                        employee={employeeToDisplay} 
+                        setRefresh={setRefresh}
+                        departments={departments}
+                        shifts={shifts} />
                 </div>
             </div>
         </div>

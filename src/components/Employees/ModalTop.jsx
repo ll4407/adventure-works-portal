@@ -13,8 +13,10 @@ function ModalTop({employee, setRefresh}) {
         firstName: employee.firstName,
         lastName: employee.lastName,
         jobTitle: employee.jobTitle,
-        employeeId: employee.employeeId
+        employeeNumber: employee.employeeNumber
     })
+
+    const currentShift = employee.shiftHistory.find(shift => shift.endDate === null)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,12 +35,17 @@ function ModalTop({employee, setRefresh}) {
                             setRefresh(x => !x)
                             }
                         })
+                    .catch(err => toast.error(err.message))
             }
             if(employeeData.jobTitle !== employee.jobTitle || 
-                employeeData.employeeId !== employee.employeeId){
+                employeeData.employeeNumber !== employee.employeeNumber){
                 axios.put(`/Employee/employment/${employee.employeeId}`, {
-                        jobTitle: employeeData.jobTitle,
-                        employeeId: employeeData.employeeId
+                        title: employeeData.jobTitle,
+                        employeeNumber: employeeData.employeeNumber,
+                        departmentId: currentShift.departmentId,
+                        shiftId: currentShift.shiftId,
+                        startDate: currentShift.startDate,
+                        endDate: currentShift.endDate
                     })
                     .then(res => {
                         if(200 >= res.status < 300){
@@ -47,6 +54,7 @@ function ModalTop({employee, setRefresh}) {
                             setRefresh(x => !x)
                             }
                         })
+                    .catch(err => toast.error(err.message))
             }
         }catch(err){
             toast.error(err.message)
@@ -82,18 +90,16 @@ function ModalTop({employee, setRefresh}) {
                 type="text"
                 value={employeeData.jobTitle}
                 placeholder='Job Title'
-                disabled
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, jobTitle: e.target.value}))} />
             <input
                 aria-label='Employee ID'
                 className={styles.input}
                 type="text"
-                value={employeeData.employeeId}
+                value={employeeData.employeeNumber}
                 placeholder='Employee ID'
-                disabled
                 onChange={(e) => 
-                    setEmployeeData(prev => ({...prev, employeeId: e.target.value}))} />
+                    setEmployeeData(prev => ({...prev, employeeNumber: e.target.value}))} />
             <button 
                 className={styles.submitBtn} 
                 type='submit' 
@@ -115,7 +121,7 @@ function ModalTop({employee, setRefresh}) {
                 </button>
             </div>
             <p className={styles.modalText}>{employee.jobTitle}</p>
-            <p className={styles.modalText}>{employee.employeeId}</p>
+            <p className={styles.modalText}>{employee.employeeNumber}</p>
         </div>
         }
     </div>
