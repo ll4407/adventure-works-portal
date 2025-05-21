@@ -1,6 +1,10 @@
 .productList {
   padding-top: 2em;
 }
+.ModalIsOpen {
+  max-height: 70vh;
+  overflow: hidden;
+}
 .catalogProductCard,
 .productCard {
   border: none;
@@ -122,6 +126,9 @@
 }
 
 @media screen and (min-width: 60rem) {
+  .ModalIsOpen {
+    max-height: unset;
+  }
   .productCard {
     grid-template-columns: 3fr 2fr 2fr 2fr 2fr 1fr;
   }
