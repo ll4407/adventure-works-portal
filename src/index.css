@@ -83,6 +83,7 @@ h6 {
   --green: #9bc53d;
   --yellow: #fde74c;
   --gray: #c4c4c4;
+  --red: #e11818;
 
   display: flex;
 }
@@ -135,9 +136,8 @@ ul {
   padding: 0;
 }
 
-
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
