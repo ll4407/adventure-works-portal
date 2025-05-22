@@ -6,6 +6,8 @@ import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 
 import styles from './Overview.module.css'
+import { colors } from '../../utilities'
+import Loading from '../utils/Loading'
 
 const Overview = () => {
     const [activeEmployee, setActiveEmployee] = useState(null)
@@ -48,8 +50,9 @@ const Overview = () => {
             });
         }
     }, [activeEmployee, setShowSearch, loading])
+    if (loading) return <Loading color={colors.orange} />
 
-    if(loading || !employees) return null
+    if(!employees) return <>Something went wrong, please reload page</>
 
     return(
         <>

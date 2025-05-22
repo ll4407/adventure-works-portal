@@ -7,6 +7,8 @@ import axios from '../../api/axios';
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
 import { Outlet } from 'react-router';
+import Loading from '../utils/Loading';
+import { colors } from '../../utilities';
 
 function Orders(props) {
     const { clicked } = props;
@@ -39,7 +41,7 @@ function Orders(props) {
     }, [filter, ordersDisplayed])
 
 
-    const currentData = ordersDisplayed === null ? <>Loading</> :
+    const currentData = ordersDisplayed === null ? <Loading color={colors.green} /> :
         <section>
             <div className={styles.OrderGridHeader}>
                 <p>Product Name</p>

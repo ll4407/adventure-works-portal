@@ -7,7 +7,9 @@ import { toast } from 'react-toastify'
 
 import InventoryHeader from './Inventory/InventoryHeader'
 import InventoryRow from './Inventory/InventoryRow'
+import Loading from '../utils/Loading'
 
+import { colors } from '../../utilities'
 import styles from './ProductSubpage.module.css'
 
 const Inventory = () => {
@@ -50,6 +52,7 @@ const Inventory = () => {
         }
     }, [activeProduct, setShowSearch, loading])
 
+    if(loading) return <Loading color={colors.blue} />
     if(loading || !products) return null
 
     return(

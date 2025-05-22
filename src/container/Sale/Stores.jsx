@@ -6,6 +6,8 @@ import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
 import { Outlet, useNavigate } from "react-router";
+import Loading from "../../components/utils/Loading";
+import { colors } from "../../utilities";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
@@ -21,7 +23,7 @@ const filterSalesData = (sales, filter) => {
 export default function Stores() {
     const [sales, setSales] = useState([]);
     const [filteredSales, setFilteredSales] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     
     const { filter } = useContext(PageContext);
     const navigate = useNavigate()
@@ -41,7 +43,6 @@ export default function Stores() {
 
   // Fetch sales data
   const fetchSales = useCallback(() => {
-    setLoading(true);
     axios
       .get("/Order/store")
       .then(({ data }) => setSales(data))
@@ -69,8 +70,8 @@ export default function Stores() {
     const closeDetail = () => {
         navigate('/sales/stores')
     };
-
-  if(!filteredSales || loading) return null;
+  if(loading) return <Loading color={colors.pink} />
+  if(!filteredSales) return <>Something went wrong, please reload page</>
 
   return (
       <div className={styles.container}>

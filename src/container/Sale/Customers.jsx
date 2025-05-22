@@ -6,6 +6,8 @@ import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
 import { Outlet, useNavigate } from "react-router";
+import Loading from "../../components/utils/Loading";
+import { colors } from "../../utilities";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter, ) => {
@@ -21,7 +23,7 @@ const filterSalesData = (sales, filter, ) => {
 export default function Customers() {
     const [sales, setSales] = useState([]);
     const [filteredSales, setFilteredSales] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const {filter} = useContext(PageContext);
     const navigate = useNavigate()
@@ -41,7 +43,6 @@ export default function Customers() {
 
     // Fetch sales data
     const fetchSales = useCallback(() => {
-        setLoading(true);
         axios
         .get("/Order/customer")
         .then(({ data }) => setSales(data))
@@ -68,12 +69,14 @@ export default function Customers() {
             console.log("Clicked on card with id:", id);
             navigate(`/sales/customers/${id}`)};
 
-        // Close detail
-        const closeDetail = () => {
-            navigate('/sales/customers')
-        };
+    // Close detail
+    const closeDetail = () => {
+        navigate('/sales/customers')
+    };
 
-    if(!filteredSales || loading) return null;
+    // Show loading spinner if data is being fetched
+    if(loading) return <Loading color={colors.pink} />
+    if(!filteredSales) return <>Something went wrong. Please reload page.</>;
 
     return (
         <div className={styles.container}>

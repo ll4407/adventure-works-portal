@@ -1,9 +1,17 @@
+.loaderContainer {
+  width: 100%;
+  height: 40vh;
+  display: grid;
+  place-content: center;
+}
 .loader {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   position: relative;
   animation: rotate 1s linear infinite;
+  border-color: currentColor;
+  transition: border-color 0.2s ease-in-out;
 }
 .loader::before,
 .loader::after {
@@ -12,13 +20,14 @@
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid #fff;
+  border: 5px solid currentColor;
   animation: prixClipFix 2s linear infinite;
+  transition: border-color 1s ease-in-out;
 }
 .loader::after {
   inset: 8px;
   transform: rotate3d(90, 90, 0, 180deg);
-  border-color: #ff3d00;
+  border-color: currentColor;
 }
 
 @keyframes rotate {

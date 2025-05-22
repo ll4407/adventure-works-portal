@@ -9,6 +9,8 @@ import CatalogHeader from './Catalog/CatalogHeader'
 import CatalogRow from './Catalog/CatalogRow'
 
 import styles from './ProductSubpage.module.css'
+import Loading from '../utils/Loading'
+import { colors } from '../../utilities'
 
 const Catalog = () =>{
 
@@ -39,7 +41,7 @@ const Catalog = () =>{
             .finally(() => setLoading(false))
     }, [refresh])
 
-    if(loading) return null
+    if(loading) return <Loading color={colors.blue} />
 
     return(
         <>

@@ -4,7 +4,7 @@ import styles from "./Dashboard.module.css";
 import SalesSummary from "../../components/Dashboard/Sale/SalesSummary";
 import TotalProfit from "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
-
+import ColorChanger from "../../components/utils/ColorChanger";
 
 export default function Dashboard() {
   const [weeklySales, setWeeklySales] = useState([]);
@@ -16,7 +16,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); 
       try {
         const [salesRes, bestWorstRes, lowStockRes, shiftsRes] =
           await Promise.all([
@@ -41,7 +40,7 @@ export default function Dashboard() {
   }, []); 
 
   if (loading) {
-    return <div className={styles.loading}>Loading Dashboard...</div>;
+    return <ColorChanger />;
   }
 
 

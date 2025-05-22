@@ -7,6 +7,8 @@ import axios from '../../api/axios';
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
 import { Outlet, useOutletContext } from 'react-router';
+import Loading from '../utils/Loading';
+import { colors } from '../../utilities';
 
 
 function Vendors() {
@@ -41,7 +43,7 @@ function Vendors() {
     }, [filter, vendorsDisplayed])
 
 
-    const currentData = vendorsDisplayed === null ? <>Loading</> :
+    const currentData = vendorsDisplayed === null ? <Loading color={colors.green} /> :
             <section>
                 <div className={styles.VendorGridHeader}>
                     <p>Vendor Name</p>
