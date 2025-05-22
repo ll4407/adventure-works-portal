@@ -1,13 +1,17 @@
 import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
-import { Outlet } from 'react-router'
+import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 
+import EmployeeHeader from './EmployeeHeader'
+import EmployeeRow from './EmployeeRow'
+
 import styles from './Overview.module.css'
 import { colors } from '../../utilities'
 import Loading from '../utils/Loading'
+import clsx from 'clsx'
 
 const Overview = () => {
     const [activeEmployee, setActiveEmployee] = useState(null)
@@ -16,7 +20,7 @@ const Overview = () => {
     const [refresh, setRefresh] = useState(true)
 
     const {setShowSearch, filter} = useContext(PageContext)
-
+    const {employeeId} = useParams()
 
     const filteredEmployees = useMemo(() =>{
         if(!employees) return []
@@ -56,17 +60,21 @@ const Overview = () => {
 
     return(
         <>
-        <div className={styles.productList}>
-            {/* <InventoryHeader /> */}
+        <div className={clsx(styles.employeeList,
+            employeeId && styles.ModalIsOpen,
+        )}>
+            <EmployeeHeader />
             {filteredEmployees.map((employee) => (
-               <div key={employee.employeeId}>{employee.firstName} {employee.lastName}</div>
+               <EmployeeRow 
+                key={employee.employeeId} 
+                employee={employee} 
+                setActiveEmployee={setActiveEmployee} />
             ))}
         </div>
         <Outlet 
             context={{
-                employee: activeEmployee, 
                 setActiveEmployee:setActiveEmployee,
-                allEmployees: employees,
+                refresh: refresh,
                 setRefresh: setRefresh,
                 }} />
         </>

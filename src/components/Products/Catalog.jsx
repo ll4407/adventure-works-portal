@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import PageContext from '../../context/PageContext'
-import { Outlet } from 'react-router'
+import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
@@ -11,6 +11,7 @@ import CatalogRow from './Catalog/CatalogRow'
 import styles from './ProductSubpage.module.css'
 import Loading from '../utils/Loading'
 import { colors } from '../../utilities'
+import clsx from 'clsx'
 
 const Catalog = () =>{
 
@@ -19,6 +20,9 @@ const Catalog = () =>{
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [refresh, setRefresh] = useState(false)
+
+    const {id} = useParams()
+    const modalIsOpen = Boolean(id)
 
     const filteredProducts = useMemo(() =>{
         if(!products) return []
@@ -45,7 +49,9 @@ const Catalog = () =>{
 
     return(
         <>
-            <div className={styles.productList}>
+            <div className={clsx(styles.productList,
+                modalIsOpen && styles.ModalIsOpen,
+            )}>
                 <CatalogHeader />
                 {filteredProducts.map(prod => (
                     <CatalogRow key={prod.productId} prod={prod} />

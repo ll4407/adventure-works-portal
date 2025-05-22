@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useMemo } from 'react'
 import PageContext from '../../context/PageContext'
-import { Outlet } from 'react-router'
+import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
@@ -11,12 +11,17 @@ import Loading from '../utils/Loading'
 
 import { colors } from '../../utilities'
 import styles from './ProductSubpage.module.css'
+import clsx from 'clsx'
 
 const Inventory = () => {
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [refresh, setRefresh] = useState(true)
+
+    const{ productId } = useParams()
+
+    const modalIsOpen = Boolean(productId)
 
     const { setShowSearch, filter } = useContext(PageContext)
 
@@ -57,7 +62,9 @@ const Inventory = () => {
 
     return(
         <>
-        <div className={styles.productList}>
+        <div className={clsx(styles.productList,
+            modalIsOpen && styles.ModalIsOpen,
+        )}>
             <InventoryHeader />
             {filteredProducts.map((prod, idx) => (
                 <InventoryRow 
