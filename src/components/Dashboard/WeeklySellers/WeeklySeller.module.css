@@ -1,0 +1,23 @@
+.seller {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 50%;
+
+    border: 3px solid var(--green);
+    border-radius: 5px;
+}
+
+.seller > p {
+    margin-top: 1em;
+    font-weight: 700;
+}
+
+
+.seller > div:last-child {
+    margin-bottom: 1em;
+}
+.seller > div:last-child > p {
+    font-weight: 700;
+}

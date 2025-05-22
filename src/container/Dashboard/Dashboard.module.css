@@ -5,3 +5,26 @@
 .title {
   padding: 0 0 2rem;
 }
+.productPerformance {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+
+  max-width: 50%;
+}
+
+.shifts {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 15%;
+
+  border: 3px solid var(--blue);
+  border-radius: 5px;
+}
+.shifts > h2 {
+  text-align: center;
+}
+.shifts > p {
+  padding-left: 1em;
+}
