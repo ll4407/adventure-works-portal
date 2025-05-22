@@ -83,6 +83,9 @@ h6 {
   --green: #9bc53d;
   --yellow: #fde74c;
   --gray: #c4c4c4;
+  --medium-gray: #979797;
+  --red: #E11818;
+  --olive-green: #6F9320;
 
   display: flex;
 }

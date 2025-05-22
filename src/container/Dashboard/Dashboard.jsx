@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import styles from "./Dashboard.module.css";
+import SalesSummary from "../../components/Dashboard/Sale/SalesSummary";
+import TotalProfit from "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
 
 
@@ -49,9 +51,10 @@ export default function Dashboard() {
 
       <div className={styles.grid}>
         <div className={styles.salesSummary}>
-            Sales Summary
+            <SalesSummary data={weeklySales} />
         </div>
         <div className={styles.totalProfit}>
+          <TotalProfit data={weeklySales} />
         </div>
         <div className={styles.productPerformance}>
           Weekly Bestseller / Lowest Weekly Seller
