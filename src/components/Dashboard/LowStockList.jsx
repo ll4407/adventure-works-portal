@@ -2,11 +2,10 @@ import clsx from 'clsx'
 import { Alert } from '../../icons'
 import styles from './LowStock.module.css'
 import { colors } from '../../utilities'
-
+import { Link } from 'react-router'
 
 const LowStockList = ({products}) => {
 
-    console.log('lowStock', products)
   return (
     <div className={styles.lowStockContainer}>
         {products.map((prod) => {
@@ -32,9 +31,9 @@ const LowStockList = ({products}) => {
                         </div>
                     </div>
                     <div className={clsx(styles.flex, styles.buttonContainer)}>
-                        <button className={clsx(styles.button, styles.update)}>
+                        <Link to={`/products/catalog/${prod.productId}`} className={clsx(styles.button, styles.update)}>
                             Update
-                        </button>
+                        </Link>
                         <button className={clsx(styles.button, styles.order)}>
                             Order
                         </button>
