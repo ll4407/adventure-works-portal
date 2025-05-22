@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
-import styles from "./Dashboard.module.css";
-import SalesSummary from "../../components/Dashboard/Sale/SalesSummary";
-import TotalProfit from "../../components/Dashboard/Sale/TotalProfit";
+import styles from "./Dashboard.module.css"; "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
-import LowStockList from "../../components/Dashboard/LowStockList";
 
-import WeeklySeller from "../../components/Dashboard/WeeklySellers/WeeklySeller";
-import ShiftDisplay from "../../components/Dashboard/ShiftDisplay/ShiftDisplay";
+import { 
+  LowStockList, 
+  SalesSummary, 
+  ShiftDisplay, 
+  TotalProfit, 
+  WeeklySeller } from "../../components/Dashboard";
 
 export default function Dashboard() {
   const [weeklySales, setWeeklySales] = useState(null);
@@ -58,8 +59,8 @@ export default function Dashboard() {
         <div className={styles.salesSummary}>
             <SalesSummary data={weeklySales} />
         </div>
-        <div className={styles.totalProfit}>
-          <TotalProfit data={weeklySales} />
+        <div className={styles.lowStock}>
+          <LowStockList products={lowStock} />
         </div>
         <div className={styles.productPerformance}>
           <WeeklySeller 
@@ -69,7 +70,6 @@ export default function Dashboard() {
             unitsInStock={bestWorst[0].unitsInStock}
             color={'155, 197, 61'}
           /> 
-
           <WeeklySeller 
             title={"Lowest Weekly Seller"}
             productName={bestWorst[1].productName}
@@ -78,7 +78,9 @@ export default function Dashboard() {
             color={ '225, 24, 24' }
           /> 
         </div>
-        <LowStockList products={lowStock} />
+        <div className={styles.totalProfit}>
+          <TotalProfit data={weeklySales} />
+        </div>
         <div className={styles.shifts}>
           <ShiftDisplay 
               shifts={shifts}

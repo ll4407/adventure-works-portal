@@ -12,7 +12,7 @@ import {
 const SalesComparisonChart = ({ styles, chartData, roundedMax, ticks }) => {
   return (
     <div className={styles.chartContainer}>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
           margin={{
