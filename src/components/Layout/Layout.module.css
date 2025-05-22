@@ -5,6 +5,7 @@
 }
 .main {
   max-height: calc(100% - 140px);
+  max-width: 100vw;
   overflow: hidden;
   overflow-y: scroll;
   -ms-overflow-style: none; /* For IE and Edge */

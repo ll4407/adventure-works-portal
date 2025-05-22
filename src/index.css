@@ -84,8 +84,8 @@ h6 {
   --yellow: #fde74c;
   --gray: #c4c4c4;
   --medium-gray: #979797;
-  --red: #E11818;
-  --olive-green: #6F9320;
+  --red: #e11818;
+  --olive-green: #6f9320;
 
   display: flex;
 }
@@ -138,9 +138,8 @@ ul {
   padding: 0;
 }
 
-
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {

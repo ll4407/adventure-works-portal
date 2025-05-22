@@ -4,13 +4,14 @@ import styles from "./Dashboard.module.css";
 import SalesSummary from "../../components/Dashboard/Sale/SalesSummary";
 import TotalProfit from "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
+import LowStockList from "../../components/Dashboard/LowStockList";
 
 
 export default function Dashboard() {
-  const [weeklySales, setWeeklySales] = useState([]);
-  const [bestWorst, setBestWorst] = useState([]);
-  const [lowStock, setLowStock] = useState([]);
-  const [shifts, setShifts] = useState([]);
+  const [weeklySales, setWeeklySales] = useState(null);
+  const [bestWorst, setBestWorst] = useState(null);
+  const [lowStock, setLowStock] = useState(null);
+  const [shifts, setShifts] = useState(null);
   const [loading, setLoading] = useState(true);
 
 
@@ -31,7 +32,7 @@ export default function Dashboard() {
         setShifts(shiftsRes.data);
       } catch (err) {
         const errorMessage = "Failed to load some dashboard data.";
-        toast.error(errorMessage);
+        toast.error(err.toString() || errorMessage);
       } finally {
         setLoading(false);
       }
@@ -40,14 +41,16 @@ export default function Dashboard() {
     fetchData();
   }, []); 
 
+  console.log('lowStock', lowStock)
+
   if (loading) {
     return <div className={styles.loading}>Loading Dashboard...</div>;
   }
 
-
+  if(!lowStock) return <>no low stock</>
   return (
     <div className={styles.dashboardContainer}>
-      <h1>Dashboard</h1>
+      <h1 className={styles.title}>Dashboard</h1>
 
       <div className={styles.grid}>
         <div className={styles.salesSummary}>
@@ -59,9 +62,7 @@ export default function Dashboard() {
         <div className={styles.productPerformance}>
           Weekly Bestseller / Lowest Weekly Seller
         </div>
-        <div className={styles.lowStock}>
-          Low Stock Products 
-        </div>
+        <LowStockList products={lowStock} />
         <div className={styles.shifts}>
           Shifts 
         </div>
