@@ -4,7 +4,7 @@ import styles from "./Dashboard.module.css";
 import { toast } from "react-toastify";
 
 import WeeklySeller from "../../components/Dashboard/WeeklySellers/WeeklySeller";
-
+import ShiftDisplay from "../../components/Dashboard/ShiftDisplay/ShiftDisplay";
 
 export default function Dashboard() {
   const [weeklySales, setWeeklySales] = useState([]);
@@ -76,7 +76,9 @@ export default function Dashboard() {
           Low Stock Products 
         </div>
         <div className={styles.shifts}>
-          Shifts 
+          <ShiftDisplay 
+              shifts={shifts}
+          /> 
         </div>
       </div>
     </div>
