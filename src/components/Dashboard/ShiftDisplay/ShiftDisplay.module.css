@@ -1,0 +1,14 @@
+.shift {
+    margin-top: 1.5em;
+
+    padding-left: 1em;
+    padding-right: auto;
+}
+.shift:last-child {
+    margin-bottom: 1em;
+}
+
+.shift > p:first-child{
+text-decoration: underline;
+
+}

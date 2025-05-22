@@ -1,7 +1,67 @@
 .dashboardContainer {
   padding: 2em 1.5em;
   overflow: hidden;
+  width: 100%;
 }
 .title {
   padding: 0 0 2rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 100%;
+  gap: 1em;
+}
+.grid > div {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+.salesSummary {
+  width: 100%;
+}
+
+.productPerformance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+.shifts {
+  display: none;
+  flex-direction: column;
+  border: 3px solid var(--blue);
+  border-radius: 5px;
+}
+.shifts > h2 {
+  text-align: center;
+}
+.shifts > p {
+  padding-left: 1em;
+}
+
+@media screen and (min-width: 80rem) {
+  .grid {
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    grid-template-areas:
+      "salesSummary salesSummary totalProfit totalProfit shifts"
+      "salesSummary salesSummary productPerformance productPerformance shifts"
+      "lowStock lowStock lowStock lowStock lowStock";
+  }
+  .salesSummary {
+    grid-area: salesSummary;
+  }
+  .totalProfit {
+    grid-area: totalProfit;
+  }
+  .productPerformance {
+    grid-area: productPerformance;
+  }
+  .shifts {
+    display: flex;
+    grid-area: shifts;
+  }
+  .lowStock {
+    grid-area: lowStock;
+  }
 }

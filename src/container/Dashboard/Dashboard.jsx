@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
-import styles from "./Dashboard.module.css";
-import SalesSummary from "../../components/Dashboard/Sale/SalesSummary";
-import TotalProfit from "../../components/Dashboard/Sale/TotalProfit";
+import styles from "./Dashboard.module.css"; "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
 import ColorChanger from "../../components/utils/ColorChanger";
-import LowStockList from "../../components/Dashboard/LowStockList";
 
+import { 
+  LowStockList, 
+  SalesSummary, 
+  ShiftDisplay, 
+  TotalProfit, 
+  WeeklySeller } from "../../components/Dashboard";
 
 export default function Dashboard() {
   const [weeklySales, setWeeklySales] = useState(null);
@@ -56,15 +59,32 @@ export default function Dashboard() {
         <div className={styles.salesSummary}>
             <SalesSummary data={weeklySales} />
         </div>
+        <div className={styles.lowStock}>
+          <LowStockList products={lowStock} />
+        </div>
+        <div className={styles.productPerformance}>
+          <WeeklySeller 
+            title={"Weekly Bestseller"}
+            productName={bestWorst[0].productName}
+            unitsSold={bestWorst[0].unitsSold}
+            unitsInStock={bestWorst[0].unitsInStock}
+            color={'155, 197, 61'}
+          /> 
+          <WeeklySeller 
+            title={"Lowest Weekly Seller"}
+            productName={bestWorst[1].productName}
+            unitsSold={bestWorst[1].unitsSold}
+            unitsInStock={bestWorst[1].unitsInStock}
+            color={ '225, 24, 24' }
+          /> 
+        </div>
         <div className={styles.totalProfit}>
           <TotalProfit data={weeklySales} />
         </div>
-        <div className={styles.productPerformance}>
-          Weekly Bestseller / Lowest Weekly Seller
-        </div>
-        <LowStockList products={lowStock} />
         <div className={styles.shifts}>
-          Shifts 
+          <ShiftDisplay 
+              shifts={shifts}
+          /> 
         </div>
       </div>
     </div>
