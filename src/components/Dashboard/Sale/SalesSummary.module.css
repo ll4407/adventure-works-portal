@@ -1,0 +1,78 @@
+.salesSummaryCard {
+  background-color: var(--white);
+  padding: 1em 2em;
+  border-radius: 8px;
+  border: 2px solid var(--pink);
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summaryHeader h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--navbar);
+}
+
+.viewReportLink {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--medium-gray);
+  text-decoration: none;
+  display: flex;
+  gap: 0.5em;
+}
+
+
+.summaryMetrics {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.totalSalesValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--navbar);
+}
+
+.percentageChange {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.positiveTrend {
+  color: var(--olive-green);
+}
+
+.negativeTrend {
+  color: var(--red);
+}
+
+.vsLastWeek {
+  font-size: 0.75rem;
+  color: var(--medium-gray);
+  font-weight: 700;
+}
+
+.noData {
+  padding: 20px;
+  text-align: center;
+  color: var(--navbar);
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 60rem) {
+
+}

@@ -65,13 +65,16 @@ const CatalogModal = () => {
             column:true,
         },{
             label:'Saddle Description',
-            value:productDetails.saddleDescription
+            value:productDetails.saddleDescription,
+            column:true,
         },{
             label:'Pedal Description',
-            value:productDetails.pedalDescription
+            value:productDetails.pedalDescription,
+            column:true,
         },{
             label:'Rider Experience',
-            value:productDetails.riderExperience
+            value:productDetails.riderExperience,
+            column:true,
         }],
         productWarrantyContent:[{
             label:'Warranty Period',

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './container/Dashboard/Dashboard';
 import { Employees, Products, Purchasing, Sales } from './container';
-import { Layout, Login, ProtectedRoute, Inventory, InventoryModal, Catalog, CatalogModal } from './components';
+import { Layout, Login, ProtectedRoute, Inventory, InventoryModal, Catalog, CatalogModal, EmployeeModal } from './components';
 import Vendors from './components/Purchasing/Vendors';
 import VendorDetails from './container/Purchasing/VendorsDetails';
 import Orders from './components/Purchasing/Orders';
@@ -28,7 +28,7 @@ function App() {
       >
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/employees" element={<Employees />}>
-          <Route path="/employees/:id" element={<>Employee Modal</>} />
+          <Route path="/employees/:employeeId" element={<EmployeeModal />} />
         </Route>
         <Route path="/products" element={<Products />}>
           <Route path="/products/inventory/" element={<Inventory/>}>
