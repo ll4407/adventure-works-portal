@@ -4,11 +4,14 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 import EmployeeHeader from './EmployeeHeader'
 import EmployeeRow from './EmployeeRow'
 
 import styles from './Overview.module.css'
+import { colors } from '../../utilities'
+import Loading from '../utils/Loading'
 import clsx from 'clsx'
 
 const Overview = () => {
@@ -52,12 +55,17 @@ const Overview = () => {
             });
         }
     }, [activeEmployee, setShowSearch, loading])
+    if (loading) return <Loading color={colors.orange} />
 
-    if(loading || !employees) return null
+    if(!employees) return <>Something went wrong, please reload page</>
 
     return(
         <>
-        <div className={clsx(styles.employeeList,
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }}
+            className={clsx(styles.employeeList,
             employeeId && styles.ModalIsOpen,
         )}>
             <EmployeeHeader />
@@ -67,7 +75,7 @@ const Overview = () => {
                 employee={employee} 
                 setActiveEmployee={setActiveEmployee} />
             ))}
-        </div>
+        </motion.div>
         <Outlet 
             context={{
                 setActiveEmployee:setActiveEmployee,

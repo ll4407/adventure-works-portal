@@ -3,10 +3,13 @@ import styles from '../../container/Purchasing/Purchasing.module.css';
 import PageContext from '../../context/PageContext';
 
 import axios from '../../api/axios';
+import { motion } from 'motion/react';
 
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
 import { Outlet } from 'react-router';
+import Loading from '../utils/Loading';
+import { colors } from '../../utilities';
 
 function Orders(props) {
     const { clicked } = props;
@@ -39,8 +42,11 @@ function Orders(props) {
     }, [filter, ordersDisplayed])
 
 
-    const currentData = ordersDisplayed === null ? <>Loading</> :
-        <section>
+    const currentData = ordersDisplayed === null ? <Loading color={colors.green} /> :
+        <motion.section
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
                 <p>Product Name</p>
                 <p>Vendor Name</p>
@@ -66,7 +72,7 @@ function Orders(props) {
                 />)
             })}
             <Outlet context={{clicked: clicked}} />
-        </section>;
+        </motion.section>;
 
     return (
         <>

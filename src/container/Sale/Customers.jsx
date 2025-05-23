@@ -6,6 +6,9 @@ import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
+import Loading from "../../components/utils/Loading";
+import { colors } from "../../utilities";
+import { motion } from "motion/react";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
@@ -85,58 +88,39 @@ export default function Customers() {
   if (isDetailViewActive) {
     listContainerClasses.push(styles.hideListWhenModalActiveMobile);
   }
+  if(loading) return <Loading color={colors.pink} /> // Show loading spinner if loading
 
   // Conditional rendering for loading and no data states
-  if (loading || (sales.length > 0 && filteredSales.length === 0 && !filter))  {
+  if ( filteredSales.length > 0) { 
     return (
-      <div className={styles.container}>
-        <div className={styles.noSalesMessage}>Loading customer sales...</div>
-      </div>
-    );
-  }
-
-  if (!loading && sales.length === 0) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.noSalesMessage}>No customer sales found.</div>
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.container}>
-      <div className={listContainerClasses.join(" ")}>
-        <HeaderRow isCustomer={true} /> {/* Correct for customers view */}
-        <div className={styles.list}>
-          {filteredSales.length > 0 ? (
-            filteredSales.map((sale) => (
-              <SaleCard
-                key={sale.id}
-                type={"customer"}
-                data={{
-                  ...sale,
-                  contactName: `${sale.contactFirstName || ""} ${
-                    sale.contactLastName || ""
-                  }`.trim(),
-                }}
-                onClick={() => onCardClick(sale.id)}
-              />
-            ))
-          ) : (
-            filter && (
-              <div className={styles.noSalesMessage}>
-                No sales match your filter.
-              </div>
-            )
-          )}
-        </div>
-      </div>
-      <Outlet
-        context={{
-          closeDetail: closeDetail,
-          updateSalesAfterChange: updateSalesAfterChange,
-        }}
-      />
-    </div>
-  );
-}
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }} className={styles.container}>
+            {/* Always render the list in desktop view - hide in mobile view*/}
+            <div className={styles.hiddenMobileWhenModal}>
+                <HeaderRow isCustomer={true} />
+                <div className={styles.list}>
+                    {filteredSales.map((sale) => (
+                    <SaleCard
+                        key={sale.id}
+                        type={"customer"}
+                        data={{
+                        ...sale,
+                        contactName: `${sale.contactFirstName || ""} ${
+                            sale.contactLastName || ""
+                        }`.trim(),
+                        }}
+                        onClick={() => onCardClick(sale.id)}
+                    />
+                    ))}
+                </div>
+            </div>
+            <Outlet 
+                context={{
+                    closeDetail: closeDetail,
+                    updateSalesAfterChange: updateSalesAfterChange,
+                }} />
+        </motion.div>
+        )
+}}
