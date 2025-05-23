@@ -108,7 +108,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.modalClose} onClick={onClose}>
+        <button aria-label="Close Modal. Go back to list" className={styles.modalClose} onClick={onClose}>
           <Close className={styles.close} />
         </button>
 

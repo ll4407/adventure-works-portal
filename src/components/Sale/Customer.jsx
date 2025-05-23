@@ -23,7 +23,7 @@ export default function Customer({ selectedSaleId, onClose }) {
       .then((response) => {
         setCustomerDetails(response.data);
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Failed to load customer details.");
       })
       .finally(() => {
@@ -36,7 +36,7 @@ export default function Customer({ selectedSaleId, onClose }) {
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.modalClose} onClick={onClose}>
+        <button aria-label="Close Modal. Go back to list." className={styles.modalClose} onClick={onClose}>
           <Close className={styles.close} />
         </button>
 

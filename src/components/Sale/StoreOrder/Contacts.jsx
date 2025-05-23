@@ -9,6 +9,7 @@ export default function Contacts({ contacts, isEditing, onEdit }) {
         <h3>Contacts</h3>
         {!isEditing && (
           <button
+            aria-label="Edit Contacts"
             type="button"
             className={styles.editButton}
             onClick={onEdit}
