@@ -4,7 +4,7 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 import CatalogHeader from './Catalog/CatalogHeader'
 import CatalogRow from './Catalog/CatalogRow'

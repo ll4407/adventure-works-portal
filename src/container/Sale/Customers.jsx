@@ -88,9 +88,10 @@ export default function Customers() {
   if (isDetailViewActive) {
     listContainerClasses.push(styles.hideListWhenModalActiveMobile);
   }
+  if(loading) return <Loading color={colors.pink} /> // Show loading spinner if loading
 
   // Conditional rendering for loading and no data states
-  if (loading || (sales.length > 0 && filteredSales.length === 0 && !filter))  {
+  if ( filteredSales.length > 0) { 
     return (
         <motion.div
             initial={{ opacity: 0, x: 100 }}
