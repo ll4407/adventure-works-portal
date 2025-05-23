@@ -193,7 +193,7 @@ function VendorAddresses(props){
                                                 }
                                             </label>
                                             <label>
-                                                <input type="text" name="addressLine1" aria-label="address Line 1" placeholder={address.addressLine1} 
+                                                <input type="text" name="addressLine1" aria-label="address Line 1" value={address.addressLine1} placeholder='Address 1'
                                                 onChange={(event) => setAddressesCopy(prev => prev.map(add => {
                                                         if(add.addressId === address.addressId){
                                                                     return {...add, addressLine1: event.target.value, changed: true}
@@ -203,7 +203,7 @@ function VendorAddresses(props){
                                                     }))} />
                                             </label>
                                             <label>
-                                                <input type="text" name="addressLine2" aria-label="address Line 2" placeholder={address.addressLine2}
+                                                <input type="text" name="addressLine2" aria-label="address Line 2" value={address.addressLine2} placeholder='Address 2'
                                                 onChange={(event) => setAddressesCopy(prev => prev.map(add => {
                                                         if(add.addressId === address.addressId){
                                                             return {...add, addressLine2: event.target.value, changed: true}
@@ -215,7 +215,7 @@ function VendorAddresses(props){
 
                                             <div>
                                                 <label>
-                                                    <input type="text" name="city" aria-label="city" placeholder={address.city} 
+                                                    <input type="text" name="city" aria-label="city" value={address.city} placeholder='City' 
                                                     onChange={(event) => setAddressesCopy(prev => prev.map(add => {
                                                         if(add.addressId === address.addressId){
                                                                     return {...add, city: event.target.value, changed: true}
@@ -259,7 +259,7 @@ function VendorAddresses(props){
                                             </div>
 
                                             <label>
-                                                <input type="text" name="postalCode" aria-label="postal Code" placeholder={address.postalCode} 
+                                                <input type="text" name="postalCode" aria-label="postal Code" value={address.postalCode} placeholder='Postal code'
                                                 onChange={(event) => setAddressesCopy(prev => prev.map(add => {
                                                         if(add.addressId === address.addressId){
                                                                     return {...add, postalCode: event.target.value, changed: true}
