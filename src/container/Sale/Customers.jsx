@@ -5,80 +5,92 @@ import SaleCard from "../../components/Sale/SaleCard";
 import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/utils/Loading";
 import { colors } from "../../utilities";
 import { motion } from "motion/react";
 
 // Helper function for filtering sales
-const filterSalesData = (sales, filter, ) => {
-  if (!filter) return sales || [];
+const filterSalesData = (sales, filter) => {
+  if (!filter) return sales || []; // Ensure sales is an array
   const lowered = filter.toLowerCase();
-  return sales.filter((sale) =>
-        sale.firstName?.toLowerCase().includes(lowered) ||
-        sale.lastName?.toLowerCase().includes(lowered) ||
-        sale.orderNumber?.toString().includes(lowered)
+  return sales.filter(
+    (sale) =>
+      sale.firstName?.toLowerCase().includes(lowered) ||
+      sale.lastName?.toLowerCase().includes(lowered) ||
+      sale.orderNumber?.toString().includes(lowered)
   );
 };
 
 export default function Customers() {
-    const [sales, setSales] = useState([]);
-    const [filteredSales, setFilteredSales] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [sales, setSales] = useState([]); // Initialize with an empty array
+  const [filteredSales, setFilteredSales] = useState([]);
+  const [loading, setLoading] = useState(true); // Initialize loading to true
 
-    const {filter} = useContext(PageContext);
-    const navigate = useNavigate()
+  const { filter } = useContext(PageContext);
+  const navigate = useNavigate();
 
-    useEffect(() =>{
-        fetchSales();
-    }, [])
+  // Get route parameters to determine if a detail view is active
+  const params = useParams();
+  const isDetailViewActive = !!params.id;
 
-    // Callback to update sales state after a store or customer update
-    const updateSalesAfterChange = useCallback((updatedSale) => {
-        setSales((prevSales) =>
-        prevSales.map((sale) =>
-            sale.id === updatedSale.id ? { ...sale, ...updatedSale } : sale
-        )
-        );
-    }, []);
+  // Fetch sales data
+  const fetchSales = useCallback(() => {
+    setLoading(true);
+    axios
+      .get("/Order/customer") // Endpoint for customer sales
+      .then(({ data }) => {
+        setSales(data || []); // Ensure sales is an array
+      })
+      .catch(() => {
+        toast.error("Failed to fetch customer sales data.");
+        setSales([]); // Set to empty array on error
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-    // Fetch sales data
-    const fetchSales = useCallback(() => {
-        axios
-        .get("/Order/customer")
-        .then(({ data }) => setSales(data))
-        .catch(() => {
-            toast.error("Failed to fetch sales data.");
-        })
-        .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    fetchSales();
+  }, [fetchSales]); // Add fetchSales to dependency array
 
-    // Apply the search filter
-    useEffect(() => {
-        if (!sales) return;
-        const timer = setTimeout(() => {
-        setFilteredSales(filterSalesData(sales, filter));
-        }, 300);
+  // Callback to update sales state after a customer update
+  const updateSalesAfterChange = useCallback((updatedSale) => {
+    setSales((prevSales) =>
+      (prevSales || []).map((sale) =>
+        sale.id === updatedSale.id ? { ...sale, ...updatedSale } : sale
+      )
+    );
+  }, []);
 
-        return () => clearTimeout(timer);
+  // Apply the search filter
+  useEffect(() => {
+    const currentSales = Array.isArray(sales) ? sales : []; // Ensure sales is an array
+    const timer = setTimeout(() => {
+      setFilteredSales(filterSalesData(currentSales, filter));
+    }, 300);
 
-    }, [filter, sales]);
+    return () => clearTimeout(timer);
+  }, [filter, sales]);
 
-    // Handle clicking a card
-    const onCardClick = (id) => {
-        // Navigate to the customer detail page
-            console.log("Clicked on card with id:", id);
-            navigate(`/sales/customers/${id}`)};
+  // Handle clicking a card
+  const onCardClick = (id) => {
+    console.log("Clicked on card with id:", id);
+    navigate(`/sales/customers/${id}`);
+  };
 
-    // Close detail
-    const closeDetail = () => {
-        navigate('/sales/customers')
-    };
+  // Close detail
+  const closeDetail = () => {
+    navigate("/sales/customers");
+  };
 
-    // Show loading spinner if data is being fetched
-    if(loading) return <Loading color={colors.pink} />
-    if(!filteredSales) return <>Something went wrong. Please reload page.</>;
+  // Construct class names for the list container
+  const listContainerClasses = [styles.hiddenMobileWhenModal];
+  if (isDetailViewActive) {
+    listContainerClasses.push(styles.hideListWhenModalActiveMobile);
+  }
 
+  // Conditional rendering for loading and no data states
+  if (loading || (sales.length > 0 && filteredSales.length === 0 && !filter))  {
     return (
         <motion.div
             initial={{ opacity: 0, x: 100 }}
@@ -110,4 +122,4 @@ export default function Customers() {
                 }} />
         </motion.div>
         )
-}
+}}
