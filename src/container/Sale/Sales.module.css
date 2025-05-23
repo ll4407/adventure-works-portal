@@ -27,15 +27,11 @@
   flex-direction: column;
 }
 
-/* .hiddenMobileWhenModal {
-  display: none;
-} */
 
-@media screen and (max-width: 59.99rem) { /* Target mobile screens */
-  .hideListWhenModalActiveMobile {
-    display: none !important; /* This hides the list ONLY when this class is added AND on mobile */
-  }
+.hideListWhenModalActiveMobile {
+  display: none !important; /* This hides the list ONLY when this class is added AND on mobile */
 }
+
 
 
 @media screen and (min-width: 60rem) {
@@ -61,5 +57,9 @@
 
   .hiddenMobileWhenModal {
     display: block;
+  }
+
+    .hideListWhenModalActiveMobile {
+    display: block !important; /* Ensure the list is visible on larger screens */
   }
 }
