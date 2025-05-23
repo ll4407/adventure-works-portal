@@ -1,8 +1,6 @@
 import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 
-import PageContext from "../../context/PageContext";
-
 import { Link, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
@@ -34,6 +32,11 @@ function OrderDetails() {
         
 
     }, [id]);
+
+    const changeOVer = () => {
+        clicked();
+        navigate("/purchasing/orders");
+    }
 
     const detailContent = ordersInfo === null ? <p>Loading</p> :
         <div>
@@ -180,12 +183,9 @@ function OrderDetails() {
 
 
     return(
-        <div className={`${modal.modalOverlay}`} onClick={function(){
-                    clicked;
-                    navigate("/purchasing/Orders");
-                }}>
-            <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
-                <Link onClick={clicked} to="/purchasing/orders">
+        <div className={`${modal.modalOverlay}`} onClick={() => {changeOVer()}}>
+            <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}  onClick={e => e.stopPropagation()}>
+                <Link onClick={(clicked)} to="/purchasing/orders">
                     <ChevronDown />
                     Back
                 </Link>

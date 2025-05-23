@@ -6,10 +6,10 @@ import axios from '../../api/axios';
 
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
-import { Outlet } from 'react-router';
+import { Outlet, useOutletContext } from 'react-router';
 
-function Orders(props) {
-    const { clicked } = props;
+function Orders() {
+     const { clicked } = useOutletContext();
 
     const [ordersDisplayed, setOrdersDisplayed] = useState(null);
 
