@@ -2,11 +2,13 @@ import styles from './Layout.module.css'
 import { NavLink } from 'react-router'
 import { useLocation } from 'react-router'
 import {colors} from '../../utilities'
-import {DashboardIcon, Employees, Products, Purchasing, Sales, Settings} from '../../icons'
+import {ChevronDown, DashboardIcon, Employees, Products, Purchasing, Sales, Settings} from '../../icons'
 import clsx from 'clsx'
 
 const Nav = ({open = true, sideNav, setOpen}) =>{
     const location = useLocation()
+
+    const path = location.pathname.toLowerCase()
     return(
         <nav className={clsx(styles.nav, sideNav && styles.sideNav)}>
             <ul>
@@ -16,11 +18,12 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             styles.navLink, 
                             "Yellow",
-                            location.pathname.toLowerCase().includes('dashboard') && "BGYellow" )} 
+                            path.includes('dashboard') && "BGYellow" )} 
                         to={'/dashboard'}>
-                        <DashboardIcon color={location.pathname.toLowerCase().includes('dashboard') ? colors.black : undefined}/>
+                        <DashboardIcon color={path.includes('dashboard') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Dashboard</p>
+                            {path.includes('dashboard') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>
@@ -30,11 +33,12 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             styles.navLink,
                             "Orange",
-                            location.pathname.toLowerCase().includes('employees') && "BGOrange" )}
+                            path.includes('employees') && "BGOrange" )}
                         to={'/employees'}>
-                        <Employees color={location.pathname.toLowerCase().includes('employees') ? colors.black : undefined} />
+                        <Employees color={path.includes('employees') ? colors.black : undefined} />
                         <div className={open ? styles.open : ""}>
                             <p>Employees</p>
+                            {path.includes('employees') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>
@@ -44,12 +48,13 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Blue",
                             styles.navLink,
-                            location.pathname.toLowerCase().includes('products') && "BGBlue"
+                            path.includes('products') && "BGBlue"
                             )} 
                         to={'/products/inventory'}>
-                        <Products color={location.pathname.toLowerCase().includes('products') ? colors.black : undefined}/>
+                        <Products color={path.includes('products') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Products</p>
+                            {path.includes('products') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>
@@ -59,12 +64,13 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Green",
                             styles.navLink,
-                            location.pathname.toLowerCase().includes('purchasing') && "BGGreen"
+                            path.includes('purchasing') && "BGGreen"
                             )} 
                         to={'/purchasing'}>
-                        <Purchasing color={location.pathname.toLowerCase().includes('purchasing') ? colors.black : undefined}/>
+                        <Purchasing color={path.includes('purchasing') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Purchasing</p>
+                            {path.includes('purchasing') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>
@@ -74,12 +80,13 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Pink",
                             styles.navLink,
-                            location.pathname.toLowerCase().includes('sales') && "BGPink"
+                            path.includes('sales') && "BGPink"
                         )} 
                         to={'/sales'}>
-                        <Sales color={location.pathname.toLowerCase().includes('sales') ? colors.black : undefined}/>
+                        <Sales color={path.includes('sales') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Sales</p>
+                            {path.includes('sales') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>
@@ -89,12 +96,13 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                         className={clsx(
                             "Gray",
                             styles.navLink,
-                            location.pathname.toLowerCase().includes('settings') && "BGGray"
+                            path.includes('settings') && "BGGray"
                         )} 
                         to={'/settings'}>
-                        <Settings color={location.pathname.toLowerCase().includes('settings') ? colors.black : undefined}/>
+                        <Settings color={path.includes('settings') ? colors.black : undefined}/>
                         <div className={open ? styles.open : ""}>
                             <p>Settings</p>
+                            {path.includes('settings') && <ChevronDown size={20} className={clsx(styles.chevron, open && styles.open)} color={colors.white} />}
                         </div>
                     </NavLink>
                 </li>

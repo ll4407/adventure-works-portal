@@ -70,8 +70,9 @@
   color: var(--white);
   text-decoration: none;
   white-space: nowrap;
-  padding: 0 2em 0 1em;
-  font-weight: 700;
+  padding: 0 1.5em 0 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   font-size: 1.25rem;
 }
 .navLink div {
@@ -91,6 +92,15 @@ div.open {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  padding-right: 1em;
+}
+.chevron {
+  display: none;
+  background-color: var(--navBar);
+  transform: rotate(-90deg);
+}
+.chevron.open {
+  display: block;
 }
 .mainWrapper {
   flex-grow: 1;
