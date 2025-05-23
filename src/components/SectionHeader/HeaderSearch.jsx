@@ -12,6 +12,7 @@ function HeaderSearch(){
         <div className={styles.headerSearch}>
             <label className={styles.searchLabel} htmlFor='search'>
                 <input 
+                    aria-label='filter'
                     type="text" 
                     id='search'
                     className={styles.searchInput}
