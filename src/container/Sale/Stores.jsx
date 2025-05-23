@@ -5,7 +5,11 @@ import SaleCard from "../../components/Sale/SaleCard";
 import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
+import Loading from "../../components/utils/Loading";
+import { colors } from "../../utilities";
+import { motion } from "motion/react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
+
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
@@ -20,11 +24,13 @@ const filterSalesData = (sales, filter) => {
 };
 
 export default function Stores() {
-  const [sales, setSales] = useState([]); // Initialize with an empty array
-  const [loading, setLoading] = useState(true); // Initialize loading to true
 
-  const { filter } = useContext(PageContext);
-  const navigate = useNavigate();
+    const [sales, setSales] = useState([]);
+    const [loading, setLoading] = useState(true);
+    
+    const { filter } = useContext(PageContext);
+    const navigate = useNavigate()
+
 
   // Get route parameters to determine if a detail view is active
   const params = useParams();
@@ -32,7 +38,6 @@ export default function Stores() {
 
   // Fetch sales data
   const fetchSales = useCallback(() => {
-    setLoading(true);
     axios
       .get("/Order/store") // Endpoint for store sales
       .then(({ data }) => {
@@ -76,10 +81,11 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
     navigate(`/sales/stores/${id}`);
   };
 
-  // Close detail
-  const closeDetail = () => {
-    navigate("/sales/stores");
-  };
+    // Close detail
+    const closeDetail = () => {
+        navigate('/sales/stores')
+    };
+
 
   // Construct class names for the list container
   const listContainerClasses = [styles.hiddenMobileWhenModal];
@@ -90,9 +96,7 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
   // Conditional rendering for loading and no data states
   if (loading || (sales.length > 0 && filteredSales.length === 0 && !filter)) {
     return (
-      <div className={styles.container}>
-        <div className={styles.noSalesMessage}>Loading store sales...</div>
-      </div>
+      <Loading color={colors.pink} />
     );
   }
 
@@ -105,12 +109,16 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={listContainerClasses.join(" ")}>
-        <HeaderRow isCustomer={false} /> {/* Correct for stores view */}
-        <div className={styles.list}>
-          {filteredSales.length > 0 ? (
-            filteredSales.map((sale) => (
+      <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }} 
+            className={styles.container}>
+        {/* Always render the list in desktop view - hide in mobile view*/}
+        <div className={styles.hiddenMobileWhenModal}>
+          <HeaderRow isCustomer={false} />
+          <div className={styles.list}>
+            {filteredSales.map((sale) => (
               <SaleCard
                 key={sale.id}
                 type={"store"}
@@ -122,22 +130,21 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
                 }}
                 onClick={() => onCardClick(sale.id)}
               />
-            ))
+            ))}
+          </div>
           ) : (
             filter && (
               <div className={styles.noSalesMessage}>
                 No sales match your filter.
               </div>
             )
-          )}
+          )
         </div>
-      </div>
-      <Outlet
-        context={{
-          closeDetail: closeDetail,
-          updateSalesAfterChange: updateSalesAfterChange,
-        }}
-      />
-    </div>
+        <Outlet 
+            context={{
+                closeDetail:closeDetail, 
+                updateSalesAfterChange:updateSalesAfterChange
+                }} />
+      </motion.div>
   );
 }

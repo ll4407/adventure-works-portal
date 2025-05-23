@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import styles from "./Dashboard.module.css"; "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
+import ColorChanger from "../../components/utils/ColorChanger";
+import {AnimatePresence, motion} from 'motion/react'
 
 import { 
   LowStockList, 
@@ -20,7 +22,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); 
       try {
         const [salesRes, bestWorstRes, lowStockRes, shiftsRes] =
           await Promise.all([
@@ -47,12 +48,16 @@ export default function Dashboard() {
   console.log('lowStock', lowStock)
 
   if (loading) {
-    return <div className={styles.loading}>Loading Dashboard...</div>;
+    return <ColorChanger />;
   }
 
   if(!lowStock) return <>no low stock</>
   return (
-    <div className={styles.dashboardContainer}>
+    <motion.div      
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: .5 }}
+      className={styles.dashboardContainer}>
       <h1 className={styles.title}>Dashboard</h1>
 
       <div className={styles.grid}>
@@ -87,6 +92,6 @@ export default function Dashboard() {
           /> 
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
