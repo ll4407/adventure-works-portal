@@ -5,11 +5,11 @@ import SaleCard from "../../components/Sale/SaleCard";
 import HeaderRow from "../../components/Sale/HeaderRow";
 import styles from "./Sales.module.css";
 import PageContext from "../../context/PageContext";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useParams } from "react-router-dom"; 
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
-  if (!filter) return sales || [];
+  if (!filter) return sales || []; // Ensure sales is an array
   const lowered = filter.toLowerCase();
   return sales.filter((sale) =>
         sale.storeName?.toLowerCase().includes(lowered) ||
@@ -19,85 +19,106 @@ const filterSalesData = (sales, filter) => {
 };
 
 export default function Stores() {
-    const [sales, setSales] = useState([]);
+    const [sales, setSales] = useState([]); // Initialize with an empty array
     const [filteredSales, setFilteredSales] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Initialize loading to true
     
     const { filter } = useContext(PageContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchSales();
-  },[])
-
-  // Callback to update sales state after a store or customer update
-  const updateSalesAfterChange = useCallback((updatedSale) => {
-    setSales((prevSales) =>
-      prevSales.map((sale) =>
-        sale.id === updatedSale.id ? { ...sale, ...updatedSale } : sale
-      )
-    );
-  }, []);
-
-  // Fetch sales data
-  const fetchSales = useCallback(() => {
-    setLoading(true);
-    axios
-      .get("/Order/store")
-      .then(({ data }) => setSales(data))
-      .catch(() => {
-        toast.error("Failed to fetch sales data.");
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    // Get route parameters to determine if a detail view is active
+    const params = useParams();
+    // Assumes detail route is  "/sales/stores/:id"
+    const isDetailViewActive = !!params.id; 
 
 
-  // Apply the search filter
-  useEffect(() => {
-    if (!sales) return;
-    const timer = setTimeout(() => {
-      setFilteredSales(filterSalesData(sales, filter));
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [filter, sales]);
+    // Fetch sales data
+    const fetchSales = useCallback(() => {
+        setLoading(true);
+        axios
+        .get("/Order/store") // Endpoint for store sales
+        .then(({ data }) => {
+            setSales(data || []); // Ensure sales is an array
+        })
+        .catch(() => {
+            toast.error("Failed to fetch store sales data.");
+            setSales([]); // Set to empty array on error
+        })
+        .finally(() => setLoading(false));
+    }, []);
 
-  // Handle clicking a card
-  const onCardClick = (id) => {
-        navigate(`/sales/stores/${id}`)};
+    useEffect(() => {
+        fetchSales();
+    }, [fetchSales]); // Add fetchSales to dependency array
+
+    // Callback to update sales state after a store update
+    const updateSalesAfterChange = useCallback((updatedSale) => {
+        setSales((prevSales) =>
+        (prevSales || []).map((sale) => // Handle prevSales potentially being null/undefined
+            sale.id === updatedSale.id ? { ...sale, ...updatedSale } : sale
+        )
+        );
+    }, []);
+
+    // Apply the search filter
+    useEffect(() => {
+        const currentSales = Array.isArray(sales) ? sales : []; // Ensure sales is an array
+        const timer = setTimeout(() => {
+        setFilteredSales(filterSalesData(currentSales, filter));
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [filter, sales]);
+
+    // Handle clicking a card
+    const onCardClick = (id) => {
+        navigate(`/sales/stores/${id}`);
+    };
 
     // Close detail
     const closeDetail = () => {
-        navigate('/sales/stores')
+        navigate('/sales/stores');
     };
 
-  if(!filteredSales || loading) return null;
+    // Construct class names for the list container
+    const listContainerClasses = [styles.hiddenMobileWhenModal];
+    if (isDetailViewActive) {
+        listContainerClasses.push(styles.hideListWhenModalActiveMobile);
+    }
 
-  return (
-      <div className={styles.container}>
-        {/* Always render the list in desktop view - hide in mobile view*/}
-        <div className={styles.hiddenMobileWhenModal}>
-          <HeaderRow isCustomer={false} />
-          <div className={styles.list}>
-            {filteredSales.map((sale) => (
-              <SaleCard
-                key={sale.id}
-                type={"store"}
-                data={{
-                  ...sale,
-                  contactName: `${sale.contactFirstName || ""} ${
-                    sale.contactLastName || ""
-                  }`.trim(),
-                }}
-                onClick={() => onCardClick(sale.id)}
-              />
-            ))}
-          </div>
-        </div>
-        <Outlet 
-            context={{
-                closeDetail:closeDetail, 
-                updateSalesAfterChange:updateSalesAfterChange
+    // Conditional rendering for loading and no data states
+    if (loading && sales.length === 0) {
+        return <div className={styles.container}><div className={styles.noSalesMessage}>Loading store sales...</div></div>;
+    }
+
+    return (
+        <div className={styles.container}>
+            <div className={listContainerClasses.join(' ')}>
+            <HeaderRow isCustomer={false} /> {/* Correct for stores view */}
+            <div className={styles.list}>
+                {filteredSales.length > 0 ? (
+                filteredSales.map((sale) => (
+                    <SaleCard
+                    key={sale.id}
+                    type={"store"}
+                    data={{
+                        ...sale,
+                        contactName: `${sale.contactFirstName || ""} ${
+                        sale.contactLastName || ""
+                        }`.trim(),
+                    }}
+                    onClick={() => onCardClick(sale.id)}
+                    />
+                ))
+                ) : (
+                    !loading && <div className={styles.noSalesMessage}>No store sales found.</div>
+                )}
+            </div>
+            </div>
+            <Outlet 
+                context={{
+                    closeDetail:closeDetail, 
+                    updateSalesAfterChange:updateSalesAfterChange
                 }} />
-      </div>
-  );
+        </div>
+    );
 }

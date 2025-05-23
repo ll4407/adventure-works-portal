@@ -27,8 +27,14 @@
   flex-direction: column;
 }
 
-.hiddenMobileWhenModal {
+/* .hiddenMobileWhenModal {
   display: none;
+} */
+
+@media screen and (max-width: 59.99rem) { /* Target mobile screens */
+  .hideListWhenModalActiveMobile {
+    display: none !important; /* This hides the list ONLY when this class is added AND on mobile */
+  }
 }
 
 
