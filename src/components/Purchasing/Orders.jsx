@@ -7,13 +7,9 @@ import { motion } from 'motion/react';
 
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
-<<<<<<< HEAD
 import { Outlet, useOutletContext } from 'react-router';
-=======
-import { Outlet } from 'react-router';
 import Loading from '../utils/Loading';
 import { colors } from '../../utilities';
->>>>>>> main
 
 function Orders() {
      const { clicked } = useOutletContext();
