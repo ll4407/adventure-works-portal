@@ -22,9 +22,9 @@ export default function Contacts({ contacts, isEditing, onEdit }) {
           contacts.map((c, i) => (
             <div key={i} className={styles.contactEntry}>
               <p>
-                {i + 1}. {c.suffix} {c.firstName} {c.middleName} {c.lastName}
+                {i + 1}.  {c.title} {c.firstName} {c.middleName} {c.lastName} {c.suffix}
               </p>
-              <p>{c.contactType} ({c.title})</p>
+              <p>{c.contactType}</p>
               <p>
                 Phone: {c.phoneNumber} ({c.phoneNumberType})
               </p>
