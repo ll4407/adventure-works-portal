@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from "react";
+import { useState, useEffect, useCallback, useContext, useMemo } from "react";
 import axios from "../../api/axios";
 import { toast } from "react-toastify";
 import SaleCard from "../../components/Sale/SaleCard";
@@ -21,7 +21,6 @@ const filterSalesData = (sales, filter) => {
 
 export default function Stores() {
   const [sales, setSales] = useState([]); // Initialize with an empty array
-  const [filteredSales, setFilteredSales] = useState([]);
   const [loading, setLoading] = useState(true); // Initialize loading to true
 
   const { filter } = useContext(PageContext);
@@ -51,22 +50,26 @@ export default function Stores() {
   }, [fetchSales]); // Add fetchSales to dependency array
 
   // Callback to update sales state after a store update
-  const updateSalesAfterChange = useCallback((updatedSale) => {
-    setSales((prevSales) =>
-      (prevSales || []).map((sale) =>
-        sale.id === updatedSale.id ? { ...sale, ...updatedSale } : sale
-      )
-    );
-  }, []);
+const updateSalesAfterChange = useCallback((updatedSale) => {
+  const firstContact = updatedSale.contacts?.[0];
+  setSales((prevSales) =>
+    (prevSales || []).map((sale) =>
+      sale.id === updatedSale.id
+        ? {
+            ...sale,
+            ...updatedSale,
+            contactFirstName: firstContact?.firstName || sale.contactFirstName,
+            contactLastName: firstContact?.lastName || sale.contactLastName,
+          }
+        : sale
+    )
+  );
+}, []);
 
-  // Apply the search filter
-  useEffect(() => {
-    const currentSales = Array.isArray(sales) ? sales : []; // Ensure sales is an array
-    const timer = setTimeout(() => {
-      setFilteredSales(filterSalesData(currentSales, filter));
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [filter, sales]);
+  // Use `useMemo` to calculate filtered sales dynamically
+  const filteredSales = useMemo(() => {
+    return filterSalesData(sales, filter);
+  }, [sales, filter]);
 
   // Handle clicking a card
   const onCardClick = (id) => {
