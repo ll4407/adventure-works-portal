@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { ChevronDown } from '../../icons';
+import { useNavigate } from 'react-router';
 
 function VendorDetails() {
     const { clicked, vendorUpdateMethod } = useOutletContext();
@@ -22,6 +23,7 @@ function VendorDetails() {
 	const [vendorUpdateInfo, setVendorUpdateInfo] = useState(false);
 
 	const { id, phone } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function FetchTheData() {
@@ -72,8 +74,11 @@ function VendorDetails() {
 
     return (
 
-            <div className={`${modal.modalOverlay}`}>
-                <article className={`${styles.mainVendorArticle} ${modal.modalContent}`}>
+            <div className={`${modal.modalOverlay}`} onClick={function(){
+                    clicked();
+                    navigate("/purchasing/vendors");
+                }}>
+                <article className={`${styles.mainVendorArticle} ${modal.modalContent}`} onClick={e => e.stopPropagation()}>
                     <Link onClick={clicked} to="/purchasing/vendors"><ChevronDown /><p>Back</p></Link>
                     {detailContent}
                 </article>

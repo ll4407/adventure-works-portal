@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { ChevronDown, Close } from '../../icons';
+import { useNavigate } from 'react-router';
 
 import styles from './OrderDetail.module.css'   
 import modal from './PurchaseModal.module.css';
@@ -18,6 +19,7 @@ function OrderDetails() {
     const [ordersInfo, setOrder] = useState(null);
 
 	const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -178,7 +180,10 @@ function OrderDetails() {
 
 
     return(
-        <div className={`${modal.modalOverlay}`}>
+        <div className={`${modal.modalOverlay}`} onClick={function(){
+                    clicked;
+                    navigate("/purchasing/Orders");
+                }}>
             <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
                 <Link onClick={clicked} to="/purchasing/orders">
                     <ChevronDown />

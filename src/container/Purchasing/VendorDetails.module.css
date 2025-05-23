@@ -8,7 +8,7 @@
     transform: rotate(90deg);
     cursor: pointer;
 }
-.mainVendorArticle a:active {
+.mainVendorArticle svg:active {
     color: var(--gray);
 }
 
