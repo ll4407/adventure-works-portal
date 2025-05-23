@@ -24,7 +24,7 @@ const PurchasingVendorTile = props => {
                 <div>
                     <Link 
                         onClick={clicked} 
-                        aria-label='Edit Button' 
+                        aria-label='navigate to vendor details page' 
                         to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
                             <Edit />
                     </Link> 
@@ -34,7 +34,7 @@ const PurchasingVendorTile = props => {
             <div>
                 <Link 
                     onClick={clicked}  
-                    aria-label='View More Button' 
+                    aria-label='navigate to vendor details page' 
                     to={`/purchasing/vendors/${props.businessId}/${props.phone}`}>
                     <ChevronDown size={36} />
                 </Link>

@@ -40,7 +40,7 @@ function OrderDetails() {
                     <h1>{ordersInfo.productName}</h1>
                     <h1>{ordersInfo.quantity}</h1>
 
-                    <Link onClick={clicked} to="/purchasing/orders">
+                    <Link aria-label='Close modal. Go back to list.' onClick={clicked} to="/purchasing/orders">
                         <Close />
                     </Link>
                 </div>

@@ -15,7 +15,8 @@ const PurchasingOrderTile = props => {
                 <p>{props.orderQuantity}</p>
                 <p>${props.totalDue.toFixed(2)}</p>
                 <p>{props.shipDate}</p>
-                <Link 
+                <Link
+                    aria-label='navigate to order details page' 
                     onClick={clicked} 
                     to={`/purchasing/orders/${props.productId}`}>
                     <ChevronDown size={36} />
@@ -23,7 +24,8 @@ const PurchasingOrderTile = props => {
             </div>
 
             <div>
-                <Link 
+                <Link
+                    aria-label='navigate to order details page' 
                     onClick={clicked} 
                     to={`/purchasing/orders/${props.productId}`}>
                     <ChevronDown size={36} />

@@ -73,7 +73,7 @@ const VendorTitle = (props) => {
                     <h1>{vendorName}</h1>
                     <p onClick={handleEdit}><Edit /></p>
 
-                    <Link onClick={clicked} to="/purchasing/vendors"><Close /></Link>
+                    <Link aria-label='Close modal. Go back to list.' onClick={clicked} to="/purchasing/vendors"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>
