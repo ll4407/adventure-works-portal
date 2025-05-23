@@ -1,4 +1,4 @@
-import { PieChart, Pie, Legend, Tooltip } from "recharts";
+import { PieChart, Pie, Tooltip } from "recharts";
 import styles from './WeeklySeller.module.css'
 
 function WeeklySeller(props) {

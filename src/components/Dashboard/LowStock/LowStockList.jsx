@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-import { Alert } from '../../icons'
+import { Alert } from '../../../icons'
 import styles from './LowStock.module.css'
-import { colors } from '../../utilities'
+import { colors } from '../../../utilities'
 import { Link } from 'react-router'
 
 const LowStockList = ({products}) => {
