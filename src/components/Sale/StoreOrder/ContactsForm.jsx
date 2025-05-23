@@ -21,17 +21,15 @@ export default function ContactsForm({
             <div className={styles.contactForm}>
               <div className={styles.gridRow}>
                 <select
-                  {...register(`contacts.${index}.suffix`)}
-                  defaultValue={field.suffix || ""}
-                >
-                  <option value="">Suffix</option>
-                  <option value="Jr.">Jr.</option>
-                  <option value="Sr.">Sr.</option>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV</option>
-                </select>
+                    {...register(`contacts.${index}.title`)}
+                    defaultValue={field.title || ""}
+                  >
+                    <option value="">Contact Title</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Dr.">Dr.</option>
+                  </select>
                 <input
                   {...register(`contacts.${index}.firstName`)}
                   placeholder="First Name"
@@ -47,9 +45,19 @@ export default function ContactsForm({
                   placeholder="Last Name"
                   defaultValue={field.lastName}
                 />
+                <select
+                  {...register(`contacts.${index}.suffix`)}
+                  defaultValue={field.suffix || ""}
+                >
+                  <option value="">Suffix</option>
+                  <option value="Jr.">Jr.</option>
+                  <option value="Sr.">Sr.</option>
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
+                </select>
               </div>
-              <div className={styles.gridRow}>
-                <div className={styles.group}>
                   <select
                     {...register(`contacts.${index}.contactType`)}
                     defaultValue={field.contactType || ""}
@@ -64,17 +72,8 @@ export default function ContactsForm({
                       </option>
                     ))}
                   </select>
-                  <select
-                    {...register(`contacts.${index}.title`)}
-                    defaultValue={field.title || ""}
-                  >
-                    <option value="">Contact Title</option>
-                    <option value="Mr.">Mr.</option>
-                    <option value="Mrs.">Mrs.</option>
-                    <option value="Ms.">Ms.</option>
-                    <option value="Dr.">Dr.</option>
-                  </select>
-                </div>
+
+                <div className={styles.gridRow}>
                 <div className={styles.group}>
                   <select
                     {...register(`contacts.${index}.phoneNumberType`)}
