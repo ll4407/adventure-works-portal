@@ -9,7 +9,7 @@ import styles from './Login.module.css';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { account, status, error } = useSelector(state => state.account);
+  const { account, error } = useSelector(state => state.account);
 
   const emailRef = useRef();
   const errRef = useRef();
@@ -33,8 +33,6 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginAsync({ loginId, password }));
   };
-
-  const isLoading = status === 'loading';
 
   return (
     <>
