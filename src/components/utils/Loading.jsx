@@ -1,8 +1,10 @@
 import styles from './Loading.module.css'
 
-const Loading = () => {
+const Loading = ({color}) => {
     return(
-        <span className={styles.loader}></span>
+        <div style={{color: color}} className={styles.loaderContainer}>
+            <span className={styles.loader}/>
+        </div>
     )
 }
 

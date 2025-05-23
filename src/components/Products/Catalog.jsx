@@ -4,11 +4,14 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+import { motion } from 'motion/react'
 
 import CatalogHeader from './Catalog/CatalogHeader'
 import CatalogRow from './Catalog/CatalogRow'
 
 import styles from './ProductSubpage.module.css'
+import Loading from '../utils/Loading'
+import { colors } from '../../utilities'
 import clsx from 'clsx'
 
 const Catalog = () =>{
@@ -43,18 +46,22 @@ const Catalog = () =>{
             .finally(() => setLoading(false))
     }, [refresh])
 
-    if(loading) return null
+    if(loading) return <Loading color={colors.blue} />
 
     return(
         <>
-            <div className={clsx(styles.productList,
+            <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: .5 }} 
+                className={clsx(styles.productList,
                 modalIsOpen && styles.ModalIsOpen,
             )}>
                 <CatalogHeader />
                 {filteredProducts.map(prod => (
                     <CatalogRow key={prod.productId} prod={prod} />
                 ))}
-            </div>
+            </motion.div>
             <Outlet context={{refresh:refresh, setRefresh:setRefresh}} />
         </>
     )

@@ -3,10 +3,13 @@ import PageContext from '../../context/PageContext';
 import styles from '../../container/Purchasing/Purchasing.module.css';
 
 import axios from '../../api/axios';
+import { motion } from 'framer-motion';
 
 import { useEffect, useState, useContext, useMemo } from "react";
 import { toast } from 'react-toastify';
 import { Outlet, useOutletContext } from 'react-router';
+import Loading from '../utils/Loading';
+import { colors } from '../../utilities';
 
 
 function Vendors() {
@@ -41,8 +44,11 @@ function Vendors() {
     }, [filter, vendorsDisplayed])
 
 
-    const currentData = vendorsDisplayed === null ? <>Loading</> :
-            <section>
+    const currentData = vendorsDisplayed === null ? <Loading color={colors.green} /> :
+            <motion.section
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
                     <p>Vendor Name</p>
                     <p>Phone</p>
@@ -73,7 +79,7 @@ function Vendors() {
                     })
                 }   
                 <Outlet context={{clicked: clicked, vendorUpdateMethod: UpdateEveryVendor}}/>
-        </section>
+        </motion.section>
 
     return (
         <>
