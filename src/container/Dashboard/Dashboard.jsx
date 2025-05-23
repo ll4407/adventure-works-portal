@@ -3,6 +3,7 @@ import axios from "../../api/axios";
 import styles from "./Dashboard.module.css"; "../../components/Dashboard/Sale/TotalProfit";
 import { toast } from "react-toastify";
 import ColorChanger from "../../components/utils/ColorChanger";
+import {AnimatePresence, motion} from 'motion/react'
 
 import { 
   LowStockList, 
@@ -52,7 +53,11 @@ export default function Dashboard() {
 
   if(!lowStock) return <>no low stock</>
   return (
-    <div className={styles.dashboardContainer}>
+    <motion.div      
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: .5 }}
+      className={styles.dashboardContainer}>
       <h1 className={styles.title}>Dashboard</h1>
 
       <div className={styles.grid}>
@@ -87,6 +92,6 @@ export default function Dashboard() {
           /> 
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

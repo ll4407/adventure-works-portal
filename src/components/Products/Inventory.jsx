@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 import InventoryHeader from './Inventory/InventoryHeader'
 import InventoryRow from './Inventory/InventoryRow'
@@ -62,7 +63,11 @@ const Inventory = () => {
 
     return(
         <>
-        <div className={clsx(styles.productList,
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }}
+            className={clsx(styles.productList,
             modalIsOpen && styles.ModalIsOpen,
         )}>
             <InventoryHeader />
@@ -73,7 +78,7 @@ const Inventory = () => {
                     prod={prod} 
                     setActiveProduct={setActiveProduct}/>
             ))}
-        </div>
+        </motion.div>
         <Outlet 
             context={{
                 product: activeProduct, 

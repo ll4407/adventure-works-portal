@@ -8,6 +8,7 @@ import PageContext from "../../context/PageContext";
 import { Outlet, useNavigate } from "react-router";
 import Loading from "../../components/utils/Loading";
 import { colors } from "../../utilities";
+import { motion } from "motion/react";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter, ) => {
@@ -79,7 +80,10 @@ export default function Customers() {
     if(!filteredSales) return <>Something went wrong. Please reload page.</>;
 
     return (
-        <div className={styles.container}>
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }} className={styles.container}>
             {/* Always render the list in desktop view - hide in mobile view*/}
             <div className={styles.hiddenMobileWhenModal}>
                 <HeaderRow isCustomer={true} />
@@ -104,6 +108,6 @@ export default function Customers() {
                     closeDetail: closeDetail,
                     updateSalesAfterChange: updateSalesAfterChange,
                 }} />
-        </div>
+        </motion.div>
         )
 }

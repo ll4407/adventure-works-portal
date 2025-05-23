@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 import EmployeeHeader from './EmployeeHeader'
 import EmployeeRow from './EmployeeRow'
@@ -60,7 +61,11 @@ const Overview = () => {
 
     return(
         <>
-        <div className={clsx(styles.employeeList,
+        <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5 }}
+            className={clsx(styles.employeeList,
             employeeId && styles.ModalIsOpen,
         )}>
             <EmployeeHeader />
@@ -70,7 +75,7 @@ const Overview = () => {
                 employee={employee} 
                 setActiveEmployee={setActiveEmployee} />
             ))}
-        </div>
+        </motion.div>
         <Outlet 
             context={{
                 setActiveEmployee:setActiveEmployee,
