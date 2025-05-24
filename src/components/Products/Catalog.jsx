@@ -25,7 +25,27 @@ const Catalog = () =>{
     const {id} = useParams()
     const modalIsOpen = Boolean(id)
 
-    const filteredProducts = useMemo(() =>{
+    //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false);
+        }, [sortedBy]);
+    
+    useEffect(() => {
+
+    }, [newArray, sortedBy]);
+    
+    const handleSortChange = (name) => {
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
+    //
+
+    let filteredProducts = useMemo(() =>{
         if(!products) return []
         if(!filter) return products
 
@@ -57,7 +77,7 @@ const Catalog = () =>{
                 className={clsx(styles.productList,
                 modalIsOpen && styles.ModalIsOpen,
             )}>
-                <CatalogHeader />
+                <CatalogHeader list={filteredProducts} handleSort={handleSortChange} sortDirection={sortDirection}/>
                 {filteredProducts.map(prod => (
                     <CatalogRow key={prod.productId} prod={prod} />
                 ))}

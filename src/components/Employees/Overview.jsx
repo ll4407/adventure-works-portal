@@ -14,6 +14,8 @@ import { colors } from '../../utilities'
 import Loading from '../utils/Loading'
 import clsx from 'clsx'
 
+import sortedArray from '../../container/SortBy/Sortby'
+
 const Overview = () => {
     const [activeEmployee, setActiveEmployee] = useState(null)
     const [employees, setEmployees] = useState(null)
@@ -36,11 +38,6 @@ const Overview = () => {
 
     }, [newArray, sortedBy]);
     
-    const handleSortChange = (name) => {
-        setSortedBy(name);
-        setSortDirection(x => !x);
-        setNewArray(x => !x);
-    }
     //
 
     let filteredEmployees = useMemo(() =>{
@@ -56,6 +53,15 @@ const Overview = () => {
             e.jobTitle.toLowerCase().includes(lowered)
         )
     }, [filter, employees])
+
+    //sorting function
+    const handleSortChange = (name, dataType) => {
+        sortedArray(filteredEmployees, name, dataType, sortDirection);
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
 
     useEffect(() =>{
         axios.get('/Employee')
@@ -88,7 +94,7 @@ const Overview = () => {
             className={clsx(styles.employeeList,
             employeeId && styles.ModalIsOpen,
         )}>
-            <EmployeeHeader list={filteredEmployees} handleSort={handleSortChange} sortDirection={sortDirection}/>
+            <EmployeeHeader handleSort={handleSortChange}/>
             {filteredEmployees.map((employee) => (
                <EmployeeRow 
                 key={employee.employeeId} 
