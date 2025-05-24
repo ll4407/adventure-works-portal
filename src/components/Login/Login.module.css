@@ -32,7 +32,8 @@
 form {
     display: flex;
     flex-direction: column;
-    padding: 0 1em;
+    width: 100%;
+    padding: 0 2em;
     margin-bottom: 1em;
 }
 
