@@ -14,6 +14,8 @@ import { colors } from '../../utilities'
 import styles from './ProductSubpage.module.css'
 import clsx from 'clsx'
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 const Inventory = () => {
     const [activeProduct, setActiveProduct] = useState(null)
     const [products, setProducts] = useState(null)
@@ -26,6 +28,20 @@ const Inventory = () => {
 
     const { setShowSearch, filter } = useContext(PageContext)
 
+    //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false);
+        }, [sortedBy]);
+    
+    useEffect(() => {
+
+    }, [newArray, sortedBy]);
+    
+    //
 
     const filteredProducts = useMemo(() =>{
         if(!products) return []
@@ -38,6 +54,15 @@ const Inventory = () => {
             p.shelf.toLowerCase().includes(lowered)
         )
     }, [filter, products])
+
+    //sorting
+    const handleSortChange = (name, dataType) => {
+        sortedArray(filteredProducts, name, dataType, sortDirection);
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
 
     useEffect(() =>{
         axios.get('/Inventory')
@@ -70,7 +95,7 @@ const Inventory = () => {
             className={clsx(styles.productList,
             modalIsOpen && styles.ModalIsOpen,
         )}>
-            <InventoryHeader />
+            <InventoryHeader handleSort={handleSortChange} />
             {filteredProducts.map((prod, idx) => (
                 <InventoryRow 
                     // there are duplicate keys unless I do this idx*100.

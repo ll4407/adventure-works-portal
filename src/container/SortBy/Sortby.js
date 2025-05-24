@@ -5,9 +5,9 @@ function sortedArray(array, key, dataType, sortDirection) {
             array = array.list;
         }
     }catch{
-        console.log("List is already destructured")
+        console.log("Failed to deconstruct list");
     }
-``
+
     if(sortDirection === true){
         array.sort(function(a, b) {
             //Sort By number
