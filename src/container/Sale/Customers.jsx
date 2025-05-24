@@ -92,35 +92,48 @@ export default function Customers() {
 
   // Conditional rendering for loading and no data states
   if ( filteredSales.length > 0) { 
-    return (
-        <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: .5 }} className={styles.container}>
-            {/* Always render the list in desktop view - hide in mobile view*/}
-            <div className={styles.hiddenMobileWhenModal}>
-                <HeaderRow isCustomer={true} />
-                <div className={styles.list}>
-                    {filteredSales.map((sale) => (
-                    <SaleCard
-                        key={sale.id}
-                        type={"customer"}
-                        data={{
-                        ...sale,
-                        contactName: `${sale.contactFirstName || ""} ${
-                            sale.contactLastName || ""
-                        }`.trim(),
-                        }}
-                        onClick={() => onCardClick(sale.id)}
-                    />
-                    ))}
-                </div>
-            </div>
-            <Outlet 
-                context={{
-                    closeDetail: closeDetail,
-                    updateSalesAfterChange: updateSalesAfterChange,
-                }} />
-        </motion.div>
-        )
+return (
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className={styles.container}
+    >
+      {/* Always render the list in desktop view - hide in mobile view */}
+      <div className={listContainerClasses.join(" ")}>
+        <HeaderRow isCustomer={true} />
+        <div className={styles.list}>
+          {filteredSales.length > 0 ? (
+            filteredSales.map((sale) => (
+              <SaleCard
+                key={sale.id}
+                type={"customer"}
+                data={{
+                  ...sale,
+                  contactName: `${sale.contactFirstName || ""} ${
+                    sale.contactLastName || ""
+                  }`.trim(),
+                }}
+                onClick={() => onCardClick(sale.id)}
+              />
+            ))
+          ) : (
+            filter && (
+              <div className={styles.noSalesMessage}>
+                No sales match your filter.
+              </div>
+            )
+          )}
+        </div>
+      </div>
+      {/* Outlet is outside the list container */}
+      <Outlet
+        context={{
+          closeDetail: closeDetail,
+          updateSalesAfterChange: updateSalesAfterChange,
+        }}
+      />
+    </motion.div>
+  );
 }}
+
