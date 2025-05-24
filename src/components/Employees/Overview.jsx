@@ -23,7 +23,27 @@ const Overview = () => {
     const {setShowSearch, filter} = useContext(PageContext)
     const {employeeId} = useParams()
 
-    const filteredEmployees = useMemo(() =>{
+    //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false);
+        }, [sortedBy]);
+    
+    useEffect(() => {
+
+    }, [newArray, sortedBy]);
+    
+    const handleSortChange = (name) => {
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
+    //
+
+    let filteredEmployees = useMemo(() =>{
         if(!employees) return []
         if(!filter) return employees
 
@@ -68,7 +88,7 @@ const Overview = () => {
             className={clsx(styles.employeeList,
             employeeId && styles.ModalIsOpen,
         )}>
-            <EmployeeHeader />
+            <EmployeeHeader list={filteredEmployees} handleSort={handleSortChange} sortDirection={sortDirection}/>
             {filteredEmployees.map((employee) => (
                <EmployeeRow 
                 key={employee.employeeId} 

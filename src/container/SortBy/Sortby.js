@@ -1,5 +1,13 @@
 function sortedArray(array, key, dataType, sortDirection) {
-    //sort in descending order
+    //sort in descending order'
+    try{
+        if(array.list !== undefined){
+            array = array.list;
+        }
+    }catch{
+        console.log("List is already destructured")
+    }
+``
     if(sortDirection === true){
         array.sort(function(a, b) {
             //Sort By number

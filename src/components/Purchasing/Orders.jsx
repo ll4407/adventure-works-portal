@@ -42,7 +42,7 @@ function Orders() {
 
     useEffect(() => {
 
-    }, [newArray]);
+    }, [newArray, sortedBy]);
 
     let filteredOrders = useMemo(() =>{
         if(!ordersDisplayed) return []
