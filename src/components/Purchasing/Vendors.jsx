@@ -11,6 +11,7 @@ import { Outlet, useOutletContext } from 'react-router';
 import Loading from '../utils/Loading';
 import { colors } from '../../utilities';
 
+import sortedArray from '../../container/SortBy/Sortby';
 
 function Vendors() {
 
@@ -18,6 +19,11 @@ function Vendors() {
     const { vendorUpdateInfo, clicked, UpdateEveryVendor } = useOutletContext();
     const { filter } = useContext(PageContext)
 
+    //Sorting 
+    const [newArray, setNewArray] = useState(false);
+    const [sortedBy, setSortedBy] = useState("");
+    const [sortDirection, setSortDirection] = useState(false);
+    //
 
     useEffect(() => {
         axios.get(`Vendor`)
@@ -29,9 +35,16 @@ function Vendors() {
         });
     }, [vendorUpdateInfo]);
 
+    useEffect(() => {
+        setSortDirection(false);
+    }, [sortedBy]);
 
+    useEffect(() => {
 
-    const filteredVendors = useMemo(() =>{
+    }, [newArray]);
+
+    
+    let filteredVendors = useMemo(() =>{
         if(!vendorsDisplayed) return []
         if(!filter) return vendorsDisplayed
 
@@ -50,12 +63,30 @@ function Vendors() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
-                    <p>Vendor Name</p>
-                    <p>Phone</p>
-                    <p>Business ID</p>
-                    <p>Primary Contact</p>
-                    <p>Email</p>
-                    <p>Billing Address</p>
+                    <p onClick={() => {setSortedBy("vendorName");
+                    filteredVendors = sortedArray(filteredVendors, "vendorName", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Vendor Name</p>
+
+                    <p onClick={() => {setSortedBy("contactPhone");
+                    filteredVendors = sortedArray(filteredVendors, "contactPhone", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Phone</p>
+
+                    <p onClick={() => {setSortedBy("businessEntityId");
+                    filteredVendors = sortedArray(filteredVendors, "businessEntityId", "", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Business ID</p>
+
+                    <p onClick={() => {setSortedBy("contactLastName");
+                    filteredVendors = sortedArray(filteredVendors, "contactLastName", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Primary Contact</p>
+
+                    <p onClick={() => {setSortedBy("contactEmail");
+                    filteredVendors = sortedArray(filteredVendors, "contactEmail", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Email</p>
+
+                    <p onClick={() => {setSortedBy("stateProvinceName");
+                    filteredVendors = sortedArray(filteredVendors, "stateProvinceName", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Billing Address</p>
+                    
                     <p>Options</p>
                 </div>
 

@@ -11,10 +11,18 @@ import { Outlet, useOutletContext } from 'react-router';
 import Loading from '../utils/Loading';
 import { colors } from '../../utilities';
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 function Orders() {
      const { clicked } = useOutletContext();
 
     const [ordersDisplayed, setOrdersDisplayed] = useState(null);
+
+    //Sorting 
+    const [newArray, setNewArray] = useState(false);
+    const [sortedBy, setSortedBy] = useState("");
+    const [sortDirection, setSortDirection] = useState(false);
+    //
 
     const { filter } = useContext(PageContext)
 
@@ -28,8 +36,15 @@ function Orders() {
         });
     }, []);
 
+    useEffect(() => {
+        setSortDirection(false);
+    }, [sortedBy]);
 
-    const filteredOrders = useMemo(() =>{
+    useEffect(() => {
+
+    }, [newArray]);
+
+    let filteredOrders = useMemo(() =>{
         if(!ordersDisplayed) return []
         if(!filter) return ordersDisplayed
 
@@ -48,15 +63,31 @@ function Orders() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
-                <p>Product Name</p>
-                <p>Vendor Name</p>
-                <p>Order Date</p>
-                <p>Order Qty</p>
-                <p>Total Due</p>
-                <p>Ship Date</p>
+                <p onClick={() => {setSortedBy("productName");
+                    filteredOrders = sortedArray(filteredOrders, "productName", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Product Name</p>
+
+                <p onClick={() => {setSortedBy("vendorName");
+                    filteredOrders = sortedArray(filteredOrders, "vendorName", "name", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Vendor Name</p>
+
+                <p onClick={() => {setSortedBy("orderDate");
+                    filteredOrders = sortedArray(filteredOrders, "orderDate", "date", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Order Date</p>
+
+                <p onClick={() => {setSortedBy("quantity");
+                    filteredOrders = sortedArray(filteredOrders, "quantity", "", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Order Qty</p>
+
+                <p onClick={() => {setSortedBy("totalDue");
+                    filteredOrders = sortedArray(filteredOrders, "totalDue", "", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Total Due</p>
+
+                <p onClick={() => {setSortedBy("producshipDatetName");
+                    filteredOrders = sortedArray(filteredOrders, "shipDate", "date", sortDirection); 
+                    setNewArray(x => !x); setSortDirection(x => !x);}}>Ship Date</p>
             </div>
 
-            
             {filteredOrders.map(ordersList => {
             return(
                 <PurchasingOrderTile 
@@ -64,10 +95,10 @@ function Orders() {
                 productId={ordersList.purchaseOrderDetailId}
                 productName={ordersList.productName}
                 storeName={ordersList.vendorName}
-                orderDate={ordersList.orderDate}
+                orderDate={new Date(ordersList.orderDate).toLocaleDateString()}
                 orderQuantity={ordersList.quantity}   
                 totalDue={ordersList.totalDue}
-                shipDate={ordersList.shipDate}
+                shipDate={new Date(ordersList.shipDate).toLocaleDateString()}
                 clicked={clicked}
                 />)
             })}
