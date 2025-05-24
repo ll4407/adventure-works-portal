@@ -18,18 +18,22 @@ function sortedArray(array, key, dataType, sortDirection) {
             //Sort by String
             if(typeof a[key] === 'string'){
                 if(dataType === "name"){
+                    if (!a[key] && !b[key]) {return 0;}
+                    if (!b[key]) {return 1;}
+                    if (!a[key]) {return -1;}
+
                     if(a[key] > b[key]){
-                        return -1
+                        return -1;
                     }
                     if(a[key] < b[key]){
-                        return 1
+                        return 1;
                     }
                     return 0;
                 }   
 
                 //By Date
                 if(dataType === "date"){
-                    return new Date(b[key]) - new Date(a[key])
+                    return new Date(b[key]) - new Date(a[key]);
                 }
             }
         });
@@ -47,18 +51,22 @@ function sortedArray(array, key, dataType, sortDirection) {
             if(typeof a[key] === 'string'){
                 //By Name
                 if(dataType === "name"){
+                    if (!a[key] && !b[key]) { return 0;}
+                    if (!a[key]) {  return 1;}
+                    if (!b[key]) { return -1;}
+
                     if(a[key] < b[key]){
-                        return -1
+                        return -1;
                     }
                     if(a[key] > b[key]){
-                        return 1
+                        return 1;
                     }
                     return 0;
                 }
 
                 //By Date
                 if(dataType === "date"){
-                    return new Date(a[key]) - new Date(b[key])
+                    return new Date(a[key]) - new Date(b[key]);
                 }
             }
         });

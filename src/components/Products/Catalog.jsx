@@ -14,6 +14,8 @@ import Loading from '../utils/Loading'
 import { colors } from '../../utilities'
 import clsx from 'clsx'
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 const Catalog = () =>{
 
     const {filter} = useContext(PageContext)
@@ -37,12 +39,6 @@ const Catalog = () =>{
     useEffect(() => {
 
     }, [newArray, sortedBy]);
-    
-    const handleSortChange = (name) => {
-        setSortedBy(name);
-        setSortDirection(x => !x);
-        setNewArray(x => !x);
-    }
     //
 
     let filteredProducts = useMemo(() =>{
@@ -56,6 +52,15 @@ const Catalog = () =>{
             p.productNumber?.toLowerCase().includes(lowered)
         )
     }, [filter, products])
+
+    //sorting function
+    const handleSortChange = (name, dataType) => {
+        sortedArray(filteredProducts, name, dataType, sortDirection);
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
 
     useEffect(() =>{
         axios.get('/Product')
@@ -77,7 +82,7 @@ const Catalog = () =>{
                 className={clsx(styles.productList,
                 modalIsOpen && styles.ModalIsOpen,
             )}>
-                <CatalogHeader list={filteredProducts} handleSort={handleSortChange} sortDirection={sortDirection}/>
+                <CatalogHeader handleSort={handleSortChange}/>
                 {filteredProducts.map(prod => (
                     <CatalogRow key={prod.productId} prod={prod} />
                 ))}

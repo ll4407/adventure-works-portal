@@ -14,7 +14,7 @@ import { colors } from '../../utilities'
 import Loading from '../utils/Loading'
 import clsx from 'clsx'
 
-import sortedArray from '../../container/SortBy/Sortby'
+import sortedArray from '../../container/SortBy/Sortby';
 
 const Overview = () => {
     const [activeEmployee, setActiveEmployee] = useState(null)
