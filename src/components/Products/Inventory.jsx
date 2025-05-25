@@ -58,10 +58,21 @@ const Inventory = () => {
     //sorting
     //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
-        sortedArray(filteredProducts, name, dataType, sortDirection);
+        let direction;
 
-        setSortedBy(name);
-        setSortDirection(x => !x);
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredProducts, name, dataType, direction);
+
         setNewArray(x => !x);
     }
 

@@ -87,16 +87,27 @@ export default function Stores() {
   }, []);
 
   // Use `useMemo` to calculate filtered sales dynamically
-  let filteredSales = useMemo(() => {
+  const filteredSales = useMemo(() => {
     return filterSalesData(sales, filter);
   }, [sales, filter]);
 
   //Filter //activates sort function and sets filter list
   const handleSortChange = (name, dataType) => {
-    filteredSales = sortedArray(filteredSales, name, dataType, sortDirection);
+    let direction;
 
-    setSortedBy(name);
-    setSortDirection(x => !x);
+    if(sortedBy !== name){
+        setSortedBy(name);
+
+        direction = false;
+    }
+    else{
+        setSortDirection(x => !x);
+
+        direction = !sortDirection;
+    }
+
+    sortedArray(filteredSales, name, dataType, direction);
+
     setNewArray(x => !x);
   }
   //

@@ -45,7 +45,7 @@ function Vendors() {
     }, [newArray]);
     //sorted
     
-    let filteredVendors = useMemo(() =>{
+    const filteredVendors = useMemo(() =>{
         if(!vendorsDisplayed) return []
         if(!filter) return vendorsDisplayed
 
@@ -73,7 +73,7 @@ function Vendors() {
             direction = !sortDirection;
         }
 
-        filteredVendors = sortedArray(filteredVendors, name, dataType, direction);
+        sortedArray(filteredVendors, name, dataType, direction);
 
         setNewArray(x => !x);
     }

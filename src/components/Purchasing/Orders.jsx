@@ -46,7 +46,7 @@ function Orders() {
     }, [newArray, sortedBy]);
     //
 
-    let filteredOrders = useMemo(() =>{
+    const filteredOrders = useMemo(() =>{
         if(!ordersDisplayed) return []
         if(!filter) return ordersDisplayed
 
@@ -61,10 +61,21 @@ function Orders() {
     //sorting function
     //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
-        filteredOrders = sortedArray(filteredOrders, name, dataType, sortDirection);
+        let direction;
 
-        setSortedBy(name);
-        setSortDirection(x => !x);
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredOrders, name, dataType, direction);
+
         setNewArray(x => !x);
     }
 

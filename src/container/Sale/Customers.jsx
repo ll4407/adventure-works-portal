@@ -43,8 +43,8 @@ export default function Customers() {
         const [sortDirection, setSortDirection] = useState(false);
 
     useEffect(() => {
-            setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
-        }, [sortedBy]);
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+    }, [sortedBy]);
     
     useEffect(() => {
       //force rerender when User activates sort method
@@ -52,10 +52,21 @@ export default function Customers() {
     
     //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
-        setFilteredSales(sortedArray(filteredSales, name, dataType, sortDirection));
+        let direction;
 
-        setSortedBy(name);
-        setSortDirection(x => !x);
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        setFilteredSales(sortedArray(filteredSales, name, dataType, direction));
+
         setNewArray(x => !x);
     }
     //
