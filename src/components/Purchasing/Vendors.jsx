@@ -37,7 +37,7 @@ function Vendors() {
 
     //sorting
     useEffect(() => {
-        //setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
     }, [sortedBy]);
 
     useEffect(() => {
@@ -60,10 +60,21 @@ function Vendors() {
     //sorting function
     //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
-        filteredVendors = sortedArray(filteredVendors, name, dataType, sortDirection);
+        let direction;
 
-        setSortedBy(name);
-        setSortDirection(x => !x);
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        filteredVendors = sortedArray(filteredVendors, name, dataType, direction);
+
         setNewArray(x => !x);
     }
 
