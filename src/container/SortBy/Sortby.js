@@ -1,4 +1,10 @@
 function sortedArray(array, key, dataType, sortDirection) {
+    /*
+        Array: The array of objects in which we are sorting
+        Key: string: To determine which value in object we like to sort by
+        DataType: string: For keys of string typing to determine if sorting by the name or by a date
+        SortDirection: True or false: to decide which direction to sort
+    */
     //sort in descending order'
     try{
         if(array.list !== undefined){
