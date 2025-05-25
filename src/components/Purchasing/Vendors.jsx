@@ -37,7 +37,7 @@ function Vendors() {
 
     //sorting
     useEffect(() => {
-        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+        //setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
     }, [sortedBy]);
 
     useEffect(() => {
@@ -57,6 +57,15 @@ function Vendors() {
         )
     }, [filter, vendorsDisplayed])
 
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        filteredVendors = sortedArray(filteredVendors, name, dataType, sortDirection);
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
 
     const currentData = vendorsDisplayed === null ? <Loading color={colors.green} /> :
             <motion.section
@@ -64,29 +73,17 @@ function Vendors() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
-                    <p onClick={() => {setSortedBy("vendorName");
-                    filteredVendors = sortedArray(filteredVendors, "vendorName", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Vendor Name</p>
+                    <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name</p>
 
-                    <p onClick={() => {setSortedBy("contactPhone");
-                    filteredVendors = sortedArray(filteredVendors, "contactPhone", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Phone</p>
+                    <p onClick={() => {handleSortChange("contactPhone", "name");}}>Phone</p>
 
-                    <p onClick={() => {setSortedBy("businessEntityId");
-                    filteredVendors = sortedArray(filteredVendors, "businessEntityId", "", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Business ID</p>
+                    <p onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID</p>
 
-                    <p onClick={() => {setSortedBy("contactLastName");
-                    filteredVendors = sortedArray(filteredVendors, "contactLastName", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Primary Contact</p>
+                    <p onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact</p>
 
-                    <p onClick={() => {setSortedBy("contactEmail");
-                    filteredVendors = sortedArray(filteredVendors, "contactEmail", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Email</p>
+                    <p onClick={() => {handleSortChange("contactEmail", "name");}}>Email</p>
 
-                    <p onClick={() => {setSortedBy("stateProvinceName");
-                    filteredVendors = sortedArray(filteredVendors, "stateProvinceName", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Billing Address</p>
+                    <p onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address</p>
                     
                     <p>Options</p>
                 </div>

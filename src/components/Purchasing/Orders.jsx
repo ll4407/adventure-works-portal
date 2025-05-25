@@ -58,6 +58,15 @@ function Orders() {
         )
     }, [filter, ordersDisplayed])
 
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        filteredOrders = sortedArray(filteredOrders, name, dataType, sortDirection);
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
 
     const currentData = ordersDisplayed === null ? <Loading color={colors.green} /> :
         <motion.section
@@ -65,29 +74,17 @@ function Orders() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
-                <p onClick={() => {setSortedBy("productName");
-                    filteredOrders = sortedArray(filteredOrders, "productName", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Product Name</p>
+                <p onClick={() => {handleSortChange("productName", "name");}}>Product Name</p>
 
-                <p onClick={() => {setSortedBy("vendorName");
-                    filteredOrders = sortedArray(filteredOrders, "vendorName", "name", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Vendor Name</p>
+                <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name</p>
 
-                <p onClick={() => {setSortedBy("orderDate");
-                    filteredOrders = sortedArray(filteredOrders, "orderDate", "date", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Order Date</p>
+                <p onClick={() => {handleSortChange("orderDate", "date");}}>Order Date</p>
 
-                <p onClick={() => {setSortedBy("quantity");
-                    filteredOrders = sortedArray(filteredOrders, "quantity", "", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Order Qty</p>
+                <p onClick={() => {handleSortChange("quantity", "");}}>Order Qty</p>
 
-                <p onClick={() => {setSortedBy("totalDue");
-                    filteredOrders = sortedArray(filteredOrders, "totalDue", "", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Total Due</p>
+                <p onClick={() => {handleSortChange("totalDue", "");}}>Total Due</p>
 
-                <p onClick={() => {setSortedBy("producshipDatetName");
-                    filteredOrders = sortedArray(filteredOrders, "shipDate", "date", sortDirection); 
-                    setNewArray(x => !x); setSortDirection(x => !x);}}>Ship Date</p>
+                <p onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date</p>
             </div>
 
             {filteredOrders.map(ordersList => {
