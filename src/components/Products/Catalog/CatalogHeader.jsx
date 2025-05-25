@@ -12,22 +12,22 @@ const CatalogHeader = (props) =>{
             <p className={clsx(styles.column, styles.bold, styles.catalogCol2)}
             onClick={() => {handleSort("name", "name"); }}
             >
-                Product Name
+                Product Name&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.catalogCol3)}
             onClick={() => {handleSort("productNumber", "name"); }}
             >
-                Number
+                Number&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.catalogCol4)}
             onClick={() => {handleSort("color", "name"); }}
             >
-                Color
+                Color&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.catalogCol5)}
             onClick={() => {handleSort("listPrice", ""); }}
             >
-                List Price
+                List Price&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.catalogCol6)}>
                 Options

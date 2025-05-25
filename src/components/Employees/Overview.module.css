@@ -45,6 +45,12 @@
   border-bottom: 4px solid var(--orange);
   display: none;
 }
+.tableHeader p:hover:not(:last-child) {
+  background-color: rgba(253,161,76, 0.5);
+}
+.tableHeader p:active:not(:last-child) {
+  background-color: rgba(253,161,76, 1);
+}
 .bold {
   font-weight: 700;
   font-size: 1.25rem;

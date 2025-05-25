@@ -66,6 +66,14 @@
   border-bottom: 4px solid var(--blue);
   display: none;
 }
+.tableHeader p:hover:not(:last-child),
+.catalogTableHeader p:hover:not(:first-child, :last-child){
+  background-color: rgba(91,192,235, 0.5);
+}
+.tableHeader p:active:not(:last-child),
+.catalogTableHeader p:active:not(:first-child, :last-child){
+  background-color: rgba(91,192,235, 1);
+}
 .bold {
   font-weight: 700;
   font-size: 1.25rem;

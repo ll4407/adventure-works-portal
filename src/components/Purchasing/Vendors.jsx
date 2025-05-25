@@ -84,17 +84,17 @@ function Vendors() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
-                    <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</p>
 
-                    <p onClick={() => {handleSortChange("contactPhone", "name");}}>Phone &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("contactPhone", "name");}}>Phone&#x25BE;</p>
 
-                    <p onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID&#x25BE;</p>
 
-                    <p onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact&#x25BE;</p>
 
-                    <p onClick={() => {handleSortChange("contactEmail", "name");}}>Email &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("contactEmail", "name");}}>Email&#x25BE;</p>
 
-                    <p onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address &#x25BE;</p>
+                    <p onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address&#x25BE;</p>
                     
                     <p>Options</p>
                 </div>

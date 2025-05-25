@@ -10,32 +10,32 @@ function InventoryHeader(props) {
             <p className={clsx(styles.column, styles.bold, styles.col1)}
             onClick={() => {handleSort("productName", "name"); }}
             >
-                Product Name
+                Product Name&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col2)}
             onClick={() => {handleSort("quantity", ""); }}
             >
-                Qty
+                Qty&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col3)}
             onClick={() => {handleSort("productId", ""); }}
             >
-                Product ID
+                Product ID&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col4)}
             onClick={() => {handleSort("locationName", "name"); }}
             >
-                Location
+                Location&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col5)}
             onClick={() => {handleSort("shelf", "name"); }}
             >
-                Shelf
+                Shelf&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col6)}
             onClick={() => {handleSort("bin", ""); }}
             >
-                Bin
+                Bin&#x25BE;
             </p>
             <p className={clsx(styles.column, styles.bold, styles.col7)}>
                 Options

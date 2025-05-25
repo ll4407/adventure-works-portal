@@ -9,7 +9,12 @@
 .headerRow {
   display: none; 
 }
-
+.headerRow span:hover {
+  background-color: rgba(238,102,160, 0.5); 
+}
+.headerRow span:active {
+  background-color: rgba(238,102,160, 1); 
+}
 .chevron {
   transform: rotate(90deg); 
   display: inline-block;
