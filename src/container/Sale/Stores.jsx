@@ -92,7 +92,7 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
     return filterSalesData(sales, filter);
   }, [sales, filter]);
 
-  //Filter
+  //Filter //activates sort function and sets filter list
   const handleSortChange = (name, dataType) => {
     filteredSales = sortedArray(filteredSales, name, dataType, sortDirection);
 

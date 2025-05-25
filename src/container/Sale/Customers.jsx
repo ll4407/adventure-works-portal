@@ -50,7 +50,7 @@ export default function Customers() {
       //force rerender when User activates sort method
     }, [newArray, sortedBy]);
     
-
+    //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
         setFilteredSales(sortedArray(filteredSales, name, dataType, sortDirection));
 

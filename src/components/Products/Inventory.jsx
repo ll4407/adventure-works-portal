@@ -34,11 +34,11 @@ const Inventory = () => {
         const [sortDirection, setSortDirection] = useState(false);
 
     useEffect(() => {
-            setSortDirection(false);
+            setSortDirection(false);//Keeps track of current sort direction: ASC/DESC
         }, [sortedBy]);
     
     useEffect(() => {
-
+        //force rerender when User activates sort method
     }, [newArray, sortedBy]);
     
     //
@@ -56,6 +56,7 @@ const Inventory = () => {
     }, [filter, products])
 
     //sorting
+    //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
         sortedArray(filteredProducts, name, dataType, sortDirection);
 

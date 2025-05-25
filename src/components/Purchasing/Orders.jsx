@@ -36,13 +36,15 @@ function Orders() {
         });
     }, []);
 
+    //Sorting
     useEffect(() => {
-        setSortDirection(false);
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
     }, [sortedBy]);
 
     useEffect(() => {
-
+        //force rerender when User activates sort method
     }, [newArray, sortedBy]);
+    //
 
     let filteredOrders = useMemo(() =>{
         if(!ordersDisplayed) return []

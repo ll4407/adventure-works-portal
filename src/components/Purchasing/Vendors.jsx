@@ -35,14 +35,15 @@ function Vendors() {
         });
     }, [vendorUpdateInfo]);
 
+    //sorting
     useEffect(() => {
-        setSortDirection(false);
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
     }, [sortedBy]);
 
     useEffect(() => {
-
+        //activates sort function and sets filter list
     }, [newArray]);
-
+    //sorted
     
     let filteredVendors = useMemo(() =>{
         if(!vendorsDisplayed) return []

@@ -33,11 +33,11 @@ const Catalog = () =>{
         const [sortDirection, setSortDirection] = useState(false);
 
     useEffect(() => {
-            setSortDirection(false);
+            setSortDirection(false);//Keeps track of current sort direction: ASC/DESC
         }, [sortedBy]);
     
     useEffect(() => {
-
+        //force rerender when User activates sort method
     }, [newArray, sortedBy]);
     //
 
@@ -54,6 +54,7 @@ const Catalog = () =>{
     }, [filter, products])
 
     //sorting function
+    //activates sort function and sets filter list
     const handleSortChange = (name, dataType) => {
         sortedArray(filteredProducts, name, dataType, sortDirection);
 
