@@ -10,11 +10,8 @@ import { colors } from "../../utilities";
 import { motion } from "motion/react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
-<<<<<<< HEAD
 import sortedArray from "../SortBy/Sortby";
 
-=======
->>>>>>> main
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
   if (!filter) return sales || []; // Ensure sales is an array
@@ -134,38 +131,6 @@ export default function Stores() {
   }
 
   return (
-<<<<<<< HEAD
-      <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: .5 }} 
-            className={styles.container}>
-        {/* Always render the list in desktop view - hide in mobile view*/}
-        <div className={styles.hiddenMobileWhenModal}>
-          <HeaderRow isCustomer={false}  handleSort={handleSortChange} />
-          <div className={styles.list}>
-            {filteredSales.map((sale) => (
-              <SaleCard
-                key={sale.id}
-                type={"store"}
-                data={{
-                  ...sale,
-                  contactName: `${sale.contactFirstName || ""} ${
-                    sale.contactLastName || ""
-                  }`.trim(),
-                }}
-                onClick={() => onCardClick(sale.id)}
-              />
-            ))}
-          </div>
-          ) : (
-            filter && (
-              <div className={styles.noSalesMessage}>
-                No sales match your filter.
-              </div>
-            )
-          )
-=======
     <motion.div
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
@@ -173,7 +138,7 @@ export default function Stores() {
       className={styles.container}
     >
       <div className={listContainerClasses.join(" ")}>
-        <HeaderRow isCustomer={false} />
+        <HeaderRow isCustomer={false}  handleSort={handleSortChange} />
         <div className={styles.list}>
           {filteredSales.map((sale) => (
             <SaleCard
@@ -188,7 +153,6 @@ export default function Stores() {
               onClick={() => onCardClick(sale.id)}
             />
           ))}
->>>>>>> main
         </div>
         {filter && filteredSales.length === 0 && (
           <div className={styles.noSalesMessage}>
