@@ -10,7 +10,6 @@ import { colors } from "../../utilities";
 import { motion } from "motion/react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
-
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
   if (!filter) return sales || []; // Ensure sales is an array
@@ -24,13 +23,11 @@ const filterSalesData = (sales, filter) => {
 };
 
 export default function Stores() {
+  const [sales, setSales] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [sales, setSales] = useState([]);
-    const [loading, setLoading] = useState(true);
-    
-    const { filter } = useContext(PageContext);
-    const navigate = useNavigate()
-
+  const { filter } = useContext(PageContext);
+  const navigate = useNavigate();
 
   // Get route parameters to determine if a detail view is active
   const params = useParams();
@@ -38,6 +35,7 @@ export default function Stores() {
 
   // Fetch sales data
   const fetchSales = useCallback(() => {
+    setLoading(true);
     axios
       .get("/Order/store") // Endpoint for store sales
       .then(({ data }) => {
@@ -52,24 +50,24 @@ export default function Stores() {
 
   useEffect(() => {
     fetchSales();
-  }, [fetchSales]); // Add fetchSales to dependency array
+  }, [fetchSales]);
 
   // Callback to update sales state after a store update
-const updateSalesAfterChange = useCallback((updatedSale) => {
-  const firstContact = updatedSale.contacts?.[0];
-  setSales((prevSales) =>
-    (prevSales || []).map((sale) =>
-      sale.id === updatedSale.id
-        ? {
-            ...sale,
-            ...updatedSale,
-            contactFirstName: firstContact?.firstName || sale.contactFirstName,
-            contactLastName: firstContact?.lastName || sale.contactLastName,
-          }
-        : sale
-    )
-  );
-}, []);
+  const updateSalesAfterChange = useCallback((updatedSale) => {
+    const firstContact = updatedSale.contacts?.[0];
+    setSales((prevSales) =>
+      (prevSales || []).map((sale) =>
+        sale.id === updatedSale.id
+          ? {
+              ...sale,
+              ...updatedSale,
+              contactFirstName: firstContact?.firstName || sale.contactFirstName,
+              contactLastName: firstContact?.lastName || sale.contactLastName,
+            }
+          : sale
+      )
+    );
+  }, []);
 
   // Use `useMemo` to calculate filtered sales dynamically
   const filteredSales = useMemo(() => {
@@ -81,13 +79,12 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
     navigate(`/sales/stores/${id}`);
   };
 
-    // Close detail
-    const closeDetail = () => {
-        navigate('/sales/stores')
-    };
+  // Close detail
+  const closeDetail = () => {
+    navigate("/sales/stores");
+  };
 
-
-  // Construct class names for the list container
+  // Construct class names for the list container (this is the key update!)
   const listContainerClasses = [styles.hiddenMobileWhenModal];
   if (isDetailViewActive) {
     listContainerClasses.push(styles.hideListWhenModalActiveMobile);
@@ -95,9 +92,7 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
 
   // Conditional rendering for loading and no data states
   if (loading || (sales.length > 0 && filteredSales.length === 0 && !filter)) {
-    return (
-      <Loading color={colors.pink} />
-    );
+    return <Loading color={colors.pink} />;
   }
 
   if (!loading && sales.length === 0) {
@@ -109,42 +104,42 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
   }
 
   return (
-      <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: .5 }} 
-            className={styles.container}>
-        {/* Always render the list in desktop view - hide in mobile view*/}
-        <div className={styles.hiddenMobileWhenModal}>
-          <HeaderRow isCustomer={false} />
-          <div className={styles.list}>
-            {filteredSales.map((sale) => (
-              <SaleCard
-                key={sale.id}
-                type={"store"}
-                data={{
-                  ...sale,
-                  contactName: `${sale.contactFirstName || ""} ${
-                    sale.contactLastName || ""
-                  }`.trim(),
-                }}
-                onClick={() => onCardClick(sale.id)}
-              />
-            ))}
-          </div>
-          ) : (
-            filter && (
-              <div className={styles.noSalesMessage}>
-                No sales match your filter.
-              </div>
-            )
-          )
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className={styles.container}
+    >
+      <div className={listContainerClasses.join(" ")}>
+        <HeaderRow isCustomer={false} />
+        <div className={styles.list}>
+          {filteredSales.map((sale) => (
+            <SaleCard
+              key={sale.id}
+              type={"store"}
+              data={{
+                ...sale,
+                contactName: `${sale.contactFirstName || ""} ${
+                  sale.contactLastName || ""
+                }`.trim(),
+              }}
+              onClick={() => onCardClick(sale.id)}
+            />
+          ))}
         </div>
-        <Outlet 
-            context={{
-                closeDetail:closeDetail, 
-                updateSalesAfterChange:updateSalesAfterChange
-                }} />
-      </motion.div>
+        {filter && filteredSales.length === 0 && (
+          <div className={styles.noSalesMessage}>
+            No sales match your filter.
+          </div>
+        )}
+      </div>
+      {/* Outlet is outside the list container */}
+      <Outlet
+        context={{
+          closeDetail: closeDetail,
+          updateSalesAfterChange: updateSalesAfterChange,
+        }}
+      />
+    </motion.div>
   );
 }

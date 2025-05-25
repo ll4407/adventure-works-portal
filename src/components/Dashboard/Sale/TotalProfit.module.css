@@ -91,6 +91,12 @@
   height: 100%;
 }
 
+.inlineRow {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
 @media screen and (min-width: 60rem) {
   .sparkline {
     height: 240px;
