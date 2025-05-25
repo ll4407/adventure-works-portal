@@ -85,17 +85,17 @@ function Orders() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
-                <p onClick={() => {handleSortChange("productName", "name");}}>Product Name</p>
+                <p onClick={() => {handleSortChange("productName", "name");}}>Product Name &#x25BE;</p>
 
-                <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name</p>
+                <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name &#x25BE;</p>
 
-                <p onClick={() => {handleSortChange("orderDate", "date");}}>Order Date</p>
+                <p onClick={() => {handleSortChange("orderDate", "date");}}>Order Date &#x25BE;</p>
 
-                <p onClick={() => {handleSortChange("quantity", "");}}>Order Qty</p>
+                <p onClick={() => {handleSortChange("quantity", "");}}>Order Qty &#x25BE;</p>
 
-                <p onClick={() => {handleSortChange("totalDue", "");}}>Total Due</p>
+                <p onClick={() => {handleSortChange("totalDue", "");}}>Total Due &#x25BE;</p>
 
-                <p onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date</p>
+                <p onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date &#x25BE;</p>
             </div>
 
             {filteredOrders.map(ordersList => {

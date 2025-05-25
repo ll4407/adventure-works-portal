@@ -16,7 +16,12 @@
     padding-top: 2em;
     font-weight: bold;
 }
-
+.OrderGridHeader p:hover, .VendorGridHeader p:hover:not(:last-child){
+    background-color: rgba(155, 197, 61, 0.5);
+}
+.OrderGridHeader p:active, .VendorGridHeader p:active:not(:last-child){
+    background-color: rgba(155, 197, 61, 1);
+}
 .VendorGridContent > :last-child {
     transform: rotate(270deg);
 }
