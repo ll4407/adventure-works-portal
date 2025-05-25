@@ -11,6 +11,7 @@ import styles from "./Store.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
 
+
 export default function Store({ selectedSaleId, onClose, onUpdate }) {
   const [storeDetails, setStoreDetails] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +31,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   useEffect(() => {
     if (!selectedSaleId) return;
 
+    setLoading(true);
     axios
       .get(`/order/store/${selectedSaleId}`)
       .then(({ data }) => {
@@ -40,7 +42,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
         toast.error("Failed to load store details.");
       })
       .finally(() => {
-        setLoading(false);
+        setLoading(false); 
       });
   }, [selectedSaleId, reset]);
 
@@ -54,11 +56,11 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
 
   // Fetch contact types
   useEffect(() => {
-  axios
-    .get("/ContactType")
-    .then((resp) => setContactTypes(resp.data))
-    .catch(() => setContactTypes([]));
-}, []);
+    axios
+      .get("/ContactType")
+      .then((resp) => setContactTypes(resp.data))
+      .catch(() => setContactTypes([]));
+  }, []);
 
   // Enter edit mode
   const handleEditClick = () => setIsEditing(true);
@@ -104,6 +106,7 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
   };
 
   if (!selectedSaleId) return null;
+  if (!storeDetails) return null; 
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
@@ -112,37 +115,33 @@ export default function Store({ selectedSaleId, onClose, onUpdate }) {
           <Close className={styles.close} />
         </button>
 
-        {storeDetails && (
-          <>
-            <StoreHeader storeDetails={storeDetails} />
+        <StoreHeader storeDetails={storeDetails} />
 
-            <div className={styles.detailsGrid}>
-              <SaleDetails details={storeDetails} />
-              <StoreInfo details={storeDetails} />
-              {isEditing ? (
-                <ContactsForm
-                  fields={fields}
-                  register={register}
-                  handleSubmit={handleSubmit}
-                  onSubmit={onSubmit}
-                  reset={reset}
-                  setIsEditing={setIsEditing}
-                  storeDetails={storeDetails}
-                  phoneNumberTypes={phoneNumberTypes} 
-                  contactTypes={contactTypes}
-                />
-              ) : (
-                <Contacts
-                  contacts={storeDetails.contacts}
-                  isEditing={isEditing}
-                  onEdit={handleEditClick}
-                />
-              )}
+        <div className={styles.detailsGrid}>
+          <SaleDetails details={storeDetails} />
+          <StoreInfo details={storeDetails} />
+          {isEditing ? (
+            <ContactsForm
+              fields={fields}
+              register={register}
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              reset={reset}
+              setIsEditing={setIsEditing}
+              storeDetails={storeDetails}
+              phoneNumberTypes={phoneNumberTypes}
+              contactTypes={contactTypes}
+            />
+          ) : (
+            <Contacts
+              contacts={storeDetails.contacts}
+              isEditing={isEditing}
+              onEdit={handleEditClick}
+            />
+          )}
 
-              <PreviousSales previousOrders={storeDetails.previousOrders} />
-            </div>
-          </>
-        )}
+          <PreviousSales previousOrders={storeDetails.previousOrders} />
+        </div>
       </div>
     </div>
   );

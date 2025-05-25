@@ -9,6 +9,7 @@ import styles from "./Customer.module.css";
 import { toast } from "react-toastify";
 import { Close } from "../../icons";
 
+
 export default function Customer({ selectedSaleId, onClose }) {
   const [customerDetails, setCustomerDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +32,9 @@ export default function Customer({ selectedSaleId, onClose }) {
       });
   }, [selectedSaleId]);
 
+  // Don't render the modal until loading is done and details are present
   if (!selectedSaleId) return null;
+  if (!customerDetails) return null; 
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
@@ -39,21 +42,13 @@ export default function Customer({ selectedSaleId, onClose }) {
         <button aria-label="Close Modal. Go back to list." className={styles.modalClose} onClick={onClose}>
           <Close className={styles.close} />
         </button>
-
-        {customerDetails ? (
-          <>
-            <CustomerHeader customerDetails={customerDetails} />
-
-            <div className={styles.detailsGrid}>
-              <CustomerInformation details={customerDetails} />
-              <SaleDetails details={customerDetails} />
-              <PricingDetails details={customerDetails} />
-              <ShippingInformation details={customerDetails} />
-            </div>
-          </>
-        ) : (
-          <p>No customer details available.</p>
-        )}
+        <CustomerHeader customerDetails={customerDetails} />
+        <div className={styles.detailsGrid}>
+          <CustomerInformation details={customerDetails} />
+          <SaleDetails details={customerDetails} />
+          <PricingDetails details={customerDetails} />
+          <ShippingInformation details={customerDetails} />
+        </div>
       </div>
     </div>
   );

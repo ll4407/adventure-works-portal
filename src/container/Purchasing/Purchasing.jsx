@@ -52,7 +52,7 @@ function Purchasing(){
     function UpdateEveryVendor() {
         setVendorUpdateInfo(vendorUpdateInfo => !vendorUpdateInfo);
     }
-
+    
     //Layout
     return(
         <PageContext.Provider value={pageContext}>

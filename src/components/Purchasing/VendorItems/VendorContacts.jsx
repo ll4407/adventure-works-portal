@@ -67,11 +67,22 @@ function VendorContacts(props){
             if(changed === true){
                 newPersonArray.push(contactDetails);
             }
-            if(phoneChanged === true){
-                newPhoneArray.push(phoneDetails);
+            if(phoneChanged === true){ 
+                const contactOrginal = contacts.filter(item => item.businessEntityId == phoneNumbers[0].businessEntityId)
+
+                const numberOrginal = contactOrginal[0].phoneNumbers.filter(item => item.businessEntityId == phoneNumbers[0].businessEntityId)
+
+                const data = {
+                    businessEntityId: phoneNumbers[0].businessEntityId,
+                    newPhoneNumber: phoneNumbers[0].phoneNumber,
+                    originalPhoneNumber: numberOrginal[0].phoneNumber,
+                    newPhoneNumberTypeId: phoneNumbers[0].phoneNumberTypeId,
+                    originalPhoneNumberTypeId: numberOrginal[0].phoneNumberTypeId
+                }
+                newPhoneArray.push(data);
             }
             if(emailChanged === true){
-                newEmailArray.push(emailDetails);
+                newEmailArray.push(emailAddresses);
             }
         });
             
@@ -101,7 +112,9 @@ function VendorContacts(props){
                 
         //Email
         newEmailArray.map((newEmail) => {
-            axios.put(`Email/${newEmail.emailAddressId}/${newEmail.businessEntityId}`, newEmail)
+            console.log(newEmail[0])
+
+            axios.put(`Email/${newEmail[0].emailAddressId}/${newEmail[0].businessEntityId}`, newEmail[0])
                 .then(() => {
                     toast.success("Email Data Submitted");
 
@@ -181,7 +194,7 @@ function VendorContacts(props){
                                                 </select>
                                             </label>
                                             <label>
-                                                <input type="text" name="firstName" aria-label="First Name" placeholder={contact.firstName} 
+                                                <input type="text" name="firstName" aria-label="First Name" value={contact.firstName} placeholder='First Name'
                                                 onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                         if(cont.personId === contact.personId){
                                                             return {...cont, firstName: event.target.value
@@ -192,7 +205,7 @@ function VendorContacts(props){
                                                     }))} />
                                             </label>
                                             <label>
-                                                <input type="text" name="middleName" aria-label="Middle Name" placeholder={contact.middleName} 
+                                                <input type="text" name="middleName" aria-label="Middle Name" value={contact.middleName} placeholder='Middle Name'
                                                 onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                         if(cont.personId === contact.personId){
                                                             return {...cont, middleName: event.target.value
@@ -203,7 +216,7 @@ function VendorContacts(props){
                                                     }))} />
                                             </label>
                                             <label>
-                                                <input type="text" name="lastName" aria-label="Last Name" placeholder={contact.lastName} 
+                                                <input type="text" name="lastName" aria-label="Last Name" value={contact.lastName} placeholder='Last Name'
                                                 onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                         if(cont.personId === contact.personId){
                                                             return {...cont, lastName: event.target.value
@@ -214,7 +227,7 @@ function VendorContacts(props){
                                                     }))} />
                                             </label>
                                             <label>
-                                                <input type="text" name="suffix" aria-label="suffix" placeholder={contact.suffix} 
+                                                <input type="text" name="suffix" aria-label="suffix" value={contact.suffix}  placeholder='Suffix'
                                                 onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                         if(cont.personId === contact.personId){
                                                             return {...cont, suffix: event.target.value
@@ -276,7 +289,7 @@ function VendorContacts(props){
                                                             }
                                                         </label>
                                                         <label>
-                                                            <input type="text" name="phoneNumber" aria-label="Phone Number" placeholder={phone.phoneNumber} 
+                                                            <input type="text" name="phoneNumber" aria-label="Phone Number" value={phone.phoneNumber} placeholder='Phone Number'
                                                             onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                                     if(cont.personId === contact.personId){
                                                                         return {...cont, phoneNumbers: [{ businessEntityId: phone.businessEntityId,
@@ -300,7 +313,7 @@ function VendorContacts(props){
                                             {contact.emailAddresses.map((email, index) => {
                                                 return  (
                                                     <label key={index}>
-                                                        <input type="text" name="emailAddress" aria-label="Email Address" placeholder={email.emailAddress} 
+                                                        <input type="text" name="emailAddress" aria-label="Email Address" value={email.emailAddress} placeholder='Email'
                                                         onChange={(event) => setContactCopy(prev => prev.map(cont => {
                                                                     if(cont.personId === contact.personId){
                                                                         return {...cont, emailAddresses: [{ businessEntityId: email.businessEntityId,

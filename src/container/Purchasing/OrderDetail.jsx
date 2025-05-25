@@ -1,13 +1,12 @@
 import axios from '../../api/axios';
 import { toast } from 'react-toastify';
 
-import PageContext from "../../context/PageContext";
-
 import { Link, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router';
 
 import { ChevronDown, Close } from '../../icons';
+import { useNavigate } from 'react-router';
 
 import styles from './OrderDetail.module.css'   
 import modal from './PurchaseModal.module.css';
@@ -18,6 +17,7 @@ function OrderDetails() {
     const [ordersInfo, setOrder] = useState(null);
 
 	const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -32,6 +32,11 @@ function OrderDetails() {
         
 
     }, [id]);
+
+    const changeOVer = () => {
+        clicked();
+        navigate("/purchasing/orders");
+    }
 
     const detailContent = ordersInfo === null ? <p>Loading</p> :
         <div>
@@ -178,9 +183,9 @@ function OrderDetails() {
 
 
     return(
-        <div className={`${modal.modalOverlay}`}>
-            <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}>
-                <Link onClick={clicked} to="/purchasing/orders">
+        <div className={`${modal.modalOverlay}`} onClick={() => {changeOVer()}}>
+            <article className={`${styles.mainOrderArticle} ${modal.modalContent}`}  onClick={e => e.stopPropagation()}>
+                <Link onClick={(clicked)} to="/purchasing/orders">
                     <ChevronDown />
                     Back
                 </Link>

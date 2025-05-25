@@ -8,7 +8,7 @@
     transform: rotate(90deg);
     cursor: pointer;
 }
-.mainVendorArticle a:active {
+.mainVendorArticle svg:active {
     color: var(--gray);
 }
 
@@ -260,4 +260,13 @@
     .vendorFlex50 {
         flex: 0 0 50%;
     }
+}
+
+@media screen and (min-width: 72rem) {
+    .vendorContainer > div:first-child > a{
+            display: block;
+
+            flex: 0 0 80%;
+            justify-items: flex-end;
+        }
 }

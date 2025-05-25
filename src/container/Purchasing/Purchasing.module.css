@@ -2,6 +2,9 @@
 .purchaseLayout {
     padding: 0 1.5em;
 }
+.purchaseLayout p{
+    color: var(--black);
+}
 .purchaseLayout svg {
     cursor: pointer;
 }
@@ -33,6 +36,8 @@
 /*Display*/
 .OrderGridHeader, .VendorGridHeader{
     display: none;
+
+    font-size: 1.2rem;
 }
 .OrderGridContent, .VendorGridContent {
     display: flex;

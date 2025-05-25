@@ -83,12 +83,12 @@ const VendorTitle = (props) => {
     const formData = 
                 <form onSubmit={handleVendorTitleUpdate}>
                     <label>
-                        <input type="text" name="vendorName" aria-label="vendorName" placeholder={vendorName}
-                            value={newName} onChange={evt => setNewName(evt.target.value)} />
+                        <input type="text" name="vendorName" aria-label="vendorName" value={vendorName} placeholder='Vendor Name'
+                         onChange={evt => setNewName(evt.target.value)} />
                     </label>
                     <label>
-                        <input type="text" name="accountNumber" aria-label="account" placeholder={accountNum} 
-                            value={newAccountNum} onChange={evt => setNewAccount(evt.target.value)}/>
+                        <input type="text" name="accountNumber" aria-label="account" value={accountNum} placeholder='Account Number'
+                            onChange={evt => setNewAccount(evt.target.value)}/>
                     </label>
 
                     <button type='submit'>Save Changes</button>
