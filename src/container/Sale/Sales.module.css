@@ -43,6 +43,8 @@
     font-weight: 600;
     border-bottom: 4px solid var(--pink);
     color: var(--navbar);
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
   }
 
   .list {

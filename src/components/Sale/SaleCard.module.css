@@ -14,12 +14,6 @@
   grid-row: 1;
 }
 
-.seconnd {
-  font-size: 0.9rem;
-  grid-column: 1; 
-  grid-row: 2
-}
-
 .chevron {
   font-size: 1.5rem; 
   color: var(--navbar);
