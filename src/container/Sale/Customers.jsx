@@ -10,6 +10,8 @@ import Loading from "../../components/utils/Loading";
 import { colors } from "../../utilities";
 import { motion } from "motion/react";
 
+import sortedArray from "../SortBy/Sortby";
+
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
   if (!filter) return sales || []; // Ensure sales is an array
@@ -33,6 +35,31 @@ export default function Customers() {
   // Get route parameters to determine if a detail view is active
   const params = useParams();
   const isDetailViewActive = !!params.id;
+
+
+  //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+        }, [sortedBy]);
+    
+    useEffect(() => {
+      //force rerender when User activates sort method
+    }, [newArray, sortedBy]);
+    
+
+    const handleSortChange = (name, dataType) => {
+        setFilteredSales(sortedArray(filteredSales, name, dataType, sortDirection));
+
+        setSortedBy(name);
+        setSortDirection(x => !x);
+        setNewArray(x => !x);
+    }
+    //
+
 
   // Fetch sales data
   const fetchSales = useCallback(() => {
@@ -99,7 +126,7 @@ export default function Customers() {
             transition={{ duration: .5 }} className={styles.container}>
             {/* Always render the list in desktop view - hide in mobile view*/}
             <div className={styles.hiddenMobileWhenModal}>
-                <HeaderRow isCustomer={true} />
+                <HeaderRow isCustomer={true} handleSort={handleSortChange} />
                 <div className={styles.list}>
                     {filteredSales.map((sale) => (
                     <SaleCard

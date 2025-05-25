@@ -10,6 +10,7 @@ import { colors } from "../../utilities";
 import { motion } from "motion/react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
+import sortedArray from "../SortBy/Sortby";
 
 // Helper function for filtering sales
 const filterSalesData = (sales, filter) => {
@@ -35,6 +36,21 @@ export default function Stores() {
   // Get route parameters to determine if a detail view is active
   const params = useParams();
   const isDetailViewActive = !!params.id;
+
+
+  //Sorting 
+  const [newArray, setNewArray] = useState(false);
+  const [sortedBy, setSortedBy] = useState("");
+  const [sortDirection, setSortDirection] = useState(false);
+
+  useEffect(() => {
+    setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+  }, [sortedBy]);
+  
+  useEffect(() => {
+    //force rerender when User activates sort method
+  }, [newArray, sortedBy]);
+  //
 
   // Fetch sales data
   const fetchSales = useCallback(() => {
@@ -72,9 +88,19 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
 }, []);
 
   // Use `useMemo` to calculate filtered sales dynamically
-  const filteredSales = useMemo(() => {
+  let filteredSales = useMemo(() => {
     return filterSalesData(sales, filter);
   }, [sales, filter]);
+
+  //Filter
+  const handleSortChange = (name, dataType) => {
+    filteredSales = sortedArray(filteredSales, name, dataType, sortDirection);
+
+    setSortedBy(name);
+    setSortDirection(x => !x);
+    setNewArray(x => !x);
+  }
+  //
 
   // Handle clicking a card
   const onCardClick = (id) => {
@@ -116,7 +142,7 @@ const updateSalesAfterChange = useCallback((updatedSale) => {
             className={styles.container}>
         {/* Always render the list in desktop view - hide in mobile view*/}
         <div className={styles.hiddenMobileWhenModal}>
-          <HeaderRow isCustomer={false} />
+          <HeaderRow isCustomer={false}  handleSort={handleSortChange} />
           <div className={styles.list}>
             {filteredSales.map((sale) => (
               <SaleCard
