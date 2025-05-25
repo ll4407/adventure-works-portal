@@ -67,11 +67,22 @@ function VendorContacts(props){
             if(changed === true){
                 newPersonArray.push(contactDetails);
             }
-            if(phoneChanged === true){
-                newPhoneArray.push(phoneDetails);
+            if(phoneChanged === true){ 
+                const contactOrginal = contacts.filter(item => item.businessEntityId == phoneNumbers[0].businessEntityId)
+
+                const numberOrginal = contactOrginal[0].phoneNumbers.filter(item => item.businessEntityId == phoneNumbers[0].businessEntityId)
+
+                const data = {
+                    businessEntityId: phoneNumbers[0].businessEntityId,
+                    newPhoneNumber: phoneNumbers[0].phoneNumber,
+                    originalPhoneNumber: numberOrginal[0].phoneNumber,
+                    newPhoneNumberTypeId: phoneNumbers[0].phoneNumberTypeId,
+                    originalPhoneNumberTypeId: numberOrginal[0].phoneNumberTypeId
+                }
+                newPhoneArray.push(data);
             }
             if(emailChanged === true){
-                newEmailArray.push(emailDetails);
+                newEmailArray.push(emailAddresses);
             }
         });
             
@@ -101,7 +112,9 @@ function VendorContacts(props){
                 
         //Email
         newEmailArray.map((newEmail) => {
-            axios.put(`Email/${newEmail.emailAddressId}/${newEmail.businessEntityId}`, newEmail)
+            console.log(newEmail[0])
+
+            axios.put(`Email/${newEmail[0].emailAddressId}/${newEmail[0].businessEntityId}`, newEmail[0])
                 .then(() => {
                     toast.success("Email Data Submitted");
 
