@@ -11,6 +11,7 @@ import { Outlet, useOutletContext } from 'react-router';
 import Loading from '../utils/Loading';
 import { colors } from '../../utilities';
 
+import sortedArray from '../../container/SortBy/Sortby';
 
 function Vendors() {
 
@@ -18,6 +19,11 @@ function Vendors() {
     const { vendorUpdateInfo, clicked, UpdateEveryVendor } = useOutletContext();
     const { filter } = useContext(PageContext)
 
+    //Sorting 
+    const [newArray, setNewArray] = useState(false);
+    const [sortedBy, setSortedBy] = useState("");
+    const [sortDirection, setSortDirection] = useState(false);
+    //
 
     useEffect(() => {
         axios.get(`Vendor`)
@@ -29,8 +35,16 @@ function Vendors() {
         });
     }, [vendorUpdateInfo]);
 
+    //sorting
+    useEffect(() => {
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+    }, [sortedBy]);
 
-
+    useEffect(() => {
+        //activates sort function and sets filter list
+    }, [newArray]);
+    //sorted
+    
     const filteredVendors = useMemo(() =>{
         if(!vendorsDisplayed) return []
         if(!filter) return vendorsDisplayed
@@ -43,6 +57,26 @@ function Vendors() {
         )
     }, [filter, vendorsDisplayed])
 
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        let direction;
+
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredVendors, name, dataType, direction);
+
+        setNewArray(x => !x);
+    }
 
     const currentData = vendorsDisplayed === null ? <Loading color={colors.green} /> :
             <motion.section
@@ -50,12 +84,18 @@ function Vendors() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
-                    <p>Vendor Name</p>
-                    <p>Phone</p>
-                    <p>Business ID</p>
-                    <p>Primary Contact</p>
-                    <p>Email</p>
-                    <p>Billing Address</p>
+                    <button aria-label='Sort by vendor name' onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</button>
+
+                    <button aria-label='Sort by phone number' onClick={() => {handleSortChange("contactPhone", "name");}}>Phone&#x25BE;</button>
+
+                    <button aria-label='Sort by business ID' onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID&#x25BE;</button>
+
+                    <button aria-label='Sort by primary contact' onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact&#x25BE;</button>
+
+                    <button aria-label='Sort by email address' onClick={() => {handleSortChange("contactEmail", "name");}}>Email&#x25BE;</button>
+
+                    <button aria-label='Sort by billing address' onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address&#x25BE;</button>
+                    
                     <p>Options</p>
                 </div>
 

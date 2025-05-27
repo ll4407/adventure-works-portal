@@ -11,10 +11,18 @@ import { Outlet, useOutletContext } from 'react-router';
 import Loading from '../utils/Loading';
 import { colors } from '../../utilities';
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 function Orders() {
      const { clicked } = useOutletContext();
 
     const [ordersDisplayed, setOrdersDisplayed] = useState(null);
+
+    //Sorting 
+    const [newArray, setNewArray] = useState(false);
+    const [sortedBy, setSortedBy] = useState("");
+    const [sortDirection, setSortDirection] = useState(false);
+    //
 
     const { filter } = useContext(PageContext)
 
@@ -28,6 +36,15 @@ function Orders() {
         });
     }, []);
 
+    //Sorting
+    useEffect(() => {
+        setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+    }, [sortedBy]);
+
+    useEffect(() => {
+        //force rerender when User activates sort method
+    }, [newArray, sortedBy]);
+    //
 
     const filteredOrders = useMemo(() =>{
         if(!ordersDisplayed) return []
@@ -41,6 +58,26 @@ function Orders() {
         )
     }, [filter, ordersDisplayed])
 
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        let direction;
+
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredOrders, name, dataType, direction);
+
+        setNewArray(x => !x);
+    }
 
     const currentData = ordersDisplayed === null ? <Loading color={colors.green} /> :
         <motion.section
@@ -48,15 +85,19 @@ function Orders() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
-                <p>Product Name</p>
-                <p>Vendor Name</p>
-                <p>Order Date</p>
-                <p>Order Qty</p>
-                <p>Total Due</p>
-                <p>Ship Date</p>
+                <button aria-label='Sort by product name' onClick={() => {handleSortChange("productName", "name");}}>Product Name&#x25BE;</button>
+
+                <button aria-label='Sort by vendor name' onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</button>
+
+                <button aria-label='Sort by order date' onClick={() => {handleSortChange("orderDate", "date");}}>Order Date&#x25BE;</button>
+
+                <button aria-label='Sort by order quantity' onClick={() => {handleSortChange("quantity", "");}}>Order Qty&#x25BE;</button>
+
+                <button aria-label='Sort by total due' onClick={() => {handleSortChange("totalDue", "");}}>Total Due&#x25BE;</button>
+
+                <button aria-label='Sort by ship date' onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date&#x25BE;</button>
             </div>
 
-            
             {filteredOrders.map(ordersList => {
             return(
                 <PurchasingOrderTile 
@@ -64,10 +105,10 @@ function Orders() {
                 productId={ordersList.purchaseOrderDetailId}
                 productName={ordersList.productName}
                 storeName={ordersList.vendorName}
-                orderDate={ordersList.orderDate}
+                orderDate={new Date(ordersList.orderDate).toLocaleDateString()}
                 orderQuantity={ordersList.quantity}   
                 totalDue={ordersList.totalDue}
-                shipDate={ordersList.shipDate}
+                shipDate={new Date(ordersList.shipDate).toLocaleDateString()}
                 clicked={clicked}
                 />)
             })}

@@ -1,7 +1,7 @@
 import { Edit, Close } from '../../../icons';
 import { Link } from 'react-router';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
@@ -14,6 +14,11 @@ const VendorTitle = (props) => {
 
     const [newName, setNewName] = useState(vendorName);
     const [newAccountNum, setNewAccount] = useState(accountNum);
+
+    useEffect(()=>{
+        setNewName(vendorName);
+        setNewAccount(accountNum);
+    },[]);
 
 
     const handleEdit = useCallback(() => {

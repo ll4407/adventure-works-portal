@@ -3,15 +3,33 @@
   color: var(--navbar);
   padding-left: 1.5em;
   padding-right: 1.5em;
-  letter-spacing: .43px;  
+  letter-spacing: 0.43px;
 }
 
 .headerRow {
-  display: none; 
+  display: none;
 }
-
+.headerRow button {
+  background-color: transparent;
+  border: none;
+  color: var(--navBar);
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-bottom: 0;
+  gap: 0.5em;
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  justify-content: start;
+}
+.headerRow button:hover {
+  background-color: rgba(238, 102, 160, 0.5);
+}
+.headerRow button:active {
+  background-color: rgba(238, 102, 160, 1);
+}
 .chevron {
-  transform: rotate(90deg); 
+  transform: rotate(90deg);
   display: inline-block;
   margin-top: 0;
   position: relative;
@@ -28,12 +46,9 @@
   flex-direction: column;
 }
 
-
 .hideListWhenModalActiveMobile {
   display: none !important; /* This hides the list ONLY when this class is added AND on mobile */
 }
-
-
 
 @media screen and (min-width: 60rem) {
   .headerRow {
@@ -53,7 +68,7 @@
   }
 
   .container {
-    overflow-x: visible; 
+    overflow-x: visible;
     padding-left: 0;
     padding-right: 0;
   }
@@ -62,7 +77,7 @@
     display: block;
   }
 
-    .hideListWhenModalActiveMobile {
+  .hideListWhenModalActiveMobile {
     display: block !important; /* Ensure the list is visible on larger screens */
   }
 }

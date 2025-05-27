@@ -14,6 +14,8 @@ import Loading from '../utils/Loading'
 import { colors } from '../../utilities'
 import clsx from 'clsx'
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 const Catalog = () =>{
 
     const {filter} = useContext(PageContext)
@@ -25,7 +27,21 @@ const Catalog = () =>{
     const {id} = useParams()
     const modalIsOpen = Boolean(id)
 
-    const filteredProducts = useMemo(() =>{
+    //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false);//Keeps track of current sort direction: ASC/DESC
+        }, [sortedBy]);
+    
+    useEffect(() => {
+        //force rerender when User activates sort method
+    }, [newArray, sortedBy]);
+    //
+
+    let filteredProducts = useMemo(() =>{
         if(!products) return []
         if(!filter) return products
 
@@ -36,6 +52,27 @@ const Catalog = () =>{
             p.productNumber?.toLowerCase().includes(lowered)
         )
     }, [filter, products])
+
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        let direction;
+
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredProducts, name, dataType, direction);
+
+        setNewArray(x => !x);
+    }
 
     useEffect(() =>{
         axios.get('/Product')
@@ -57,7 +94,7 @@ const Catalog = () =>{
                 className={clsx(styles.productList,
                 modalIsOpen && styles.ModalIsOpen,
             )}>
-                <CatalogHeader />
+                <CatalogHeader handleSort={handleSortChange}/>
                 {filteredProducts.map(prod => (
                     <CatalogRow key={prod.productId} prod={prod} />
                 ))}
