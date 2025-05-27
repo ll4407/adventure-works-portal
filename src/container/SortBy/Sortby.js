@@ -6,12 +6,9 @@ function sortedArray(array, key, dataType, sortDirection) {
         SortDirection: True or false: to decide which direction to sort
     */
     //sort in descending order'
-    try{
-        if(array.list !== undefined){
-            array = array.list;
-        }
-    }catch{
-        console.log("Failed to deconstruct list");
+
+    if(array.list !== undefined){
+        array = array.list;
     }
 
     if(sortDirection === true){
