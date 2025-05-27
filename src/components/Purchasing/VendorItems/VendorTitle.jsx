@@ -12,8 +12,8 @@ const VendorTitle = (props) => {
     const [editActive, setEditActive] = useState(false);
 
 
-    const [newName, setNewName] = useState('');
-    const [newAccountNum, setNewAccount] = useState('');
+    const [newName, setNewName] = useState(vendorName);
+    const [newAccountNum, setNewAccount] = useState(accountNum);
 
     useEffect(()=>{
         setNewName(vendorName);
@@ -78,7 +78,7 @@ const VendorTitle = (props) => {
                     <h1>{vendorName}</h1>
                     <p onClick={handleEdit}><Edit /></p>
 
-                    <Link onClick={clicked} to="/purchasing/vendors"><Close /></Link>
+                    <Link aria-label='Close modal. Go back to list.' onClick={clicked} to="/purchasing/vendors"><Close /></Link>
                 </div>
 
                 <p>Phone: {phone}</p>

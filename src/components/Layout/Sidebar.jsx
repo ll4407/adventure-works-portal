@@ -9,7 +9,7 @@ export default function Sidebar({open, setOpen}){
             <div className={styles.sideBar}>
 
                 <div className={styles.sideBarHeader}>
-                    <button onClick={() => setOpen(x => !x)} className={styles.sideBarBtn}>
+                    <button aria-label={open ? "Close sidebar" : "Open sidebar"} onClick={() => setOpen(x => !x)} className={styles.sideBarBtn}>
                         {open ? 
                             <Close size={30} color={colors.white} /> :
                             <Hamburger size={30} color={colors.white} />

@@ -21,6 +21,7 @@ export default function ContactsForm({
             <div className={styles.contactForm}>
               <div className={styles.gridRow}>
                 <select
+                    aria-label="Contact Title"
                     {...register(`contacts.${index}.title`)}
                     defaultValue={field.title || ""}
                   >
@@ -31,21 +32,25 @@ export default function ContactsForm({
                     <option value="Dr.">Dr.</option>
                   </select>
                 <input
+                  aria-label="First Name"
                   {...register(`contacts.${index}.firstName`)}
                   placeholder="First Name"
                   defaultValue={field.firstName}
                 />
                 <input
+                  aria-label="Middle Name"
                   {...register(`contacts.${index}.middleName`)}
                   placeholder="Middle Name"
                   defaultValue={field.middleName}
                 />
                 <input
+                  aria-label="Last Name"
                   {...register(`contacts.${index}.lastName`)}
                   placeholder="Last Name"
                   defaultValue={field.lastName}
                 />
                 <select
+                  aria-label="Contact Suffix"
                   {...register(`contacts.${index}.suffix`)}
                   defaultValue={field.suffix || ""}
                 >
@@ -59,6 +64,7 @@ export default function ContactsForm({
                 </select>
               </div>
                   <select
+                    aria-label="Contact Type"
                     {...register(`contacts.${index}.contactType`)}
                     defaultValue={field.contactType || ""}
                   >
@@ -76,6 +82,7 @@ export default function ContactsForm({
                 <div className={styles.gridRow}>
                 <div className={styles.group}>
                   <select
+                    aria-label="Phone Number Type"
                     {...register(`contacts.${index}.phoneNumberType`)}
                     defaultValue={field.phoneNumberType || ""}
                   >
@@ -90,12 +97,15 @@ export default function ContactsForm({
                   </select>
 
                   <input
+                    aria-label="Phone Number"
                     {...register(`contacts.${index}.phoneNumber`)}
                     placeholder="Phone Number"
                     defaultValue={field.phoneNumber}
                   />
                 </div>
                 <input
+                  aria-label="Email Address"
+                  type="email"
                   {...register(`contacts.${index}.emailAddress`)}
                   placeholder="Email"
                   defaultValue={field.emailAddress}

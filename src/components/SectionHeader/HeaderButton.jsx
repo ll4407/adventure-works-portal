@@ -20,6 +20,7 @@ function HeaderButton({firstButton, secondButton, color}){
     return(
         <div className={styles.buttonContainer}>
             <button 
+                aria-label={`navigate to ${firstButton} page`}
                 className={styles.headerButton} 
                 onClick={() => navigate(firstBtnUrl)}>
                 {firstBtnActive && 
@@ -28,6 +29,7 @@ function HeaderButton({firstButton, secondButton, color}){
             </button>
             {secondButton && (
                 <button 
+                    aria-label={`navigate to ${secondButton} page`}
                     className={styles.headerButton} 
                     onClick={() => navigate(secondBtnUrl)}>
                         {!firstBtnActive && 

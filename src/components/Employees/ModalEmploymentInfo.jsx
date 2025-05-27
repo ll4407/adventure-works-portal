@@ -55,11 +55,13 @@ function ModalEmploymentInfo({employee, setRefresh, departments, shifts}) {
                 aria-label='Title'
                 type="text"
                 value={employeeData.title}
+                placeholder='Job Title'
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, title: e.target.value}))} />
             <input
-                aria-label='Employee ID'
+                aria-label='Employee number'
                 type="text"
+                placeholder='Employee Number'
                 value={employeeData.employeeNumber}
                 onChange={(e) => 
                     setEmployeeData(prev =>({...prev, employeeNumber: e.target.value}))} />
@@ -98,11 +100,13 @@ function ModalEmploymentInfo({employee, setRefresh, departments, shifts}) {
                 aria-label='Start Date'
                 type="datetime-local"
                 value={employeeData.startDate}
+                placeholder='Start Date'
                 onChange={(e) => 
                     setEmployeeData(prev =>({...prev, startDate: e.target.value}))} />
             <input
                 aria-label='End Date'
                 type="datetime-local"
+                placeholder='End Date'
                 value={employeeData.endDate || ''}
                 onChange={(e) => 
                     setEmployeeData(prev =>({...prev, endDate: e.target.value}))} />
@@ -114,6 +118,7 @@ function ModalEmploymentInfo({employee, setRefresh, departments, shifts}) {
             <button 
                 className={styles.cancelBtn} 
                 type='button' 
+                aria-label='Close form without saving changes'
                 onClick={() => setEditing(false)}
                 >Cancel
             </button>

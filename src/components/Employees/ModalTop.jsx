@@ -93,11 +93,11 @@ function ModalTop({employee, setRefresh}) {
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, jobTitle: e.target.value}))} />
             <input
-                aria-label='Employee ID'
+                aria-label='Employee Number'
                 className={styles.input}
                 type="text"
                 value={employeeData.employeeNumber}
-                placeholder='Employee ID'
+                placeholder='Employee Number'
                 onChange={(e) => 
                     setEmployeeData(prev => ({...prev, employeeNumber: e.target.value}))} />
             <button 
@@ -107,6 +107,7 @@ function ModalTop({employee, setRefresh}) {
             <button 
                 className={styles.cancelBtn} 
                 type='button' 
+                aria-label='Close form without saving changes'
                 onClick={() => setEditing(false)}>Cancel</button>
         </form>
         :

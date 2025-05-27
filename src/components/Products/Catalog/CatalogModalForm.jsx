@@ -44,18 +44,30 @@ function CatalogModalForm({product, setRefresh}) {
             ? 
             <form onSubmit={handleSubmit}>
                 <input 
+                    aria-label='Product name'
+                    type='text'
+                    placeholder='Product Name'
                     className={styles.boldInput}
                     value={updatableName} 
                     onChange={(evt)=> setUpdatableName(evt.target.value)} />
                 <input
+                    aria-label='Product number'
+                    type='text'
+                    placeholder='Product Number'
                     className={styles.indentedInputs} 
                     value={updatableNumber} 
                     onChange={(evt)=> setUpdatableNumber(evt.target.value)} />
                 <input
+                    aria-label='Product color'
+                    type='text'
+                    placeholder='Product Color'
                     className={styles.indentedInputs} 
                     value={updatableColor} 
                     onChange={(evt)=> setUpdatableColor(evt.target.value)} />
                 <input
+                    aria-label='Product list price'
+                    type='text'
+                    placeholder='Product List Price'
                     className={styles.indentedInputs} 
                     value={updatableListPrice} 
                     onChange={(evt)=> setUpdatableListPrice(evt.target.value)} />

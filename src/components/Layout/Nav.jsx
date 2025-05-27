@@ -14,6 +14,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
             <ul>
                 <li>
                     <NavLink 
+                        aria-label='navigate to dashboard page'
                         onClick={() => setOpen(false)}
                         className={clsx(
                             styles.navLink, 
@@ -29,6 +30,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        aria-label='navigate to employees page'
                         onClick={() => setOpen(false)}
                         className={clsx(
                             styles.navLink,
@@ -44,6 +46,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        aria-label='navigate to products page'
                         onClick={() => setOpen(false)}
                         className={clsx(
                             "Blue",
@@ -60,6 +63,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                 </li>
                 <li>
                     <NavLink
+                        aria-label='navigate to purchasing page'
                         onClick={() => setOpen(false)} 
                         className={clsx(
                             "Green",
@@ -76,6 +80,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        aria-label='navigate to sales page'
                         onClick={() => setOpen(false)}
                         className={clsx(
                             "Pink",
@@ -92,6 +97,7 @@ const Nav = ({open = true, sideNav, setOpen}) =>{
                 </li>
                 <li>
                     <NavLink 
+                        aria-label='navigate to settings page'
                         onClick={() => setOpen(false)}
                         className={clsx(
                             "Gray",
