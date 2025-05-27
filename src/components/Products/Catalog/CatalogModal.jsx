@@ -130,7 +130,7 @@ const CatalogModal = () => {
                 </button>
                 <div className={styles.centeredDiv}>
                     <img 
-                        src={productDetails.thumbnailPhoto} 
+                        src={`data:image/jpg;base64,${productDetails.photo}`} 
                         alt={productDetails.productName} 
                         className={styles.productImage} />
                 </div>
