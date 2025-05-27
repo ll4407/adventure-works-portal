@@ -84,17 +84,17 @@ function Vendors() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
                 <div className={styles.VendorGridHeader}>
-                    <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</p>
+                    <button aria-label='Sort by vendor name' onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</button>
 
-                    <p onClick={() => {handleSortChange("contactPhone", "name");}}>Phone&#x25BE;</p>
+                    <button aria-label='Sort by phone number' onClick={() => {handleSortChange("contactPhone", "name");}}>Phone&#x25BE;</button>
 
-                    <p onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID&#x25BE;</p>
+                    <button aria-label='Sort by business ID' onClick={() => {handleSortChange("businessEntityId", "");}}>Business ID&#x25BE;</button>
 
-                    <p onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact&#x25BE;</p>
+                    <button aria-label='Sort by primary contact' onClick={() => {handleSortChange("contactLastName", "name");}}>Primary Contact&#x25BE;</button>
 
-                    <p onClick={() => {handleSortChange("contactEmail", "name");}}>Email&#x25BE;</p>
+                    <button aria-label='Sort by email address' onClick={() => {handleSortChange("contactEmail", "name");}}>Email&#x25BE;</button>
 
-                    <p onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address&#x25BE;</p>
+                    <button aria-label='Sort by billing address' onClick={() => {handleSortChange("stateProvinceName", "name");}}>Billing Address&#x25BE;</button>
                     
                     <p>Options</p>
                 </div>

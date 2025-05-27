@@ -7,36 +7,48 @@ function InventoryHeader(props) {
 
   return (
         <div className={clsx(styles.productCard, styles.tableHeader)}>
-            <p className={clsx(styles.column, styles.bold, styles.col1)}
-            onClick={() => {handleSort("productName", "name"); }}
+            <button
+                aria-label="Sort by product name"
+                className={clsx(styles.column, styles.bold, styles.col1)}
+                onClick={() => {handleSort("productName", "name"); }}
             >
                 Product Name&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.col2)}
-            onClick={() => {handleSort("quantity", ""); }}
+            </button>
+            <button
+                aria-label="Sort by quantity"
+                className={clsx(styles.column, styles.bold, styles.col2)}
+                onClick={() => {handleSort("quantity", ""); }}
             >
                 Qty&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.col3)}
-            onClick={() => {handleSort("productId", ""); }}
+            </button>
+            <button
+                aria-label="Sort by product ID"
+                className={clsx(styles.column, styles.bold, styles.col3)}
+                onClick={() => {handleSort("productId", ""); }}
             >
                 Product ID&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.col4)}
-            onClick={() => {handleSort("locationName", "name"); }}
+            </button>
+            <button
+                aria-label="Sort by location name"
+                className={clsx(styles.column, styles.bold, styles.col4)}
+                onClick={() => {handleSort("locationName", "name"); }}
             >
                 Location&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.col5)}
-            onClick={() => {handleSort("shelf", "name"); }}
+            </button>
+            <button
+                aria-label="Sort by shelf"
+                className={clsx(styles.column, styles.bold, styles.col5)}
+                onClick={() => {handleSort("shelf", "name"); }}
             >
                 Shelf&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.col6)}
-            onClick={() => {handleSort("bin", ""); }}
+            </button>
+            <button
+                aria-label="Sort by bin"
+                className={clsx(styles.column, styles.bold, styles.col6)}
+                onClick={() => {handleSort("bin", ""); }}
             >
                 Bin&#x25BE;
-            </p>
+            </button>
             <p className={clsx(styles.column, styles.bold, styles.col7)}>
                 Options
             </p>

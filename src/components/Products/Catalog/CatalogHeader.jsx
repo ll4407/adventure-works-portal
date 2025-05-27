@@ -9,26 +9,34 @@ const CatalogHeader = (props) =>{
             <p className={clsx(styles.column, styles.bold, styles.catalogCol1)}>
                 Image
             </p>
-            <p className={clsx(styles.column, styles.bold, styles.catalogCol2)}
-            onClick={() => {handleSort("name", "name"); }}
+            <button
+                aria-label="Sort by product name" 
+                className={clsx(styles.column, styles.bold, styles.catalogCol2)}
+                onClick={() => {handleSort("name", "name"); }}
             >
                 Product Name&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.catalogCol3)}
-            onClick={() => {handleSort("productNumber", "name"); }}
+            </button>
+            <button
+                aria-label="Sort by product number" 
+                className={clsx(styles.column, styles.bold, styles.catalogCol3)}
+                onClick={() => {handleSort("productNumber", "name"); }}
             >
                 Number&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.catalogCol4)}
-            onClick={() => {handleSort("color", "name"); }}
+            </button>
+            <button
+                aria-label="Sort by color" 
+                className={clsx(styles.column, styles.bold, styles.catalogCol4)}
+                onClick={() => {handleSort("color", "name"); }}
             >
                 Color&#x25BE;
-            </p>
-            <p className={clsx(styles.column, styles.bold, styles.catalogCol5)}
-            onClick={() => {handleSort("listPrice", ""); }}
+            </button>
+            <button
+                aria-label="Sort by list price" 
+                className={clsx(styles.column, styles.bold, styles.catalogCol5)}
+                onClick={() => {handleSort("listPrice", ""); }}
             >
                 List Price&#x25BE;
-            </p>
+            </button>
             <p className={clsx(styles.column, styles.bold, styles.catalogCol6)}>
                 Options
             </p>

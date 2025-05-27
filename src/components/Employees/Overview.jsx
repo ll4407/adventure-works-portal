@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 
 import EmployeeHeader from './EmployeeHeader'

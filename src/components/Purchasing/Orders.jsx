@@ -85,17 +85,17 @@ function Orders() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5 }}>
             <div className={styles.OrderGridHeader}>
-                <p onClick={() => {handleSortChange("productName", "name");}}>Product Name&#x25BE;</p>
+                <button aria-label='Sort by product name' onClick={() => {handleSortChange("productName", "name");}}>Product Name&#x25BE;</button>
 
-                <p onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</p>
+                <button aria-label='Sort by vendor name' onClick={() => {handleSortChange("vendorName", "name");}}>Vendor Name&#x25BE;</button>
 
-                <p onClick={() => {handleSortChange("orderDate", "date");}}>Order Date&#x25BE;</p>
+                <button aria-label='Sort by order date' onClick={() => {handleSortChange("orderDate", "date");}}>Order Date&#x25BE;</button>
 
-                <p onClick={() => {handleSortChange("quantity", "");}}>Order Qty&#x25BE;</p>
+                <button aria-label='Sort by order quantity' onClick={() => {handleSortChange("quantity", "");}}>Order Qty&#x25BE;</button>
 
-                <p onClick={() => {handleSortChange("totalDue", "");}}>Total Due&#x25BE;</p>
+                <button aria-label='Sort by total due' onClick={() => {handleSortChange("totalDue", "");}}>Total Due&#x25BE;</button>
 
-                <p onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date&#x25BE;</p>
+                <button aria-label='Sort by ship date' onClick={() => {handleSortChange("shipDate", "date");}}>Ship Date&#x25BE;</button>
             </div>
 
             {filteredOrders.map(ordersList => {
