@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router'
 
 import axios from '../../api/axios'
 import { toast } from 'react-toastify'
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 
 import EmployeeHeader from './EmployeeHeader'
@@ -14,6 +15,8 @@ import { colors } from '../../utilities'
 import Loading from '../utils/Loading'
 import clsx from 'clsx'
 
+import sortedArray from '../../container/SortBy/Sortby';
+
 const Overview = () => {
     const [activeEmployee, setActiveEmployee] = useState(null)
     const [employees, setEmployees] = useState(null)
@@ -22,6 +25,21 @@ const Overview = () => {
 
     const {setShowSearch, filter} = useContext(PageContext)
     const {employeeId} = useParams()
+
+    //Sorting 
+        const [newArray, setNewArray] = useState(false);
+        const [sortedBy, setSortedBy] = useState("");
+        const [sortDirection, setSortDirection] = useState(false);
+
+    useEffect(() => {
+            setSortDirection(false); //Keeps track of current sort direction: ASC/DESC
+        }, [sortedBy]);
+    
+    useEffect(() => {
+        //force rerender when User activates sort method
+    }, [newArray, sortedBy]);
+    
+    //
 
     const filteredEmployees = useMemo(() =>{
         if(!employees) return []
@@ -36,6 +54,27 @@ const Overview = () => {
             e.jobTitle.toLowerCase().includes(lowered)
         )
     }, [filter, employees])
+
+    //sorting function
+    //activates sort function and sets filter list
+    const handleSortChange = (name, dataType) => {
+        let direction;
+
+        if(sortedBy !== name){
+            setSortedBy(name);
+
+            direction = false;
+        }
+        else{
+            setSortDirection(x => !x);
+
+            direction = !sortDirection;
+        }
+
+        sortedArray(filteredEmployees, name, dataType, direction);
+
+        setNewArray(x => !x);
+    }
 
     useEffect(() =>{
         axios.get('/Employee')
@@ -68,7 +107,7 @@ const Overview = () => {
             className={clsx(styles.employeeList,
             employeeId && styles.ModalIsOpen,
         )}>
-            <EmployeeHeader />
+            <EmployeeHeader handleSort={handleSortChange}/>
             {filteredEmployees.map((employee) => (
                <EmployeeRow 
                 key={employee.employeeId} 

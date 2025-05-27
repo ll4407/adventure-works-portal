@@ -66,6 +66,27 @@
   border-bottom: 4px solid var(--blue);
   display: none;
 }
+.catalogTableHeader button,
+.tableHeader button {
+  background-color: transparent;
+  border: none;
+  color: var(--navBar);
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-bottom: 0;
+  gap: 0.5em;
+  cursor: pointer;
+  align-items: start;
+  margin: 0;
+}
+.tableHeader button:hover:not(:last-child),
+.catalogTableHeader button:hover:not(:first-child, :last-child) {
+  background-color: rgba(91, 192, 235, 0.5);
+}
+.tableHeader button:active:not(:last-child),
+.catalogTableHeader button:active:not(:first-child, :last-child) {
+  background-color: rgba(91, 192, 235, 1);
+}
 .bold {
   font-weight: 700;
   font-size: 1.25rem;

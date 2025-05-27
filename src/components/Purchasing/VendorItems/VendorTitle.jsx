@@ -1,7 +1,7 @@
 import { Edit, Close } from '../../../icons';
 import { Link } from 'react-router';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import axios from '../../../api/axios';
 import { toast } from 'react-toastify';
@@ -14,6 +14,11 @@ const VendorTitle = (props) => {
 
     const [newName, setNewName] = useState('');
     const [newAccountNum, setNewAccount] = useState('');
+
+    useEffect(()=>{
+        setNewName(vendorName);
+        setNewAccount(accountNum);
+    },[]);
 
 
     const handleEdit = useCallback(() => {
@@ -83,11 +88,11 @@ const VendorTitle = (props) => {
     const formData = 
                 <form onSubmit={handleVendorTitleUpdate}>
                     <label>
-                        <input type="text" name="vendorName" aria-label="vendorName" value={vendorName} placeholder='Vendor Name'
+                        <input type="text" name="vendorName" aria-label="vendorName" value={newName} placeholder='Vendor Name'
                          onChange={evt => setNewName(evt.target.value)} />
                     </label>
                     <label>
-                        <input type="text" name="accountNumber" aria-label="account" value={accountNum} placeholder='Account Number'
+                        <input type="text" name="accountNumber" aria-label="account" value={newAccountNum} placeholder='Account Number'
                             onChange={evt => setNewAccount(evt.target.value)}/>
                     </label>
 
