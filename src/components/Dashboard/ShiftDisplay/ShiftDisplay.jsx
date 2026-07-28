@@ -36,9 +36,10 @@ function ShiftDisplay(props){
 
             <div className={styles.shift}>
                 <p>Shift 1</p>
-                {dayShift.map((person) => {
+                {dayShift.map((person, index) => {
                     return (
                         <ShiftEmployeeDetails 
+                            key={index}
                             firstName={person.firstName}
                             middleName={person.middleName}
                             lastName={person.lastName}
@@ -50,9 +51,10 @@ function ShiftDisplay(props){
             
             <div className={styles.shift}>
                 <p>Shift 2</p>
-                {eveningShift.map((person) => {
+                {eveningShift.map((person, index) => {
                     return (
                         <ShiftEmployeeDetails 
+                            key={index}
                             firstName={person.firstName}
                             middleName={person.middleName}
                             lastName={person.lastName}
@@ -64,9 +66,10 @@ function ShiftDisplay(props){
 
             <div className={styles.shift}>
                 <p>Shift 3</p>
-                {nightShift.map((person) => {
+                {nightShift.map((person, index) => {
                     return (
                         <ShiftEmployeeDetails 
+                            key={index}
                             firstName={person.firstName}
                             middleName={person.middleName}
                             lastName={person.lastName}

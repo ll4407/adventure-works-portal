@@ -14,8 +14,8 @@ const Login = () => {
   const emailRef = useRef();
   const errRef = useRef();
 
-  const [loginId, setLoginId] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginId, setLoginId] = useState('leuber.leuterio@company.com');
+  const [password, setPassword] = useState('demo1234');
 
   // focus the email field on mount
   useEffect(() => {

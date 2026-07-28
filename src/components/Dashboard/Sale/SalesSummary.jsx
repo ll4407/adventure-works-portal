@@ -115,9 +115,6 @@ const SalesSummary = ({ data }) => {
     <div className={styles.salesSummaryCard}>
       <div className={styles.summaryHeader}>
         <h3>Sales Summary</h3>
-        <a href="#view-report" className={styles.viewReportLink}>
-          View Report <span><ChevronDown size={20}/></span>
-        </a>
       </div>
 
       <SalesSummaryMetrics

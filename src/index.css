@@ -88,6 +88,17 @@ h6 {
   --olive-green: #6f9320;
 
   display: flex;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#root.dark-theme {
+  --white: #1e1e1e;
+  --black: #f0f0f0;
+  --navBar: #2a2a2a;
+  --gray: #444;
+  --medium-gray: #999;
+  background-color: #121212;
+  color: #f0f0f0;
 }
 
 .Yellow {

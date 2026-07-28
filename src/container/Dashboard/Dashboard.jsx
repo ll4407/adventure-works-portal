@@ -45,8 +45,6 @@ export default function Dashboard() {
     fetchData();
   }, []); 
 
-  console.log('lowStock', lowStock)
-
   if (loading) {
     return <ColorChanger />;
   }

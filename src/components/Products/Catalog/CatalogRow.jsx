@@ -11,7 +11,7 @@ const CatalogRow = ({prod}) => {
             to={`/products/catalog/${prod.productId}`}
             className={styles.catalogProductCard}>
             <div className={clsx(styles.column, styles.catalogCol1)}>
-                <img src={`data:image/jpg;base64,${prod.thumbnailPhoto}`} alt={prod.productName} className={styles.productImage} />
+                <img src={prod.thumbnailPhoto?.startsWith('/') || prod.thumbnailPhoto?.startsWith('http') ? prod.thumbnailPhoto : `data:image/jpg;base64,${prod.thumbnailPhoto}`} alt={prod.productName} className={styles.productImage} />
             </div>
             <p className={clsx(styles.column, styles.catalogCol2)}>
                 {prod.name}

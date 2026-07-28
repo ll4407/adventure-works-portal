@@ -12,6 +12,9 @@ import StoreModal from './container/Sale/StoreModal';
 import CustomerModal from './container/Sale/CustomerModal';
 
 
+import Settings from './container/Settings/Settings';
+
+
 function App() {
   return (
     <Routes>
@@ -54,7 +57,7 @@ function App() {
             <Route path="/sales/stores/:id" element={<StoreModal />} />
           </Route>
         </Route>
-        <Route path="/settings" element={<h1>Settings</h1>} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>
   );

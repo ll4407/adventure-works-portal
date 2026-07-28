@@ -80,3 +80,39 @@
     height: 550px;
   }
 }
+
+/* Report drilldown */
+.reportDetail {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #eee;
+}
+.reportDetail h4 {
+  margin: 0 0 0.5em 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.reportTable th,
+.reportTable td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+.reportTable th {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.8rem;
+}
+.reportTable td:nth-child(2),
+.reportTable td:nth-child(3),
+.reportTable td:nth-child(4),
+.reportTable th:nth-child(2),
+.reportTable th:nth-child(3),
+.reportTable th:nth-child(4) {
+  text-align: right;
+}
