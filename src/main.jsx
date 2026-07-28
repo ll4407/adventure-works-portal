@@ -1,7 +1,3 @@
-import { Amplify } from 'aws-amplify';
-import outputs from '../amplify_outputs.json';
-Amplify.configure(outputs);
-
 // Apply saved theme on load
 if (localStorage.getItem('theme') === 'dark') {
   document.getElementById('root').classList.add('dark-theme');
